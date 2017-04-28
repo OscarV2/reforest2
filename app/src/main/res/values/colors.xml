@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2E7D32</color>
+    <color name="colorPrimaryDark">#225c25</color>
+    <color name="colorAccent">#1B5E20</color>
+    <color name="texto">#055608</color>
+    <color name="color_acceso">#055608</color>
+    <color name="color_fondo">#EBE0EDDE</color>
+    <color name="fondo_pantalla">#38943c</color>
+    <color name="color_fondo_linearlayout">#EBE0EDDE</color>
+
+    <!-- Colores de la actividad iniciar sesion  -->
+
+    <color name="color_de_correo">#050505</color>
+    <color name="color_de_correo_fondo">#FaFaFa</color>
+    <color name="color_de_contraseña">#050506</color>
+    <color name="color_de_contraseña_fondo">#FFFFFF</color>
+    <color name="btn_fondo_entrar">#eb643904</color>
+    <color name="btn_letra_entrar">#055608</color>
+    <color name="btn_fondo_registro">#eb643904</color>
+    <color name="btn_letra_registro">#055608</color>
+
+    <!-- colores de seleccionar actividades -->
+    <color name="rb_seleccionar_actividades">#050506</color>
+
+    <color name="white">#FFFFFF</color>
+
+
+
+
+</resources>

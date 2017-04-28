@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context="com.jegg.reforest.Actividades.MainActivity"
+    android:background="@drawable/side_nav_bar">
+
+  <TextView
+      android:id="@+id/tvTexto"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/texto_principal"
+      android:textStyle="bold"
+      android:textSize="@dimen/btn_text_entrar"
+      android:textColor="#ffffff"
+      android:layout_alignParentTop="true"
+      android:gravity="center"
+      />
+
+  <ImageView
+      android:id="@+id/imgLogo"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:background="@drawable/arbolj"
+      android:layout_below="@+id/tvTexto"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="20dp"
+      android:layout_gravity="center" />
+
+  <Button
+      android:id="@+id/btn_acceso_main"
+      android:layout_width="250dp"
+      android:layout_height="wrap_content"
+      android:text="@string/texto_boton"
+      android:textStyle="bold"
+      android:textColor="@color/color_acceso"
+      android:layout_centerHorizontal="true"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="20dp"
+      android:textSize="@dimen/btn_text_entrar"
+      android:background="@drawable/cuadrado"
+      android:layout_gravity="center"
+      android:layout_marginTop="33dp" />
+
+</LinearLayout>

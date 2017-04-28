@@ -1,0 +1,27 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margi">16dp</dimen>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+
+    <dimen name="foto_novedad_width">500dp</dimen>
+    <dimen name="foto_novedad_height">800dp</dimen>
+
+    <dimen name="logo_bienvenido">580dp</dimen>
+    <dimen name="login_menu">570dp</dimen>
+
+    <dimen name="floatin_margin">48dp</dimen>
+
+    <dimen name="logo_informacion">350dp</dimen>
+
+    <dimen name="height">80dp</dimen>
+
+    <dimen name="text_tamaño">22dp</dimen>
+    <dimen name="text_tamaño_secundary">19dp</dimen>
+    <dimen name="height_notificaciones">90dp</dimen>
+
+</resources>

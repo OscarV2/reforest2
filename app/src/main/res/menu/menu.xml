@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/opcionSincronizar"
+        android:orderInCategory="100"
+        android:title="@string/opcion_sincronizar"
+        />
+    <item
+        android:id="@+id/opcionCerrarApp"
+        android:orderInCategory="100"
+        android:title="@string/opcion_cerrar_app"
+        />
+
+</menu>

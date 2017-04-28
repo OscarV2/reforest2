@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_tamaño">14dp</dimen>
+    <dimen name="text_tamaño_secundary">11dp</dimen>
+
+    <dimen name="botones">95dp</dimen>
+
+    <dimen name="text_botones">10dp</dimen>
+
+    <dimen name="height">30dp</dimen>
+    <dimen name="height_notificaciones">60dp</dimen>
+
+</resources>

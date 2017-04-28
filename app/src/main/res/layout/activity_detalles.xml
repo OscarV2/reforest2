@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detalles"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/side_nav_bar"
+    tools:context="com.jegg.reforest.Actividades.Detalles">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar_detalles"
+        android:background="@drawable/side_nav_bar"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realizar actividad"
+            android:textColor="@color/white"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre Lote"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            style="@style/Base.TextAppearance.AppCompat.Large"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo actividad"
+                android:textColor="@color/white"
+                style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+            <Spinner
+                android:id="@+id/spinner_detalle_actividad"
+                style="@style/Base.Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/botonFechaSiembra"
+                android:layout_toStartOf="@+id/botonFechaSiembra">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:inputType="datetime"
+                    android:textSize="@dimen/text_tamaño"
+                    android:ems="10"
+                    android:id="@+id/FechaActividadArbol"
+                    android:layout_gravity="center_horizontal"
+                    android:textColorHint="@color/white"
+                    android:hint="Fecha:" />
+
+
+            </LinearLayout>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_today"
+                android:id="@+id/botonFechaSiembra"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/addCoordenadas"
+                android:layout_toStartOf="@+id/addCoordenadas">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:text="Coordenadas Arbol:"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.TextAppearance.AppCompat.Small"
+                    android:ems="10"
+                    android:id="@+id/CoordenadasArbol"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:text="-1.1" />
+
+
+
+            </LinearLayout>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/boton_redondo"
+                android:id="@+id/addCoordenadas"
+                android:text="+"
+                android:textStyle="bold"
+                android:textSize="@dimen/btn_text_entrar"
+                android:textColor="@color/btn_letra_entrar"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:inputType="text"
+            android:textSize="@dimen/text_tamaño"
+            android:ems="10"
+            android:visibility="gone"
+            android:id="@+id/EspecieArbol"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/white"
+            android:hint="Especie:" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:inputType="numberDecimal"
+            android:textSize="@dimen/text_tamaño"
+            android:ems="10"
+            android:visibility="gone"
+            android:id="@+id/MedidasArbol"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/white"
+            android:hint="Medidas del arbol:" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:id="@+id/linear_spiner_salud_arbol"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salud del arbol"
+                android:textColor="@color/white"
+                style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+            <Spinner
+                android:id="@+id/spinner_salud_arbol"
+                style="@style/Base.Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/fondo_boton_nuevo_lote"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:background="@mipmap/ic_foto_actividad"
+                android:layout_height="120dp" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_add_foto"/>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/fondo_boton_nuevo_lote"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Comentario:"
+                android:textColorHint="@color/white"
+                android:inputType="text"
+                android:id="@+id/comentario_detalles"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_guardar_detalle_actividad"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:textStyle="bold"
+                android:textSize="@dimen/btn_text_entrar"
+                android:textColor="@color/btn_letra_entrar"
+                android:background="@drawable/cuadrado"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

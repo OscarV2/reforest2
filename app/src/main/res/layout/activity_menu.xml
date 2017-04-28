@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/side_nav_bar"
+    tools:openDrawer="start">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_menu"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:textColor="@color/white"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="250dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/ic_lote"
+            android:text="Lotes"
+            android:onClick="irLotes"
+            android:textStyle="bold"
+            android:textSize="@dimen/btn_text_entrar"
+            android:textColor="@color/btn_letra_entrar"
+            android:id="@+id/btn_lotes_menu"
+            android:layout_height="55dp"
+            android:background="@drawable/cuadrado"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/btn_mapa_menu"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/btn_text_entrar"
+            android:textColor="@color/btn_letra_entrar"
+            android:drawableLeft="@drawable/ic_mapa"
+            android:text="Mapa de lotes"
+            android:layout_height="55dp"
+            android:onClick="irMapa"
+            android:background="@drawable/cuadrado"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/btn_setting_menu"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/ic_setting"
+            android:text="preferencias"
+            android:layout_height="55dp"
+            android:onClick="irPreferencias"
+            android:textStyle="bold"
+            android:textSize="@dimen/btn_text_entrar"
+            android:textColor="@color/btn_letra_entrar"
+            android:background="@drawable/cuadrado"/>
+
+    </LinearLayout>
+
+</LinearLayout>

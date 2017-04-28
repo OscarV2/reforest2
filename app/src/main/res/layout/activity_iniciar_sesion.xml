@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_segundo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jegg.reforest.Actividades.IniciarSesion"
+    android:background="@drawable/side_nav_bar">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/arbolj"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_email"
+                    android:layout_gravity="center_vertical" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <EditText
+                        android:id="@+id/tvCorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/correo"
+                        android:textColorHint="#ffffff"
+                        android:textColor="#ffffff"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@id/imgLogo"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:maxLines="1"
+                        android:layout_gravity="center_vertical"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_lock"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <EditText
+                        android:id="@+id/tvContraseña"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contraseña"
+                        android:textColorHint="#ffffff"
+                        android:textColor="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:paddingLeft="10dp"
+                        android:maxLines="1"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="textPassword"
+
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_entrar_iniciar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="@string/btn_entrar"
+                android:textStyle="bold"
+                android:textSize="@dimen/btn_text_entrar"
+                android:textColor="@color/btn_letra_entrar"
+                android:background="@drawable/cuadrado"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

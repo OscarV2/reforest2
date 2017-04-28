@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">ReForest</string>
+    <string name="texto_principal">AYUDEMOS A REFORESTAR</string>
+    <string name="texto_boton">ACCESO</string>
+    <string name="correo">usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="btn_entrar">Entrar</string>
+    <string name="btn_registro">Registro</string>
+
+    <!-- NOMBRES DEL REGISTRO -->
+    <string name="texto_nombre">Nombre</string>
+    <string name="texto_apellidos">Apellidos</string>
+    <string name="texto_email">Email</string>
+    <string name="texto_contraseña">Contraseña</string>
+    <string name="texto_telefono">Telefono</string>
+    <string name="texto_crear_cuenta">CREAR CUENTA</string>
+    <string name="title_activity_navegacion">Navegacion</string>
+
+    <!-- NOMBRES DEL MENU -->
+
+    <string name="actividades">Actividades</string>
+    <string name="mapa">Mapa</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="otras_opciones">Otras Opciones</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="opcion_sincronizar">Sincronizar</string>
+    <string name="opcion_cerrar_app">Cerrar app</string>
+    <string name="title_activity_menu">Menu</string>
+
+    <string-array name="lista_tipo_actividades">
+        <item>Sembrar o Plantar</item>
+        <item>Abonar</item>
+        <item>Fertilizacion</item>
+        <item>Control de Malezas</item>
+        <item>Sustitucion de plantas</item>
+        <item>Preparar terreno</item>
+        <item>Enfermedades</item>
+        <item>Otros trabajos</item>
+    </string-array>
+    <string name="title_activity_mapa">Map</string>
+
+
+</resources>

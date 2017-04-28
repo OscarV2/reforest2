@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_crear_lote"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/side_nav_bar"
+    tools:context="com.jegg.reforest.Actividades.CrearLote">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:id="@+id/toolbar_crear_lote">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crear nuevo lote"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                style="@style/Base.TextAppearance.AppCompat.Large"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/calendario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre:"
+                        android:paddingLeft="7dp"
+                        android:id="@+id/nombre_crear_lote"
+                        android:textColorHint="@color/white"
+                        android:maxLines="1" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Fecha DD/MM/YY:"
+                        android:id="@+id/fecha_crear_lote"
+                        android:paddingLeft="7dp"
+                        android:textColorHint="@color/white"
+                        android:maxLines="1"
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Area:"
+                        android:id="@+id/area_crear_lote"
+                        android:paddingLeft="7dp"
+                        android:textColorHint="@color/white"
+                        android:maxLines="1"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coordenadas"
+                    android:textColor="@color/white"
+                    style="@style/Base.TextAppearance.AppCompat.Large"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_tamaño"
+                        android:textColor="@color/white"
+                        android:layout_centerVertical="true"
+                        android:text="Punto de referencia: "
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/PuntoReferencialote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="25dp"
+                        android:textSize="@dimen/text_tamaño"
+                        android:textColor="@color/white"
+                        android:layout_toLeftOf="@+id/AgregarPuntoLocalizacionLote"
+                        android:layout_toStartOf="@+id/AgregarPuntoLocalizacionLote"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+                    <Button
+                        android:id="@+id/AgregarPuntoLocalizacionLote"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        style="@style/Base.Widget.AppCompat.ButtonBar"
+                        android:layout_centerVertical="true"
+                        android:elevation="5dp"
+                        android:text="+"
+                        android:textSize="@dimen/btn_text_entrar"
+                        android:textColor="@color/color_acceso"
+                        android:background="@drawable/boton_redondo"
+                        android:layout_toLeftOf="@+id/EliminarPuntoLocalizacionLote"
+                        android:layout_toStartOf="@+id/EliminarPuntoLocalizacionLote" />
+
+                    <Button
+                        android:id="@+id/EliminarPuntoLocalizacionLote"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="5dp"
+                        android:elevation="5dp"
+                        android:text="-"
+                        android:textSize="@dimen/btn_text_entrar"
+                        android:textColor="@color/color_acceso"
+                        style="@style/Base.Widget.AppCompat.ButtonBar"
+                        android:background="@drawable/boton_redondo"
+                        android:layout_marginRight="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="guardar"
+            android:id="@+id/btn_guardar_lote"
+            android:textStyle="bold"
+            android:textSize="@dimen/btn_text_entrar"
+            android:onClick="guardarLote"
+            android:textColor="@color/btn_letra_entrar"
+            android:background="@drawable/cuadrado"
+            android:layout_alignParentBottom="true"/>
+
+
+    </LinearLayout>
+</RelativeLayout>
