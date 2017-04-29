@@ -1,6 +1,8 @@
 package com.jegg.reforest.Actividades;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jegg.reforest.R;
 
@@ -20,11 +23,12 @@ public class Lotes extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBar actionBar;
     private ListView listView;
-
+    private SQLiteDatabase dbReforest;
+    private TextView tvNoHayLotes;
     private void init(){
 
         listView = (ListView ) findViewById(R.id.lista_lotes);
-
+        tvNoHayLotes = (TextView)findViewById(R.id.tvNoHayLotes);
     }
 
     @Override
@@ -32,6 +36,9 @@ public class Lotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lotes);
         setToolbar();
+        dbReforest = SQLiteDatabase.openDatabase(getApplicationContext()
+                .getDatabasePath("datosReforest")
+                .getPath(),null,SQLiteDatabase.OPEN_READWRITE);
         init();
         cargarDatosLotes();
         onClickListaLotes();
@@ -94,9 +101,27 @@ public class Lotes extends AppCompatActivity {
     }
 
     private void cargarDatosLotes(){
+        String queryLotes = "SELECT COUNT(*) FROM lote";
+        Cursor cursor = dbReforest.rawQuery(queryLotes, null);
+        cursor.moveToFirst();
+        int contadorRegistrosLotes = cursor.getInt(0);
 
+        if (contadorRegistrosLotes > 0){  // Existe almenos 1 lote
 
-
+        }else {
+            tvNoHayLotes.setVisibility(View.VISIBLE);
+        }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+

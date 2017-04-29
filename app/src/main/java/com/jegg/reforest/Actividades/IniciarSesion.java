@@ -30,12 +30,13 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
     public void iniciarSesion (){
         String correo = cajaCorreo.getText().toString();
         String contraseña = cajaContraseña.getText().toString();
-
+        irMenu();
+/*
         if (correo.equals("") || contraseña.equals("")){ // el usuario no ha digitado nada
             Toast.makeText(IniciarSesion.this, "LLENAR CAMPOS", Toast.LENGTH_SHORT).show(); // mostrar un mensaje
         }else {
             irMenu();
-        }
+        }*/
     }
 
     public void irMenu (){

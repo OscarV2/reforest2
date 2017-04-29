@@ -44,5 +44,8 @@
     </string-array>
     <string name="title_activity_mapa">Map</string>
 
+    <!-- Actividad Lotes  -->
+    <string name="lotes">Lotes</string>
+
 
 </resources>
