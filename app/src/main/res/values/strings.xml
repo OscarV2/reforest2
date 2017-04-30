@@ -46,6 +46,7 @@
 
     <!-- Actividad Lotes  -->
     <string name="lotes">Lotes</string>
+    <string name="area_h">Area(H):</string>
 
 
 </resources>

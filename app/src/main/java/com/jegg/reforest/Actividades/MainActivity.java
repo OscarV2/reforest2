@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         SQLiteDatabase bdReforest = null;
         if (!existeBaseDatos()){
             // no existe la base de datos
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             bdReforest.close();
 
         }
-
+*/
         (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

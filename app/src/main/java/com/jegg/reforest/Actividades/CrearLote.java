@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.jegg.reforest.Actividades.Menu;
 import com.jegg.reforest.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CrearLote extends AppCompatActivity {
 
     private EditText nombre,fecha,area;
@@ -32,6 +35,10 @@ public class CrearLote extends AppCompatActivity {
         punto_referencia = (TextView ) findViewById(R.id.PuntoReferencialote);
         addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
         removePunto = (Button) findViewById(R.id.EliminarPuntoLocalizacionLote);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDateandTime = sdf.format(new Date());
+        fecha.setText(currentDateandTime);
 
     }
 
@@ -77,6 +84,9 @@ public class CrearLote extends AppCompatActivity {
     }
 
     public void guardarLote(View view){
+
+        String fechaLote = fecha.getText().toString();
+        double areaLote  = Double.parseDouble(area.getText().toString());
 
     }
 }

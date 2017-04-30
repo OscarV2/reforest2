@@ -12,6 +12,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/oscarvc/AndroidStudioProjects/reforest/app/libs/ormlite-android-5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/ormlite-android-5.0_9eacacae3a0fa10dbc2155969421880df59b5625.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/oscarvc/.android/build-cache/197b38010d313bc100a4fe421b3d7c0e80a83a27/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -90,6 +99,15 @@
         revision="25.0.0"
         sha1="27777b3cad3c20b1acab19f6e37fe3e03371bf6e">
         <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_3240be8f48a68b98a7621eb401d399eecce8ad28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/AndroidStudioProjects/reforest/app/libs/ormlite-core-5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03382b8260646dd334a1b9c1b3d412fcb73d8b21">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/ormlite-core-5.0_e7f22412cad66c3fd06f05a2ec8e3706b9820dfb.jar" />
     </item>
     <item
         is-multidex="false"
