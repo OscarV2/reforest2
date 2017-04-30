@@ -13,10 +13,10 @@ public class ArbolEspecie {
     @DatabaseField(generatedId = true, columnName = Constantes.ID_ESPECIE_ARBOL)
     private int id;
 
-    @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL, canBeNull = false)
+    @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL, foreign = true)
     private Arbol arbol;
 
-    @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL, canBeNull = false)
+    @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL, foreign = true)
     private Especie especie;
 
     public int getId() {

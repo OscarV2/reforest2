@@ -10,10 +10,10 @@ public class ArbolEstado {
     @DatabaseField(generatedId = true, columnName = Constantes.ARBOL_ID)
     private int id;
 
-    @DatabaseField(columnName = Constantes.ID_ARBOL_ESTADO, canBeNull = false)
+    @DatabaseField(columnName = Constantes.ID_ARBOL_ESTADO, canBeNull = false, foreign = true)
     private Arbol arbol;
 
-    @DatabaseField(columnName = Constantes.ESTADO_ARBOL_ESTADO, canBeNull = false)
+    @DatabaseField(columnName = Constantes.ESTADO_ARBOL_ESTADO, canBeNull = false, foreign = true)
     private Estado estado;
 
     public int getId() {

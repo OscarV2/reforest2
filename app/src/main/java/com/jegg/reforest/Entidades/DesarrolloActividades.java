@@ -24,13 +24,13 @@ public class DesarrolloActividades {
     @DatabaseField(columnName = Constantes.FECHA_DESARROLLO_ACTIVIDADES, canBeNull = false)
     private Date fecha;
 
-    @DatabaseField(columnName = Constantes.ACTIVIDAD_DESARROLLO_ACTIVIDADES)
+    @DatabaseField(columnName = Constantes.ACTIVIDAD_DESARROLLO_ACTIVIDADES, foreign = true)
     private Actividad idActividad;
 
-    @DatabaseField(columnName = Constantes.ARBOL_DESARROLLO_ACTIVIDADES, canBeNull = false)
+    @DatabaseField(columnName = Constantes.ARBOL_DESARROLLO_ACTIVIDADES, canBeNull = false, foreign = true)
     private Arbol arbol;
 
-    @DatabaseField(columnName = Constantes.PERSONA_DESARROLLO_ACTIVIDADES)
+    @DatabaseField(columnName = Constantes.PERSONA_DESARROLLO_ACTIVIDADES, foreign = true)
     private Persona persona;
 
     public DesarrolloActividades(String urlFoto, String comentario, Date fecha, Actividad idActividad, Arbol arbol, Persona persona) {

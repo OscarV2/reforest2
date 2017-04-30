@@ -47,6 +47,7 @@
     <!-- Actividad Lotes  -->
     <string name="lotes">Lotes</string>
     <string name="area_h">Area(H):</string>
+    <string name="title_activity_mapa_crear_lote">Map</string>
 
 
 </resources>

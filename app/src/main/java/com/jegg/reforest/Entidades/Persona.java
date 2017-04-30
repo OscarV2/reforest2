@@ -24,7 +24,7 @@ public class Persona {
     @DatabaseField(columnName = Constantes.FECHA_NACIMIENTO_PERSONAS)
     private Date fecha;
 
-    @DatabaseField(columnName = Constantes.NOMBRE_PERSONAS)
+    @DatabaseField(columnName = Constantes.DIRECCION_PERSONAS)
     private String direccion;
 
     @DatabaseField(columnName = Constantes.TELEFONO_PERSONAS)

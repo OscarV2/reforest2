@@ -92,7 +92,27 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
 
         try {
             Log.e(basededatos.class.getSimpleName(), "onCreate");
+
             TableUtils.createTable(connectionSource, Arbol.class);
+            TableUtils.createTable(connectionSource, Departamento.class);
+
+            TableUtils.createTable(connectionSource, Altura.class);
+            TableUtils.createTable(connectionSource, Municipio.class);
+
+            TableUtils.createTable(connectionSource, Lote.class);
+            TableUtils.createTable(connectionSource, Persona.class);
+
+            TableUtils.createTable(connectionSource, Estado.class);
+            TableUtils.createTable(connectionSource, ArbolEstado.class);
+
+            TableUtils.createTable(connectionSource, Especie.class);
+            TableUtils.createTable(connectionSource, ArbolEspecie.class);
+
+            TableUtils.createTable(connectionSource, Actividad.class);
+            TableUtils.createTable(connectionSource, DesarrolloActividades.class);
+
+            Log.e("tablas","creadas");
+
         }catch (SQLException ex){
             Log.e("no se pudo","crear la db");
             throw new RuntimeException(ex);

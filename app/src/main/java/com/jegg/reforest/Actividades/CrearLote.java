@@ -36,11 +36,24 @@ public class CrearLote extends AppCompatActivity {
         addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
         removePunto = (Button) findViewById(R.id.EliminarPuntoLocalizacionLote);
 
+        addPunto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irMapa();
+            }
+        });
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String currentDateandTime = sdf.format(new Date());
         fecha.setText(currentDateandTime);
 
     }
+
+    private void irMapa() {
+        Intent i = new Intent(CrearLote.this, Mapa.class);
+        startActivityForResult(i, 4);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

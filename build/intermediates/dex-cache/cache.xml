@@ -12,30 +12,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/AndroidStudioProjects/reforest/app/libs/ormlite-android-5.0.jar"
+        jar="/home/oscarvc/.android/build-cache/a92dbcaf687fbdb4eef6ad3ce1ddf835db2df911/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/ormlite-android-5.0_9eacacae3a0fa10dbc2155969421880df59b5625.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/197b38010d313bc100a4fe421b3d7c0e80a83a27/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_ac8e897e7c840ae7bff3e15d76709accd1c056b0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/26def444b0aac9c9a55fd3740fe71d220349905f/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_3429d33eac3cb38ff77ceeea93e7fb2e8cec515e.jar" />
+        sha1="43df709c95f6b0501b3adbc7da992b6a69a03214">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_99a82dd609a4725692cd06d420db83d699fb370a.jar" />
     </item>
     <item
         is-multidex="false"
@@ -48,39 +30,210 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/270cb9a5072ffc8b15c74cc2fb277a40a3709ee8/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/0116a071725ac40a3742b1e99554e459ba6fcd01/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_b880e0f5c2ea8b9e4134aa2b8fda1679de59451a.jar" />
+        sha1="0e23941db151e67886844de6586e180bb2b860ad">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_2d1dcbca6ec96a31c28f2ab29f76ffd965a48818.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/5df7037fa52cd9eb7e0bf8a7dcad0b225d182670/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/2d77c502b3250f03cddabae7e0f767561f754077/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_7075bb3b6f6795747b0d031fb727466f73b44894.jar" />
+        sha1="54933c89f90a872aa342004e82b23e776fe12736">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_7a0554bd8f464d415ae14859894f7df149f8c23c.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jar="/home/oscarvc/.android/build-cache/2c2b1d3ddd85676772c84c0c4103c88216fa46b9/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.1_55dfa7b83fb09334e41daa331ea6f9c090e86267.jar" />
+        sha1="dd1d0d84da2cff18f741c63a9c3af7d9aa89fdd6">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_a8a437089a633a12a49b9bc75028df6c08ecea79.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/eeb903cc67667f5ef46d5220c8fddea3c7d86e34/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/8937376a2d50c8f86467f9043c58790a1ee59df4/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_fc043e02124c98f590e205483fa7e70a8eaae08c.jar" />
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_a20a14250e762af0aa9b6245f40d0e9c6adc4f7a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/f742fe851e7d88ff8e3a80559520e5e4f57fbdf0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="657abe17c5ba58f5d24803ba303c6005b180897a">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_b8956dfe77462e1eef5003ee1b224e1761630723.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/7cede466857105d8a766c876412f9687fad88395/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7e0f082141b7aa90aab5d3a47ab09b0edc958f6b">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_3a99be207e64bfa7de651558f79b421a2058916b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/6c694080838be69ac0f79180dd9eac3f20e59654/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="88ae4c6ceaeab7beca5e396e0698c6958e26a2d2">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0c9e3260b882c0f0c723373b21c8b5fb33b583fd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/228e5cf12daa86d0e65373895971e2e79c801390/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c76804333008c855433cad5cfd1256e86045e97b">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_cdd635e1ee5b43890c1331850285ac4c0a410f74.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/2cb64e759e06a605cc3b47f9ce0d5860da415e65/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98ac18f891a8279ae57c4771cbf4a2a65f95b04c">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_36d38295bf67dd3ea00f118c19263db843ecc0a2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/cd6ebdf3382d31f3c96a0d629cc6088d0b28c242/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6b8d1a53648f7ecfe9e7bf0baf9ca657c5a1ff91">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_79e19b63917b0fd6db6e2fd3159baa8830f81ad9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/6151b1110274e8153d3d1a929e53af7248851d37/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6d0d5e86f5b7203834df01ed78ebfdd5cbf74d48">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_dc5e3bb3fdef79bd0bcfac863be2290b53743b0b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/aa973e887da99432cd87d695941d8b2537f6a04d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b50fe5288bba9d1635ba619bd3c308319205543e">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_26b2ff311e4e956c71121633b7863fab06be169e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/d347165b7330b3700c0160e14c1f9ac8e0ebeada/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_e1a193a4f42636b6118b12c2e4e771f2973a990d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/5c3f0f1f48da22e37c933dc8d1c443f6fa30934a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="90236fba9ac4dfb1f4196e231aab964522143ef6">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_24b3631fdf5f2e392752d4a3d46af37e7cd194dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/dd0c0e49ecdffabe5922b760c189bb720d0aa637/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="80ecaefc1035fde747999e4c20e18d207363efa2">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_2d6cc20fda731323ad430182b52e68217005ff2f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/c201d5e1016bb4d8b150b34bf5c3628f0d842026/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d66b8668122393a15c90471c5c974c25439d193a">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_7628fe6f0f8abeec43e88297526d5e99f68df251.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/e4d4394238e3f324bd02ef492c36ee418dde69ac/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="29e4e634375ab2ed25f8db5387b564c78980422a">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_e6d7b514d4f4ef8627a0ef057a98ef73a464eba1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/9bb4f53fda57e995a47504e1327c79d174c29447/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_45cca0e314d72e3635b3a7b074b9bf82a708cfb2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/AndroidStudioProjects/reforest/app/libs/ormlite-android-5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/ormlite-android-5.0_9eacacae3a0fa10dbc2155969421880df59b5625.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/60aeaa8af4bd617685e5dfd68922d21ba1ef78cd/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="183e4fb7cf95f4fa54963cfcdaf0f4d7e2397bad">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_a919f1e814588b863b673126f34f4107d590ca75.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/88351493b0820f10a30b175f16bbab998b13bbe8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8fdf15d202000492aefe43092b21af5332df0178">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_c4e8a8b02215a02e151d82de49dd8f2b89fad9cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/3ddaa80aef8d4605a04c4e9ac540b1d3a0c027c3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="688809418e4c2b5014a028c02708d6aeaba466ff">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_61bdf44c85337107811b57faccf121944ee1a3e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/2c8838037da51fd68e142e13508b43d853564049/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6c8a4af7cf76d958c76ed7682f39e4b386b69305">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_624151a3e740e29fc7b362646209d9131af71090.jar" />
     </item>
     <item
         is-multidex="false"
@@ -93,12 +246,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/2e92a1570a2df8cc1ae1c7ffe915a28be7ffb9a9/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/047cfca4891c55e4ebbaef242186ad6c9afc7432/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="27777b3cad3c20b1acab19f6e37fe3e03371bf6e">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_3240be8f48a68b98a7621eb401d399eecce8ad28.jar" />
+        sha1="c01990d0a9bbc67f4c2b9610c1170046c2e37b3e">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_d89ac35796782946adc18c16332919cae4b82e9d.jar" />
     </item>
     <item
         is-multidex="false"
@@ -111,21 +264,57 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/5b5d092d4782aa69fe68be44998d31e25e34fc28/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/7b824c15e1ee812fb6e0fb51dbf2e08ab4e5a1f4/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0545987ac44dad2ecd7a9de595f7abd1d45b2698.jar" />
+        sha1="02e70fe04e0767ccfa16745b3398816d1171f0ad">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_61827576f2d1e23e1396125a568d6d9c60c8422d.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/d347165b7330b3700c0160e14c1f9ac8e0ebeada/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/ffc9aad725d9d88924c75eed40f1311fc8f22a0f/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_e1a193a4f42636b6118b12c2e4e771f2973a990d.jar" />
+        sha1="1b95f2bf44857a158b097e9f80d5d18d69f32584">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_608c4aa18d204b8d2bf43191517270e17b2ad8f7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/489dce7ed8370155039e490b0b2315c5f3e57ffd/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b2b4d3ecd541814f08200f8171def113095d5f39">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0a76bb9288eec020469535753433916f75cea21d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/0cb67677e7bd3aa58e4a48366735c0e8a7eafa15/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="29d9916bd9ad8406a53edbafbbce5e18943aa882">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_8c0753f0a2b39b57044ce5b768e8e1948ff36324.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/8937376a2d50c8f86467f9043c58790a1ee59df4/output/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_0a26d4f962b6549df32005e14bf9a5d480cb93e0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/dc55486b3ab69590b470d245317c0f76f76493ea/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="143e5647b772c08c9f0d807b24bbc0b05ff6c7d2">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_bd04a4f438f5cf1cd711d8c361237547fda493f9.jar" />
     </item>
     <item
         is-multidex="false"
@@ -147,6 +336,159 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/1109a19e1771b9e38dbcb7f537c63c3cdf094c6b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2ed7ba48801a0a361727833ade3b6cf096968cc0">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_098298a8580a15a00cf767d4eac11460e68adf48.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/cc273b94abe02a319fa94276e11696385e5dc3f9/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="93094dbb2af50e23339620bebd7b4b6161410edb">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_60a51bad5625132e887c280a62762263e5343553.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/a1bfbaa8c123665dfda4b2098387c721a91dc06c/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6b8ad09b76c4ffaedf443ca54bc2418760870689">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_25ae1b448d8bea967f1ce1e0c1951e683bef4c70.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/197b38010d313bc100a4fe421b3d7c0e80a83a27/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_ac8e897e7c840ae7bff3e15d76709accd1c056b0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/ff55309e0787ee856adccdb6766f7f8221d6d851/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8748e15968514ff1708deb3bb7f0c17623e50bbb">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_53bec7beb983ffc95c5e7ada83218d1028861bd6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/3da4a1fbd7f5c7d3075af10a94ea5eab77d22299/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_a7b265990b253cbce0f4784e6059f9dcbddc2e69.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/cf6a39f8525334ac73d88563ba6e5cff7aa15b96/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="acc7a846f0bc56ecccda535fc919fd338b2b3e2c">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_c995bc6164e88685e51b29bd082b268c139286c5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/5df7037fa52cd9eb7e0bf8a7dcad0b225d182670/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_7075bb3b6f6795747b0d031fb727466f73b44894.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/a8d47cadd21323429253f18cfa8475a3e41802e3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="701c58abf53f488bc5bb0162f1305a38a32fb5f1">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_a9c83f28ce3ab82afbb3e44349e294c3d97678c9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/9ef5d6d57427c074c1b2206aff1b0b3a843b8842/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="aa6a6e385297077a344e0bb95ab6c22f22119261">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_142aaab65647f99ddaf01145547291fa2803a174.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/e963b77f0878730ca4eb6a01862f859d115e18c3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4eeba61bbc47e49a5fbdfd9aa21af5d10bf4df7c">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0839a55392fb983bc759cefb947233d7c105f9c6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/3650378c979cbfca8194ffa3f443f42881c65a5a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a9c8affe1f564ec0d063be68469d26e972455217">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_21e549085b6b73d0058176ae7ad3ff0646c5258d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/59eeb62d683d64c4ed61398bb1dd0422d07fac74/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="610ae6a6872d9718fc05e2c726758206bd367595">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_b0c9f00e074a8e91b119ad535c4fc66c56d0f049.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/9e84e05bbc9d60d1a812191b66e5f3e0f9722287/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a75030f7a3f5f96a15acdab44829bed93154d09f">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_fc0c9c76841d894e601fbfba93153e02fddb7004.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/a2eb2d9efadea4790989fa529494ae38b53b4bb1/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fe159787dd4c4bc9ed6a9d4f7430e9af1f3516c8">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_dfdc1206a5086ef195d84695cc897fbc1ad8ef3e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/5ac0ceb1b56a09c9ce84a330225250caca35c340/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5cba8868595f6aaff54cf7d1798591108cf5611c">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_d74d1d8743c2c4bb1a795345bd41508433bb740b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/d9f413163632446014ee175fb6f5d95381cf21e3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2188ba20a948ec6e7fa671b818c69d876d8bf32d">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_9cfb080ba1f87af8cd62ff2864a756021a58ff08.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/oscarvc/.android/build-cache/55b915eef6c1c91c9a488779cbc0169976398f4e/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -156,21 +498,102 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/9bb4f53fda57e995a47504e1327c79d174c29447/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/0c7781e1dc6302d15778c2792be27ebda5995315/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_45cca0e314d72e3635b3a7b074b9bf82a708cfb2.jar" />
+        sha1="5803db663655ef5cb38c6bcb17ba326fdb9edfbd">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0f48266a048021d2936c88a92aaf8878834cd684.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/oscarvc/.android/build-cache/d85a9caae083c9feb86d2452e3e942c9960a7804/output/jars/classes.jar"
+        jar="/home/oscarvc/.android/build-cache/270cb9a5072ffc8b15c74cc2fb277a40a3709ee8/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
-        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_cfd2b335387875a1b15e725bb728b3af4a8c0fd8.jar" />
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_b880e0f5c2ea8b9e4134aa2b8fda1679de59451a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.1_55dfa7b83fb09334e41daa331ea6f9c090e86267.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/096af9eab2f587d62cff18564f503c1a128e1e19/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9ed08fab37c3a572da1d9ed2bf2e36c8d3e2bc48">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0b9bdc2ab6a6401b9e00c2ba0e35dc989f66b725.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/5f18e8011a4c496b637e8b36a7639cb00611a0a8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d72eb1ceff1b0bac4916088eb44bb93f86b1265c">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_dd9cadff7f941b6805eb74921e613bf6924e2f96.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/c7b1ac19376a6a5074ef9e073839228ac2932902/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="32aa1b2a2f68f455403d10d41d8ded37c9812f11">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_25267d5e632ade4b445ef8844ab7cb89346781a4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/5b5d092d4782aa69fe68be44998d31e25e34fc28/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_0545987ac44dad2ecd7a9de595f7abd1d45b2698.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/3cfb4780aa45d8e0b4f008d047a6566c5d89f04e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="dde643ce80b967f869e9b111255815ba4d391653">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_8e164092027fc86d67dc8f19ba62e8ea706e19a6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/be22b5febf882bec9485a36dadc97087d91210b2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d2d27edb6fbc12fdf28008cdff920e66f08cf159">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_2a2bf87c1a9070db71554c9d89c0d122a2ed595f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/e23844f92f4075dac9b8c7a6718205fea3437c68/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="287051610dd01cc6eeaed7fc689712c31ad1ff70">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_2c74c90e60174e82a48ceb4970fd603e4f9c97e2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/oscarvc/.android/build-cache/9137203e82da3703ff94adbe5acc1b0558116ff8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="597d0d34e15e713c486e8f4ccf739f0c7d05bde4">
+        <dex dex="/home/oscarvc/AndroidStudioProjects/reforest/app/build/intermediates/pre-dexed/debug/classes_32454f931db09c4e94808143476efc2f8361683d.jar" />
     </item>
 
 </items>
