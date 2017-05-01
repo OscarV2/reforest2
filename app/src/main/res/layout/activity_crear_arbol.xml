@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="19dp"
+    android:background="@drawable/side_nav_bar"
+    tools:context="com.jegg.reforest.Actividades.CrearArbol">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_tamaño"
+        android:id="@+id/fecha_crear_arbol"
+        android:textColorHint="@color/white"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/edt_especie_arbol"
+        android:hint="Especie:"
+        android:layout_below="@id/fecha_crear_arbol"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_below="@id/edt_especie_arbol"
+        android:id="@+id/edt_comentario_arbol"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/white"
+        android:hint="Comentarios:"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:layout_below="@id/edt_comentario_arbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_tamaño"
+        android:layout_marginTop="20dp"
+        android:text="Añadir Coordenadas arbol"
+        android:id="@+id/txt_coordenadas_arbol"/>
+
+
+    <ImageView
+
+        android:layout_below="@id/txt_coordenadas_arbol"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/foto_arbol"/>
+    
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/menu_fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/txt_coordenadas_arbol"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+
+        fab:fab_addButtonColorNormal="?attr/colorPrimary"
+        fab:fab_addButtonSize="normal"
+        fab:fab_labelStyle="@style/Etiquetas"
+        fab:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_tomar_foto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="?attr/colorAccent"
+            fab:fab_icon="@drawable/ic_add_foto"
+            fab:fab_size="mini"
+            fab:fab_title="Tomar Foto Arbol"
+            android:onClick="tomarFoto"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_ir_mapa_arbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="?attr/colorAccent"
+            fab:fab_icon="@android:drawable/ic_menu_mylocation"
+            fab:fab_size="mini"
+            fab:fab_title="Coordenada Arbol"
+            android:onClick="irMapa"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/guardar_arbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="?attr/colorAccent"
+            fab:fab_icon="@drawable/ic_today"
+            fab:fab_size="mini"
+            android:onClick="guardarArbol"
+            fab:fab_title="Guardar aRBOL" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+
+</RelativeLayout>
+
+

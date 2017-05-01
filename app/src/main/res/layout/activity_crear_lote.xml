@@ -93,6 +93,7 @@
                         android:hint="Nombre:"
                         android:paddingLeft="7dp"
                         android:id="@+id/nombre_crear_lote"
+                        android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:maxLines="1" />
 
@@ -117,6 +118,7 @@
                         android:hint="Fecha DD/MM/YY:"
                         android:id="@+id/fecha_crear_lote"
                         android:paddingLeft="7dp"
+                        android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:maxLines="1"
                         />
@@ -142,6 +144,7 @@
                         android:hint="@string/area_h"
                         android:id="@+id/area_crear_lote"
                         android:paddingLeft="7dp"
+                        android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:maxLines="1"
                         />

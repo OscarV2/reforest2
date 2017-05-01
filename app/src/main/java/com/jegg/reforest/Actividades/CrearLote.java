@@ -1,5 +1,6 @@
 package com.jegg.reforest.Actividades;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.jegg.reforest.Actividades.Menu;
+import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +28,8 @@ public class CrearLote extends AppCompatActivity {
     private Button addPunto,removePunto;
     private Toolbar toolbar;
     private ActionBar actionBar;
+    private String delimitacion;
+    private Double areaLote;
 
     private void init(){
 
@@ -51,7 +55,7 @@ public class CrearLote extends AppCompatActivity {
 
     private void irMapa() {
         Intent i = new Intent(CrearLote.this, Mapa.class);
-        startActivityForResult(i, 4);
+        startActivityForResult(i, 1);
     }
 
 
@@ -81,6 +85,19 @@ public class CrearLote extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @SuppressLint("DefaultLocale")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                delimitacion = data.getStringExtra("delimitacion");
+                areaLote = data.getDoubleExtra("area", 0);
+
+                area.setText(String.format("%.2f", areaLote));
+            }
+        }
+    }
+
     private void onClickBack(){
         startActivity(new Intent(this,Lotes.class));
         finish();
@@ -98,8 +115,7 @@ public class CrearLote extends AppCompatActivity {
 
     public void guardarLote(View view){
 
-        String fechaLote = fecha.getText().toString();
-        double areaLote  = Double.parseDouble(area.getText().toString());
+        Lote lote;
 
     }
 }

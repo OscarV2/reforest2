@@ -38,8 +38,8 @@
 
     <dimen name="logo_informacion">150dp</dimen>
 
-
-    <dimen name="text_tamaño">16dp</dimen>
+    <dimen name="tamaño_editText">16dp</dimen>
+    <dimen name="text_tamaño">20dp</dimen>
     <dimen name="text_tamaño_secundary">13dp</dimen>
 
     <dimen name="botones">110dp</dimen>

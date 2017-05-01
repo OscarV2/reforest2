@@ -37,10 +37,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Actividades.Detalles"
-            android:label="Detalles Actividad"/>
+            android:label="Detalles Actividad" />
         <activity
             android:name=".Actividades.Preferecias"
-            android:label="Preferencias"/>
+            android:label="Preferencias" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -56,10 +56,11 @@
         <activity
             android:name=".Actividades.Mapa"
             android:label="@string/title_activity_mapa" />
-        <activity android:name=".Actividades.CrearLote"
-            android:label="Crear Lote">
-        </activity>
-        <activity android:name=".Actividades.Lotes"/>
+        <activity
+            android:name=".Actividades.CrearLote"
+            android:label="Crear Lote"></activity>
+        <activity android:name=".Actividades.Lotes" />
+        <activity android:name=".Actividades.CrearArbol"></activity>
     </application>
 
 </manifest>

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void IniciarSesion(){
-        Intent intent = new Intent(this, IniciarSesion.class);
+        Intent intent = new Intent(this, CrearArbol.class);
         startActivity(intent);
         finish();
     }

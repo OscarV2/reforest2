@@ -1,6 +1,8 @@
 package com.jegg.reforest.Actividades;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -46,9 +49,10 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private GoogleMap mMap;
     private int numeroClicksMarker = 0;
 
-    LatLng[] rectLote = new LatLng[4];
 
-    List<LatLng> latLngs = new ArrayList<>();
+    //LatLng[] rectLote = new LatLng[4];
+    List<LatLng> recLote = new ArrayList<>();
+    private double area = 0;
     private Marker marcadorMiPosicion;
 //    private LocationListener locationListener;
 //    private LocationManager locationManager;
@@ -178,26 +182,61 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-
         Log.e("marker","click");
         if (numeroClicksMarker < 4){
-            rectLote[numeroClicksMarker] = marker.getPosition();
-            latLngs.add(marker.getPosition());
+
+            recLote.add(marker.getPosition());
 
             dibujarPuntoRef(marker);
             numeroClicksMarker++;
         }else {
             PolygonOptions options = new PolygonOptions()
-                            .add(rectLote[0])
-                            .add(rectLote[1])
-                            .add(rectLote[2])
-                            .add(rectLote[3]);
-            Polygon lotePoligono = mMap.addPolygon(options);
-            Log.e("Area ", String.valueOf(SphericalUtil.computeArea(latLngs)));
+                            .add(recLote.get(0))
+                            .add(recLote.get(1))
+                            .add(recLote.get(2))
+                            .add(recLote.get(3));
 
+            Polygon lotePoligono = mMap.addPolygon(options);
+            area = (SphericalUtil.computeArea(recLote))/10000;
+            Log.e("Area ", String.format("%.2f",area));
+            Log.e("LatLngs ", recLote.toString());
+            recLote.toString();
+            mostrarDialogo();
         }
 
         return false;
+    }
+
+    private void mostrarDialogo() {
+
+        AlertDialog.Builder volverCrearLoteDialog = new AlertDialog.Builder(Mapa.this);
+        volverCrearLoteDialog.setTitle("Detalles")
+                             .setMessage("Area(H) Lote: "+String.format("%.2f",area))
+                             .setPositiveButton("Ir a crear Lote", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     Intent i = new Intent();
+                                     i.putExtra("area", area);
+                                     i.putExtra("delimitacion", recLote.toString());
+                                     setResult(RESULT_OK, i);
+                                     finish();
+
+                                 }
+                             })
+                             .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     mMap.clear();
+                                     marcadorMiPosicion = null;
+                                     numeroClicksMarker = 0;
+                                     recLote.clear();
+                                     dialog.dismiss();
+                                 }
+                             })
+                             .create();
+
+        volverCrearLoteDialog.show();
+
     }
 
     private void dibujarPuntoRef(Marker marker) {
