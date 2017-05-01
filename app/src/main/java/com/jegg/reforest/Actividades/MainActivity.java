@@ -113,10 +113,7 @@ Log.e("todo", "bien");
                     IniciarSesion();
                 }
             });
-
         }
-
-
 
     private boolean existeBaseDatos() {
 

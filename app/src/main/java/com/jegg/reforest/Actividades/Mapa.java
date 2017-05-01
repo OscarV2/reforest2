@@ -5,12 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -24,12 +21,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -49,19 +44,15 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private GoogleMap mMap;
     private int numeroClicksMarker = 0;
 
-
-    //LatLng[] rectLote = new LatLng[4];
     List<LatLng> recLote = new ArrayList<>();
     private double area = 0;
     private Marker marcadorMiPosicion;
-//    private LocationListener locationListener;
-//    private LocationManager locationManager;
+
     private Toolbar toolbar;
     private ActionBar actionBar;
     private Spinner spinner;
 
     private GoogleApiClient client;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +72,12 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+
             client.connect();
 
         }
 
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -103,14 +94,13 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
                 locationClick.setLatitude(latLng.latitude);
                 locationClick.setLongitude(latLng.longitude);
                 actualizarPosicion(locationClick);
-                //getLocalizacion(locationClick);
             }
         });
         mMap.setOnMarkerClickListener(this);
     }
 
-
     private void actualizarPosicion(Location locationClick) {
+
         if (!(marcadorMiPosicion == null)){
             marcadorMiPosicion.setPosition(new LatLng(locationClick.getLatitude(), locationClick.getLongitude()));
         }else{
@@ -122,8 +112,6 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         }
     }
 
-
-
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_mapa);
         setSupportActionBar(toolbar);
@@ -133,14 +121,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         }
     }
-/*
-    private void getLocalizacion(Location location) {
-        //mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).icon(BitmapDescriptorFactory.
-                defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-    }
-*/
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 

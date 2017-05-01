@@ -36,11 +36,12 @@ public class Lotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lotes);
         setToolbar();
-        dbReforest = SQLiteDatabase.openDatabase(getApplicationContext()
+/*        dbReforest = SQLiteDatabase.openDatabase(getApplicationContext()
                 .getDatabasePath("datosReforest")
                 .getPath(),null,SQLiteDatabase.OPEN_READWRITE);
+  */
         init();
-        cargarDatosLotes();
+     //   cargarDatosLotes();
         onClickListaLotes();
     }
 
