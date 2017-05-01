@@ -1,7 +1,9 @@
 package com.jegg.reforest.Entidades;
 
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
@@ -24,6 +26,17 @@ public class Lote {
 
     @DatabaseField(columnName = Constantes.MUNICIPIO_LOTE, canBeNull = false, foreign = true)
     private Municipio municipio;
+
+    @ForeignCollectionField
+    private ForeignCollection<Arbol> arboles;
+
+    public ForeignCollection<Arbol> getArboles() {
+        return arboles;
+    }
+
+    public void setArboles(ForeignCollection<Arbol> arboles) {
+        this.arboles = arboles;
+    }
 
     public Lote() {
     }

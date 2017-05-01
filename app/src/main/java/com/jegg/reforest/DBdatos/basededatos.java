@@ -123,6 +123,34 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
     @Override
     public void close() {
         super.close();
+        alturaDao = null;
+        alturaRuntimeDao = null;
+        arbolEstadosDao = null;
+        arbolEstadosRuntimeDao = null;
+
+        arbolEspeciesDao = null;
+        arbolEspeciesRuntimeDao = null;
+
+        especiesDao = null;
+        especieRuntimeDao = null;
+        estadoDao = null;
+        estadosRuntimeDao = null;
+
+        loteDao = null;
+        loteRuntimeDao = null;
+        personasDao = null;
+        personasRuntimeDao = null;
+
+        municipiosDao = null;
+        municipiosRuntimeDao = null;
+        departamentosDao = null;
+        departamentosRuntimeDao = null;
+
+        actividadsDao = null;
+        actividadsRuntimeDao = null;
+        desarrolloActividadesDao = null;
+        desarrolloActividadesRuntimeDao = null;
+
     }
 
     @Override

@@ -6,6 +6,9 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by oscarvc on 29/04/17.
  */
@@ -23,6 +26,10 @@ public class Departamento {
     private ForeignCollection<Municipio> municipios;
 
     public ForeignCollection<Municipio> getMunicipios() {
+      /*  ArrayList<Municipio> municipiosList = new ArrayList<Municipio>();
+        for (Municipio m : municipiosList){
+            municipiosList.add(m);
+        }*/
         return municipios;
     }
 

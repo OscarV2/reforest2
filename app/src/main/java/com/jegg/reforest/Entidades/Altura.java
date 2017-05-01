@@ -10,7 +10,7 @@ public class Altura {
     @DatabaseField(generatedId = true, columnName = Constantes.ID_ALTURA)
     private int id;
 
-    @DatabaseField(columnName = Constantes.ALTURA_ARBOL, canBeNull = false, foreign = true)
+    @DatabaseField(columnName = Constantes.ALTURA_ARBOL, canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private Arbol arbol;
 
     @DatabaseField(columnName = Constantes.MEDIDAS_ALTURA, canBeNull = false)

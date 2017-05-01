@@ -1,6 +1,8 @@
 package com.jegg.reforest.Entidades;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
@@ -29,6 +31,28 @@ public class Persona {
 
     @DatabaseField(columnName = Constantes.TELEFONO_PERSONAS)
     private String telefono;
+
+    @DatabaseField(columnName = Constantes.MUNICIPIO_PERSONAS, foreign = true, foreignAutoRefresh = true)
+    private Municipio municipio;
+
+    @ForeignCollectionField
+    private ForeignCollection<DesarrolloActividades> desarrolloActividades;
+
+    public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
+        return desarrolloActividades;
+    }
+
+    public void setDesarrolloActividades(ForeignCollection<DesarrolloActividades> desarrolloActividades) {
+        this.desarrolloActividades = desarrolloActividades;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
 
     public Persona() {
     }

@@ -1,5 +1,5 @@
 #
-# generated on 2017/04/29 09:06:59
+# generated on 2017/05/01 11:32:48
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -30,6 +30,10 @@ fieldName=municipio
 columnName=municipio_id
 canBeNull=false
 foreign=true
+# --field-end--
+# --field-start--
+fieldName=arboles
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -65,6 +69,17 @@ columnName=direccion
 fieldName=telefono
 columnName=telefono
 # --field-end--
+# --field-start--
+fieldName=municipio
+columnName=municipio_id
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=desarrolloActividades
+foreignCollection=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -81,6 +96,10 @@ generatedId=true
 fieldName=nombre
 columnName=especie
 canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=arbolEspecies
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -111,17 +130,23 @@ canBeNull=false
 fieldName=idActividad
 columnName=actividades_id
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=arbol
 columnName=arbol_id
 canBeNull=false
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=persona
 columnName=personas_id
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -140,6 +165,8 @@ fieldName=arbol
 columnName=arbol_id
 canBeNull=false
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=medida
@@ -171,6 +198,24 @@ columnName=fecha_id
 fieldName=lote
 columnName=lote_id
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=arbolEspecies
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=arbolEstados
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=alturas
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=desarrolloActividades
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -189,6 +234,10 @@ fieldName=nombre
 columnName=nombre
 canBeNull=false
 # --field-end--
+# --field-start--
+fieldName=municipios
+foreignCollection=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -205,6 +254,10 @@ generatedId=true
 fieldName=nombre
 columnName=estado
 canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=arbolEstados
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -223,12 +276,16 @@ fieldName=arbol
 columnName=_id
 canBeNull=false
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=estado
 columnName=estado_id
 canBeNull=false
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -246,11 +303,15 @@ generatedId=true
 fieldName=arbol
 columnName=arbol_id
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=especie
 columnName=especie_id
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -272,8 +333,13 @@ canBeNull=false
 # --field-start--
 fieldName=idDepartamento
 columnName=departamento_id
-canBeNull=false
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=lotes
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -291,6 +357,10 @@ generatedId=true
 fieldName=nombre
 columnName=nombre
 canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=desarrolloActividades
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

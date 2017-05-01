@@ -1,6 +1,7 @@
 package com.jegg.reforest.Entidades;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
@@ -10,11 +11,12 @@ public class ArbolEstado {
     @DatabaseField(generatedId = true, columnName = Constantes.ARBOL_ID)
     private int id;
 
-    @DatabaseField(columnName = Constantes.ID_ARBOL_ESTADO, canBeNull = false, foreign = true)
+    @DatabaseField(columnName = Constantes.ID_ARBOL_ESTADO, canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private Arbol arbol;
 
-    @DatabaseField(columnName = Constantes.ESTADO_ARBOL_ESTADO, canBeNull = false, foreign = true)
+    @DatabaseField(columnName = Constantes.ESTADO_ARBOL_ESTADO, canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private Estado estado;
+
 
     public int getId() {
         return id;

@@ -24,7 +24,7 @@ public class Municipio {
     @DatabaseField(columnName = Constantes.NOMBRE_MUNICIPIO, canBeNull = false)
     private String nombre;
 
-    @DatabaseField(columnName = Constantes.DEPARTAMENTO_MUNICIPIO, canBeNull = false, foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(columnName = Constantes.DEPARTAMENTO_MUNICIPIO,  foreign = true, foreignAutoRefresh = true)
     private Departamento idDepartamento;
 
     @ForeignCollectionField
