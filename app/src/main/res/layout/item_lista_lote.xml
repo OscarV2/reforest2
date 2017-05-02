@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/side_nav_bar"
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nombre"
             android:id="@+id/nombre_lote_item"
-            android:textColor="@color/btn_fondo_entrar"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             style="@style/Base.TextAppearance.AppCompat.Large"/>
 
         <TextView
@@ -23,8 +22,14 @@
             android:text="fecha"
             android:id="@+id/fecha_lote_item"
             style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/btn_fondo_entrar"/>
+            android:textColor="@color/white"/>
 
-    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"/>
 
 </LinearLayout>

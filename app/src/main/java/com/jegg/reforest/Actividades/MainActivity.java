@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
             munidao.create(m2);
 Log.e("todo", "bien");
 
-
-
-
             deptdao = datosReforest.getDepartamentosDao();
             Departamento a = (Departamento) deptdao.queryForId(1);
 
@@ -122,8 +119,10 @@ Log.e("todo", "bien");
     }
 
     public void IniciarSesion(){
-        Intent intent = new Intent(this, CrearArbol.class);
+        Intent intent = new Intent(this, IniciarSesion.class);
         startActivity(intent);
         finish();
     }
+
+
 }

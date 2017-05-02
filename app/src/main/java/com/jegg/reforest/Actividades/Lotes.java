@@ -1,22 +1,32 @@
 package com.jegg.reforest.Actividades;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.ItemAdapter;
+import com.jegg.reforest.Utils.ItemLote;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Lotes extends AppCompatActivity {
 
@@ -25,10 +35,16 @@ public class Lotes extends AppCompatActivity {
     private ListView listView;
     private SQLiteDatabase dbReforest;
     private TextView tvNoHayLotes;
+    basededatos datosReforest;
+    Dao lotesDao;
+
+
     private void init(){
 
         listView = (ListView ) findViewById(R.id.lista_lotes);
         tvNoHayLotes = (TextView)findViewById(R.id.tvNoHayLotes);
+        datosReforest = OpenHelperManager.getHelper(Lotes.this,
+                basededatos.class);
     }
 
     @Override
@@ -36,13 +52,10 @@ public class Lotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lotes);
         setToolbar();
-/*        dbReforest = SQLiteDatabase.openDatabase(getApplicationContext()
-                .getDatabasePath("datosReforest")
-                .getPath(),null,SQLiteDatabase.OPEN_READWRITE);
-  */
+
         init();
-     //   cargarDatosLotes();
-        onClickListaLotes();
+        cargarDatosLotes();
+     //   onClickListaLotes();
     }
 
     private void setToolbar(){
@@ -54,7 +67,6 @@ public class Lotes extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -102,16 +114,45 @@ public class Lotes extends AppCompatActivity {
     }
 
     private void cargarDatosLotes(){
-        String queryLotes = "SELECT COUNT(*) FROM lote";
-        Cursor cursor = dbReforest.rawQuery(queryLotes, null);
-        cursor.moveToFirst();
-        int contadorRegistrosLotes = cursor.getInt(0);
+        try {
+            lotesDao = datosReforest.getLoteDao();
+            List<Lote> listaLotes = lotesDao.queryForAll();
+          //  datosReforest.close();
 
-        if (contadorRegistrosLotes > 0){  // Existe almenos 1 lote
+            if ( listaLotes.size() > 0){
+                cargarListaLotes(listaLotes);
+                Log.e("si hay","lotes ");
+            }else {
 
-        }else {
-            tvNoHayLotes.setVisibility(View.VISIBLE);
+
+                tvNoHayLotes.setVisibility(View.VISIBLE);
+
+
+            }
+        } catch (SQLException e) {
+            Log.e("no hay","lotes excepcion");
         }
+    }
+
+    private void cargarListaLotes(final List<Lote> listaLotes) {
+
+        List<ItemLote> itemLotes = new ArrayList<>();
+        for (int i= 0; i<listaLotes.size(); i++){
+            itemLotes.add(new ItemLote(listaLotes.get(i).getNombre() , listaLotes.get(i).getFecha().toString()) );
+        }
+
+        listView.setAdapter(new ItemAdapter(this, itemLotes));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("clik","item");
+                Intent irDetalles = new Intent(Lotes.this, Detalles.class);
+                irDetalles.putExtra("id_lote", position);
+                startActivity(irDetalles);
+                finish();
+            }
+        });
+
     }
 
 }

@@ -11,31 +11,42 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 import com.jegg.reforest.Actividades.Menu;
+import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Lote;
+import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.R;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CrearLote extends AppCompatActivity {
 
-    private EditText nombre,fecha,area;
+    private EditText nombre,fecha,area, edtDepartamento, edtMunicipio;
     private TextView punto_referencia;
     private Button addPunto,removePunto;
     private Toolbar toolbar;
     private ActionBar actionBar;
     private String delimitacion;
     private Double areaLote;
+    private basededatos datosReforest;
+    SimpleDateFormat sdf;
+
+    Municipio municipio;
 
     private void init(){
 
         nombre = (EditText) findViewById(R.id.nombre_crear_lote);
         fecha  = (EditText) findViewById(R.id.fecha_crear_lote);
         area = (EditText )findViewById(R.id.area_crear_lote);
+        edtDepartamento = (EditText )findViewById(R.id.departamento_crear_lote);
+        edtMunicipio = (EditText )findViewById(R.id.municipio_crear_lote);
         punto_referencia = (TextView ) findViewById(R.id.PuntoReferencialote);
         addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
         removePunto = (Button) findViewById(R.id.EliminarPuntoLocalizacionLote);
@@ -47,9 +58,13 @@ public class CrearLote extends AppCompatActivity {
             }
         });
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
+
         String currentDateandTime = sdf.format(new Date());
         fecha.setText(currentDateandTime);
+
+        datosReforest = OpenHelperManager.getHelper(CrearLote.this,
+                basededatos.class);
 
     }
 
@@ -113,9 +128,29 @@ public class CrearLote extends AppCompatActivity {
         }
     }
 
-    public void guardarLote(View view){
+    public void guardarLote(View view) throws ParseException {
 
-        Lote lote;
+
+        Date parsed = sdf.parse(fecha.getText().toString());
+        java.sql.Date fechaLote = new java.sql.Date(parsed.getTime());
+        municipio = new Municipio(edtMunicipio.getText().toString());
+        Lote lote = new Lote(nombre.getText().toString(), fechaLote, areaLote, municipio);
+
+        try {
+            Dao lotesDao = datosReforest.getLoteDao();
+            lotesDao.create(lote);
+
+            startActivity(new Intent(CrearLote.this, Lotes.class));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
     }
 }

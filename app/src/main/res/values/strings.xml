@@ -40,10 +40,17 @@
         <item>Sustitucion de plantas</item>
         <item>Preparar terreno</item>
         <item>Enfermedades</item>
-        <item>Otros trabajos</item>
+        <item>Estado del arbol</item>
     </string-array>
+
     <string name="title_activity_mapa">Map</string>
 
+    <string-array name="lista_estados">
+        <item>Enferma</item>
+        <item>Faltante</item>
+        <item>Excelente</item>
+        <item>Muerta</item>
+    </string-array>
     <!-- Actividad Lotes  -->
     <string name="lotes">Lotes</string>
     <string name="area_h">Area(H):</string>

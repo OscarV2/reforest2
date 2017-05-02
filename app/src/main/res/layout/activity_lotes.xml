@@ -27,6 +27,14 @@
 
         </android.support.v7.widget.Toolbar>
 
+
+        <ListView
+            android:id="@+id/lista_lotes"
+            style="@style/Widget.AppCompat.ListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
         <TextView
             android:id="@+id/tvNoHayLotes"
             android:layout_width="wrap_content"
@@ -35,13 +43,6 @@
             android:text="No hay lotes."
             android:visibility="invisible"
             />
-        <ListView
-            android:id="@+id/lista_lotes"
-            style="@style/Widget.AppCompat.ListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
 
     </LinearLayout>
 
