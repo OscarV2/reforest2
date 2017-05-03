@@ -61,4 +61,9 @@ public class Departamento {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        String objetoJson = "";
+        return super.toString();
+    }
 }

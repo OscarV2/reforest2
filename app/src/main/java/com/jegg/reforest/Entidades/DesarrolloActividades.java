@@ -104,4 +104,17 @@ public class DesarrolloActividades {
     public DesarrolloActividades() {
 
     }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id) +
+                ", 'urlimagen':" + urlFoto +
+                ", 'comentario':" + comentario +
+                ", 'fecha':" + fecha.toString() +
+                ", 'actividades_id':" + String.valueOf(idActividad.getId()) +
+                ", 'arbol_id':" + String.valueOf(arbol.getId()) +
+                ", 'personas_id':" + String.valueOf(persona.getId()) +
+                "}";
+        return objetoJson;
+    }
 }

@@ -139,7 +139,7 @@ public class CrearLote extends AppCompatActivity {
         try {
             Dao lotesDao = datosReforest.getLoteDao();
             lotesDao.create(lote);
-
+            datosReforest.close();
             startActivity(new Intent(CrearLote.this, Lotes.class));
 
         } catch (SQLException e) {

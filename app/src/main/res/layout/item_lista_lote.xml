@@ -11,12 +11,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nombre"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:id="@+id/nombre_lote_item"
             android:textColor="@color/white"
             android:textStyle="bold"
             style="@style/Base.TextAppearance.AppCompat.Large"/>
 
         <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="fecha"

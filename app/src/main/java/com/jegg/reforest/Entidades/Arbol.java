@@ -108,4 +108,13 @@ public class Arbol {
     public void setLote(Lote lote) {
         this.lote = lote;
     }
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id)+ ", 'coodenadas':" +coordenadas +
+                ", 'fecha_sembrado':" + fecha.toString()  +
+                ", 'lote_id':" + String.valueOf(lote.getId()) +
+                "}";
+        return objetoJson;
+    }
+
 }

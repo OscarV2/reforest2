@@ -50,4 +50,12 @@ public class ArbolEstado {
     public ArbolEstado() {
 
     }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id)+ ",'arbol_id':" +
+                String.valueOf(arbol.getId())+ ",'estado_id':" +
+                String.valueOf(estado.getId()) +"}";
+        return objetoJson;
+    }
 }

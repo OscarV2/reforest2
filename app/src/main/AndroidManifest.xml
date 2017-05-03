@@ -10,8 +10,16 @@ package="com.jegg.reforest">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
 
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
+
+
 
 <application android:allowBackup="true" android:icon="@drawable/arbolj" android:label="@string/app_name"
     android:supportsRtl="true" android:theme="@style/AppTheme.NoActionBar">
@@ -51,6 +59,14 @@ package="com.jegg.reforest">
     </activity>
     <activity android:name=".Actividades.Lotes" />
 
+    <service android:name=".Servicios.SinconizacionService"
+        android:exported="false"/>
+
+    <receiver android:name=".NetWatcher" android:enabled="true">
+        <intent-filter>
+            <action android:name="android.net.ConnectivityManager.CONNECTIVITY_ACTION" />
+        </intent-filter>
+    </receiver>
 </application>
 
 </manifest>

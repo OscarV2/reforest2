@@ -2,7 +2,7 @@
 
     <!-- Default-land screen margins, per the Android Design guidelines. -->
 
-    <dimen name="btn_text_entrar">20dp</dimen>
+    <dimen name="btn_text_entrar">20sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

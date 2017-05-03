@@ -51,4 +51,12 @@ public class Estado {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id)+
+                ", 'estado':" + nombre +
+                "}";
+        return objetoJson;
+    }
 }

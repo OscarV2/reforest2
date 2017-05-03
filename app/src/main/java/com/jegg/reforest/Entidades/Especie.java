@@ -49,4 +49,11 @@ public class Especie {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id)+",'especie':" +
+                "'"+ nombre  +"'}";
+        return objetoJson;
+    }
 }

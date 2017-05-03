@@ -40,7 +40,7 @@
             android:id="@+id/nombre_lote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre Lote"
+            android:text="Lote: "
             android:textStyle="bold"
             android:padding="16dp"
             android:textColor="@color/white"
@@ -66,6 +66,7 @@
             <Spinner
                 android:id="@+id/spinner_detalle_actividad"
                 style="@style/Base.Widget.AppCompat.Spinner"
+
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
 
@@ -181,58 +182,6 @@
             android:layout_height="1dp"
             android:background="@color/white"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/white">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:inputType="text"
-                android:textSize="@dimen/text_tamaño"
-                android:ems="10"
-                android:id="@+id/especieArbol"
-                android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
-                android:hint="Especie:" />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/white">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:inputType="numberDecimal"
-                android:textSize="@dimen/text_tamaño"
-                android:ems="10"
-                android:id="@+id/alturaArbol"
-                android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
-                android:hint="Altura del arbol:" />
-        </android.support.design.widget.TextInputLayout>
-
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
@@ -256,6 +205,79 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_edt_especie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:inputType="text"
+                    android:textSize="@dimen/text_tamaño"
+                    android:ems="10"
+                    android:id="@+id/especieArbol"
+                    android:layout_gravity="center_horizontal"
+                    android:textColorHint="@color/white"
+                    android:hint="Especie:" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_edt_altura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white">
+                <EditText
+                    android:id="@+id/alturaArbol"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:inputType="numberDecimal"
+                    android:textSize="@dimen/text_tamaño"
+                    android:layout_gravity="center_horizontal"
+                    android:textColorHint="@color/white"
+                    android:hint="Altura del arbol:" />
+
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+
+
+
+
 
 
         <View
@@ -290,6 +312,8 @@
                 android:src="@drawable/ic_add_foto"/>
         </LinearLayout>
 
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -310,7 +334,8 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat">
+                android:textColorHint="@color/white"
+                >
                 <EditText
                     android:ems="10"
                     android:inputType="textMultiLine"
@@ -345,7 +370,8 @@
                 android:textColor="@color/btn_letra_entrar"
                 android:background="@drawable/cuadrado"
                 android:layout_gravity="center"
-                android:onClick="guardarArbol"/>
+                android:layout_marginBottom="5dp"
+                android:onClick="guardarActividad"/>
 
         </LinearLayout>
 

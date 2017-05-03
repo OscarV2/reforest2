@@ -54,4 +54,13 @@ public class ArbolEspecie {
     public ArbolEspecie() {
 
     }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id)+
+                ",'arbol_id':" + String.valueOf(arbol.getId()) +
+                ",'especie_id':" + String.valueOf(especie.getId()) +
+                "}";
+        return objetoJson;
+    }
 }

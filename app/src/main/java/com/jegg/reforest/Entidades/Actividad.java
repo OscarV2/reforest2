@@ -50,4 +50,25 @@ public class Actividad {
     public Actividad() {
 
     }
+
+    @Override
+    public String toString() {
+
+        String objetoJson = "{" + "'id':" +String.valueOf(id) +"'nombre':"+ nombre + "}";
+
+        return objetoJson;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

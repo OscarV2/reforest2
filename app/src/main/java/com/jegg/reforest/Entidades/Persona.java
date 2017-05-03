@@ -26,6 +26,9 @@ public class Persona {
     @DatabaseField(columnName = Constantes.FECHA_NACIMIENTO_PERSONAS)
     private Date fecha;
 
+    @DatabaseField(columnName = Constantes.GENERO_PERSONAS)
+    private String genero;
+
     @DatabaseField(columnName = Constantes.DIRECCION_PERSONAS)
     private String direccion;
 
@@ -57,11 +60,12 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(String nombre, String apellido, Date fecha, String direccion, String telefono) {
+    public Persona(String nombre, String apellido, Date fecha, String direccion, String telefono, String genero) {
 
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecha = fecha;
+        this.genero = genero;
         this.direccion = direccion;
         this.telefono = telefono;
     }
@@ -113,5 +117,20 @@ public class Persona {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id) +
+                ", 'nombre':" + nombre +
+                ", 'apellidos':" + apellido +
+                ", 'fecha_nacimiento':" + fecha.toString() +
+                ", 'genero':" + genero +
+                ", 'direccion':" + direccion +
+                ", 'telefono':" + telefono +
+                ", 'municipio_id':" + String.valueOf(municipio.getId()) +
+                "}";
+        return super.toString();
     }
 }

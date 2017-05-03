@@ -1,6 +1,5 @@
 package com.jegg.reforest.Actividades;
 
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +15,13 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.Actividades.IniciarSesion;
 import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Departamento;
+import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.asincronas.PostAsyncrona;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,32 +32,20 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     basededatos datosReforest;
-    String PATH_BASE_DE_DATOS = "/data/data/com.jegg.reforest/databases/datosReforest";
+    String PATH_BASE_DE_DATOS = "/data/data/com.jegg.reforest/databases/datosReforest.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        startService(new Intent(this, SinconizacionService.class));
         datosReforest = OpenHelperManager.getHelper(MainActivity.this,
                         basededatos.class);
 
-        Dao deptdao;
-
-        Dao munidao;
 //        try {
            /* deptdao = datosReforest.getDepartamentosDao();
             munidao = datosReforest.getMunicipiosDao();
             Departamento d = new Departamento("Cesar");
-            deptdao.create(d);
 
-            Municipio m2 = new Municipio("Valledupar");
-            Municipio m = new Municipio("Bosconia");
-
-            m.setIdDepartamento(d);
-            m2.setIdDepartamento(d);
-            munidao.create(m);
-            munidao.create(m2);
-Log.e("todo", "bien");
 
             deptdao = datosReforest.getDepartamentosDao();
             Departamento a = (Departamento) deptdao.queryForId(1);
@@ -99,9 +90,6 @@ Log.e("todo", "bien");
             Log.e("nombre DB: ",datosReforest.getDatabaseName());
             Log.e("PATH DB: ", getApplicationContext().getDatabasePath(datosReforest.getDatabaseName()).getPath());
 
-            bdReforest = datosReforest.getWritableDatabase();
-            bdReforest.close();
-
         }
 */
             (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
@@ -110,7 +98,71 @@ Log.e("todo", "bien");
                     IniciarSesion();
                 }
             });
+
+        try{
+            insertarActividadesEnBd();
+            insertarcrearEstadosEnBd();
+        }catch (SQLException e){
+
         }
+        }
+
+    private void insertarcrearEstadosEnBd() throws SQLException {
+
+        Dao estadosDao = datosReforest.getEstadoDao();
+        List<Estado> listEstados = new ArrayList<>();
+
+            listEstados.add(new Estado("Enfrema"));
+        listEstados.add(new Estado("Faltante"));
+        listEstados.add(new Estado("Excelente"));
+        listEstados.add(new Estado("Muerta"));
+
+        for (int i = 0; i<listEstados.size(); i++){
+            estadosDao.create(listEstados.get(i));
+        }
+
+
+    }
+
+    private void insertarActividadesEnBd() throws SQLException {
+
+        Dao actividadesDao = datosReforest.getActividadsDao();
+        List<Actividad> listActividades = new ArrayList<>();
+
+        listActividades.add(new Actividad("Sembrar o Plantar"));
+        listActividades.add(new Actividad("Abonar"));
+        listActividades.add(new Actividad("Fertilización"));
+        listActividades.add(new Actividad("Control de Malezas"));
+        listActividades.add(new Actividad("Sustitución de plantas"));
+        listActividades.add(new Actividad("Preparar terreno"));
+        listActividades.add(new Actividad("Enfermedades"));
+        listActividades.add(new Actividad("Estado del Arbol"));
+        for (int i = 0; i<listActividades.size(); i++){
+            actividadesDao.create(listActividades.get(i));
+        }
+        Actividad prueba = new Actividad("Prueba3");
+        actividadesDao.create(prueba);
+
+        enviarActividad(prueba.toString());
+
+    }
+
+    private void enviarActividad(String s) {
+
+        PostAsyncrona post = new PostAsyncrona(s, MainActivity.this, new PostAsyncrona.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                Log.e("Actividad", "Enviada");
+            }
+        });
+
+        try {
+            post.execute("http://181.58.69.50:8080/servicios/actividades/").get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     private boolean existeBaseDatos() {
 
@@ -122,6 +174,11 @@ Log.e("todo", "bien");
         Intent intent = new Intent(this, IniciarSesion.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
 

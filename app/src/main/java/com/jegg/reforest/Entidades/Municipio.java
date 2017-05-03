@@ -75,4 +75,16 @@ public class Municipio {
 
     public Municipio() {
     }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+ String.valueOf(id)+ ",'nombre':"+ "'"+nombre+"',"+
+                "'departamento_id':" + String.valueOf(idDepartamento.getId()) +
+                "}";
+        return super.toString();
+    }
+
+
+
+
 }

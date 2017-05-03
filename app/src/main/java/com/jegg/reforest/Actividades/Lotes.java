@@ -146,19 +146,16 @@ public class Lotes extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("clik","item");
+                Log.e("Lote String",listaLotes.get(position).toString());
                 Intent irDetalles = new Intent(Lotes.this, Detalles.class);
                 irDetalles.putExtra("id_lote", position);
+                irDetalles.putExtra("nombre_lote", listaLotes.get(position).getNombre());
                 startActivity(irDetalles);
                 finish();
             }
         });
-
     }
-
 }
-
-
-
 
 
 

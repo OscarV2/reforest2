@@ -24,6 +24,9 @@ public class Lote {
     @DatabaseField(columnName = Constantes.AREA_LOTE, canBeNull = false)
     private Double area;
 
+    @DatabaseField(columnName = Constantes.DELIMITACION, canBeNull = false)
+    private String delimitacion;
+
     @DatabaseField(columnName = Constantes.MUNICIPIO_LOTE, canBeNull = false, foreign = true)
     private Municipio municipio;
 
@@ -36,6 +39,19 @@ public class Lote {
 
     public void setArboles(ForeignCollection<Arbol> arboles) {
         this.arboles = arboles;
+    }
+
+    @Override
+    public String toString() {
+        String objetoJson = "{"+"'id':"+String.valueOf(id)+
+                ", 'nombre':" + nombre +
+                ", 'fecha':" + fecha.toString() +
+                ", 'area':" + String.valueOf(area) +
+                ", 'delimitacion':" + delimitacion +
+                ", 'municipio_id':" + String.valueOf(municipio.getId()) +
+
+                "}";
+        return super.toString();
     }
 
     public Lote() {
