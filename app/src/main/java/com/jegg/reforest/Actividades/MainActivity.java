@@ -24,6 +24,7 @@ import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.asincronas.PostAsyncrona;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,20 +33,24 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     basededatos datosReforest;
-    String PATH_BASE_DE_DATOS = "/data/data/com.jegg.reforest/databases/datosReforest.db";
+    //String PATH_BASE_DE_DATOS = "/data/data/com.jegg.reforest/databases/datosReforest.db";
+
+    String PATH_BASE_DE_DATOS = "datosReforest";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(this, SinconizacionService.class));
+
+        if (existeBaseDatos()){
+            Log.e("base de datos","");
+        }
+
         datosReforest = OpenHelperManager.getHelper(MainActivity.this,
                         basededatos.class);
 
 //        try {
-           /* deptdao = datosReforest.getDepartamentosDao();
-            munidao = datosReforest.getMunicipiosDao();
-            Departamento d = new Departamento("Cesar");
-
+           /*
 
             deptdao = datosReforest.getDepartamentosDao();
             Departamento a = (Departamento) deptdao.queryForId(1);
@@ -56,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             for (Municipio muni : m3){
                 Log.e("muni: ", muni.getNombre());
             }
-          m3.close();
 
              /*   deps = datosReforest.getDepartamentosDao().queryForAll();
                 if (deps.get(0) != null){
@@ -69,29 +73,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }else {
-
                 }*/
-/*
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            OpenHelperManager.releaseHelper();
 
-        }
-*/
-/*
-        SQLiteDatabase bdReforest = null;
-        if (!existeBaseDatos()){
-            // no existe la base de datos
-            Log.e("BD","NO EXISTE");
-            datosReforest = new basededatos(MainActivity.this, "datosReforest", 1);
-            Log.e("nombre DB: ",datosReforest.getDatabaseName());
-            Log.e("PATH DB: ", getApplicationContext().getDatabasePath(datosReforest.getDatabaseName()).getPath());
-
-        }
-*/
             (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -140,12 +123,16 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i<listActividades.size(); i++){
             actividadesDao.create(listActividades.get(i));
         }
-        Actividad prueba = new Actividad("Prueba3");
-        actividadesDao.create(prueba);
+        Actividad prueba = new Actividad("Prueba5");
+        prueba.setId(16);
+        //actividadesDao.create(prueba);
 
-        enviarActividad(prueba.toString());
+
+        Log.e("actividad cadena", prueba.toString());
+        //enviarActividad(prueba.toString());
 
     }
+
 
     private void enviarActividad(String s) {
 
@@ -153,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void processFinish(String output) {
                 Log.e("Actividad", "Enviada");
+                Log.e("Output", output);
             }
         });
 
@@ -166,8 +154,19 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean existeBaseDatos() {
 
-        File dbFile = getApplicationContext().getDatabasePath(PATH_BASE_DE_DATOS);
-        return dbFile.exists();
+        boolean b = false;
+
+            File dbFile = getApplicationContext().getDatabasePath(PATH_BASE_DE_DATOS);
+            b = dbFile.exists();
+        if (b){
+            Log.e("Si","existe.");
+        }else {
+            Log.e("No","existe.");
+        }
+
+
+
+        return b;
     }
 
     public void IniciarSesion(){
@@ -178,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        OpenHelperManager.releaseHelper();
         super.onDestroy();
     }
 

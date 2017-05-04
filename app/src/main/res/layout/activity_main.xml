@@ -27,7 +27,7 @@
       android:id="@+id/imgLogo"
       android:layout_width="100dp"
       android:layout_height="100dp"
-      android:background="@drawable/arbolj"
+      android:background="@mipmap/icono_aplicacion"
       android:layout_below="@+id/tvTexto"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="20dp"

@@ -224,6 +224,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:inputType="text"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_tamaño"
                     android:ems="10"
                     android:id="@+id/especieArbol"
@@ -259,6 +260,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:inputType="numberDecimal"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_tamaño"
                     android:layout_gravity="center_horizontal"
                     android:textColorHint="@color/white"
@@ -276,19 +278,15 @@
         </LinearLayout>
 
 
-
-
-
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/white"/>
 
+        <!-- Layout foto -->
         <LinearLayout
             android:layout_width="match_parent"
             android:padding="10dp"
-            android:visibility="visible"
             android:gravity="center"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
@@ -311,8 +309,6 @@
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/ic_add_foto"/>
         </LinearLayout>
-
-
 
         <View
             android:layout_width="match_parent"

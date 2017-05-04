@@ -123,6 +123,7 @@ public class CrearLote extends AppCompatActivity {
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         if (actionBar!=null){
+            actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         }
@@ -130,17 +131,17 @@ public class CrearLote extends AppCompatActivity {
 
     public void guardarLote(View view) throws ParseException {
 
-
         Date parsed = sdf.parse(fecha.getText().toString());
         java.sql.Date fechaLote = new java.sql.Date(parsed.getTime());
         municipio = new Municipio(edtMunicipio.getText().toString());
-        Lote lote = new Lote(nombre.getText().toString(), fechaLote, areaLote, municipio);
+        Lote lote = new Lote(nombre.getText().toString(), fechaLote, areaLote, municipio, delimitacion);
 
         try {
             Dao lotesDao = datosReforest.getLoteDao();
             lotesDao.create(lote);
-            datosReforest.close();
+
             startActivity(new Intent(CrearLote.this, Lotes.class));
+            finish();
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/01 11:32:48
+# generated on 2017/05/03 02:20:32
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -23,6 +23,11 @@ canBeNull=false
 # --field-start--
 fieldName=area
 columnName=area
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=delimitacion
+columnName=delimitacion
 canBeNull=false
 # --field-end--
 # --field-start--
@@ -60,6 +65,10 @@ canBeNull=false
 # --field-start--
 fieldName=fecha
 columnName=fecha_nacimiento
+# --field-end--
+# --field-start--
+fieldName=genero
+columnName=genero
 # --field-end--
 # --field-start--
 fieldName=direccion

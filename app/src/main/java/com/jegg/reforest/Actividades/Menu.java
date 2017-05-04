@@ -2,6 +2,7 @@ package com.jegg.reforest.Actividades;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,14 +16,28 @@ import com.jegg.reforest.R;
 
 public class Menu extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    private ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
+        //setSupportActionBar(toolbar);
+        setToolbar();
+
+    }
+
+    private void setToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
         setSupportActionBar(toolbar);
-
-
+        actionBar = getSupportActionBar();
+        if (actionBar!=null){
+            actionBar.setTitle("");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
+        }
     }
 
 

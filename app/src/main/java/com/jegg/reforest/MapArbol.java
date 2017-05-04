@@ -138,7 +138,6 @@ public class MapArbol extends FragmentActivity implements OnMapReadyCallback,
             marcadorMiPosicion =  mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).icon(BitmapDescriptorFactory.
                     defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-
         }
     }
 
@@ -150,5 +149,11 @@ public class MapArbol extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        client.disconnect();
+        super.onDestroy();
     }
 }

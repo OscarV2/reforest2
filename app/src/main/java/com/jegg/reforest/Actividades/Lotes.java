@@ -17,8 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.ItemAdapter;
@@ -63,6 +66,7 @@ public class Lotes extends AppCompatActivity {
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         if (actionBar!=null){
+            actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         }
@@ -117,16 +121,13 @@ public class Lotes extends AppCompatActivity {
         try {
             lotesDao = datosReforest.getLoteDao();
             List<Lote> listaLotes = lotesDao.queryForAll();
-          //  datosReforest.close();
 
             if ( listaLotes.size() > 0){
                 cargarListaLotes(listaLotes);
                 Log.e("si hay","lotes ");
             }else {
 
-
                 tvNoHayLotes.setVisibility(View.VISIBLE);
-
 
             }
         } catch (SQLException e) {
@@ -138,7 +139,10 @@ public class Lotes extends AppCompatActivity {
 
         List<ItemLote> itemLotes = new ArrayList<>();
         for (int i= 0; i<listaLotes.size(); i++){
-            itemLotes.add(new ItemLote(listaLotes.get(i).getNombre() , listaLotes.get(i).getFecha().toString()) );
+            int numeroArboles = getTotalArbolesLote(listaLotes.get(i));
+Log.e("areaClaseLotes: ", String.valueOf(listaLotes.get(i).getArea()));
+            itemLotes.add(new ItemLote(listaLotes.get(i).getNombre() , listaLotes.get(i).getFecha().toString(),
+                    numeroArboles, listaLotes.get(i).getArea()) );
         }
 
         listView.setAdapter(new ItemAdapter(this, itemLotes));
@@ -148,12 +152,24 @@ public class Lotes extends AppCompatActivity {
                 Log.e("clik","item");
                 Log.e("Lote String",listaLotes.get(position).toString());
                 Intent irDetalles = new Intent(Lotes.this, Detalles.class);
-                irDetalles.putExtra("id_lote", position);
+                irDetalles.putExtra("id_lote", position+1);
                 irDetalles.putExtra("nombre_lote", listaLotes.get(position).getNombre());
                 startActivity(irDetalles);
                 finish();
             }
         });
+    }
+
+    private int getTotalArbolesLote(Lote itemLote) {
+
+        int num;
+
+        ForeignCollection<Arbol> arboles = itemLote.getArboles();
+
+        num = arboles.size();
+
+        return num;
+
     }
 }
 

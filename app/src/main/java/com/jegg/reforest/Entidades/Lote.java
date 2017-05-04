@@ -57,11 +57,12 @@ public class Lote {
     public Lote() {
     }
 
-    public Lote(String nombre, Date fecha, Double area, Municipio municipio) {
+    public Lote(String nombre, Date fecha, Double area, Municipio municipio, String delimitacion) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.area = area;
         this.municipio = municipio;
+        this.delimitacion = delimitacion;
     }
 
     public int getId() {
@@ -70,6 +71,14 @@ public class Lote {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDelimitacion() {
+        return delimitacion;
+    }
+
+    public void setDelimitacion(String delimitacion) {
+        this.delimitacion = delimitacion;
     }
 
     public String getNombre() {

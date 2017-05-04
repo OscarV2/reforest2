@@ -66,6 +66,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
 
         if (client == null) {
+
             Log.e("cliente", "nuevo");
             client = new GoogleApiClient.Builder(getApplicationContext())
                     .addConnectionCallbacks(this)
@@ -74,7 +75,6 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
                     .build();
 
             client.connect();
-
         }
 
     }

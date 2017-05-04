@@ -1,5 +1,7 @@
 package com.jegg.reforest.Entidades;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -54,9 +56,13 @@ public class Actividad {
     @Override
     public String toString() {
 
-        String objetoJson = "{" + "'id':" +String.valueOf(id) +"'nombre':"+ nombre + "}";
+        JsonObject objetoJson = new JsonObject();
+        objetoJson.addProperty("id", id);
+        objetoJson.addProperty("nombre", nombre);
 
-        return objetoJson;
+        Gson gson = new Gson();
+
+        return gson.toJson(objetoJson);
     }
 }
 
