@@ -277,6 +277,20 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/lay_mapa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/map1"
+                android:layout_weight="3"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -337,6 +351,7 @@
                     android:inputType="textMultiLine"
                     android:layout_width="match_parent"
                     android:hint="Comentario:"
+                    android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:id="@+id/comentario_detalles"
                     android:layout_height="wrap_content" />

@@ -57,5 +57,8 @@
     <string name="title_activity_mapa_crear_lote">Map</string>
     <string name="title_activity_map_arbol">Coordenadas Arbol</string>
 
+    <string name="tomar_foto">Por favor tome una fotografía de la actividad.</string>
+    <string name="select_arbol">Por favor seleccione un arbol para realizar la actividad.</string>
+
 
 </resources>

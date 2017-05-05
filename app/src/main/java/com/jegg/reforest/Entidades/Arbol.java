@@ -1,5 +1,6 @@
 package com.jegg.reforest.Entidades;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -108,6 +109,17 @@ public class Arbol {
     public void setLote(Lote lote) {
         this.lote = lote;
     }
+
+    public LatLng getPosicion(){
+
+        String[] coordenadasArray = coordenadas.split(",");
+        double lat = Double.parseDouble(coordenadasArray[0]);
+        double lng = Double.parseDouble(coordenadasArray[1]);
+
+        return new LatLng(lat, lng);
+
+    }
+
     @Override
     public String toString() {
         String objetoJson = "{"+"'id':"+String.valueOf(id)+ ", 'coodenadas':" +coordenadas +

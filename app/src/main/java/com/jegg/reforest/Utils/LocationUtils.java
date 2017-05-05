@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 /**
@@ -23,7 +24,7 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks, Googl
 
     private Context context;
     private GoogleApiClient client;
-    private Location location;
+    private Location location1;
 
     public LocationUtils(Context context) {
         this.context = context;
@@ -50,20 +51,31 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks, Googl
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        while (location == null) {
+        while (location1 == null) {
             Log.e("location todavia es", "null");
-            location = LocationServices.FusedLocationApi.getLastLocation(client);
-            Log.e("latitud", String.valueOf(location.getLatitude()));
-            Log.e("longitud", String.valueOf(location.getLongitude()));
+            location1 = LocationServices.FusedLocationApi.getLastLocation(client);
+
+            LocationRequest mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(20000);
+            mLocationRequest.setFastestInterval(15000);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest, new com.google.android.gms.location.LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.e("location", "Changed");
+                    location1 = location;
+
+                }
+            });
+
         }
-        Log.e("saliendo del", "while");
+
     }
 
     public Location getLocation() {
 
-        Log.e("latitud", String.valueOf(location.getLatitude()));
-        Log.e("longitud", String.valueOf(location.getLongitude()));
-        return location;
+        return location1;
     }
 
     @Override
