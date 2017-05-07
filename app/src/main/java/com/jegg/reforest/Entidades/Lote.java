@@ -1,6 +1,9 @@
 package com.jegg.reforest.Entidades;
 
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -8,6 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
 public class Lote {
@@ -43,15 +47,18 @@ public class Lote {
 
     @Override
     public String toString() {
-        String objetoJson = "{"+"'id':"+String.valueOf(id)+
-                ", 'nombre':" + nombre +
-                ", 'fecha':" + fecha.toString() +
-                ", 'area':" + String.valueOf(area) +
-                ", 'delimitacion':" + delimitacion +
-                ", 'municipio_id':" + String.valueOf(municipio.getId()) +
 
-                "}";
-        return super.toString();
+        JsonObject objetoJson = new JsonObject();
+        objetoJson.addProperty("id", id);
+        objetoJson.addProperty(Constantes.NOMBRE_LOTE, nombre);
+        objetoJson.addProperty(Constantes.FECHA_LOTE, fecha.toString());
+        objetoJson.addProperty(Constantes.AREA_LOTE, area);
+        objetoJson.addProperty(Constantes.DELIMITACION, delimitacion);
+        objetoJson.addProperty(Constantes.MUNICIPIO_LOTE, municipio.getId());
+
+        Gson gson = new Gson();
+
+        return gson.toJson(objetoJson);
     }
 
     public Lote() {
@@ -72,6 +79,23 @@ public class Lote {
     public void setId(int id) {
         this.id = id;
     }
+
+    public ArrayList<LatLng> getPuntos(){
+
+        ArrayList<LatLng> puntos = new ArrayList<>();
+
+        String[] cadenaPuntos = delimitacion.split(",");
+
+        for (int i = 0; i<cadenaPuntos.length; i+=2){
+
+            puntos.add(new LatLng(Double.parseDouble(cadenaPuntos[i]) ,
+                    Double.parseDouble(cadenaPuntos[i+1])));
+
+        }
+
+        return puntos;
+    }
+
 
     public String getDelimitacion() {
         return delimitacion;

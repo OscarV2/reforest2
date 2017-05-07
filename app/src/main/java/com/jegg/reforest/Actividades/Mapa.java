@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -14,13 +12,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,15 +29,22 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.maps.android.SphericalUtil;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.CloseableWrappedIterable;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Arbol;
+import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.LocationUtils;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
+         GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private int numeroClicksMarker = 0;
@@ -51,31 +56,117 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private Toolbar toolbar;
     private ActionBar actionBar;
     private Spinner spinner;
+    List<Lote> listaLotes =  new ArrayList<>();
+    private String[] nombresLotes ;
+    LocationUtils utils;
 
-    private GoogleApiClient client;
+    Location miLocation;
+    basededatos datosReforest;
+    Dao lotesDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
         setToolbar();
 
+        utils = new LocationUtils(Mapa.this);
+        datosReforest = OpenHelperManager.getHelper(this, basededatos.class);
+        try {
+            lotesDao = datosReforest.getLoteDao();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         spinner = (Spinner) findViewById(R.id.spinner_mapa);
 
+        cargarLotes();
 
-        if (client == null) {
+    }
 
-            Log.e("cliente", "nuevo");
-            client = new GoogleApiClient.Builder(getApplicationContext())
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
+    private void cargarLotes() {
+        try {
+            Log.e("cargando","lotes ");
+            //lotesDao = datosReforest.getLoteDao();
+            listaLotes = lotesDao.queryForAll();
 
-            client.connect();
+            if ( listaLotes.size() > 0){
+                Log.e("si hay","lotes ");
+                cargarSpinner(listaLotes);
+
+            }else {
+                Toast.makeText(this, "no hay lotes", Toast.LENGTH_SHORT).show();
+                mostrarDialogo();
+
+            }
+        } catch (SQLException e) {
+            Log.e("no hay","lotes excepcion");
         }
+
+    }
+
+    private void cargarSpinner(List<Lote> listaLotes) {
+
+        nombresLotes = new String[listaLotes.size()];
+        for (int i = 0; i<listaLotes.size(); i++){
+
+            nombresLotes[i] = listaLotes.get(i).getNombre();
+
+        }
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, R.layout.item_spinner_mapa, nombresLotes);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               dibujarLote(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    private void dibujarLote(int position) {
+
+        mMap.clear();
+        Lote lote = listaLotes.get(position);
+        recLote = lote.getPuntos();
+
+        ForeignCollection<Arbol> arboles = lote.getArboles();
+
+        if (arboles.size() == 0){
+            Toast.makeText(this, "No se han sembrado árboles en este lote.", Toast.LENGTH_SHORT).show();
+        }else {
+
+            CloseableWrappedIterable<Arbol> iterator = arboles.getWrappedIterable();
+            for (Arbol arbol : iterator){
+                dibujaArbol(arbol.getPosicion());
+            }
+
+        }
+
+        PolygonOptions options = new PolygonOptions();
+
+        for (int i = 0; i<recLote.size(); i++){
+            options.add(recLote.get(i));
+        }
+
+        Polygon lotePoligono = mMap.addPolygon(options);
+
+
+    }
+
+    private void dibujaArbol(LatLng posicion) {
+
+        mMap.addMarker(new MarkerOptions().position(posicion)
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
     }
 
@@ -87,103 +178,37 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             return;
         }
         mMap.setMyLocationEnabled(true);
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Location locationClick = new Location(LOCATION_SERVICE);
-                locationClick.setLatitude(latLng.latitude);
-                locationClick.setLongitude(latLng.longitude);
-                actualizarPosicion(locationClick);
-            }
-        });
         mMap.setOnMarkerClickListener(this);
-    }
+        utils = new LocationUtils(Mapa.this);
+        miLocation = utils.getLocation();
+        if (miLocation != null){
 
-    private void actualizarPosicion(Location locationClick) {
-
-        if (!(marcadorMiPosicion == null)){
-            marcadorMiPosicion.setPosition(new LatLng(locationClick.getLatitude(), locationClick.getLongitude()));
-        }else{
-            marcadorMiPosicion =  mMap.addMarker(new MarkerOptions().position(new LatLng(locationClick.getLatitude(), locationClick.getLongitude())).icon(BitmapDescriptorFactory.
-                    defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(locationClick.getLatitude(), locationClick.getLongitude()), 15));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(miLocation.getLatitude(), miLocation.getLongitude()), 16));
 
 
         }
+
     }
 
     private void setToolbar() {
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_mapa);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         if (actionBar != null) {
+            actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+
         }
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
 
-        Log.e("apiLocate", "Conectada");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location location = LocationServices.FusedLocationApi.getLastLocation(client);
-
-        actualizarPosicion(location);
-
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(20000);
-        mLocationRequest.setFastestInterval(15000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest, new com.google.android.gms.location.LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.e("location ","changed");
-                actualizarPosicion(location);
-            }
-        });
-
-
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e("no pudo","Conectarse");
-    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
 
         Log.e("marker","click");
-        if (numeroClicksMarker < 4){
-
-            recLote.add(marker.getPosition());
-
-            dibujarPuntoRef(marker);
-            numeroClicksMarker++;
-        }else {
-            PolygonOptions options = new PolygonOptions()
-                            .add(recLote.get(0))
-                            .add(recLote.get(1))
-                            .add(recLote.get(2))
-                            .add(recLote.get(3));
-
-            Polygon lotePoligono = mMap.addPolygon(options);
-            area = (SphericalUtil.computeArea(recLote))/10000;
-            Log.e("Area ", String.format("%.2f",area));
-            Log.e("LatLngs ", recLote.toString());
-            recLote.toString();
-            mostrarDialogo();
-        }
 
         return false;
     }
@@ -191,33 +216,20 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private void mostrarDialogo() {
 
         AlertDialog.Builder volverCrearLoteDialog = new AlertDialog.Builder(Mapa.this);
-        volverCrearLoteDialog.setTitle("Detalles")
-                             .setMessage("Area(H) Lote: "+String.format("%.2f",area))
-                             .setPositiveButton("Ir a crear Lote", new DialogInterface.OnClickListener() {
+        volverCrearLoteDialog.setTitle("No hay lotes")
+                             .setMessage("Por favor agrege un nuevo lote para visualizarlo en el mapa. ")
+                             .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
                                  @Override
                                  public void onClick(DialogInterface dialog, int which) {
-                                     Intent i = new Intent();
-                                     i.putExtra("area", area);
-                                     i.putExtra("delimitacion", recLote.toString());
-                                     setResult(RESULT_OK, i);
+                                     Intent i = new Intent(Mapa.this, Menu.class);
+                                     startActivity(i);
                                      finish();
 
-                                 }
-                             })
-                             .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                 @Override
-                                 public void onClick(DialogInterface dialog, int which) {
-                                     mMap.clear();
-                                     marcadorMiPosicion = null;
-                                     numeroClicksMarker = 0;
-                                     recLote.clear();
-                                     dialog.dismiss();
                                  }
                              })
                              .create();
 
         volverCrearLoteDialog.show();
-
     }
 
     private void dibujarPuntoRef(Marker marker) {
@@ -226,4 +238,25 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
                 defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
     }
+/*
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.e("KEYCODE ", String.valueOf(keyCode));
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            Log.e("KEY ","BACK");
+            onClickBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void onClickBack(){
+        startActivity(new Intent(this, Menu.class));
+        finish();
+    }
+*/
+
+
+
+
 }

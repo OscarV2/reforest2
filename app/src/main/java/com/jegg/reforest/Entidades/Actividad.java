@@ -28,6 +28,12 @@ public class Actividad {
         this.desarrolloActividades = desarrolloActividades;
     }
 
+
+    public Actividad(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

@@ -33,12 +33,12 @@
     <string name="title_activity_menu">Menu</string>
 
     <string-array name="lista_tipo_actividades">
+        <item>Preparar terreno</item>
         <item>Sembrar o Plantar</item>
         <item>Abonar</item>
-        <item>Fertilizacion</item>
         <item>Control de Malezas</item>
+        <item>Fertilizacion</item>
         <item>Sustitucion de plantas</item>
-        <item>Preparar terreno</item>
         <item>Enfermedades</item>
         <item>Estado del arbol</item>
     </string-array>

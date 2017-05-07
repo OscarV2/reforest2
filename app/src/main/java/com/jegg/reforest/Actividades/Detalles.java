@@ -1,10 +1,8 @@
 package com.jegg.reforest.Actividades;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -12,14 +10,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -85,7 +83,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             laySpinnerSaludArbol, layMapa;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     double latitud, longitud;
-
+    private Toolbar toolbar;
+    private ActionBar actionBar;
     SimpleDateFormat sdf;
     String currentDateandTime;
     String fotoPath;
@@ -124,6 +123,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 .findFragmentById(R.id.map1);
         mapFragment.getMapAsync(this);
 
+        setToolbar();
+
         datosReforest = OpenHelperManager.getHelper(Detalles.this, basededatos.class);
 
         idLote = this.getIntent().getIntExtra("id_lote", 0);
@@ -153,8 +154,20 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         init();
     }
 
-    private void init() {
+    private void setToolbar() {
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar_detalles);
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar!=null){
+            actionBar.setTitle("");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        }
+
+    }
+
+    private void init() {
 
         lay_edt_altura = (LinearLayout) findViewById(R.id.lay_edt_altura);
         lay_edt_especie = (LinearLayout) findViewById(R.id.lay_edt_especie);
@@ -607,6 +620,15 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            onClickBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public boolean onMarkerClick(Marker marker) {
 
         idArbol = (Integer)marker.getTag();
@@ -620,9 +642,15 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         return false;
     }
 
+    private void onClickBack(){
+        startActivity(new Intent(this,Lotes.class));
+        finish();
+    }
+
     @Override
     protected void onDestroy() {
         OpenHelperManager.releaseHelper();
+        utils.disConnect();
         super.onDestroy();
     }
 

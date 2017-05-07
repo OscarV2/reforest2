@@ -1,5 +1,7 @@
 package com.jegg.reforest.Entidades;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
@@ -33,8 +35,22 @@ public class DesarrolloActividades {
     @DatabaseField(columnName = Constantes.PERSONA_DESARROLLO_ACTIVIDADES, foreign = true, foreignAutoRefresh = true)
     private Persona persona;
 
+    @Override
+    public String toString() {
 
+        JsonObject objetoJson = new JsonObject();
+        objetoJson.addProperty("id", id);
+        objetoJson.addProperty(Constantes.FOTO_DESARROLLO_ACTIVIDADES, urlFoto);
+        objetoJson.addProperty(Constantes.COMENTARIO_DESARROLLO_ACTIVIDADES, comentario);
+        objetoJson.addProperty(Constantes.FECHA_DESARROLLO_ACTIVIDADES, fecha.toString());
+        objetoJson.addProperty(Constantes.ACTIVIDAD_DESARROLLO_ACTIVIDADES, idActividad.getId());
+        objetoJson.addProperty(Constantes.ARBOL_DESARROLLO_ACTIVIDADES, arbol.getId());
+        objetoJson.addProperty(Constantes.PERSONA_DESARROLLO_ACTIVIDADES, persona.getId());
 
+        Gson gson = new Gson();
+
+        return gson.toJson(objetoJson);
+    }
 
     public DesarrolloActividades(String urlFoto, String comentario, Date fecha, Actividad idActividad, Arbol arbol, Persona persona) {
         this.urlFoto = urlFoto;
@@ -103,18 +119,5 @@ public class DesarrolloActividades {
 
     public DesarrolloActividades() {
 
-    }
-
-    @Override
-    public String toString() {
-        String objetoJson = "{"+"'id':"+String.valueOf(id) +
-                ", 'urlimagen':" + urlFoto +
-                ", 'comentario':" + comentario +
-                ", 'fecha':" + fecha.toString() +
-                ", 'actividades_id':" + String.valueOf(idActividad.getId()) +
-                ", 'arbol_id':" + String.valueOf(arbol.getId()) +
-                ", 'personas_id':" + String.valueOf(persona.getId()) +
-                "}";
-        return objetoJson;
     }
 }

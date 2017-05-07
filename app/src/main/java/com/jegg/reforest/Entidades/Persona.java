@@ -1,5 +1,7 @@
 package com.jegg.reforest.Entidades;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -21,10 +23,10 @@ public class Persona {
     private String nombre;
 
     @DatabaseField(columnName = Constantes.APELLIDO_PERSONAS, canBeNull = false)
-    private String apellido;
+    private String apellidos;
 
     @DatabaseField(columnName = Constantes.FECHA_NACIMIENTO_PERSONAS)
-    private Date fecha;
+    private Date fecha_nacimiento;
 
     @DatabaseField(columnName = Constantes.GENERO_PERSONAS)
     private String genero;
@@ -40,6 +42,34 @@ public class Persona {
 
     @ForeignCollectionField
     private ForeignCollection<DesarrolloActividades> desarrolloActividades;
+
+    private int municipio_id;
+
+    public int getMunicipio_id() {
+        return municipio_id;
+    }
+
+    public void setMunicipio_id(int municipio_id) {
+        this.municipio_id = municipio_id;
+    }
+
+    @Override
+    public String toString() {
+
+        JsonObject objetoJson = new JsonObject();
+        objetoJson.addProperty("id", id);
+        objetoJson.addProperty(Constantes.NOMBRE_PERSONAS, nombre);
+        objetoJson.addProperty(Constantes.APELLIDO_PERSONAS, apellidos);
+        objetoJson.addProperty(Constantes.FECHA_NACIMIENTO_PERSONAS, fecha_nacimiento.toString());
+        objetoJson.addProperty(Constantes.GENERO_PERSONAS, genero);
+        objetoJson.addProperty(Constantes.DIRECCION_PERSONAS, direccion);
+        objetoJson.addProperty(Constantes.TELEFONO_PERSONAS, telefono);
+        objetoJson.addProperty(Constantes.MUNICIPIO_PERSONAS, municipio.getId());
+
+        Gson gson = new Gson();
+
+        return gson.toJson(objetoJson);
+    }
 
     public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
         return desarrolloActividades;
@@ -63,8 +93,8 @@ public class Persona {
     public Persona(String nombre, String apellido, Date fecha, String direccion, String telefono, String genero) {
 
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.fecha = fecha;
+        this.apellidos = apellido;
+        this.fecha_nacimiento = fecha;
         this.genero = genero;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -88,19 +118,19 @@ public class Persona {
     }
 
     public String getApellido() {
-        return apellido;
+        return apellidos;
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        this.apellidos = apellido;
     }
 
     public Date getFecha() {
-        return fecha;
+        return fecha_nacimiento;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fecha_nacimiento = fecha;
     }
 
     public String getDireccion() {
@@ -119,18 +149,4 @@ public class Persona {
         this.telefono = telefono;
     }
 
-
-    @Override
-    public String toString() {
-        String objetoJson = "{"+"'id':"+String.valueOf(id) +
-                ", 'nombre':" + nombre +
-                ", 'apellidos':" + apellido +
-                ", 'fecha_nacimiento':" + fecha.toString() +
-                ", 'genero':" + genero +
-                ", 'direccion':" + direccion +
-                ", 'telefono':" + telefono +
-                ", 'municipio_id':" + String.valueOf(municipio.getId()) +
-                "}";
-        return super.toString();
-    }
 }

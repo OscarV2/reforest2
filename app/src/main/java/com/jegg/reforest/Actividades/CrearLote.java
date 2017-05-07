@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,9 +36,9 @@ import java.util.List;
 
 public class CrearLote extends AppCompatActivity {
 
-    private EditText nombre,fecha,area, edtDepartamento, edtMunicipio;
+    private EditText nombre, fecha, area, edtDepartamento, edtMunicipio;
     private TextView punto_referencia;
-    private Button addPunto,removePunto;
+    private Button addPunto;
     private Toolbar toolbar;
     private ActionBar actionBar;
     private String delimitacion;
@@ -46,6 +47,7 @@ public class CrearLote extends AppCompatActivity {
     private basededatos datosReforest;
     SimpleDateFormat sdf;
 
+    private int contPuntosLote = 1;
     List<LatLng> recLote = new ArrayList<>();
     private Location location;
 
@@ -63,7 +65,6 @@ public class CrearLote extends AppCompatActivity {
         edtMunicipio = (EditText )findViewById(R.id.municipio_crear_lote);
         punto_referencia = (TextView ) findViewById(R.id.PuntoReferencialote);
         addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
-        removePunto = (Button) findViewById(R.id.EliminarPuntoLocalizacionLote);
 
         edtDepartamento.setText("Cesar");
         edtMunicipio.setText("Valledupar");
@@ -89,7 +90,6 @@ public class CrearLote extends AppCompatActivity {
 
     private void irMapa() {
 
-
         location = utils.getLocation();
         if (location != null){
 
@@ -97,13 +97,14 @@ public class CrearLote extends AppCompatActivity {
             lng = location.getLongitude();
             recLote.add(new LatLng(lat,lng));
 
-            punto_referencia.append("Latitud: "+ String.format("%.3f", lat) +
-            "\nLongitud: " + String.format("%.3f", lng) + "\n");
+            punto_referencia.append("Punto " +
+                    String.valueOf(contPuntosLote) +   ": " +
+                    "\n" +
+                    "Latitud: " + String.valueOf(lat) +
+            "\n      Longitud: " + String.valueOf(lng) + "\n");
 
-            delimitacionBuffer.append(String.valueOf(lat));
-            delimitacionBuffer.append(",");
-            delimitacionBuffer.append(String.valueOf(lng));
 
+            contPuntosLote++;
         }
 
     }
@@ -135,19 +136,6 @@ public class CrearLote extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @SuppressLint("DefaultLocale")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1){
-            if (resultCode == RESULT_OK){
-                //delimitacion = delimitacionBuffer.toString();
-                //areaLote = data.getDoubleExtra("area", 0);
-
-
-            }
-        }
-    }
-
     private void onClickBack(){
         startActivity(new Intent(this,Lotes.class));
         finish();
@@ -164,15 +152,52 @@ public class CrearLote extends AppCompatActivity {
         }
     }
 
+    public void eliminarPunto(View v){
+
+        Log.e("rec size antes", String.valueOf(recLote.size()));
+        //borrar ultimas dos lineas del textview
+
+        if (!(recLote.size() == 0)){
+
+            String contenidoTxtPuntos = punto_referencia.getText().toString();
+
+            int lastNewLineAt = contenidoTxtPuntos.lastIndexOf("P");
+            punto_referencia.setText(contenidoTxtPuntos.substring(0, lastNewLineAt));
+
+            //borrar ultima coordenada de recLote
+            recLote.remove(recLote.size() - 1);
+
+            Toast.makeText(this, "puntos borrados", Toast.LENGTH_SHORT).show();
+
+            contPuntosLote--;
+            Log.e("rec size despues", String.valueOf(recLote.size()));
+
+        }else {
+            Toast.makeText(CrearLote.this, "Escoger coordenadas.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void setDelimitacionBuffer(){
+        for (int i = 0; i < recLote.size(); i++){
+
+            lat = recLote.get(i).latitude;
+            lng = recLote.get(i).longitude;
+            delimitacionBuffer.append(String.valueOf(lat));
+            delimitacionBuffer.append(",");
+            delimitacionBuffer.append(String.valueOf(lng));
+            delimitacionBuffer.append(",");
+        }
+    }
+
     public void calcularArea(View v){
         if (recLote.size() < 4){
             Toast.makeText(CrearLote.this, "Minimo 4 puntos de referencia.", Toast.LENGTH_SHORT).show();
 
         }else {
+            Toast.makeText(this, "en m2 "+String.valueOf(areaLote), Toast.LENGTH_SHORT).show();
             areaLote = (SphericalUtil.computeArea(recLote))/10000;
-            area.setText(String.format("%.2f", areaLote));
-
-
+            area.setText(String.valueOf(areaLote));
         }
 
     }
@@ -190,12 +215,13 @@ public class CrearLote extends AppCompatActivity {
 
             Toast.makeText(CrearLote.this, "El area no es valida, intentelo nuevamente.", Toast.LENGTH_SHORT).show();
 
-        }else if(delimitacion.equals("")){
+        }else if(recLote.size() <= 4){
             Toast.makeText(CrearLote.this, "Escoger coordenadas.", Toast.LENGTH_SHORT).show();
 
         }
 
         else{
+            setDelimitacionBuffer();
             Date parsed = sdf.parse(fecha.getText().toString());
             java.sql.Date fechaLote = new java.sql.Date(parsed.getTime());
             municipio = new Municipio(edtMunicipio.getText().toString());
@@ -212,9 +238,6 @@ public class CrearLote extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
-
 
     }
 }

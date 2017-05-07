@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/05 12:29:27
+# generated on 2017/05/06 03:23:02
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -58,12 +58,12 @@ columnName=nombre
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=apellido
+fieldName=apellidos
 columnName=apellidos
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=fecha
+fieldName=fecha_nacimiento
 columnName=fecha_nacimiento
 # --field-end--
 # --field-start--
@@ -201,7 +201,7 @@ canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=fecha
-columnName=fecha_id
+columnName=fecha_arbol
 # --field-end--
 # --field-start--
 fieldName=lote
@@ -370,6 +370,34 @@ canBeNull=false
 # --field-start--
 fieldName=desarrolloActividades
 foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.jegg.reforest.Entidades.User
+tableName=users
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+columnName=name
+# --field-end--
+# --field-start--
+fieldName=email
+columnName=email
+# --field-end--
+# --field-start--
+fieldName=password
+columnName=password
+# --field-end--
+# --field-start--
+fieldName=persona_id
+columnName=persona_id
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -22,6 +22,7 @@ import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.Entidades.User;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
 
@@ -29,7 +30,6 @@ import java.sql.SQLException;
 
 
 public class basededatos extends OrmLiteSqliteOpenHelper {
-
 
     private static String DATABASE_NAME = "datosReforest";
     private static int DATABASE_VERSION = 1;
@@ -82,6 +82,9 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
     private Dao<ArbolEspecie, Integer> arbolEspeciesDao = null;
     private RuntimeExceptionDao<ArbolEspecie, Integer> arbolEspeciesRuntimeDao = null;
 
+    private Dao<User, Integer> usersDao = null;
+    private RuntimeExceptionDao<User, Integer> userRuntimeExceptionDao = null;
+
 
     public basededatos(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormliteconfig);
@@ -110,6 +113,8 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
 
             TableUtils.createTable(connectionSource, Actividad.class);
             TableUtils.createTable(connectionSource, DesarrolloActividades.class);
+
+            TableUtils.createTable(connectionSource, User.class);
 
             Log.e("tablas","creadas");
 
@@ -150,6 +155,9 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         actividadsRuntimeDao = null;
         desarrolloActividadesDao = null;
         desarrolloActividadesRuntimeDao = null;
+
+        usersDao = null;
+        userRuntimeExceptionDao = null;
 
     }
 
@@ -281,5 +289,17 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         if (arbolEspeciesRuntimeDao == null) arbolEspeciesRuntimeDao = getRuntimeExceptionDao(ArbolEspecie.class);
         return arbolEspeciesRuntimeDao;
     }
+
+    public Dao<User, Integer> getUserDao() throws SQLException {
+        if (usersDao == null) usersDao  = getDao(User.class);
+        return usersDao ;
+    }
+
+    public RuntimeExceptionDao<User, Integer> getUserRuntimeExceptionDao() {
+        if (userRuntimeExceptionDao == null) userRuntimeExceptionDao = getRuntimeExceptionDao(User.class);
+        return userRuntimeExceptionDao;
+    }
+
+
 
 }

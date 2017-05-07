@@ -121,10 +121,12 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
+                <!-- text view coordenadas-->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Coordenadas"
+                    android:text="Coordenadas:"
                     android:textColor="@color/white"
                     style="@style/Base.TextAppearance.AppCompat.Large"/>
 
@@ -139,45 +141,29 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/PuntoReferencialote"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
                         android:textSize="@dimen/text_tamaño"
                         android:textColor="@color/white"
-                        android:layout_centerVertical="true"
+                        android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                    <ScrollView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/PuntoReferencialote"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="25dp"
-                            android:textSize="@dimen/text_tamaño"
-                            android:textColor="@color/white"
-                            android:layout_toLeftOf="@+id/AgregarPuntoLocalizacionLote"
-                            android:layout_toStartOf="@+id/AgregarPuntoLocalizacionLote"
-                            android:gravity="center"
-                            android:text="0"
-                            android:textAppearance="?android:attr/textAppearanceLarge" />
-                    </ScrollView>
 
                     <Button
                         android:id="@+id/AgregarPuntoLocalizacionLote"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         style="@style/Base.Widget.AppCompat.ButtonBar"
-                        android:layout_centerVertical="true"
                         android:elevation="5dp"
                         android:text="+"
                         android:textSize="@dimen/btn_text_entrar"
                         android:textColor="@color/color_acceso"
                         android:background="@drawable/boton_redondo"
                         android:layout_toLeftOf="@+id/EliminarPuntoLocalizacionLote"
-                        android:layout_toStartOf="@+id/EliminarPuntoLocalizacionLote" />
+                        android:layout_toStartOf="@+id/EliminarPuntoLocalizacionLote"
+                        />
 
                     <Button
                         android:id="@+id/EliminarPuntoLocalizacionLote"
@@ -186,14 +172,15 @@
                         android:layout_marginLeft="5dp"
                         android:elevation="5dp"
                         android:text="-"
+                        android:onClick="eliminarPunto"
                         android:textSize="@dimen/btn_text_entrar"
                         android:textColor="@color/color_acceso"
                         style="@style/Base.Widget.AppCompat.ButtonBar"
                         android:background="@drawable/boton_redondo"
                         android:layout_marginRight="5dp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_alignParentEnd="true"
+                        />
 
                 </RelativeLayout>
 
@@ -234,8 +221,6 @@
 
 
             </LinearLayout>
-
-
 
         </LinearLayout>
     </ScrollView>

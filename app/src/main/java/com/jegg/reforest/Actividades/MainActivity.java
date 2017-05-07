@@ -1,37 +1,35 @@
 package com.jegg.reforest.Actividades;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.CloseableIterable;
-import com.j256.ormlite.dao.CloseableIterator;
-import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.ForeignCollection;
-import com.jegg.reforest.Actividades.IniciarSesion;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Actividad;
-import com.jegg.reforest.Entidades.Departamento;
 import com.jegg.reforest.Entidades.Estado;
-import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.asincronas.PostAsyncrona;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
+    Gson actJson = new Gson();
     basededatos datosReforest;
     //String PATH_BASE_DE_DATOS = "/data/data/com.jegg.reforest/databases/datosReforest.db";
 
@@ -49,32 +47,6 @@ public class MainActivity extends AppCompatActivity {
         datosReforest = OpenHelperManager.getHelper(MainActivity.this,
                         basededatos.class);
 
-//        try {
-           /*
-
-            deptdao = datosReforest.getDepartamentosDao();
-            Departamento a = (Departamento) deptdao.queryForId(1);
-
-            ForeignCollection<Municipio> k = a.getMunicipios();
-            CloseableWrappedIterable<Municipio> m3 = k.getWrappedIterable();
-
-            for (Municipio muni : m3){
-                Log.e("muni: ", muni.getNombre());
-            }
-
-             /*   deps = datosReforest.getDepartamentosDao().queryForAll();
-                if (deps.get(0) != null){
-                    for (Departamento departamento : deps){
-                        Log.e("Departamentoenbd:", departamento.getNombre());
-                        List<Municipio> listMuni = departamento.getMunicipios();
-                        for (Municipio municipio : listMuni){
-                            Log.e("municipio:", municipio.getNombre());
-                            Log.d("deptmunicipio:", municipio.getIdDepartamento().getNombre());
-                        }
-                    }
-                }else {
-                }*/
-
             (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -89,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         }
+
 
     private void insertarcrearEstadosEnBd() throws SQLException {
 
@@ -133,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void enviarActividad(String s) {
 
         PostAsyncrona post = new PostAsyncrona(s, MainActivity.this, new PostAsyncrona.AsyncResponse() {
@@ -170,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void IniciarSesion(){
-        Intent intent = new Intent(this, IniciarSesion.class);
+        Intent intent = new Intent(this, Menu.class);
         startActivity(intent);
         finish();
     }
@@ -180,6 +152,5 @@ public class MainActivity extends AppCompatActivity {
         OpenHelperManager.releaseHelper();
         super.onDestroy();
     }
-
 
 }

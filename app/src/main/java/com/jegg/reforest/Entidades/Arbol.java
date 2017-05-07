@@ -1,6 +1,8 @@
 package com.jegg.reforest.Entidades;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -122,11 +124,23 @@ public class Arbol {
 
     @Override
     public String toString() {
-        String objetoJson = "{"+"'id':"+String.valueOf(id)+ ", 'coodenadas':" +coordenadas +
-                ", 'fecha_sembrado':" + fecha.toString()  +
-                ", 'lote_id':" + String.valueOf(lote.getId()) +
-                "}";
-        return objetoJson;
+
+        JsonObject objetoJson = new JsonObject();
+        objetoJson.addProperty("id", id);
+        objetoJson.addProperty(Constantes.COORDENADAS_ARBOL, coordenadas);
+        objetoJson.addProperty(Constantes.FECHA_ARBOL, fecha.toString());
+        objetoJson.addProperty(Constantes.LOTE_ID_ARBOL, lote.getId());
+
+        Gson gson = new Gson();
+
+        return gson.toJson(objetoJson);
     }
 
 }
+
+
+
+
+
+
+

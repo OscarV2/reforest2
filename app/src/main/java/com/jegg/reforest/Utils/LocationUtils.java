@@ -78,6 +78,17 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks, Googl
         return location1;
     }
 
+    public void disConnect(){
+
+        client.disconnect();
+
+    }
+
+    public boolean isConnected(){
+
+        return client.isConnected();
+    }
+
     @Override
     public void onConnectionSuspended(int i) {
 

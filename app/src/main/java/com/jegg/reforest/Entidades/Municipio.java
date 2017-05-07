@@ -1,5 +1,7 @@
 package com.jegg.reforest.Entidades;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.ForeignCollection;
@@ -44,7 +46,6 @@ public class Municipio {
 
     }
 
-
     public Municipio(String nombre) {
         this.nombre = nombre;
     }
@@ -78,10 +79,15 @@ public class Municipio {
 
     @Override
     public String toString() {
-        String objetoJson = "{"+"'id':"+ String.valueOf(id)+ ",'nombre':"+ "'"+nombre+"',"+
-                "'departamento_id':" + String.valueOf(idDepartamento.getId()) +
-                "}";
-        return super.toString();
+
+        JsonObject objetoJson = new JsonObject();
+        objetoJson.addProperty("id", id);
+        objetoJson.addProperty(Constantes.NOMBRE_MUNICIPIO, nombre);
+        objetoJson.addProperty(Constantes.DEPARTAMENTO_MUNICIPIO, idDepartamento.getId());
+
+        Gson gson = new Gson();
+
+        return gson.toJson(objetoJson);
     }
 
 
