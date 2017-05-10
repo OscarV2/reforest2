@@ -1,6 +1,7 @@
 package com.jegg.reforest.Actividades;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     Gson actJson = new Gson();
     basededatos datosReforest;
-    //String PATH_BASE_DE_DATOS = "/data/data/com.jegg.reforest/databases/datosReforest.db";
-
+    SharedPreferences prefs;
     String PATH_BASE_DE_DATOS = "datosReforest";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         startService(new Intent(this, SinconizacionService.class));
 
-        if (existeBaseDatos()){
-            Log.e("base de datos","");
-        }
+        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        boolean inicioSesion = prefs.getBoolean("inicio_sesion", false);
 
-        datosReforest = OpenHelperManager.getHelper(MainActivity.this,
-                        basededatos.class);
+        if (inicioSesion){
+
+            irMenu();
+        }else{
+            if (existeBaseDatos()){
+                Log.e("base de datos","");
+            }
+
+            datosReforest = OpenHelperManager.getHelper(MainActivity.this,
+                    basededatos.class);
 
             (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,13 +61,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        try{
-            insertarActividadesEnBd();
-            insertarcrearEstadosEnBd();
-        }catch (SQLException e){
+            try{
+                insertarActividadesEnBd();
+                insertarcrearEstadosEnBd();
+            }catch (SQLException e){
+
+            }
+        }
+
 
         }
-        }
+
+    private void irMenu() {
+
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
+        finish();
+    }
 
 
     private void insertarcrearEstadosEnBd() throws SQLException {
@@ -85,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
         Dao actividadesDao = datosReforest.getActividadsDao();
         List<Actividad> listActividades = new ArrayList<>();
 
+        listActividades.add(new Actividad("Preparar terreno"));
         listActividades.add(new Actividad("Sembrar o Plantar"));
         listActividades.add(new Actividad("Abonar"));
-        listActividades.add(new Actividad("Fertilización"));
         listActividades.add(new Actividad("Control de Malezas"));
+        listActividades.add(new Actividad("Fertilización"));
         listActividades.add(new Actividad("Sustitución de plantas"));
-        listActividades.add(new Actividad("Preparar terreno"));
         listActividades.add(new Actividad("Enfermedades"));
         listActividades.add(new Actividad("Estado del Arbol"));
         for (int i = 0; i<listActividades.size(); i++){
@@ -142,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void IniciarSesion(){
-        Intent intent = new Intent(this, Menu.class);
+
+        Intent intent = new Intent(this, IniciarSesion.class);
         startActivity(intent);
         finish();
     }

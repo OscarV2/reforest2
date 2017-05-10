@@ -19,7 +19,8 @@ import com.google.android.gms.location.LocationServices;
  * Created by oscarvc on 4/05/17.
  */
 
-public class LocationUtils implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
 
     private Context context;

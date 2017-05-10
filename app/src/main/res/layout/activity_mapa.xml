@@ -18,11 +18,13 @@
             android:text="Lotes"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:layout_marginRight="12dp"
             style="@style/Base.TextAppearance.AppCompat.Large"/>
 
         <Spinner
             android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginRight="4dp"
             android:layout_width="wrap_content"
             android:id="@+id/spinner_mapa"
             android:layout_height="wrap_content"/>

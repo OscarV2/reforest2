@@ -1,5 +1,6 @@
 package com.jegg.reforest.Entidades;
 
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
@@ -41,10 +42,6 @@ public class Lote {
         return arboles;
     }
 
-    public void setArboles(ForeignCollection<Arbol> arboles) {
-        this.arboles = arboles;
-    }
-
     @Override
     public String toString() {
 
@@ -84,18 +81,21 @@ public class Lote {
 
         ArrayList<LatLng> puntos = new ArrayList<>();
 
+        Log.e("delimitacion", delimitacion);
         String[] cadenaPuntos = delimitacion.split(",");
+
+        for (String s : cadenaPuntos){
+
+            Log.e("punto", s);
+        }
 
         for (int i = 0; i<cadenaPuntos.length; i+=2){
 
             puntos.add(new LatLng(Double.parseDouble(cadenaPuntos[i]) ,
                     Double.parseDouble(cadenaPuntos[i+1])));
-
         }
-
         return puntos;
     }
-
 
     public String getDelimitacion() {
         return delimitacion;

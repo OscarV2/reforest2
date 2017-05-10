@@ -206,7 +206,7 @@ public class CrearLote extends AppCompatActivity {
 
         String nombreLote = nombre.getText().toString();
         areaLote = Double.parseDouble(area.getText().toString());
-        delimitacion = delimitacionBuffer.toString();
+
 
         if (nombreLote.equals("")){
             Toast.makeText(CrearLote.this, "Por favor llene los campos faltantes.", Toast.LENGTH_SHORT).show();
@@ -215,13 +215,14 @@ public class CrearLote extends AppCompatActivity {
 
             Toast.makeText(CrearLote.this, "El area no es valida, intentelo nuevamente.", Toast.LENGTH_SHORT).show();
 
-        }else if(recLote.size() <= 4){
-            Toast.makeText(CrearLote.this, "Escoger coordenadas.", Toast.LENGTH_SHORT).show();
+        }else if(recLote.size() < 4){
 
+            Toast.makeText(CrearLote.this, "Escoger coordenadas.", Toast.LENGTH_SHORT).show();
         }
 
         else{
             setDelimitacionBuffer();
+            delimitacion = delimitacionBuffer.toString();
             Date parsed = sdf.parse(fecha.getText().toString());
             java.sql.Date fechaLote = new java.sql.Date(parsed.getTime());
             municipio = new Municipio(edtMunicipio.getText().toString());

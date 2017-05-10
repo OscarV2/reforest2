@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private int numeroClicksMarker = 0;
 
     List<LatLng> recLote = new ArrayList<>();
+    List<Arbol> listaArboles = new ArrayList<>();
     private double area = 0;
     private Marker marcadorMiPosicion;
 
@@ -63,6 +65,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     Location miLocation;
     basededatos datosReforest;
     Dao lotesDao;
+    PolygonOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         spinner = (Spinner) findViewById(R.id.spinner_mapa);
 
         cargarLotes();
+        options = new PolygonOptions();
 
     }
 
@@ -119,6 +123,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, R.layout.item_spinner_mapa, nombresLotes);
         spinner.setAdapter(adapter);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_mapa);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -147,7 +152,9 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
             CloseableWrappedIterable<Arbol> iterator = arboles.getWrappedIterable();
             for (Arbol arbol : iterator){
-                dibujaArbol(arbol.getPosicion());
+
+                listaArboles.add(arbol);
+                dibujaArbol(arbol.getPosicion() , arbol.getId());
             }
 
         }
@@ -163,10 +170,12 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
     }
 
-    private void dibujaArbol(LatLng posicion) {
+    private void dibujaArbol(LatLng posicion, int id) {
 
         mMap.addMarker(new MarkerOptions().position(posicion)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(id);
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(posicion.latitude, posicion.longitude), 18f));
 
     }
 
@@ -181,12 +190,15 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         mMap.setOnMarkerClickListener(this);
         utils = new LocationUtils(Mapa.this);
         miLocation = utils.getLocation();
-        if (miLocation != null){
 
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(miLocation.getLatitude(), miLocation.getLongitude()), 16));
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
 
+                mMap.addMarker(new MarkerOptions().position(latLng));
 
-        }
+            }
+        });
 
     }
 
@@ -203,13 +215,33 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         }
     }
 
-
-
     @Override
     public boolean onMarkerClick(Marker marker) {
 
         Log.e("marker","click");
+        Log.e("numClicks ", String.valueOf(numeroClicksMarker));
+        if (numeroClicksMarker < 4){
+            options.add(marker.getPosition());
 
+            dibujarPuntoRef(marker);
+            numeroClicksMarker++;
+        }else {
+
+            options.fillColor(0x7F00FF00).strokeColor(Color.GREEN);
+            Polygon lotePoligono = mMap.addPolygon(options);
+
+        }
+
+/*
+        Log.e("id marker ", String.valueOf(marker.getTag()));
+        Arbol arbolMarker = listaArboles.get((Integer)marker.getTag() - 1);
+
+        marker.setTitle("Mango");
+        marker.setSnippet("Altura ");
+
+        marker.showInfoWindow();
+        Log.e("marker","click");
+*/
         return false;
     }
 

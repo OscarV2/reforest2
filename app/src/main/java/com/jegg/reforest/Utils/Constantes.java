@@ -6,8 +6,9 @@ public class Constantes {
     public static final String BASE_URL = "http://181.58.69.50:8080/servicios/";
     public static final String GET_USERS = BASE_URL + "user";
 
+    public static final String URL_SITIO_WEB = "https://es.wikipedia.org/wiki/Wikipedia:Portada";
     public static final String GET_ACTIVIDAD = BASE_URL + "actividades";
-    public static final String GET_PERSONA = BASE_URL + "personas/";
+    public static final String GET_PERSONAS = BASE_URL + "personas/";
 
     public static final String POST_PERSONAS = BASE_URL + "personas";
 

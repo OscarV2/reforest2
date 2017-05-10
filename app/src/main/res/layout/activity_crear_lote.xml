@@ -47,6 +47,7 @@
                     android:textSize="@dimen/text_tamaño"
                     android:textColor="@color/white"
                     android:id="@+id/departamento_crear_lote"
+                    android:maxEms="1"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -59,7 +60,6 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:hint="Municipio"
                     android:paddingLeft="7dp"
                     android:textColor="@color/white"
@@ -110,8 +110,9 @@
                     android:id="@+id/area_crear_lote"
                     android:paddingLeft="7dp"
                     android:textColor="@color/white"
-
                     android:maxLines="1"
+                    android:maxEms="1"
+                    android:inputType="number"
                     />
             </android.support.design.widget.TextInputLayout>
 

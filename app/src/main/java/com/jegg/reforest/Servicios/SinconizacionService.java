@@ -38,12 +38,12 @@ public class SinconizacionService extends Service {
     private basededatos datosReforest;
     private int idPersona;
     private Context c;
-    List<User> listaUsuarios = new ArrayList<>();
+    List<Persona> listaUsuarios = new ArrayList<>();
     Persona persona;
     GetAsyncrona getAsync;
     Dao daoDesarrolloAct, daoActividad, daoEspecie,
             daoArbolEspecie, daoEstado, daoArbolEstado,
-            daoArboles, daoAltura, daoUsers, daoLotes,
+            daoArboles, daoAltura, daoLotes,
             daoPersonas;
 
     Gson gson = new Gson();
@@ -58,7 +58,7 @@ public class SinconizacionService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         init();
-       // getUsuariosLocal();
+        getPersonasLocal();
         ConnectivityManager conMan = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         getAsync = new GetAsyncrona();
@@ -66,7 +66,7 @@ public class SinconizacionService extends Service {
             Log.e("Wifi","conectado");
             if (listaUsuarios.size() == 0){
                 Log.e("no hay","usuarios");
-        //        getUsuariosFromApi();
+                getUsuariosFromApi();
             }else {
 
             }
@@ -76,11 +76,11 @@ public class SinconizacionService extends Service {
         return START_STICKY;
     }
 
-    private void getUsuariosLocal() {
+    private void getPersonasLocal() {
 
         try {
 
-            listaUsuarios = daoUsers.queryForAll();
+            listaUsuarios = daoPersonas.queryForAll();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,19 +91,22 @@ public class SinconizacionService extends Service {
     private void getUsuariosFromApi() {
 
         try {
-            String usuarios = getAsync.execute(Constantes.GET_USERS).get();
+            String usuarios = getAsync.execute(Constantes.GET_PERSONAS).get();
             //JSONObject usersJson = new JSONObject(usuarios);
             if (!(usuarios.equals(""))){
-                User[] users = gson.fromJson(usuarios, User[].class);
+                Persona[] users = gson.fromJson(usuarios, Persona[].class);
 
                 if (users.length > 0){
 
                     Log.e("users tiene","registros");
                     Log.e("users email 1",
-                            users[1].getEmail());
+                            users[1].getCorreo());
 
-                    for (User user : users){
-                        daoUsers.create(user);
+                    Log.e("users email 1",
+                            users[1].getClave());
+
+                    for(Persona p : users){
+                        daoPersonas.create(p);
                     }
 
                 }
@@ -139,8 +142,7 @@ public class SinconizacionService extends Service {
             daoArbolEstado = datosReforest.getArbolEstadosDao();
 
             daoAltura = datosReforest.getAlturaDao();
-
-            daoUsers = datosReforest.getUserDao();
+            daoPersonas = datosReforest.getPersonasDao();
 
         } catch (SQLException e) {
             e.printStackTrace();

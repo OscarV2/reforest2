@@ -26,7 +26,7 @@ public class Persona {
     private String apellidos;
 
     @DatabaseField(columnName = Constantes.FECHA_NACIMIENTO_PERSONAS)
-    private Date fecha_nacimiento;
+    private String fecha_nacimiento;
 
     @DatabaseField(columnName = Constantes.GENERO_PERSONAS)
     private String genero;
@@ -37,12 +37,17 @@ public class Persona {
     @DatabaseField(columnName = Constantes.TELEFONO_PERSONAS)
     private String telefono;
 
-    @DatabaseField(columnName = Constantes.MUNICIPIO_PERSONAS, foreign = true, foreignAutoRefresh = true)
-    private Municipio municipio;
+    @DatabaseField(columnName = "correo")
+    private String correo;
+
+    @DatabaseField(columnName = "clave")
+    private String clave;
+
 
     @ForeignCollectionField
     private ForeignCollection<DesarrolloActividades> desarrolloActividades;
 
+    @DatabaseField(columnName = "municipio_id")
     private int municipio_id;
 
     public int getMunicipio_id() {
@@ -64,7 +69,9 @@ public class Persona {
         objetoJson.addProperty(Constantes.GENERO_PERSONAS, genero);
         objetoJson.addProperty(Constantes.DIRECCION_PERSONAS, direccion);
         objetoJson.addProperty(Constantes.TELEFONO_PERSONAS, telefono);
-        objetoJson.addProperty(Constantes.MUNICIPIO_PERSONAS, municipio.getId());
+        objetoJson.addProperty(Constantes.MUNICIPIO_PERSONAS, municipio_id);
+        objetoJson.addProperty("correo", correo);
+        objetoJson.addProperty("clave", clave);
 
         Gson gson = new Gson();
 
@@ -79,18 +86,50 @@ public class Persona {
         this.desarrolloActividades = desarrolloActividades;
     }
 
-    public Municipio getMunicipio() {
-        return municipio;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public Persona() {
     }
 
-    public Persona(String nombre, String apellido, Date fecha, String direccion, String telefono, String genero) {
+    public Persona(String nombre, String apellido, String fecha, String direccion, String telefono, String genero) {
 
         this.nombre = nombre;
         this.apellidos = apellido;
@@ -115,22 +154,6 @@ public class Persona {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellidos;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellidos = apellido;
-    }
-
-    public Date getFecha() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha_nacimiento = fecha;
     }
 
     public String getDireccion() {

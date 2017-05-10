@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/06 03:23:02
+# generated on 2017/05/08 11:36:08
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -79,15 +79,20 @@ fieldName=telefono
 columnName=telefono
 # --field-end--
 # --field-start--
-fieldName=municipio
-columnName=municipio_id
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
+fieldName=correo
+columnName=correo
+# --field-end--
+# --field-start--
+fieldName=clave
+columnName=clave
 # --field-end--
 # --field-start--
 fieldName=desarrolloActividades
 foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=municipio_id
+columnName=municipio_id
 # --field-end--
 # --table-fields-end--
 # --table-end--
