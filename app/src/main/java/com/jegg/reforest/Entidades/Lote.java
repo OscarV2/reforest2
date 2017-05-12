@@ -12,6 +12,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
@@ -46,12 +47,13 @@ public class Lote {
     public String toString() {
 
         JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
+
+        objetoJson.addProperty("id", String.valueOf(id) + Constantes.SERIAL);
         objetoJson.addProperty(Constantes.NOMBRE_LOTE, nombre);
-        objetoJson.addProperty(Constantes.FECHA_LOTE, fecha.toString());
+        objetoJson.addProperty("fecha_creacion", Constantes.sdf.format(fecha));
         objetoJson.addProperty(Constantes.AREA_LOTE, area);
         objetoJson.addProperty(Constantes.DELIMITACION, delimitacion);
-        objetoJson.addProperty(Constantes.MUNICIPIO_LOTE, municipio.getId());
+        objetoJson.addProperty(Constantes.MUNICIPIO_LOTE, 1);
 
         Gson gson = new Gson();
 
@@ -89,10 +91,12 @@ public class Lote {
             Log.e("punto", s);
         }
 
-        for (int i = 0; i<cadenaPuntos.length; i+=2){
+        for (int i = 0; i<cadenaPuntos.length; i++){
+            String[] puntoLatLng = cadenaPuntos[1].split(" ");
 
-            puntos.add(new LatLng(Double.parseDouble(cadenaPuntos[i]) ,
-                    Double.parseDouble(cadenaPuntos[i+1])));
+
+            puntos.add(new LatLng(Double.parseDouble(puntoLatLng[0]) ,
+                    Double.parseDouble(puntoLatLng[1])));
         }
         return puntos;
     }

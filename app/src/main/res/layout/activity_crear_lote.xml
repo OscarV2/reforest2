@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Nombre:"
                     android:paddingLeft="7dp"
+                    android:inputType="text"
                     android:id="@+id/nombre_crear_lote"
                     android:textColor="@color/white" />
             </android.support.design.widget.TextInputLayout>

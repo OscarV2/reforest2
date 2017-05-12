@@ -56,7 +56,7 @@ public class Especie {
     public String toString() {
 
         JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
+
         objetoJson.addProperty(Constantes.ESPECIE_ESPECIE, nombre);
 
         Gson gson = new Gson();

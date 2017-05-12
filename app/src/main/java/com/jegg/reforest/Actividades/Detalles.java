@@ -52,6 +52,7 @@ import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.LocationUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -70,7 +71,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     TextView txtCoordenadas, txtLote;
     Spinner actividades, saludArbol;
 
-    int idLote, idActividad = 1, idEstado, idArbol=0;
+    int idLote, idActividad, idEstado, idArbol=0;
     String nombreLote;
     String comentariosActividad;
     String altura;
@@ -86,7 +87,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private Toolbar toolbar;
     SimpleDateFormat sdf;
     String currentDateandTime;
-    String fotoPath;
+    String fotoPath = "";
     boolean arbolesCargados = false;
 
     int idPersona;
@@ -199,12 +200,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         currentDateandTime = sdf.format(new Date());
         edtFecha.setText(currentDateandTime);
 
-        try {
-            Date parsed = sdf.parse(currentDateandTime);
-            fechaActividad = new java.sql.Date(parsed.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        fechaActividad = new java.sql.Date(new Date().getTime());
+
 
         filePath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -251,6 +248,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+                idEstado = 1;
+                setEstadoEntidad();
             }
         });
         utils = new LocationUtils(getApplicationContext());
@@ -260,7 +259,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void setEstadoEntidad() {
 
         try {
-            estadoEntidad = (Estado) daoArbolEstado.queryForId(idEstado);
+            estadoEntidad = (Estado) daoEstado.queryForId(idEstado);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -345,6 +344,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     public void guardarActividad(View v) throws ParseException, SQLException {
 
+
         comentariosActividad = edtComentarios.getText().toString();
 
         if (fotoPath.equals("")){
@@ -354,7 +354,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             edtComentarios.requestFocus();
         }else{
             validarDatos();
-
 
         }
     }
@@ -367,7 +366,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 //Preparar terreno
                 idActividad = 1;
                 setActividad();
-                location = null;
+
                 lay_edt_altura.setVisibility(View.GONE);
                 lay_edt_especie.setVisibility(View.GONE);
                 layMapa.setVisibility(View.GONE);
@@ -464,6 +463,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } else {
             lay_edt_altura.setVisibility(View.VISIBLE);
             lay_edt_especie.setVisibility(View.VISIBLE);
+            location = utils.getLocation();
+            if (location != null){
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
+            }
         }
 
     }
@@ -475,43 +479,54 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void validarDatos() throws SQLException {
 
-        if (idActividad != 1 && idArbol==0){  // si la actividad no es preparar terreno y no se ha dado click en ningun terreno
-            Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();
-            if (idActividad == 6 || idActividad == 2) {  // sustitucion de plantas
+        if (idActividad != 1){  // si la actividad no es preparar terreno
 
-                especie = edtEspecie.getText().toString();
-                altura = edtAltura.getText().toString();
+            if (idArbol != 0){
 
-                if (especie.equals("")) {
+                if (idActividad == 6 || idActividad == 2) {  // sustitucion de plantas
 
-                    edtEspecie.requestFocus();
-                } else if (altura.equals("")) {
+                    Log.e("actividad", String.valueOf(idActividad));
+                    especie = edtEspecie.getText().toString();
+                    altura = edtAltura.getText().toString();
 
-                    edtAltura.requestFocus();
+                    if (especie.equals("")) {
 
+                        edtEspecie.requestFocus();
+                    } else if (altura.equals("")) {
 
-                } else {
-                    guardarActividad6();
+                        edtAltura.requestFocus();
+
+                    } else {
+                        Log.e("guardando", "actividad 6 o 2");
+                        guardarActividad6();
+                    }
                 }
-            }
-            else if(idActividad == 7){ especie = edtEspecie.getText().toString();
+                else if(idActividad == 7){ especie = edtEspecie.getText().toString();
 
-                if (especie.equals("")) { edtEspecie.requestFocus();
+                    if (especie.equals("")) { edtEspecie.requestFocus();
 
-                }else{  // guardar actividad 7 Enfermedades
+                    }else{  // guardar actividad 7 Enfermedades
 
-                    guardarAct7();
+                        guardarAct7();
+                    }
                 }
-            }
-            else if(idActividad == 8){
+                else if(idActividad == 8){
 
-                arbolEstado = new ArbolEstado(arbol, estadoEntidad);
-                daoArbolEstado.create(arbolEstado);
-                guardarActividad_2_3_4_6_7_8();
+                    Log.e("actividad es", "EStado");
+                    arbolEstado = new ArbolEstado(arbol, estadoEntidad);
+                    daoArbolEstado.create(arbolEstado);
+                    guardarActividad_2_3_4_6_7_8();
 
-            }
-            guardarActividad_2_3_4_6_7_8();
-        }else if (idActividad == 1) {
+                }else {         // actividades 3, 4, 5
+
+                    guardarActividad_2_3_4_6_7_8();
+                }
+
+
+            }else {Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();}  //y no se ha dado click en ningun terreno
+
+
+            }else  {
 
             if (location != null){
 
@@ -522,8 +537,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 Toast.makeText(this, "No hay coordenadas para preparar terreno.", Toast.LENGTH_SHORT).show();
             }
 
-
-            }
+        }
         }
 
     private void guardarAct7() {
@@ -538,20 +552,25 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     private void guardarActividad6() {
+
 
         if (idArbol == 0){
 
             Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();
 
         }else{
+            Log.e("idArbol es", String.valueOf(idArbol));
             alturaEntity = new Altura(arbol, altura);
             especieEntidad = new Especie(especie);
             arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
+            Log.e("guardando","actividad 2 o 6");
+            Log.e("idActividad", String.valueOf(actividad.getId()));
             desarrolloActividad = new DesarrolloActividades(fotoPath, comentariosActividad
-                    , fechaActividad, actividad, arbol, null);
+                    , fechaActividad, actividad, arbol, usuario);
             try {
 
                 daoEspecie.create(especieEntidad);
@@ -560,6 +579,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 daoAltura.create(alturaEntity);
 
             }catch (SQLException r){r.printStackTrace();}
+            volverALotes();
         }
 
 
@@ -568,8 +588,12 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void guardarActividad_2_3_4_6_7_8() {
 
             try {
-                daoDesarrolloAct.create(new DesarrolloActividades(fotoPath, comentariosActividad,
-                        fechaActividad, actividad, arbol, usuario));
+                DesarrolloActividades desa = new DesarrolloActividades(fotoPath, comentariosActividad,
+                        fechaActividad, actividad, arbol, usuario);
+                Log.e("idAct de desarroolo", String.valueOf(desa.getIdActividad().getId()));
+                Log.e("nombreAct de desarroolo", desa.getIdActividad().getNombre());
+                daoDesarrolloAct.create(desa);
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -579,7 +603,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void prepararTerreno() throws SQLException {
 
-        String coordenadas = String.valueOf(location.getLatitude()) + "," +
+        String coordenadas = String.valueOf(location.getLatitude()) + " " +
                 String.valueOf(location.getLongitude());
 
         arbol = new Arbol(coordenadas, fechaActividad, lote);
@@ -601,7 +625,10 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                     // Location arbolLocation = getLocationString(arbol1);
                 }
                 arbolesCargados = true;
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18f));
+                if (location != null){
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18f));
+
+                }
 
             }
 

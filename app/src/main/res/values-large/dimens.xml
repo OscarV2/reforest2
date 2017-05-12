@@ -37,8 +37,8 @@
 
     <dimen name="floatin_margin">32dp</dimen>
 
-    <dimen name="text_tamaño">20dp</dimen>
-    <dimen name="text_tamaño_secundary">17dp</dimen>
+    <dimen name="text_tamaño">20sp</dimen>
+    <dimen name="text_tamaño_secundary">17sp</dimen>
 
     <dimen name="logo_informacion">200dp</dimen>
 

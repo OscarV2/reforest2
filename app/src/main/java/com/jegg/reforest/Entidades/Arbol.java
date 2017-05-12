@@ -3,6 +3,7 @@ package com.jegg.reforest.Entidades;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -10,6 +11,8 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @DatabaseTable(tableName = Constantes.TABLA_ARBOL)
 public class Arbol {
@@ -54,20 +57,32 @@ public class Arbol {
         this.arbolEstados = arbolEstados;
     }
 
-    public ForeignCollection<Altura> getAlturas() {
-        return alturas;
+    public List<Altura> getAlturas() {
+
+        List<Altura> listaAlturas = new ArrayList<>();
+        CloseableWrappedIterable<Altura> iterable = alturas.getWrappedIterable();
+        for (Altura al : iterable){
+
+            listaAlturas.add(al);
+        }
+
+        return listaAlturas;
     }
 
-    public void setAlturas(ForeignCollection<Altura> alturas) {
-        this.alturas = alturas;
+    public List<ArbolEspecie> getArbolEspecie() {
+
+        List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
+        CloseableWrappedIterable<ArbolEspecie> iterable = arbolEspecies.getWrappedIterable();
+        for (ArbolEspecie arbolEspecie : iterable){
+
+            listaArbolEspecie.add(arbolEspecie);
+        }
+
+        return listaArbolEspecie;
     }
 
     public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
         return desarrolloActividades;
-    }
-
-    public void setDesarrolloActividades(ForeignCollection<DesarrolloActividades> desarrolloActividades) {
-        this.desarrolloActividades = desarrolloActividades;
     }
 
     public Arbol() {
@@ -88,14 +103,6 @@ public class Arbol {
         this.id = id;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -114,7 +121,7 @@ public class Arbol {
 
     public LatLng getPosicion(){
 
-        String[] coordenadasArray = coordenadas.split(",");
+        String[] coordenadasArray = coordenadas.split(" ");
         double lat = Double.parseDouble(coordenadasArray[0]);
         double lng = Double.parseDouble(coordenadasArray[1]);
 
@@ -122,14 +129,32 @@ public class Arbol {
 
     }
 
+    public boolean estaSembrado(){
+
+        boolean estasembrado = false;
+        try {
+            CloseableWrappedIterable<DesarrolloActividades> iterable = desarrolloActividades.getWrappedIterable();
+            for (DesarrolloActividades da : iterable){
+                if (da.getIdActividad().getNombre().equals("Sembrar o Plantar")){
+                    estasembrado = true;
+                }
+            }
+
+        }catch (NullPointerException e){
+            estasembrado = false;
+        }
+
+        return estasembrado;
+    }
+
     @Override
     public String toString() {
 
         JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
+        objetoJson.addProperty("id", String.valueOf(id) + Constantes.SERIAL);
         objetoJson.addProperty(Constantes.COORDENADAS_ARBOL, coordenadas);
-        objetoJson.addProperty(Constantes.FECHA_ARBOL, fecha.toString());
-        objetoJson.addProperty(Constantes.LOTE_ID_ARBOL, lote.getId());
+        objetoJson.addProperty(Constantes.FECHA_ARBOL, Constantes.sdf.format(fecha));
+        objetoJson.addProperty(Constantes.LOTE_ID_ARBOL, String.valueOf(lote.getId()) + Constantes.SERIAL);
 
         Gson gson = new Gson();
 

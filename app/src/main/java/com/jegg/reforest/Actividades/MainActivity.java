@@ -15,6 +15,7 @@ import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.asincronas.PostAsyncrona;
 
 import java.io.File;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         boolean inicioSesion = prefs.getBoolean("inicio_sesion", false);
 
+        Log.e("SERIAL", Constantes.SERIAL);
         if (inicioSesion){
 
             irMenu();
@@ -79,16 +81,15 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-
     private void insertarcrearEstadosEnBd() throws SQLException {
 
         Dao estadosDao = datosReforest.getEstadoDao();
         List<Estado> listEstados = new ArrayList<>();
 
-            listEstados.add(new Estado("Enfrema"));
-        listEstados.add(new Estado("Faltante"));
-        listEstados.add(new Estado("Excelente"));
-        listEstados.add(new Estado("Muerta"));
+            listEstados.add(new Estado("Bueno"));
+        listEstados.add(new Estado("Enfremo"));
+        listEstados.add(new Estado("Resiembra"));
+        listEstados.add(new Estado("Erradicado"));
 
         for (int i = 0; i<listEstados.size(); i++){
             estadosDao.create(listEstados.get(i));
@@ -113,16 +114,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i<listActividades.size(); i++){
             actividadesDao.create(listActividades.get(i));
         }
-        Actividad prueba = new Actividad("Prueba5");
-        prueba.setId(16);
-        //actividadesDao.create(prueba);
-
-
-        Log.e("actividad cadena", prueba.toString());
-        //enviarActividad(prueba.toString());
 
     }
-
+/*
     private void enviarActividad(String s) {
 
         PostAsyncrona post = new PostAsyncrona(s, MainActivity.this, new PostAsyncrona.AsyncResponse() {
@@ -140,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+*/
     private boolean existeBaseDatos() {
 
         boolean b = false;

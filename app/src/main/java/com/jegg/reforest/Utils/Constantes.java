@@ -1,6 +1,12 @@
 package com.jegg.reforest.Utils;
 
 
+import android.os.Build;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
+
+import java.text.SimpleDateFormat;
+
 public class Constantes {
 
     public static final String BASE_URL = "http://181.58.69.50:8080/servicios/";
@@ -27,6 +33,8 @@ public class Constantes {
     public static final String POST_ESTADO = BASE_URL + "estado";
     public static final String POST_ESTADO_ARBOL = BASE_URL + "arbolestado";
 
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final String SERIAL = Build.SERIAL;
 
     public static final String TABLA_ESTADO="estado";
     public static final String ID_ESTADO="_id";
@@ -49,7 +57,7 @@ public class Constantes {
     public static final String TABLA_ARBOL="arbol";
     public static final String ID_ARBOL="_id";
     public static final String LOTE_ID_ARBOL="lote_id";
-    public static final String COORDENADAS_ARBOL="coordenadas";
+    public static final String COORDENADAS_ARBOL="coodenadas";
     public static final String FECHA_ARBOL="fecha_arbol";
 
     public static final String TABLA_ALTURA="altura";
@@ -60,7 +68,7 @@ public class Constantes {
     public static final String TABLA_LOTE="lote";
     public static final String ID_LOTE="_id";
     public static final String NOMBRE_LOTE="nombre";
-    public static final String FECHA_LOTE="fecha";
+    public static final String FECHA_LOTE="fecha_creacion";
     public static final String AREA_LOTE="area";
     public static final String DELIMITACION="delimitacion";
     public static final String MUNICIPIO_LOTE="municipio_id";

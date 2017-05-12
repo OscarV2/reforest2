@@ -57,8 +57,7 @@ public class ArbolEstado {
     public String toString() {
 
         JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.ID_ARBOL_ESTADO, arbol.getId());
+        objetoJson.addProperty(Constantes.ARBOL_ID, String.valueOf(arbol.getId()) + Constantes.SERIAL);
         objetoJson.addProperty(Constantes.ESTADO_ARBOL_ESTADO, estado.getId());
 
         Gson gson = new Gson();

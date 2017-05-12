@@ -41,10 +41,6 @@ package="com.jegg.reforest">
 
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAllducNH4UOmJir5OZqcBtg8QbpiXNZ2I" />
 
-    <activity android:name="com.jegg.reforest.MapArbol" android:label="@string/title_activity_map_arbol">
-        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.jegg.reforest.Actividades.Detalles" />
-
-    </activity>
     <activity android:name=".Actividades.Mapa"  >
         <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.jegg.reforest.Actividades.Menu" />
     </activity>

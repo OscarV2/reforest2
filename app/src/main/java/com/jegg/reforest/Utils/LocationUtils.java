@@ -32,7 +32,6 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
 
         if (client == null) {
 
-            Log.e("cliente", "nuevo");
             client = new GoogleApiClient.Builder(context)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -53,7 +52,7 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
             return;
         }
         while (location1 == null) {
-            Log.e("location todavia es", "null");
+            //Log.e("location todavia es", "null");
             location1 = LocationServices.FusedLocationApi.getLastLocation(client);
 
             LocationRequest mLocationRequest = new LocationRequest();
@@ -64,7 +63,7 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
             LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest, new com.google.android.gms.location.LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    Log.e("location", "Changed");
+
                     location1 = location;
 
                 }

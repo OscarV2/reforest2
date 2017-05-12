@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -22,6 +23,7 @@ import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.Entidades.User;
 import com.jegg.reforest.NetWatcher;
 import com.jegg.reforest.Utils.Constantes;
+import com.jegg.reforest.Utils.SyncServiceUtils;
 import com.jegg.reforest.asincronas.GetAsyncrona;
 
 import org.json.JSONArray;
@@ -35,17 +37,15 @@ import java.util.concurrent.ExecutionException;
 
 public class SinconizacionService extends Service {
 
-    private basededatos datosReforest;
+
     private int idPersona;
     private Context c;
-    List<Persona> listaUsuarios = new ArrayList<>();
+
     Persona persona;
     GetAsyncrona getAsync;
-    Dao daoDesarrolloAct, daoActividad, daoEspecie,
-            daoArbolEspecie, daoEstado, daoArbolEstado,
-            daoArboles, daoAltura, daoLotes,
-            daoPersonas;
 
+    SharedPreferences prefs;
+    private SyncServiceUtils utils;
     Gson gson = new Gson();
 
     @Nullable
@@ -57,35 +57,36 @@ public class SinconizacionService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+
         init();
-        getPersonasLocal();
+        boolean automaticSync = prefs.getBoolean("automatic_sync",false);
         ConnectivityManager conMan = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         getAsync = new GetAsyncrona();
         if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
-            Log.e("Wifi","conectado");
-            if (listaUsuarios.size() == 0){
+            Log.e("Wifi","conectado");          // Wifi conectado o hay datos
+
+            if (utils.checkPersonas()){         // no hay usuarios en la app, se procede a bajarlos de la api
                 Log.e("no hay","usuarios");
                 getUsuariosFromApi();
-            }else {
+            }else if(automaticSync){                // sincronizacion automatica enabled
 
+                if(utils.checkTablas()){                             // si hay usuarios,
+                    // check tablas
+                    //hay tablas entonces se subiran todas las tablas a la api
+
+                    utils.sincronizar();
+                    this.stopSelf();
+
+                }
+            }else {
+                Log.e("automaticSync","disabled");
+                this.stopSelf();
             }
-            
+
         }
 
         return START_STICKY;
-    }
-
-    private void getPersonasLocal() {
-
-        try {
-
-            listaUsuarios = daoPersonas.queryForAll();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void getUsuariosFromApi() {
@@ -99,25 +100,17 @@ public class SinconizacionService extends Service {
                 if (users.length > 0){
 
                     Log.e("users tiene","registros");
-                    Log.e("users email 1",
-                            users[1].getCorreo());
-
-                    Log.e("users email 1",
-                            users[1].getClave());
 
                     for(Persona p : users){
-                        daoPersonas.create(p);
+                        utils.crearPersona(p);
                     }
 
                 }
             }
 
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -125,28 +118,10 @@ public class SinconizacionService extends Service {
 
     private void init() {
 
+        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         getAsync = new GetAsyncrona();
-        datosReforest = OpenHelperManager.getHelper(getApplicationContext(), basededatos.class);
+        utils = new SyncServiceUtils(getApplicationContext());
 
-        try {
-            daoLotes = datosReforest.getLoteDao();
-
-            daoArboles = datosReforest.getArbolDao();
-            daoActividad = datosReforest.getActividadsDao();
-            daoDesarrolloAct = datosReforest.getDesarrolloActividadesDao();
-
-            daoEspecie = datosReforest.getEspeciesDao();
-            daoArbolEspecie = datosReforest.getArbolEspeciesDao();
-
-            daoEstado = datosReforest.getEstadoDao();
-            daoArbolEstado = datosReforest.getArbolEstadosDao();
-
-            daoAltura = datosReforest.getAlturaDao();
-            daoPersonas = datosReforest.getPersonasDao();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -154,7 +129,7 @@ public class SinconizacionService extends Service {
         Log.e("servicio","onDestroy");
         super.onDestroy();
     }
+
 }
 //    NetWatcher watcher = new NetWatcher();
-
 //    this.registerReceiver(watcher, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));

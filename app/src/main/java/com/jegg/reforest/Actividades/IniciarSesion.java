@@ -1,7 +1,9 @@
 package com.jegg.reforest.Actividades;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +50,10 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         datosReforest = OpenHelperManager.getHelper(getApplicationContext(), basededatos.class);
         try {
             daoPersonas = datosReforest.getPersonasDao();
+            List<Persona> lista= daoPersonas.queryForAll();
+            if (lista.size() == 0){
+                mostrarDialogo();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,6 +109,25 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this, Menu.class);
         startActivity(intent);
         finish();
+    }
+
+    private void mostrarDialogo() {
+
+        AlertDialog.Builder volver = new AlertDialog.Builder(IniciarSesion.this);
+        volver.setTitle("Verificar Conexion")
+                .setMessage("El inicio de sesion debe hacerse conectado a una red de internet. ")
+                .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(IniciarSesion.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+                })
+                .create();
+
+        volver.show();
     }
 
     @Override

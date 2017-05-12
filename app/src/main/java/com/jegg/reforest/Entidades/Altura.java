@@ -22,9 +22,8 @@ public class Altura {
     public String toString() {
 
         JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.ALTURA_ARBOL, arbol.getId());
-        objetoJson.addProperty(Constantes.MEDIDAS_ALTURA, medida);
+        objetoJson.addProperty(Constantes.ALTURA_ARBOL, String.valueOf(arbol.getId()) + Constantes.SERIAL);
+        objetoJson.addProperty("medida", medida);
 
         Gson gson = new Gson();
 

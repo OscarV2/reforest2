@@ -46,10 +46,10 @@
     <string name="title_activity_mapa">Map</string>
 
     <string-array name="lista_estados">
-        <item>Enferma</item>
-        <item>Faltante</item>
-        <item>Excelente</item>
-        <item>Muerta</item>
+        <item>Bueno</item>
+        <item>Enfermo</item>
+        <item>Resiembra</item>
+        <item>Erradicado</item>
     </string-array>
     <!-- Actividad Lotes  -->
     <string name="lotes">Lotes</string>
@@ -60,6 +60,7 @@
     <string name="tomar_foto">Por favor tome una fotografía de la actividad.</string>
     <string name="select_arbol">Por favor seleccione un arbol para realizar la actividad.</string>
     <string name="ir_a_reforest_com">Ir a Reforest</string>
+    <string name="txt_terrenos">Terrenos preparados</string>
 
 
 </resources>

@@ -40,10 +40,10 @@
 
     <dimen name="tamaño_editText">16dp</dimen>
     <dimen name="text_tamaño">20sp</dimen>
-    <dimen name="text_tamaño_secundary">13dp</dimen>
+    <dimen name="text_tamaño_secundary">13sp</dimen>
 
     <dimen name="botones">110dp</dimen>
-    <dimen name="text_botones">12dp</dimen>
+    <dimen name="text_botones">12sp</dimen>
     <dimen name="height">40dp</dimen>
     <dimen name="height_notificaciones">70dp</dimen>
 

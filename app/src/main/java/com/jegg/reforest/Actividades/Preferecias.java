@@ -34,6 +34,7 @@ public class Preferecias extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("automatic_sync", isChecked);
+                editor.apply();
             }
         });
 

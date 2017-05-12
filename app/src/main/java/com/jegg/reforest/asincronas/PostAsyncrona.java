@@ -60,7 +60,7 @@ public class PostAsyncrona extends AsyncTask<String, Void, String> {
             BufferedReader br = null;
             //here is the problem
             int responseCode=connection.getResponseCode();
-            Log.e("respondeCode",String.valueOf(responseCode));
+            //Log.e("respondeCode",String.valueOf(responseCode));
             if(responseCode==HttpURLConnection.HTTP_ACCEPTED || responseCode==HttpURLConnection.HTTP_OK
                     || responseCode==HttpURLConnection.HTTP_CREATED ){
                 String line;

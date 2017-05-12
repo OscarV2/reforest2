@@ -22,7 +22,6 @@ public class ArbolEspecie {
     @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)
     private Especie especie;
 
-
     public int getId() {
         return id;
     }
@@ -61,8 +60,8 @@ public class ArbolEspecie {
     public String toString() {
 
         JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.ARBOL_ESPECIE_ARBOL, arbol.getId());
+        //objetoJson.addProperty("id", id);
+        objetoJson.addProperty(Constantes.ARBOL_ESPECIE_ARBOL, String.valueOf(arbol.getId()) + Constantes.SERIAL);
         objetoJson.addProperty(Constantes.ESPECIE_ESPECIE_ARBOL, especie.getId());
 
         Gson gson = new Gson();

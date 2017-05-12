@@ -35,10 +35,13 @@ import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
+import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.LocationUtils;
+import com.jegg.reforest.Utils.SyncServiceUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,16 +58,13 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private double area = 0;
     private Marker marcadorMiPosicion;
 
-    private Toolbar toolbar;
-    private ActionBar actionBar;
     private Spinner spinner;
     List<Lote> listaLotes =  new ArrayList<>();
     private String[] nombresLotes ;
     LocationUtils utils;
 
+    private SyncServiceUtils sync;
     Location miLocation;
-    basededatos datosReforest;
-    Dao lotesDao;
     PolygonOptions options;
 
     @Override
@@ -74,12 +74,8 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         setToolbar();
 
         utils = new LocationUtils(Mapa.this);
-        datosReforest = OpenHelperManager.getHelper(this, basededatos.class);
-        try {
-            lotesDao = datosReforest.getLoteDao();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        sync = new SyncServiceUtils(Mapa.this);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -91,23 +87,18 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     private void cargarLotes() {
-        try {
-            Log.e("cargando","lotes ");
-            //lotesDao = datosReforest.getLoteDao();
-            listaLotes = lotesDao.queryForAll();
+
+            listaLotes = sync.getListaLotes();
 
             if ( listaLotes.size() > 0){
-                Log.e("si hay","lotes ");
+
                 cargarSpinner(listaLotes);
 
             }else {
                 Toast.makeText(this, "no hay lotes", Toast.LENGTH_SHORT).show();
-                mostrarDialogo();
+                //mostrarDialogo();
 
             }
-        } catch (SQLException e) {
-            Log.e("no hay","lotes excepcion");
-        }
 
     }
 
@@ -121,7 +112,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         }
 
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, R.layout.item_spinner_mapa, nombresLotes);
+                new ArrayAdapter<>(this, R.layout.item_spinner_mapa, nombresLotes);
         spinner.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_mapa);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -153,10 +144,12 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             CloseableWrappedIterable<Arbol> iterator = arboles.getWrappedIterable();
             for (Arbol arbol : iterator){
 
-                listaArboles.add(arbol);
-                dibujaArbol(arbol.getPosicion() , arbol.getId());
-            }
+                if (arbol.estaSembrado()){
 
+                    listaArboles.add(arbol);
+                    dibujaArbol(arbol.getPosicion() , arbol.getId());
+                }
+            }
         }
 
         PolygonOptions options = new PolygonOptions();
@@ -164,7 +157,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         for (int i = 0; i<recLote.size(); i++){
             options.add(recLote.get(i));
         }
-
+        options.fillColor(0x7F0000FF).strokeColor(Color.GREEN);
         Polygon lotePoligono = mMap.addPolygon(options);
 
 
@@ -191,6 +184,11 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         utils = new LocationUtils(Mapa.this);
         miLocation = utils.getLocation();
 
+        if (miLocation != null){
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(miLocation.getLatitude(), miLocation.getLongitude()), 17f));
+
+        }
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -204,9 +202,9 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
     private void setToolbar() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_mapa);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_mapa);
         setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -228,20 +226,23 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         }else {
 
             options.fillColor(0x7F00FF00).strokeColor(Color.GREEN);
-            Polygon lotePoligono = mMap.addPolygon(options);
-
+         //   Polygon lotePoligono = mMap.addPolygon(options);
         }
 
-/*
         Log.e("id marker ", String.valueOf(marker.getTag()));
         Arbol arbolMarker = listaArboles.get((Integer)marker.getTag() - 1);
 
-        marker.setTitle("Mango");
-        marker.setSnippet("Altura ");
+        int sizeListaAlturas = arbolMarker.getAlturas().size();
+        int sizeListaEspecies = arbolMarker.getArbolEspecie().size();
+
+        Altura altura = arbolMarker.getAlturas().get(sizeListaAlturas-1);
+        Especie especie = arbolMarker.getArbolEspecie().get(sizeListaEspecies-1).getEspecie();
+        marker.setTitle(especie.getNombre());
+        marker.setSnippet("Altura "+ altura.getMedida() +" m");
 
         marker.showInfoWindow();
         Log.e("marker","click");
-*/
+
         return false;
     }
 
@@ -270,7 +271,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
                 defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
     }
-/*
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Log.e("KEYCODE ", String.valueOf(keyCode));
@@ -286,7 +287,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         startActivity(new Intent(this, Menu.class));
         finish();
     }
-*/
+
 
 
 

@@ -128,10 +128,9 @@ public class Lotes extends AppCompatActivity {
             }else {
 
                 tvNoHayLotes.setVisibility(View.VISIBLE);
-
             }
         } catch (SQLException e) {
-            Log.e("no hay","lotes excepcion");
+
         }
     }
 
@@ -139,8 +138,9 @@ public class Lotes extends AppCompatActivity {
 
         List<ItemLote> itemLotes = new ArrayList<>();
         for (int i= 0; i<listaLotes.size(); i++){
+
             int numeroArboles = getTotalArbolesLote(listaLotes.get(i));
-Log.e("areaClaseLotes: ", String.valueOf(listaLotes.get(i).getArea()));
+            Log.e("areaClaseLotes: ", String.valueOf(listaLotes.get(i).getArea()));
             itemLotes.add(new ItemLote(listaLotes.get(i).getNombre() , listaLotes.get(i).getFecha().toString(),
                     numeroArboles, listaLotes.get(i).getArea()) );
         }
@@ -162,11 +162,19 @@ Log.e("areaClaseLotes: ", String.valueOf(listaLotes.get(i).getArea()));
 
     private int getTotalArbolesLote(Lote itemLote) {
 
-        int num;
+        int num = 0;
 
         ForeignCollection<Arbol> arboles = itemLote.getArboles();
+        if (arboles.size() > 0){
 
-        num = arboles.size();
+            CloseableWrappedIterable<Arbol> iterable = arboles.getWrappedIterable();
+            for (Arbol arbol : iterable){
+                if (arbol.estaSembrado()){
+                    num++;
+                }
+            }
+
+        }
 
         return num;
 

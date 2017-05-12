@@ -34,8 +34,6 @@ public class Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
-        //setSupportActionBar(toolbar);
         setToolbar();
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
 
@@ -60,13 +58,13 @@ public class Menu extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.opcionSincronizar);
         SpannableStringBuilder builder = new SpannableStringBuilder("   Sincronizar");
         // replace "*" with icon
-        builder.setSpan(new ImageSpan(this, R.drawable.ic_add_foto), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ImageSpan(this, R.drawable.ic_cached_black_24dp), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(builder);
 
         MenuItem item2 = menu.findItem(R.id.opcionIrWeb);
         SpannableStringBuilder builder2 = new SpannableStringBuilder("  Ir a Reforest");
         // replace "*" with icon
-        builder2.setSpan(new ImageSpan(this, R.drawable.ic_add_foto), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder2.setSpan(new ImageSpan(this, R.mipmap.icono_aplicacion), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         item2.setTitle(builder2);
         return true;
     }
@@ -84,7 +82,6 @@ public class Menu extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public void irLotes(View v){
         Intent intent = new Intent(this, Lotes.class);

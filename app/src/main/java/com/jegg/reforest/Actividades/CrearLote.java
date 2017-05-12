@@ -25,6 +25,7 @@ import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.LocationUtils;
 
 import java.sql.SQLException;
@@ -184,7 +185,7 @@ public class CrearLote extends AppCompatActivity {
             lat = recLote.get(i).latitude;
             lng = recLote.get(i).longitude;
             delimitacionBuffer.append(String.valueOf(lat));
-            delimitacionBuffer.append(",");
+            delimitacionBuffer.append(" ");
             delimitacionBuffer.append(String.valueOf(lng));
             delimitacionBuffer.append(",");
         }
@@ -223,8 +224,9 @@ public class CrearLote extends AppCompatActivity {
         else{
             setDelimitacionBuffer();
             delimitacion = delimitacionBuffer.toString();
-            Date parsed = sdf.parse(fecha.getText().toString());
-            java.sql.Date fechaLote = new java.sql.Date(parsed.getTime());
+            delimitacion.substring(0, delimitacion.length()-1);
+            Log.e("delimi", delimitacion);
+            java.sql.Date fechaLote = new java.sql.Date(new Date().getTime());
             municipio = new Municipio(edtMunicipio.getText().toString());
             Lote lote = new Lote(nombreLote, fechaLote, areaLote, municipio, delimitacion);
 

@@ -20,8 +20,8 @@
 
     <dimen name="height">80dp</dimen>
 
-    <dimen name="text_tamaño">22dp</dimen>
-    <dimen name="text_tamaño_secundary">19dp</dimen>
+    <dimen name="text_tamaño">22sp</dimen>
+    <dimen name="text_tamaño_secundary">19sp</dimen>
     <dimen name="height_notificaciones">90dp</dimen>
 
 </resources>
