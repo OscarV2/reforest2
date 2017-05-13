@@ -40,12 +40,12 @@ public class DesarrolloActividades {
 
         JsonObject objetoJson = new JsonObject();
 
-        objetoJson.addProperty(Constantes.FOTO_DESARROLLO_ACTIVIDADES, urlFoto);
-        objetoJson.addProperty(Constantes.COMENTARIO_DESARROLLO_ACTIVIDADES, comentario);
-        objetoJson.addProperty(Constantes.FECHA_DESARROLLO_ACTIVIDADES, Constantes.sdf.format(fecha));
-        objetoJson.addProperty(Constantes.ACTIVIDAD_DESARROLLO_ACTIVIDADES, idActividad.getId());
-        objetoJson.addProperty(Constantes.ARBOL_DESARROLLO_ACTIVIDADES, String.valueOf(arbol.getId()) + Constantes.SERIAL);
-        objetoJson.addProperty(Constantes.PERSONA_DESARROLLO_ACTIVIDADES, persona.getId());
+        objetoJson.addProperty("urlimagen", "data:image/png;base64," + urlFoto);
+        objetoJson.addProperty("comentario", comentario);
+        objetoJson.addProperty("fecha", Constantes.sdf.format(fecha));
+        objetoJson.addProperty("actividades_id", idActividad.getId());
+        objetoJson.addProperty("arbol_id", String.valueOf(arbol.getId()) + Constantes.SERIAL);
+        objetoJson.addProperty("personas_id", persona.getId());
 
         Gson gson = new Gson();
 

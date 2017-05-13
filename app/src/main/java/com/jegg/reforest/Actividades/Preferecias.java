@@ -28,7 +28,11 @@ public class Preferecias extends AppCompatActivity {
         aSwitch = (Switch) findViewById(R.id.switch_preferencias);
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        boolean isChecked = prefs.getBoolean("automatic_sync", false);
 
+        if (isChecked){
+            aSwitch.setChecked(true);
+        }
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

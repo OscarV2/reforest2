@@ -1,9 +1,11 @@
 package com.jegg.reforest.Actividades;
 
-import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,7 +39,7 @@ import java.util.List;
 
 public class CrearLote extends AppCompatActivity {
 
-    private EditText nombre, fecha, area, edtDepartamento, edtMunicipio;
+    private TextInputEditText nombre, fecha, area, edtDepartamento, edtMunicipio;
     private TextView punto_referencia;
     private Button addPunto;
     private Toolbar toolbar;
@@ -59,11 +61,12 @@ public class CrearLote extends AppCompatActivity {
 
     private void init(){
 
-        nombre = (EditText) findViewById(R.id.nombre_crear_lote);
-        fecha  = (EditText) findViewById(R.id.fecha_crear_lote);
-        area = (EditText )findViewById(R.id.area_crear_lote);
-        edtDepartamento = (EditText )findViewById(R.id.departamento_crear_lote);
-        edtMunicipio = (EditText )findViewById(R.id.municipio_crear_lote);
+        nombre = (TextInputEditText) findViewById(R.id.nombre_crear_lote);
+        fecha  = (TextInputEditText) findViewById(R.id.fecha_crear_lote);
+        area = (TextInputEditText) findViewById(R.id.area_crear_lote);
+        edtDepartamento = (TextInputEditText)findViewById(R.id.departamento_crear_lote);
+        edtMunicipio = (TextInputEditText)findViewById(R.id.municipio_crear_lote);
+
         punto_referencia = (TextView ) findViewById(R.id.PuntoReferencialote);
         addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
 
@@ -86,6 +89,11 @@ public class CrearLote extends AppCompatActivity {
                 basededatos.class);
 
         utils = new LocationUtils(getApplicationContext());
+        nombre.requestFocus();
+
+        if (!(utils.gpsEnabled())){
+            mostrarDialogoGps();
+        }
 
     }
 
@@ -224,7 +232,7 @@ public class CrearLote extends AppCompatActivity {
         else{
             setDelimitacionBuffer();
             delimitacion = delimitacionBuffer.toString();
-            delimitacion.substring(0, delimitacion.length()-1);
+            delimitacion.substring(0, delimitacion.length()-2);
             Log.e("delimi", delimitacion);
             java.sql.Date fechaLote = new java.sql.Date(new Date().getTime());
             municipio = new Municipio(edtMunicipio.getText().toString());
@@ -242,5 +250,24 @@ public class CrearLote extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void mostrarDialogoGps() {
+
+        AlertDialog.Builder volver = new AlertDialog.Builder(CrearLote.this);
+        volver.setTitle("Verificar Servicio de Localizacion.")
+                .setMessage("Por favor habilite la ubicacion de su dispositivo.")
+                .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(CrearLote.this, Lotes.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+                })
+                .create();
+
+        volver.show();
     }
 }

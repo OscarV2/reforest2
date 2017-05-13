@@ -53,11 +53,6 @@ package="com.jegg.reforest">
     <service android:name=".Servicios.SinconizacionService"
         android:exported="false"/>
 
-    <receiver android:name=".NetWatcher" android:enabled="true">
-        <intent-filter>
-            <action android:name="android.net.ConnectivityManager.CONNECTIVITY_ACTION" />
-        </intent-filter>
-    </receiver>
 </application>
 
 </manifest>

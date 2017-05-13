@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Created by oscarvc on 4/05/17.
@@ -38,7 +41,10 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
                     .addApi(LocationServices.API)
                     .build();
 
-            client.connect();
+            if (gpsEnabled()){
+                client.connect();
+            }
+
         }
 
 
@@ -89,6 +95,19 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
         return client.isConnected();
     }
 
+    public boolean gpsEnabled(){
+
+        boolean isEnabled;
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+
+            isEnabled = true;
+        }else{
+            isEnabled = false;
+        }
+        return isEnabled;
+    }
+
     @Override
     public void onConnectionSuspended(int i) {
 
@@ -99,3 +118,9 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
 
     }
 }
+
+
+
+
+
+

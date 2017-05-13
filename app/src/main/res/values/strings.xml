@@ -2,7 +2,7 @@
     <string name="app_name">ReForest</string>
     <string name="texto_principal">AYUDEMOS A REFORESTAR</string>
     <string name="texto_boton">ACCESO</string>
-    <string name="correo">usuario</string>
+    <string name="correo">Usuario</string>
     <string name="contraseña">Contraseña</string>
     <string name="btn_entrar">Entrar</string>
     <string name="btn_registro">Registro</string>

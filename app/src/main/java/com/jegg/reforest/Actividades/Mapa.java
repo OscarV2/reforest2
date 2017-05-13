@@ -84,6 +84,10 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         cargarLotes();
         options = new PolygonOptions();
 
+        if (!(utils.gpsEnabled())){
+            mostrarDialogoGps();
+        }
+
     }
 
     private void cargarLotes() {
@@ -289,6 +293,24 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     }
 
 
+    private void mostrarDialogoGps() {
+
+        AlertDialog.Builder volver = new AlertDialog.Builder(Mapa.this);
+        volver.setTitle("Verificar Servicio de Localizacion.")
+                .setMessage("Por favor habilite la ubicacion de su dispositivo.")
+                .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(Mapa.this, Menu.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+                })
+                .create();
+
+        volver.show();
+    }
 
 
 

@@ -21,7 +21,6 @@ import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.Entidades.User;
-import com.jegg.reforest.NetWatcher;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.SyncServiceUtils;
 import com.jegg.reforest.asincronas.GetAsyncrona;
@@ -40,7 +39,7 @@ public class SinconizacionService extends Service {
 
     private int idPersona;
     private Context c;
-
+    public final static String MY_ACTION = "MY_ACTION";
     Persona persona;
     GetAsyncrona getAsync;
 
@@ -69,6 +68,7 @@ public class SinconizacionService extends Service {
             if (utils.checkPersonas()){         // no hay usuarios en la app, se procede a bajarlos de la api
                 Log.e("no hay","usuarios");
                 getUsuariosFromApi();
+                this.stopSelf();
             }else if(automaticSync){                // sincronizacion automatica enabled
 
                 if(utils.checkTablas()){                             // si hay usuarios,
@@ -126,10 +126,10 @@ public class SinconizacionService extends Service {
 
     @Override
     public void onDestroy() {
+        Intent send = new Intent(MY_ACTION);
+        sendBroadcast(send);
         Log.e("servicio","onDestroy");
         super.onDestroy();
     }
 
 }
-//    NetWatcher watcher = new NetWatcher();
-//    this.registerReceiver(watcher, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));

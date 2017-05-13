@@ -1,6 +1,7 @@
 package com.jegg.reforest.Actividades;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -254,6 +256,10 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         });
         utils = new LocationUtils(getApplicationContext());
 
+        if (!(utils.gpsEnabled())){
+            mostrarDialogoGps();
+        }
+
     }
 
     private void setEstadoEntidad() {
@@ -299,7 +305,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 
             byte[] b = baos.toByteArray();
 
@@ -313,6 +319,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             //fotoPath = getPath(selectedImage);
 
         }
+        edtComentarios.requestFocus();
 
     }
 
@@ -669,7 +676,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Toast.makeText(Detalles.this, "Id Marker: " + String.valueOf(marker.getTag()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(Detalles.this, "Arbol: " + String.valueOf(marker.getTag()), Toast.LENGTH_SHORT).show();
 
         return false;
     }
@@ -678,6 +685,26 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         startActivity(new Intent(this,Lotes.class));
         finish();
     }
+
+    private void mostrarDialogoGps() {
+
+        AlertDialog.Builder volver = new AlertDialog.Builder(Detalles.this);
+        volver.setTitle("Verificar Servicio de Localizacion.")
+                .setMessage("Por favor habilite la ubicacion de su dispositivo.")
+                .setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(Detalles.this, CrearLote.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+                })
+                .create();
+
+        volver.show();
+    }
+
 
     @Override
     protected void onDestroy() {

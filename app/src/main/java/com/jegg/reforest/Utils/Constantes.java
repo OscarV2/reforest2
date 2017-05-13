@@ -2,26 +2,20 @@ package com.jegg.reforest.Utils;
 
 
 import android.os.Build;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
 
 import java.text.SimpleDateFormat;
 
 public class Constantes {
 
-    public static final String BASE_URL = "http://181.58.69.50:8080/servicios/";
-    public static final String GET_USERS = BASE_URL + "user";
+    private static final String BASE_URL = "http://181.58.69.50:8080/servicios/";
 
     public static final String URL_SITIO_WEB = "https://es.wikipedia.org/wiki/Wikipedia:Portada";
-    public static final String GET_ACTIVIDAD = BASE_URL + "actividades";
     public static final String GET_PERSONAS = BASE_URL + "personas/";
 
-    public static final String POST_PERSONAS = BASE_URL + "personas";
 
     public static final String POST_ARBOL = BASE_URL + "arbol";
     public static final String POST_LOTE = BASE_URL + "lote";
 
-    public static final String POST_ACTIVIDAD = BASE_URL + "actividades";
     public static final String POST_DESARROLLO_ACTIVIDAD = BASE_URL + "desarrolloactividades";
 
     public static final String POST_ESPECIE = BASE_URL + "especie";
@@ -30,7 +24,6 @@ public class Constantes {
 
     public static final String POST_ALTURA = BASE_URL + "altura";
 
-    public static final String POST_ESTADO = BASE_URL + "estado";
     public static final String POST_ESTADO_ARBOL = BASE_URL + "arbolestado";
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -91,7 +84,6 @@ public class Constantes {
     public static final String GENERO_PERSONAS="genero";
     public static final String DIRECCION_PERSONAS="direccion";
     public static final String TELEFONO_PERSONAS="telefono";
-    public static final String ELIMINADO="eliminado";
     public static final String MUNICIPIO_PERSONAS="municipio_id";
 
 

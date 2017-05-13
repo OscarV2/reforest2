@@ -1,6 +1,11 @@
 package com.jegg.reforest.Actividades;
 
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,42 +40,17 @@ public class MainActivity extends AppCompatActivity {
     basededatos datosReforest;
     SharedPreferences prefs;
     String PATH_BASE_DE_DATOS = "datosReforest";
+    private ProgressDialog progressDialog = null;
+    MyReceiver myReceiver;
+    boolean inicioSesion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService(new Intent(this, SinconizacionService.class));
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        boolean inicioSesion = prefs.getBoolean("inicio_sesion", false);
-
-        Log.e("SERIAL", Constantes.SERIAL);
-        if (inicioSesion){
-
-            irMenu();
-        }else{
-            if (existeBaseDatos()){
-                Log.e("base de datos","");
-            }
-
-            datosReforest = OpenHelperManager.getHelper(MainActivity.this,
-                    basededatos.class);
-
-            (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    IniciarSesion();
-                }
-            });
-
-            try{
-                insertarActividadesEnBd();
-                insertarcrearEstadosEnBd();
-            }catch (SQLException e){
-
-            }
-        }
-
+        inicioSesion = prefs.getBoolean("inicio_sesion", false);
 
         }
 
@@ -116,25 +96,53 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-/*
-    private void enviarActividad(String s) {
 
-        PostAsyncrona post = new PostAsyncrona(s, MainActivity.this, new PostAsyncrona.AsyncResponse() {
+    private void sincronizando(){
+
+        progressDialog = ProgressDialog.show(MainActivity.this, "Sincronizando...", "Por favor espere..", true);
+
+        progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void processFinish(String output) {
-                Log.e("Actividad", "Enviada");
-                Log.e("Output", output);
+            public void onDismiss(DialogInterface dialog) {
+                irMenu();
             }
         });
 
-        try {
-            post.execute("http://181.58.69.50:8080/servicios/actividades/").get();
-        }catch (Exception e){
-            e.printStackTrace();
+        progressDialog.setCancelable(false);
+        if (progressDialog.isShowing()){
+
+            Log.e("proegress", "showing");
+            startService(new Intent(MainActivity.this, SinconizacionService.class));
         }
 
     }
-*/
+
+    private class MyReceiver extends BroadcastReceiver {
+        //Recibo Mi posicion
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+
+            if (progressDialog.isShowing()){
+                progressDialog.dismiss();
+                Log.e("progress","dissmiss");
+            }
+
+        }
+    }
+
+    @Override
+    protected void onStart() {
+
+        //Register BroadcastReceiver
+        //to receive event from our service
+        myReceiver = new MyReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SinconizacionService.MY_ACTION);
+        registerReceiver(myReceiver, intentFilter);
+
+        super.onStart();
+    }
+
     private boolean existeBaseDatos() {
 
         boolean b = false;
@@ -152,6 +160,41 @@ public class MainActivity extends AppCompatActivity {
         return b;
     }
 
+    @Override
+    protected void onResume() {
+
+        if (inicioSesion){
+            sincronizando();
+            //irMenu();
+
+        }else{
+            sincronizando();
+            if (existeBaseDatos()){
+                Log.e("base de datos","");
+            }
+
+            datosReforest = OpenHelperManager.getHelper(MainActivity.this,
+                    basededatos.class);
+
+            (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IniciarSesion();
+                }
+            });
+
+            try{
+                insertarActividadesEnBd();
+                insertarcrearEstadosEnBd();
+            }catch (SQLException e){
+
+            }
+        }
+
+        Log.e("on","RESUME");
+        super.onResume();
+    }
+
     public void IniciarSesion(){
 
         Intent intent = new Intent(this, IniciarSesion.class);
@@ -161,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        unregisterReceiver(myReceiver);
+        progressDialog.dismiss();
         OpenHelperManager.releaseHelper();
         super.onDestroy();
     }
