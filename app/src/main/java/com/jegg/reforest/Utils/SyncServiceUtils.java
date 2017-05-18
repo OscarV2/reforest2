@@ -5,7 +5,11 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.ArbolEspecie;
@@ -29,12 +33,19 @@ import java.util.concurrent.ExecutionException;
 public class SyncServiceUtils {
 
     private PostAsyncrona postAsync;
-    Context context;
+    private Context context;
     private basededatos datosReforest;
-    Dao daoDesarrolloAct, daoActividad, daoEspecie,
-            daoArbolEspecie, daoEstado, daoArbolEstado,
-            daoArboles, daoAltura, daoLotes,
-            daoPersonas;
+    Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
+    Dao<Actividad, Integer> daoActividad;
+    Dao<Especie, Integer> daoEspecie;
+    Dao<Arbol, Integer> daoArboles;
+    Dao<Estado, Integer> daoEstado;
+    Dao<ArbolEstado, Integer> daoArbolEstado;
+    Dao<ArbolEspecie, Integer> daoArbolEspecie;
+    Dao<Altura, Integer> daoAltura;
+    Dao<Lote, Integer> daoLotes;
+    Dao<Persona, Integer> daoPersonas;
+
     List<Persona> listaUsuarios = new ArrayList<>();
     List<Lote> listaLotes = new ArrayList<>();
     List<Arbol> listaArbol = new ArrayList<>();
@@ -62,18 +73,55 @@ public class SyncServiceUtils {
 
         try {
             listaArbol = daoArboles.queryForAll();
-            listaDesarrolloAct = daoDesarrolloAct.queryForAll();
             listaLotes = daoLotes.queryForAll();
-            listaAltura = daoAltura.queryForAll();
-            listaArbolEspecie = daoArbolEspecie.queryForAll();
             listaEspecie = daoEspecie.queryForAll();
-            listaArbolEstado = daoArbolEstado.queryForAll();
+
+            // llenar lista con registros no sincronizados
+            llenarListasSync();
+            //listaDesarrolloAct = daoDesarrolloAct.queryForAll();
+            //listaAltura = daoAltura.queryForAll();
+            //listaArbolEspecie = daoArbolEspecie.queryForAll();
+            //listaArbolEstado = daoArbolEstado.queryForAll();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
+
+    private void llenarListasSync() throws SQLException {
+
+        QueryBuilder<DesarrolloActividades, Integer> queryBuilder = daoDesarrolloAct.queryBuilder();
+
+        Where where = queryBuilder.where();
+        where.eq(Constantes.UPLOADED, false);
+        PreparedQuery<DesarrolloActividades> preparedQuery = queryBuilder.prepare();
+        listaDesarrolloAct = daoDesarrolloAct.query(preparedQuery);
+
+
+        QueryBuilder<Altura, Integer> qBAltura = daoAltura.queryBuilder();
+
+        where = qBAltura.where();
+        where.eq(Constantes.UPLOADED, false);
+        PreparedQuery<Altura> pQAltura = qBAltura.prepare();
+        listaAltura = daoAltura.query(pQAltura);
+
+        QueryBuilder<ArbolEspecie, Integer> qBArbolEspecie = daoArbolEspecie.queryBuilder();
+
+        where = qBArbolEspecie.where();
+        where.eq(Constantes.UPLOADED, false);
+        PreparedQuery<ArbolEspecie> pQArbolEspecie = qBArbolEspecie.prepare();
+        listaArbolEspecie = daoArbolEspecie.query(pQArbolEspecie);
+
+        QueryBuilder<ArbolEstado, Integer> qBArbolEstado = daoArbolEstado.queryBuilder();
+
+        where = qBArbolEstado.where();
+        where.eq(Constantes.UPLOADED, false);
+        PreparedQuery<ArbolEstado> pQArbolEstado = qBArbolEstado.prepare();
+        listaArbolEstado = daoArbolEstado.query(pQArbolEstado);
+
+    }
+
 
     public void sincronizar(){
 
@@ -92,14 +140,10 @@ public class SyncServiceUtils {
         sincronizarAlturas();
         sincronizarEspecie();
         sincronizarArbolEstado();
-
         sincronizarArbolEspecie();
-        sincronizarDesarrolloAct();
+    //    sincronizarDesarrolloAct();
 
     }
-
-
-
 
     private void sincronizarLotes() {
 

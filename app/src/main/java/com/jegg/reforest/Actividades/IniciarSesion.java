@@ -28,12 +28,9 @@ import java.util.List;
 public class IniciarSesion extends AppCompatActivity implements View.OnClickListener {
 
     private EditText cajaCorreo,cajaContraseña;
-    private Button entrar;
 
-    private Persona usuario;
-    private basededatos datosReforest;
     private String password, correo;
-    Dao  daoPersonas;
+    Dao<Persona, Integer>  daoPersonas;
 
     SharedPreferences prefs;
     @Override
@@ -42,12 +39,12 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_iniciar_sesion);
         cajaCorreo = (EditText) findViewById(R.id.tvCorreo);
         cajaContraseña = (EditText) findViewById(R.id.tvContraseña);
-        entrar = (Button) findViewById(R.id.btn_entrar_iniciar);
+        Button entrar = (Button) findViewById(R.id.btn_entrar_iniciar);
         entrar.setOnClickListener(this);
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
 
-        datosReforest = OpenHelperManager.getHelper(getApplicationContext(), basededatos.class);
+        basededatos datosReforest = OpenHelperManager.getHelper(getApplicationContext(), basededatos.class);
         try {
             daoPersonas = datosReforest.getPersonasDao();
             List<Persona> lista= daoPersonas.queryForAll();
@@ -92,7 +89,7 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
 
             else {
                 SharedPreferences.Editor editor = prefs.edit();
-                usuario = userList.get(0);
+                Persona usuario = userList.get(0);
                 editor.putBoolean("inicio_sesion", true);
                 editor.putInt("id_persona", usuario.getId());
                 editor.apply();

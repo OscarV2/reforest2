@@ -33,7 +33,7 @@
         android:orientation="vertical">
 
         <Button
-            android:layout_width="250dp"
+            android:layout_width="@dimen/ancho_boton_menu"
             android:paddingLeft="10dp"
             android:layout_marginTop="30dp"
             android:drawableLeft="@drawable/ic_lote"
@@ -43,11 +43,11 @@
             android:textSize="@dimen/btn_text_entrar"
             android:textColor="@color/btn_letra_entrar"
             android:id="@+id/btn_lotes_menu"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/tamaño_boton_normal"
             android:background="@drawable/cuadrado"/>
 
         <Button
-            android:layout_width="250dp"
+            android:layout_width="@dimen/ancho_boton_menu"
             android:paddingLeft="10dp"
             android:id="@+id/btn_mapa_menu"
             android:layout_marginTop="30dp"
@@ -56,18 +56,19 @@
             android:textColor="@color/btn_letra_entrar"
             android:drawableLeft="@drawable/ic_mapa"
             android:text="Mapa de lotes"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/tamaño_boton_normal"
             android:onClick="irMapa"
             android:background="@drawable/cuadrado"/>
 
         <Button
-            android:layout_width="250dp"
+
+            android:layout_width="@dimen/ancho_boton_menu"
             android:paddingLeft="10dp"
             android:id="@+id/btn_setting_menu"
             android:layout_marginTop="30dp"
             android:drawableLeft="@drawable/ic_setting"
             android:text="preferencias"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/tamaño_boton_normal"
             android:onClick="irPreferencias"
             android:textStyle="bold"
             android:textSize="@dimen/btn_text_entrar"

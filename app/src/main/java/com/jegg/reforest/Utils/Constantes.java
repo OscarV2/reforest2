@@ -22,6 +22,7 @@ public class Constantes {
     public static final String POST_ESPECIE_ARBOL = BASE_URL + "arbolespecie";
 
 
+    public static final String UPLOADED = "uploaded";
     public static final String POST_ALTURA = BASE_URL + "altura";
 
     public static final String POST_ESTADO_ARBOL = BASE_URL + "arbolestado";

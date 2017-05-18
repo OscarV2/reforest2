@@ -8,9 +8,6 @@ import com.jegg.reforest.Utils.Constantes;
 
 import java.sql.Date;
 
-/**
- * Created by oscarvc on 29/04/17.
- */
 @DatabaseTable(tableName = Constantes.TABLA_DESARROLLO_ACTIVIDADES)
 public class DesarrolloActividades {
 
@@ -34,6 +31,9 @@ public class DesarrolloActividades {
 
     @DatabaseField(columnName = Constantes.PERSONA_DESARROLLO_ACTIVIDADES, foreign = true, foreignAutoRefresh = true)
     private Persona persona;
+
+    @DatabaseField(columnName = Constantes.UPLOADED)
+    private boolean uploaded;
 
     @Override
     public String toString() {
@@ -59,6 +59,10 @@ public class DesarrolloActividades {
         this.idActividad = idActividad;
         this.arbol = arbol;
         this.persona = persona;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
     }
 
     public int getId() {

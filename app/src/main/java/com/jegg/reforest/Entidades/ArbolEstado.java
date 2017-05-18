@@ -19,6 +19,12 @@ public class ArbolEstado {
     @DatabaseField(columnName = Constantes.ESTADO_ARBOL_ESTADO, canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private Estado estado;
 
+    @DatabaseField(columnName = Constantes.UPLOADED)
+    private boolean uploaded;
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
 
     public int getId() {
         return id;

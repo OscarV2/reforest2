@@ -18,6 +18,13 @@ public class Altura {
     @DatabaseField(columnName = Constantes.MEDIDAS_ALTURA, canBeNull = false)
     private String medida;
 
+    @DatabaseField(columnName = Constantes.UPLOADED)
+    private boolean uploaded;
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
     @Override
     public String toString() {
 

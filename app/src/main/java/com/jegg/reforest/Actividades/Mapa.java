@@ -30,11 +30,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.CloseableWrappedIterable;
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
-import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Especie;
@@ -43,7 +40,6 @@ import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.LocationUtils;
 import com.jegg.reforest.Utils.SyncServiceUtils;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +51,8 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
     List<LatLng> recLote = new ArrayList<>();
     List<Arbol> listaArboles = new ArrayList<>();
-    private double area = 0;
-    private Marker marcadorMiPosicion;
+    //private double area = 0;
+    //private Marker marcadorMiPosicion;
 
     private Spinner spinner;
     List<Lote> listaLotes =  new ArrayList<>();
@@ -218,7 +214,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public boolean onMarkerClick(Marker marker) throws NullPointerException {
 
         Log.e("marker","click");
         Log.e("numClicks ", String.valueOf(numeroClicksMarker));
@@ -235,6 +231,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
         Log.e("id marker ", String.valueOf(marker.getTag()));
         Arbol arbolMarker = listaArboles.get((Integer)marker.getTag() - 1);
+
 
         int sizeListaAlturas = arbolMarker.getAlturas().size();
         int sizeListaEspecies = arbolMarker.getArbolEspecie().size();

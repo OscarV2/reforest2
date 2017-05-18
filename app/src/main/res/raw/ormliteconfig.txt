@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/08 11:36:08
+# generated on 2017/05/18 12:49:54
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -17,7 +17,7 @@ canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=fecha
-columnName=fecha
+columnName=fecha_creacion
 canBeNull=false
 # --field-end--
 # --field-start--
@@ -162,6 +162,10 @@ foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -187,6 +191,10 @@ fieldName=medida
 columnName=medidas
 canBeNull=false
 # --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -201,7 +209,7 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=coordenadas
-columnName=coordenadas
+columnName=coodenadas
 canBeNull=false
 # --field-end--
 # --field-start--
@@ -301,6 +309,10 @@ foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -326,6 +338,10 @@ columnName=especie_id
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -22,6 +22,13 @@ public class ArbolEspecie {
     @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)
     private Especie especie;
 
+    @DatabaseField(columnName = Constantes.UPLOADED)
+    private boolean uploaded;
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
     public int getId() {
         return id;
     }

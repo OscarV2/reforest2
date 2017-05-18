@@ -51,6 +51,7 @@ public class PostAsyncrona extends AsyncTask<String, Void, String> {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             connection.setDoOutput(true);
+
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
             dStream.writeBytes(mData);
             dStream.flush();
@@ -67,6 +68,7 @@ public class PostAsyncrona extends AsyncTask<String, Void, String> {
                 sb = new StringBuilder();
 
                 InputStream is = connection.getInputStream();
+
                 InputStreamReader isr = new InputStreamReader(is,"UTF-8");
                 br = new BufferedReader(isr);
 
@@ -74,6 +76,7 @@ public class PostAsyncrona extends AsyncTask<String, Void, String> {
                     sb.append(line);
                 }
                 mensajeRespuesta = sb.toString();
+
             }else{
                 mensajeRespuesta= "ErrorA";
             }
@@ -88,12 +91,14 @@ public class PostAsyncrona extends AsyncTask<String, Void, String> {
             System.out.println("IOException");
             e.printStackTrace();
         }
+
         return mensajeRespuesta;
     }
 
     @Override
     protected void onPostExecute(String result) {
         delegate.processFinish(result);
+        connection.disconnect();
     }
 
 }

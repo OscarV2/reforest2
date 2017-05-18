@@ -99,23 +99,24 @@ public class CrearLote extends AppCompatActivity {
 
     private void irMapa() {
 
-        location = utils.getLocation();
-        if (location != null){
+        if (contPuntosLote < 9){
 
-            lat = location.getLatitude();
-            lng = location.getLongitude();
-            recLote.add(new LatLng(lat,lng));
+            location = utils.getLocation();
+            if (location != null){
 
-            punto_referencia.append("Punto " +
-                    String.valueOf(contPuntosLote) +   ": " +
-                    "\n" +
-                    "Latitud: " + String.valueOf(lat) +
-            "\n      Longitud: " + String.valueOf(lng) + "\n");
+                lat = location.getLatitude();
+                lng = location.getLongitude();
+                recLote.add(new LatLng(lat,lng));
 
+                punto_referencia.append("Punto " +
+                        String.valueOf(contPuntosLote) +   ": " +
+                        "\n" +
+                        "Latitud: " + String.valueOf(lat) +
+                        "\n      Longitud: " + String.valueOf(lng) + "\n");
 
-            contPuntosLote++;
+                contPuntosLote++;
+            }
         }
-
     }
 
     @Override

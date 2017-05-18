@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.google.gson.Gson;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.jegg.reforest.DBdatos.basededatos;
@@ -20,23 +19,17 @@ import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
-import com.jegg.reforest.Utils.Constantes;
-import com.jegg.reforest.asincronas.PostAsyncrona;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    Gson actJson = new Gson();
+    //Gson actJson = new Gson();
     basededatos datosReforest;
     SharedPreferences prefs;
     String PATH_BASE_DE_DATOS = "datosReforest";
@@ -63,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertarcrearEstadosEnBd() throws SQLException {
 
-        Dao estadosDao = datosReforest.getEstadoDao();
+        Dao<Estado, Integer> estadosDao = datosReforest.getEstadoDao();
         List<Estado> listEstados = new ArrayList<>();
 
             listEstados.add(new Estado("Bueno"));
@@ -80,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertarActividadesEnBd() throws SQLException {
 
-        Dao actividadesDao = datosReforest.getActividadsDao();
+        Dao<Actividad, Integer> actividadesDao = datosReforest.getActividadsDao();
         List<Actividad> listActividades = new ArrayList<>();
 
         listActividades.add(new Actividad("Preparar terreno"));
@@ -145,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean existeBaseDatos() {
 
-        boolean b = false;
+        boolean b;
 
             File dbFile = getApplicationContext().getDatabasePath(PATH_BASE_DE_DATOS);
             b = dbFile.exists();
@@ -188,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 insertarcrearEstadosEnBd();
             }catch (SQLException e){
 
+                e.printStackTrace();
             }
         }
 

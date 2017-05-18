@@ -33,13 +33,11 @@ import java.util.List;
 
 public class Lotes extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private ActionBar actionBar;
     private ListView listView;
-    private SQLiteDatabase dbReforest;
+    //private SQLiteDatabase dbReforest;
     private TextView tvNoHayLotes;
     basededatos datosReforest;
-    Dao lotesDao;
+    Dao<Lote, Integer> lotesDao;
 
 
     private void init(){
@@ -62,10 +60,10 @@ public class Lotes extends AppCompatActivity {
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar_lotes);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_lotes);
         setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
             actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));

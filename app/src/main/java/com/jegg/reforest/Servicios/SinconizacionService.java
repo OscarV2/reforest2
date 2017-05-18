@@ -3,44 +3,28 @@ package com.jegg.reforest.Servicios;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.jegg.reforest.DBdatos.basededatos;
-import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.Entidades.User;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.SyncServiceUtils;
 import com.jegg.reforest.asincronas.GetAsyncrona;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class SinconizacionService extends Service {
 
 
     private int idPersona;
-    private Context c;
+
     public final static String MY_ACTION = "MY_ACTION";
-    Persona persona;
+
     GetAsyncrona getAsync;
 
     SharedPreferences prefs;
@@ -84,6 +68,8 @@ public class SinconizacionService extends Service {
                 this.stopSelf();
             }
 
+        }else {
+            stopSelf();
         }
 
         return START_STICKY;

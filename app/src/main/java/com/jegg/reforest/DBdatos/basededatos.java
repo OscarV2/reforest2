@@ -82,8 +82,7 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
     private Dao<ArbolEspecie, Integer> arbolEspeciesDao = null;
     private RuntimeExceptionDao<ArbolEspecie, Integer> arbolEspeciesRuntimeDao = null;
 
-    private Dao<User, Integer> usersDao = null;
-    private RuntimeExceptionDao<User, Integer> userRuntimeExceptionDao = null;
+
 
 
     public basededatos(Context context) {
@@ -113,8 +112,6 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
 
             TableUtils.createTable(connectionSource, Actividad.class);
             TableUtils.createTable(connectionSource, DesarrolloActividades.class);
-
-            TableUtils.createTable(connectionSource, User.class);
 
             Log.e("tablas","creadas");
 
@@ -155,9 +152,6 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         actividadsRuntimeDao = null;
         desarrolloActividadesDao = null;
         desarrolloActividadesRuntimeDao = null;
-
-        usersDao = null;
-        userRuntimeExceptionDao = null;
 
     }
 
@@ -289,17 +283,5 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         if (arbolEspeciesRuntimeDao == null) arbolEspeciesRuntimeDao = getRuntimeExceptionDao(ArbolEspecie.class);
         return arbolEspeciesRuntimeDao;
     }
-
-    public Dao<User, Integer> getUserDao() throws SQLException {
-        if (usersDao == null) usersDao  = getDao(User.class);
-        return usersDao ;
-    }
-
-    public RuntimeExceptionDao<User, Integer> getUserRuntimeExceptionDao() {
-        if (userRuntimeExceptionDao == null) userRuntimeExceptionDao = getRuntimeExceptionDao(User.class);
-        return userRuntimeExceptionDao;
-    }
-
-
 
 }
