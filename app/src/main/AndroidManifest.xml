@@ -5,8 +5,8 @@ package="com.jegg.reforest">
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -38,17 +38,18 @@ package="com.jegg.reforest">
     <activity android:name=".Actividades.Detalles" android:parentActivityName=".Actividades.Lotes"  >
         <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.jegg.reforest.Actividades.Lotes" />
     </activity>
+
     <activity android:name=".Actividades.Preferecias"  />
 
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAllducNH4UOmJir5OZqcBtg8QbpiXNZ2I" />
 
-    <activity android:name=".Actividades.Mapa"  >
-        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.jegg.reforest.Actividades.Menu" />
-    </activity>
+    <activity android:name=".Actividades.Mapa" />
+
 
     <activity android:name=".Actividades.CrearLote">
         <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.jegg.reforest.Actividades.Lotes" />
     </activity>
+
     <activity android:name=".Actividades.Lotes" />
 
     <service android:name=".Servicios.SinconizacionService"

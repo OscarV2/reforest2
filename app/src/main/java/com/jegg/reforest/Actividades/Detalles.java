@@ -590,6 +590,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 daoDesarrolloAct.create(desarrolloActividad);
                 daoArbolEspecie.create(arbolEspecie);
                 daoAltura.create(alturaEntity);
+                daoArbolEstado.create(arbolEstado);
 
             }catch (SQLException r){r.printStackTrace();}
             volverALotes();

@@ -34,7 +34,8 @@
         card_view:cardCornerRadius="18dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="irLotes">
 
             <ImageView
                 android:id="@+id/img_Lote"
@@ -66,7 +67,8 @@
         card_view:cardCornerRadius="18dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="irMapa">
 
             <ImageView
                 android:id="@+id/img_mapa"
@@ -98,7 +100,8 @@
         card_view:cardCornerRadius="18dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="irPreferencias">
 
             <ImageView
                 android:id="@+id/img_Preferencias"

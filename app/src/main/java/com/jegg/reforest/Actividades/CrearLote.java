@@ -112,8 +112,7 @@ public class CrearLote extends AppCompatActivity {
                         String.valueOf(contPuntosLote) +   ": " +
                         "\n" +
                         "Latitud: " + String.valueOf(lat) +
-                        "\n      Longitud: " + String.valueOf(lng) + "\n");
-
+                        "\n   Longitud: " + String.valueOf(lng) + "\n");
                 contPuntosLote++;
             }
         }

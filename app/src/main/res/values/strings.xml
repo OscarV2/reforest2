@@ -61,6 +61,9 @@
     <string name="select_arbol">Por favor seleccione un arbol para realizar la actividad.</string>
     <string name="ir_a_reforest_com">Ir a Reforest</string>
     <string name="txt_terrenos">Terrenos preparados</string>
+    <string name="op_mapa_hibrido">Mapa Hibrido</string>
+    <string name="op_mapa_satelite">Mapa Satelite</string>
+    <string name="op_tierra">Tierra</string>
 
 
 </resources>

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -215,6 +216,13 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_mapa, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onMarkerClick(Marker marker){
 
         Log.e("marker","click");
@@ -292,6 +300,26 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         finish();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                startActivity(new Intent(Mapa.this, Menu.class));
+                finish();
+                return true;
+            case R.id.map_hibrido:
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                break;
+            case R.id.map_satelite:
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                break;
+            case R.id.map_tierra:
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void mostrarDialogoGps() {
 
@@ -311,7 +339,5 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
         volver.show();
     }
-
-
 
 }
