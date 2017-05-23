@@ -1,18 +1,14 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-import java.sql.Date;
-
 @DatabaseTable(tableName = Constantes.TABLA_DESARROLLO_ACTIVIDADES)
 public class DesarrolloActividades {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_DESARROLLO_ACTIVIDADES)
-    private int id;
+    @DatabaseField(generatedId = true, columnName = "id")
+    private transient int id;
 
     @DatabaseField(columnName = Constantes.FOTO_DESARROLLO_ACTIVIDADES)
     private String urlFoto;
@@ -21,7 +17,7 @@ public class DesarrolloActividades {
     private String comentario;
 
     @DatabaseField(columnName = Constantes.FECHA_DESARROLLO_ACTIVIDADES, canBeNull = false)
-    private Date fecha;
+    private String fecha;
 
     @DatabaseField(columnName = Constantes.ACTIVIDAD_DESARROLLO_ACTIVIDADES, foreign = true, foreignAutoRefresh = true)
     private Actividad idActividad;
@@ -33,26 +29,9 @@ public class DesarrolloActividades {
     private Persona persona;
 
     @DatabaseField(columnName = Constantes.UPLOADED)
-    private boolean uploaded;
+    private transient boolean uploaded;
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-
-        objetoJson.addProperty("urlimagen", "data:image/png;base64," + urlFoto);
-        objetoJson.addProperty("comentario", comentario);
-        objetoJson.addProperty("fecha", Constantes.sdf.format(fecha));
-        objetoJson.addProperty("actividades_id", idActividad.getId());
-        objetoJson.addProperty("arbol_id", String.valueOf(arbol.getId()) + Constantes.SERIAL);
-        objetoJson.addProperty("personas_id", persona.getId());
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
-
-    public DesarrolloActividades(String urlFoto, String comentario, Date fecha, Actividad idActividad, Arbol arbol, Persona persona) {
+    public DesarrolloActividades(String urlFoto, String comentario, String fecha, Actividad idActividad, Arbol arbol, Persona persona) {
         this.urlFoto = urlFoto;
         this.comentario = comentario;
         this.fecha = fecha;
@@ -65,16 +44,8 @@ public class DesarrolloActividades {
         this.uploaded = uploaded;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getUrlFoto() {
-        return urlFoto;
+        return "data:image/png;base64," +  urlFoto;
     }
 
     public void setUrlFoto(String urlFoto) {
@@ -89,11 +60,11 @@ public class DesarrolloActividades {
         this.comentario = comentario;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -117,8 +88,8 @@ public class DesarrolloActividades {
         return persona;
     }
 
-    public void setPersona(Persona persona) {
-        this.persona = persona;
+    public int getId() {
+        return id;
     }
 
     public DesarrolloActividades() {

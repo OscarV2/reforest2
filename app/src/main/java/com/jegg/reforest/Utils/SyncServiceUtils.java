@@ -19,12 +19,15 @@ import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.asincronas.PostAsyncrona;
+import com.jegg.reforest.api.ReforestApiAdapter;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by oscarvc on 10/05/17.
@@ -32,31 +35,28 @@ import java.util.concurrent.ExecutionException;
 
 public class SyncServiceUtils {
 
-    private PostAsyncrona postAsync;
     private Context context;
     private basededatos datosReforest;
     Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
     Dao<Actividad, Integer> daoActividad;
     Dao<Especie, Integer> daoEspecie;
-    Dao<Arbol, Integer> daoArboles;
+    Dao<Arbol, String> daoArboles;
     Dao<Estado, Integer> daoEstado;
     Dao<ArbolEstado, Integer> daoArbolEstado;
     Dao<ArbolEspecie, Integer> daoArbolEspecie;
     Dao<Altura, Integer> daoAltura;
-    Dao<Lote, Integer> daoLotes;
+    Dao<Lote, String> daoLotes;
     Dao<Persona, Integer> daoPersonas;
 
-    List<Persona> listaUsuarios = new ArrayList<>();
-    List<Lote> listaLotes = new ArrayList<>();
-    List<Arbol> listaArbol = new ArrayList<>();
-    List<DesarrolloActividades> listaDesarrolloAct = new ArrayList<>();
-    List<Altura> listaAltura = new ArrayList<>();
+    private List<Persona> listaUsuarios = new ArrayList<>();
+    private List<Lote> listaLotes = new ArrayList<>();
+    private List<Arbol> listaArbol = new ArrayList<>();
+    private List<DesarrolloActividades> listaDesarrolloAct = new ArrayList<>();
+    private List<Altura> listaAltura = new ArrayList<>();
     List<Estado> listaEstados = new ArrayList<>();
-    List<ArbolEstado> listaArbolEstado = new ArrayList<>();
-    List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
-    List<Especie> listaEspecie = new ArrayList<>();
-
-    String respuesta;
+    private List<ArbolEstado> listaArbolEstado = new ArrayList<>();
+    private List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
+    private List<Especie> listaEspecie = new ArrayList<>();
 
     public boolean checkTablas() {
 
@@ -122,7 +122,6 @@ public class SyncServiceUtils {
 
     }
 
-
     public void sincronizar(){
 
         Log.e("numero lotes", String.valueOf(listaLotes.size()));
@@ -133,195 +132,26 @@ public class SyncServiceUtils {
         Log.e("numArbolEstados ", String.valueOf(listaArbolEstado.size()));
         Log.e("numArbolEspecies ", String.valueOf(listaArbolEspecie.size()));
 
+        SyncApi sincronizarBaseDatos = new SyncApi(datosReforest);
+/*
+        sincronizarBaseDatos.sincronizarLotes(listaLotes);
+        sincronizarBaseDatos.sincronizarArboles(listaArbol);
 
+        sincronizarBaseDatos.sincronizarEspecie(listaEspecie);
 
-        sincronizarLotes();
-        sincronizarArboles();
-        sincronizarAlturas();
-        sincronizarEspecie();
-        sincronizarArbolEstado();
-        sincronizarArbolEspecie();
-    //    sincronizarDesarrolloAct();
+        sincronizarBaseDatos.sincronizarArbolEspecie(listaArbolEspecie);
 
-    }
+        sincronizarBaseDatos.sincronizarAlturas(listaAltura);
+        sincronizarBaseDatos.sincronizarArbolEstado(listaArbolEstado);
 
-    private void sincronizarLotes() {
-
-        //sinc lotes
-        for (int i = (listaLotes.size() - 1); i>=0; i=i-1){
-
-
-            Lote lote = listaLotes.get(i);
-            postAsync = new PostAsyncrona(lote.toString(), context, new PostAsyncrona.AsyncResponse() {
-                @Override
-                public void processFinish(String output) {
-                    Log.e("sinc lote ",output);
-
-                }
-            });
-            try {
-                 String respuesta = postAsync.execute(Constantes.POST_LOTE).get();
-                if (respuesta.equals("ErrorA")){
-                    break;
-                }
-
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private void sincronizarArboles() {
-
-        //sinc arboles
-        for (int i = (listaArbol.size()-1); i>=0; i = i-1){
-
-            Arbol arbol = listaArbol.get(i);
-            postAsync = new PostAsyncrona(arbol.toString(), context, new PostAsyncrona.AsyncResponse() {
-                @Override
-                public void processFinish(String output) {
-                    Log.e("sinc arbol ",output);
-                }
-            });
-            try {
-                String respuesta = postAsync.execute(Constantes.POST_ARBOL).get();
-                if (respuesta.equals("ErrorA")){
-                    break;
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void sincronizarEspecie() {
-
-        if (listaEspecie.size() > 0){
-
-            //sinc Especie
-            for (int i = listaEspecie.size()-1; i==0; i--){
-
-                Especie especie = listaEspecie.get(i);
-                //Log.e("especie cadena", especie.toString());
-                postAsync = new PostAsyncrona(especie.toString(), context, new PostAsyncrona.AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                        Log.e("sinc especie ",output);
-                    }
-                });
-                try {
-                    String respuesta = postAsync.execute(Constantes.POST_ESPECIE).get();
-                    if (respuesta.equals("ErrorA")){
-                        break;
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }else{Log.e("esta vacia", "Especie");}
-    }
-
-    private void sincronizarArbolEstado() {
-
-        if (listaArbolEstado.size() > 0){
-
-            //sinc Estado
-            for (ArbolEstado estado: listaArbolEstado){
-                //Log.e("sinc Especie arbol","dentro del for");
-                postAsync = new PostAsyncrona(estado.toString(), context, new PostAsyncrona.AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                        Log.e("sinc ArbolEstado ",output);
-                    }
-                });
-                try {
-                    postAsync.execute(Constantes.POST_ESTADO_ARBOL).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }else{Log.e("esta vacia", "arbolEstado");}
-
-    }
-
-    private void sincronizarArbolEspecie() {
-
-        if (listaArbolEspecie.size() > 0){
-
-
-            //sinc ArbolEspecie
-            for (ArbolEspecie arbolEspecie: listaArbolEspecie){
-
-                //Log.e("Arbol especie", arbolEspecie.toString());
-                postAsync = new PostAsyncrona(arbolEspecie.toString(), context, new PostAsyncrona.AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                        Log.e("sinc especieArbol ",output);
-                    }
-                });
-                try {
-                    postAsync.execute(Constantes.POST_ESPECIE_ARBOL).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }else{Log.e("esta vacia", "ArbolEspecie");}
-    }
-
-    private void sincronizarAlturas() {
-
-        if (listaAltura.size() > 0){
-
-            //sinc Alturas
-            for (Altura altura: listaAltura){
-                //Log.e("sincronizando alturas","dentro del for");
-                postAsync = new PostAsyncrona(altura.toString(), context, new PostAsyncrona.AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                        Log.e("sinc alturas ",output);
-                    }
-                });
-                try {
-                    postAsync.execute(Constantes.POST_ALTURA).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }else{Log.e("esta vacia", "Alturas");}
-    }
-
-    private void sincronizarDesarrolloAct() {
-
-        //sinc lotes
-        for (DesarrolloActividades DesaAct: listaDesarrolloAct){
-          /*  Log.e("desaAct", DesaAct.toString());
-            Log.e("comentario", DesaAct.getComentario());
-            Log.e("fecha", Constantes.sdf.format(DesaAct.getFecha()));
-            Log.e("idActividad", String.valueOf(DesaAct.getIdActividad().getId()));
-            Log.e("arbol_id", String.valueOf(DesaAct.getArbol().getId()) + Constantes.SERIAL);
-            Log.e("personas_id", String.valueOf(DesaAct.getPersona().getId()));
-            Log.e("url", DesaAct.getUrlFoto());
-            Log.e("tamaño cadena", String.valueOf(DesaAct.getUrlFoto().length()));
-*/
-            postAsync = new PostAsyncrona(DesaAct.toString(), context, new PostAsyncrona.AsyncResponse() {
-                @Override
-                public void processFinish(String output) {
-                    Log.e("sinc desaAct output ",output);
-                }
-            });
-            try {
-                postAsync.execute(Constantes.POST_DESARROLLO_ACTIVIDAD).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
+        sincronizarBaseDatos.sincronizarDesarrolloAct(listaDesarrolloAct);
+  */
     }
 
     public SyncServiceUtils(Context context) {
         this.context = context;
 
-        datosReforest = OpenHelperManager.getHelper(context, basededatos.class);
+        this.datosReforest = OpenHelperManager.getHelper(context, basededatos.class);
 
         try {
             daoLotes = datosReforest.getLoteDao();
@@ -380,15 +210,4 @@ public class SyncServiceUtils {
         return listaLotes;
 
     }
-
-    public void getArbolesSembrados(){
-
-    }
 }
-
-
-
-
-
-
-

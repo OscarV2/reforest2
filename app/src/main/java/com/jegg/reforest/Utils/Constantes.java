@@ -3,33 +3,35 @@ package com.jegg.reforest.Utils;
 
 import android.os.Build;
 
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 
 public class Constantes {
 
-    private static final String BASE_URL = "http://181.58.69.50:8080/servicios/";
+    public static final String BASE_URL = "http://appreforest.com/servicios/";
 
     public static final String URL_SITIO_WEB = "https://es.wikipedia.org/wiki/Wikipedia:Portada";
-    public static final String GET_PERSONAS = BASE_URL + "personas/";
+    public static final String GET_PERSONAS = "personas/";
 
 
-    public static final String POST_ARBOL = BASE_URL + "arbol";
-    public static final String POST_LOTE = BASE_URL + "lote";
+    public static final String POST_ARBOL = "arbol";
+    public static final String POST_LOTE = "lote";
 
-    public static final String POST_DESARROLLO_ACTIVIDAD = BASE_URL + "desarrolloactividades";
+    public static final String POST_DESARROLLO_ACTIVIDAD = "desarrolloactividades";
 
-    public static final String POST_ESPECIE = BASE_URL + "especie";
-    public static final String POST_ESPECIE_ARBOL = BASE_URL + "arbolespecie";
+    public static final String POST_ESPECIE = "especie";
+    public static final String POST_ESPECIE_ARBOL = "arbolespecie";
 
 
     public static final String UPLOADED = "uploaded";
-    public static final String POST_ALTURA = BASE_URL + "altura";
+    public static final String POST_ALTURA = "altura";
 
-    public static final String POST_ESTADO_ARBOL = BASE_URL + "arbolestado";
+    public static final String POST_ESTADO_ARBOL = "arbolestado";
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final String SERIAL = Build.SERIAL;
 
+    public static final SecureRandom secureRandom = new SecureRandom();
     public static final String TABLA_ESTADO="estado";
     public static final String ID_ESTADO="_id";
     public static final String ESTADO_ESTADO="estado";
@@ -60,7 +62,7 @@ public class Constantes {
     public static final String MEDIDAS_ALTURA="medidas";
 
     public static final String TABLA_LOTE="lote";
-    public static final String ID_LOTE="_id";
+    public static final String ID_LOTE="id";
     public static final String NOMBRE_LOTE="nombre";
     public static final String FECHA_LOTE="fecha_creacion";
     public static final String AREA_LOTE="area";
@@ -101,29 +103,4 @@ public class Constantes {
     public static final String ARBOL_DESARROLLO_ACTIVIDADES="arbol_id";
     public static final String PERSONA_DESARROLLO_ACTIVIDADES="personas_id";
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

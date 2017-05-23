@@ -11,29 +11,18 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ESPECIE)
 public class Especie {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_ESPECIE)
-    private int id;
+    @DatabaseField(columnName = Constantes.ID_ESPECIE, id = true )
+    private String id;
 
     @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE, canBeNull = false)
     private String nombre;
 
-    @ForeignCollectionField
-    private ForeignCollection<ArbolEspecie> arbolEspecies;
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public ForeignCollection<ArbolEspecie> getArbolEspecies() {
-        return arbolEspecies;
-    }
-
-    public void setArbolEspecies(ForeignCollection<ArbolEspecie> arbolEspecies) {
-        this.arbolEspecies = arbolEspecies;
     }
 
     public Especie() {
@@ -42,6 +31,7 @@ public class Especie {
     public Especie(String nombre) {
 
         this.nombre = nombre;
+        this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }
 
     public String getNombre() {
@@ -52,15 +42,4 @@ public class Especie {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", String.valueOf(id) + Constantes.SERIAL);
-        objetoJson.addProperty(Constantes.ESPECIE_ESPECIE, nombre);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
 }

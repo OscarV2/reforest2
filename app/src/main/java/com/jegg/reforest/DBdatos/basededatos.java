@@ -22,9 +22,7 @@ import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.Entidades.User;
 import com.jegg.reforest.R;
-import com.jegg.reforest.Utils.Constantes;
 
 import java.sql.SQLException;
 
@@ -35,11 +33,11 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
     private static int DATABASE_VERSION = 1;
 
     // Objetos DAO que se usaran para acceder a la tabla Arbol
-    private Dao<Arbol, Integer> arbolDao = null;
+    private Dao<Arbol, String> arbolDao = null;
     private RuntimeExceptionDao<Arbol, Integer> arbolRuntimeDao = null;
 
     // Objetos DAO que se usaran para acceder a la tabla Lote
-    private Dao<Lote, Integer> loteDao = null;
+    private Dao<Lote, String> loteDao = null;
     private RuntimeExceptionDao<Lote, Integer> loteRuntimeDao = null;
 
     // Objetos DAO que se usaran para acceder a la tabla Altura
@@ -160,7 +158,7 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
 
     }
 
-    public Dao<Arbol, Integer> getArbolDao() throws SQLException {
+    public Dao<Arbol, String> getArbolDao() throws SQLException {
         if (arbolDao == null) arbolDao = getDao(Arbol.class);
         return arbolDao;
     }
@@ -170,7 +168,7 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         return arbolRuntimeDao;
     }
 
-    public Dao<Lote, Integer> getLoteDao() throws SQLException {
+    public Dao<Lote, String> getLoteDao() throws SQLException {
         if (loteDao == null) loteDao = getDao(Lote.class);
         return loteDao;
     }

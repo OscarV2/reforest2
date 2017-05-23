@@ -17,29 +17,32 @@ import java.util.List;
 @DatabaseTable(tableName = Constantes.TABLA_ARBOL)
 public class Arbol {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_ARBOL)
-    private int id;
+    @DatabaseField(columnName = Constantes.ID_ARBOL, id = true)
+    private String id;
 
     @DatabaseField(columnName = Constantes.COORDENADAS_ARBOL, canBeNull = false)
-    private String coordenadas;
+    private String coodenadas;
 
     @DatabaseField(columnName = Constantes.FECHA_ARBOL)
-    private Date fecha;
+    private String fecha_sembrado;
 
-    @DatabaseField(columnName = Constantes.LOTE_ID_ARBOL, foreign = true, foreignAutoRefresh = true)
-    private Lote lote;
+    @DatabaseField(columnName = Constantes.LOTE_ID_ARBOL)
+    private String lote_id;
 
-    @ForeignCollectionField
-    private ForeignCollection<ArbolEspecie> arbolEspecies;
-
-    @ForeignCollectionField
-    private ForeignCollection<ArbolEstado> arbolEstados;
+    @DatabaseField(columnName = "lote", foreign = true, foreignAutoRefresh = true)
+    private transient Lote lote;
 
     @ForeignCollectionField
-    private ForeignCollection<Altura> alturas;
+    private transient ForeignCollection<ArbolEspecie> arbolEspecies;
 
     @ForeignCollectionField
-    private ForeignCollection<DesarrolloActividades> desarrolloActividades;
+    private transient ForeignCollection<ArbolEstado> arbolEstados;
+
+    @ForeignCollectionField
+    private transient ForeignCollection<Altura> alturas;
+
+    @ForeignCollectionField
+    private transient ForeignCollection<DesarrolloActividades> desarrolloActividades;
 
     public ForeignCollection<ArbolEspecie> getArbolEspecies() {
         return arbolEspecies;
@@ -47,6 +50,14 @@ public class Arbol {
 
     public void setArbolEspecies(ForeignCollection<ArbolEspecie> arbolEspecies) {
         this.arbolEspecies = arbolEspecies;
+    }
+
+    public String getCoodenadas() {
+        return coodenadas;
+    }
+
+    public void setCoodenadas(String coodenadas) {
+        this.coodenadas = coodenadas;
     }
 
     public ForeignCollection<ArbolEstado> getArbolEstados() {
@@ -85,30 +96,43 @@ public class Arbol {
         return desarrolloActividades;
     }
 
+    public Estado getLastEstado(){
+
+        Estado estado = null;
+        List<ArbolEstado> listAe = new ArrayList<>();
+        CloseableWrappedIterable<ArbolEstado> iterable = arbolEstados.getWrappedIterable();
+        for (ArbolEstado arbolEstado : iterable){
+
+            estado = arbolEstado.getEstado();
+        }
+        return estado;
+    }
     public Arbol() {
     }
 
-    public Arbol(String coordenadas, Date fecha, Lote lote) {
-        this.coordenadas = coordenadas;
-        this.fecha = fecha;
+    public Arbol(String coordenadas, String fecha, Lote lote) {
+        this.coodenadas = coordenadas;
+        this.fecha_sembrado = fecha;
         this.lote = lote;
+
+        this.lote_id = lote.getId();
+        this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }
 
-    public int getId() {
-
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getFecha_sembrado() {
+        return fecha_sembrado;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha_sembrado(String fecha_sembrado) {
+        this.fecha_sembrado = fecha_sembrado;
     }
 
     public Lote getLote() {
@@ -121,7 +145,7 @@ public class Arbol {
 
     public LatLng getPosicion(){
 
-        String[] coordenadasArray = coordenadas.split(" ");
+        String[] coordenadasArray = coodenadas.split(" ");
         double lat = Double.parseDouble(coordenadasArray[0]);
         double lng = Double.parseDouble(coordenadasArray[1]);
 
@@ -147,20 +171,13 @@ public class Arbol {
         return estasembrado;
     }
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", String.valueOf(id) + Constantes.SERIAL);
-        objetoJson.addProperty(Constantes.COORDENADAS_ARBOL, coordenadas);
-        objetoJson.addProperty(Constantes.FECHA_ARBOL, Constantes.sdf.format(fecha));
-        objetoJson.addProperty(Constantes.LOTE_ID_ARBOL, String.valueOf(lote.getId()) + Constantes.SERIAL);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
+    public String getLote_id() {
+        return lote_id;
     }
 
+    public void setLote_id(String lote_id) {
+        this.lote_id = lote_id;
+    }
 }
 
 

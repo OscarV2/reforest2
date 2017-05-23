@@ -18,14 +18,14 @@ import java.util.ArrayList;
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
 public class Lote {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_LOTE)
-    private int id;
+    @DatabaseField(columnName = Constantes.ID_LOTE, id = true)
+    private String id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_LOTE, canBeNull = false)
     private String nombre;
 
     @DatabaseField(columnName = Constantes.FECHA_LOTE, canBeNull = false)
-    private Date fecha;
+    private String fecha_creacion;
 
     @DatabaseField(columnName = Constantes.AREA_LOTE, canBeNull = false)
     private Double area;
@@ -33,49 +33,38 @@ public class Lote {
     @DatabaseField(columnName = Constantes.DELIMITACION, canBeNull = false)
     private String delimitacion;
 
-    @DatabaseField(columnName = Constantes.MUNICIPIO_LOTE, canBeNull = false, foreign = true)
-    private Municipio municipio;
+    @DatabaseField(columnName = Constantes.MUNICIPIO_LOTE)
+    private int municipio_id;
+
+    @DatabaseField(columnName = "muni", canBeNull = false, foreign = true)
+    private transient Municipio municipio;
 
     @ForeignCollectionField
-    private ForeignCollection<Arbol> arboles;
+    private transient ForeignCollection<Arbol> arboles;
 
     public ForeignCollection<Arbol> getArboles() {
         return arboles;
     }
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-
-        objetoJson.addProperty("id", String.valueOf(id) + Constantes.SERIAL);
-        objetoJson.addProperty(Constantes.NOMBRE_LOTE, nombre);
-        objetoJson.addProperty("fecha_creacion", Constantes.sdf.format(fecha));
-        objetoJson.addProperty(Constantes.AREA_LOTE, area);
-        objetoJson.addProperty(Constantes.DELIMITACION, delimitacion);
-        objetoJson.addProperty(Constantes.MUNICIPIO_LOTE, 1);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
-
     public Lote() {
     }
 
-    public Lote(String nombre, Date fecha, Double area, Municipio municipio, String delimitacion) {
+    public Lote(String nombre, String fecha, Double area, Municipio municipio, String delimitacion) {
         this.nombre = nombre;
-        this.fecha = fecha;
+        this.fecha_creacion = fecha;
         this.area = area;
         this.municipio = municipio;
         this.delimitacion = delimitacion;
+
+        this.municipio_id = municipio.getId();
+        this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -101,14 +90,6 @@ public class Lote {
         return puntos;
     }
 
-    public String getDelimitacion() {
-        return delimitacion;
-    }
-
-    public void setDelimitacion(String delimitacion) {
-        this.delimitacion = delimitacion;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -117,27 +98,23 @@ public class Lote {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getFecha_creacion() {
+        return fecha_creacion;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha_creacion(String fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
     }
 
     public Double getArea() {
         return area;
     }
 
-    public void setArea(Double area) {
-        this.area = area;
+    public int getMunicipio_id() {
+        return municipio_id;
     }
 
-    public Municipio getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
+    public void setMunicipio_id(int municipio_id) {
+        this.municipio_id = municipio_id;
     }
 }

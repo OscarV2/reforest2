@@ -44,7 +44,35 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         inicioSesion = prefs.getBoolean("inicio_sesion", false);
+        Log.e("Bool InicioSesion", String.valueOf(inicioSesion));
 
+
+        datosReforest = OpenHelperManager.getHelper(MainActivity.this,
+                basededatos.class);
+
+        (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (inicioSesion){
+
+                    irMenu();
+                }else{
+
+                    IniciarSesion();
+                    if (existeBaseDatos()){
+                        Log.e("base de datos","");
+                    }
+                }
+            }
+        });
+
+        try{
+            insertarActividadesEnBd();
+            insertarcrearEstadosEnBd();
+        }catch (SQLException e){
+
+            e.printStackTrace();
+        }
         }
 
     private void irMenu() {
@@ -59,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         Dao<Estado, Integer> estadosDao = datosReforest.getEstadoDao();
         List<Estado> listEstados = new ArrayList<>();
 
-            listEstados.add(new Estado("Bueno"));
+        listEstados.add(new Estado("Bueno"));
         listEstados.add(new Estado("Enfremo"));
         listEstados.add(new Estado("Resiembra"));
         listEstados.add(new Estado("Erradicado"));
@@ -94,20 +122,18 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = ProgressDialog.show(MainActivity.this, "Sincronizando...", "Por favor espere..", true);
 
-        progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        /*progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                irMenu();
-            }
-        });
 
+            }
+        });*/
         progressDialog.setCancelable(false);
         if (progressDialog.isShowing()){
 
             Log.e("proegress", "showing");
             startService(new Intent(MainActivity.this, SinconizacionService.class));
         }
-
     }
 
     private class MyReceiver extends BroadcastReceiver {
@@ -147,44 +173,13 @@ public class MainActivity extends AppCompatActivity {
         }else {
             Log.e("No","existe.");
         }
-
-
-
         return b;
     }
 
     @Override
     protected void onResume() {
 
-        if (inicioSesion){
-            sincronizando();
-            //irMenu();
-
-        }else{
-            sincronizando();
-            if (existeBaseDatos()){
-                Log.e("base de datos","");
-            }
-
-            datosReforest = OpenHelperManager.getHelper(MainActivity.this,
-                    basededatos.class);
-
-            (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    IniciarSesion();
-                }
-            });
-
-            try{
-                insertarActividadesEnBd();
-                insertarcrearEstadosEnBd();
-            }catch (SQLException e){
-
-                e.printStackTrace();
-            }
-        }
-
+        sincronizando();
         Log.e("on","RESUME");
         super.onResume();
     }

@@ -14,9 +14,14 @@ import com.google.gson.Gson;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.SyncServiceUtils;
-import com.jegg.reforest.asincronas.GetAsyncrona;
+import com.jegg.reforest.api.ReforestApiAdapter;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SinconizacionService extends Service {
 
@@ -25,11 +30,10 @@ public class SinconizacionService extends Service {
 
     public final static String MY_ACTION = "MY_ACTION";
 
-    GetAsyncrona getAsync;
+
 
     SharedPreferences prefs;
     private SyncServiceUtils utils;
-    Gson gson = new Gson();
 
     @Nullable
     @Override
@@ -40,12 +44,10 @@ public class SinconizacionService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-
         init();
         boolean automaticSync = prefs.getBoolean("automatic_sync",false);
         ConnectivityManager conMan = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        getAsync = new GetAsyncrona();
         if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
             Log.e("Wifi","conectado");          // Wifi conectado o hay datos
 
@@ -58,56 +60,53 @@ public class SinconizacionService extends Service {
                 if(utils.checkTablas()){                             // si hay usuarios,
                     // check tablas
                     //hay tablas entonces se subiran todas las tablas a la api
-
                     utils.sincronizar();
                     this.stopSelf();
-
                 }
             }else {
                 Log.e("automaticSync","disabled");
                 this.stopSelf();
             }
-
         }else {
             stopSelf();
         }
-
         return START_STICKY;
     }
 
     private void getUsuariosFromApi() {
 
-        try {
-            String usuarios = getAsync.execute(Constantes.GET_PERSONAS).get();
-            //JSONObject usersJson = new JSONObject(usuarios);
-            if (!(usuarios.equals(""))){
-                Persona[] users = gson.fromJson(usuarios, Persona[].class);
+        Call<List<Persona>> getPersonas = ReforestApiAdapter.getApiService().getPersonas();
+        getPersonas.enqueue(new Callback<List<Persona>>() {
+            @Override
+            public void onResponse(Call<List<Persona>> call, Response<List<Persona>> response) {
 
-                if (users.length > 0){
+                if (response.isSuccessful()){
+                    Log.e("get personas", "successfull");
+                    List<Persona> personaList = response.body();
+                    if (personaList != null && personaList.size() > 0) {
 
-                    Log.e("users tiene","registros");
-
-                    for(Persona p : users){
-                        utils.crearPersona(p);
+                        for (Persona p : personaList) {
+                            utils.crearPersona(p);
+                        }
                     }
-
+                }else {
+                    //
                 }
+
             }
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailure(Call<List<Persona>> call, Throwable t) {
+                stopSelf();
+            }
+        });
 
     }
 
     private void init() {
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        getAsync = new GetAsyncrona();
         utils = new SyncServiceUtils(getApplicationContext());
-
     }
 
     @Override

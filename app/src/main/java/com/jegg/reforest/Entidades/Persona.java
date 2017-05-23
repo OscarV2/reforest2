@@ -1,7 +1,5 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -10,13 +8,10 @@ import com.jegg.reforest.Utils.Constantes;
 
 import java.sql.Date;
 
-/**
- * Created by oscarvc on 29/04/17.
- */
 @DatabaseTable(tableName = Constantes.TABLA_PERSONAS)
 public class Persona {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_PERSONAS)
+    @DatabaseField(id = true, columnName = Constantes.ID_PERSONAS)
     private int id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_PERSONAS, canBeNull = false)
@@ -45,7 +40,7 @@ public class Persona {
 
 
     @ForeignCollectionField
-    private ForeignCollection<DesarrolloActividades> desarrolloActividades;
+    private transient ForeignCollection<DesarrolloActividades> desarrolloActividades;
 
     @DatabaseField(columnName = "municipio_id")
     private int municipio_id;
@@ -57,7 +52,7 @@ public class Persona {
     public void setMunicipio_id(int municipio_id) {
         this.municipio_id = municipio_id;
     }
-
+/*
     @Override
     public String toString() {
 
@@ -77,7 +72,7 @@ public class Persona {
 
         return gson.toJson(objetoJson);
     }
-
+*/
     public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
         return desarrolloActividades;
     }

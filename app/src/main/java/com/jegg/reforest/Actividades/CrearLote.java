@@ -82,7 +82,7 @@ public class CrearLote extends AppCompatActivity {
 
         sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        String currentDateandTime = sdf.format(new Date());
+        String currentDateandTime = Constantes.sdf.format(new Date());
         fecha.setText(currentDateandTime);
 
         datosReforest = OpenHelperManager.getHelper(CrearLote.this,
@@ -233,9 +233,9 @@ public class CrearLote extends AppCompatActivity {
         else{
             setDelimitacionBuffer();
             delimitacion = delimitacionBuffer.toString();
-            delimitacion.substring(0, delimitacion.length()-2);
+            delimitacion = delimitacion.substring(0, delimitacion.length()-1);
             Log.e("delimi", delimitacion);
-            java.sql.Date fechaLote = new java.sql.Date(new Date().getTime());
+            String fechaLote = Constantes.sdf.format(new Date());
             municipio = new Municipio(edtMunicipio.getText().toString());
             Lote lote = new Lote(nombreLote, fechaLote, areaLote, municipio, delimitacion);
 

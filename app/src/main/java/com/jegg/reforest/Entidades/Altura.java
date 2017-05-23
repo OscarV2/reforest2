@@ -9,42 +9,25 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ALTURA)
 public class Altura {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_ALTURA)
-    private int id;
+    @DatabaseField(generatedId = true, columnName = "id")
+    private transient int id;
 
     @DatabaseField(columnName = Constantes.ALTURA_ARBOL, canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private Arbol arbol;
+
+    @DatabaseField(columnName = Constantes.ALTURA_ARBOL + "2")
+    private String arbol_id;
 
     @DatabaseField(columnName = Constantes.MEDIDAS_ALTURA, canBeNull = false)
     private String medida;
 
     @DatabaseField(columnName = Constantes.UPLOADED)
-    private boolean uploaded;
+    private transient boolean uploaded;
 
     public void setUploaded(boolean uploaded) {
         this.uploaded = uploaded;
     }
-
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty(Constantes.ALTURA_ARBOL, String.valueOf(arbol.getId()) + Constantes.SERIAL);
-        objetoJson.addProperty("medida", medida);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+/*
     public Arbol getArbol() {
         return arbol;
     }
@@ -52,19 +35,20 @@ public class Altura {
     public void setArbol(Arbol arbol) {
         this.arbol = arbol;
     }
+*/
+
+    public int getId() {
+        return id;
+    }
 
     public String getMedida() {
         return medida;
     }
 
-    public void setMedida(String medida) {
-        this.medida = medida;
-    }
-
     public Altura(Arbol arbol, String medida) {
 
-        this.arbol = arbol;
         this.medida = medida;
+        this.arbol_id = arbol.getId();
     }
 
     public Altura() {

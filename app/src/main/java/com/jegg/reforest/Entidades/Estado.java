@@ -20,19 +20,8 @@ public class Estado {
     @DatabaseField(columnName = Constantes.ESTADO_ESTADO, canBeNull = false)
     private String nombre;
 
-    @ForeignCollectionField
-    private ForeignCollection<ArbolEstado> arbolEstados;
-
     public int getId() {
         return id;
-    }
-
-    public ForeignCollection<ArbolEstado> getArbolEstados() {
-        return arbolEstados;
-    }
-
-    public void setArbolEstados(ForeignCollection<ArbolEstado> arbolEstados) {
-        this.arbolEstados = arbolEstados;
     }
 
     public void setId(int id) {

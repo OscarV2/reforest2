@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/18 12:49:54
+# generated on 2017/05/21 10:05:37
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -7,8 +7,8 @@ tableName=lote
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=_id
-generatedId=true
+columnName=id
+id=true
 # --field-end--
 # --field-start--
 fieldName=nombre
@@ -16,7 +16,7 @@ columnName=nombre
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=fecha
+fieldName=fecha_creacion
 columnName=fecha_creacion
 canBeNull=false
 # --field-end--
@@ -31,8 +31,12 @@ columnName=delimitacion
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=municipio
+fieldName=municipio_id
 columnName=municipio_id
+# --field-end--
+# --field-start--
+fieldName=municipio
+columnName=muni
 canBeNull=false
 foreign=true
 # --field-end--
@@ -50,7 +54,7 @@ tableName=personas
 # --field-start--
 fieldName=id
 columnName=_id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=nombre
@@ -104,16 +108,12 @@ tableName=especie
 # --field-start--
 fieldName=id
 columnName=_id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=nombre
 columnName=especie
 canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=arbolEspecies
-foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -124,7 +124,7 @@ tableName=desarrollo_actividades
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=_id
+columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
@@ -175,7 +175,7 @@ tableName=altura
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=_id
+columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
@@ -185,6 +185,10 @@ canBeNull=false
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=arbol_id
+columnName=arbol_id2
 # --field-end--
 # --field-start--
 fieldName=medida
@@ -205,20 +209,24 @@ tableName=arbol
 # --field-start--
 fieldName=id
 columnName=_id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
-fieldName=coordenadas
+fieldName=coodenadas
 columnName=coodenadas
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=fecha
+fieldName=fecha_sembrado
 columnName=fecha_arbol
 # --field-end--
 # --field-start--
-fieldName=lote
+fieldName=lote_id
 columnName=lote_id
+# --field-end--
+# --field-start--
+fieldName=lote
+columnName=lote
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
@@ -277,10 +285,6 @@ fieldName=nombre
 columnName=estado
 canBeNull=false
 # --field-end--
-# --field-start--
-fieldName=arbolEstados
-foreignCollection=true
-# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -290,13 +294,12 @@ tableName=arbol_estado
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=arbol_id
+columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
 fieldName=arbol
 columnName=_id
-canBeNull=false
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
@@ -304,10 +307,17 @@ maxForeignAutoRefreshLevel=2
 # --field-start--
 fieldName=estado
 columnName=estado_id
-canBeNull=false
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=arbol_id
+columnName=arbol_id2
+# --field-end--
+# --field-start--
+fieldName=estado_id
+columnName=estado_id2
 # --field-end--
 # --field-start--
 fieldName=uploaded
@@ -322,7 +332,7 @@ tableName=especie_arbol
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=_id
+columnName=idArbolEspecie
 generatedId=true
 # --field-end--
 # --field-start--
@@ -338,6 +348,14 @@ columnName=especie_id
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=arbol_id
+columnName=arbol_id2
+# --field-end--
+# --field-start--
+fieldName=especie_id
+columnName=especie_id2
 # --field-end--
 # --field-start--
 fieldName=uploaded
@@ -391,34 +409,6 @@ canBeNull=false
 # --field-start--
 fieldName=desarrolloActividades
 foreignCollection=true
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.jegg.reforest.Entidades.User
-tableName=users
-# --table-fields-start--
-# --field-start--
-fieldName=id
-columnName=id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=name
-columnName=name
-# --field-end--
-# --field-start--
-fieldName=email
-columnName=email
-# --field-end--
-# --field-start--
-fieldName=password
-columnName=password
-# --field-end--
-# --field-start--
-fieldName=persona_id
-columnName=persona_id
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -13,28 +13,26 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ESPECIE_ARBOL)
 public class ArbolEspecie {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_ESPECIE_ARBOL)
-    private int id;
+    @DatabaseField(generatedId = true, columnName = "idArbolEspecie")
+    private transient int id;
 
     @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)
-    private Arbol arbol;
+    private transient Arbol arbol;
 
     @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)
-    private Especie especie;
+    private transient Especie especie;
+
+   @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL + "2")
+   private String arbol_id;
+
+    @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL+ "2")
+    private String especie_id;
 
     @DatabaseField(columnName = Constantes.UPLOADED)
-    private boolean uploaded;
+    private transient boolean uploaded;
 
     public void setUploaded(boolean uploaded) {
         this.uploaded = uploaded;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Arbol getArbol() {
@@ -45,34 +43,44 @@ public class ArbolEspecie {
         this.arbol = arbol;
     }
 
-    public Especie getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(Especie especie) {
-        this.especie = especie;
-    }
-
     public ArbolEspecie(Arbol arbol, Especie especie) {
 
         this.arbol = arbol;
         this.especie = especie;
+        this.arbol_id = arbol.getId();
+        this.especie_id = especie.getId();
+    }
+
+    public String getArbol_id() {
+        return arbol_id;
+    }
+
+    public void setArbol_id(String arbol_id) {
+        this.arbol_id = arbol_id;
+    }
+
+    public boolean isUploaded() {
+        return uploaded;
+    }
+
+    public String getEspecie_id() {
+        return especie_id;
+    }
+
+    public void setEspecie_id(String especie_id) {
+        this.especie_id = especie_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Especie getEspecie() {
+        return especie;
     }
 
     public ArbolEspecie() {
 
     }
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-
-        objetoJson.addProperty(Constantes.ARBOL_ESPECIE_ARBOL, String.valueOf(arbol.getId()) + Constantes.SERIAL);
-        objetoJson.addProperty(Constantes.ESPECIE_ESPECIE_ARBOL, String.valueOf(especie.getId()) + Constantes.SERIAL);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
 }

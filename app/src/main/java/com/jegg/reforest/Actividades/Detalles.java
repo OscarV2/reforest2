@@ -54,7 +54,6 @@ import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
-import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.LocationUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -64,6 +63,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         AdapterView.OnItemSelectedListener, GoogleMap.OnMarkerClickListener {
@@ -73,8 +73,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     TextView txtCoordenadas, txtLote;
     Spinner actividades, saludArbol;
 
-    int idLote, idActividad, idEstado, idArbol=0;
-    String nombreLote;
+    int  idActividad, idEstado;
+    String idLote;
+    String nombreLote, idArbol="";
     String comentariosActividad;
     String altura;
     String especie;
@@ -86,14 +87,12 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             laySpinnerSaludArbol, layMapa;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     double latitud, longitud;
-    private Toolbar toolbar;
     SimpleDateFormat sdf;
-    String currentDateandTime;
     String fotoPath = "";
     boolean arbolesCargados = false;
 
     int idPersona;
-    java.sql.Date fechaActividad;
+    String fechaActividad;
     Lote lote;
     Arbol arbol;
 
@@ -102,7 +101,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     Actividad actividad;
     DesarrolloActividades desarrolloActividad;
 
-    Estado estadoEntidad;
+    List<Estado> estados;
     ArbolEstado arbolEstado;
 
     Especie especieEntidad;
@@ -114,9 +113,15 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     Persona usuario;
     ForeignCollection<Arbol> listaArboles;
 
-    Dao daoDesarrolloAct, daoActividad, daoEspecie,
-            daoArbolEspecie, daoEstado, daoArbolEstado,
-            daoArboles, daoAltura,  daoPersona;
+    Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
+    Dao<Actividad, Integer> daoActividad;
+    Dao<Especie, Integer> daoEspecie;
+    Dao<Arbol, String> daoArboles;
+    Dao<Estado, Integer> daoEstado;
+    Dao<ArbolEstado, Integer> daoArbolEstado;
+    Dao<ArbolEspecie, Integer> daoArbolEspecie;
+    Dao<Altura, Integer> daoAltura;
+    Dao<Persona, Integer> daoPersona;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,13 +137,13 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         basededatos datosReforest = OpenHelperManager.getHelper(Detalles.this, basededatos.class);
 
-        idLote = this.getIntent().getIntExtra("id_lote", 0);
+        idLote = this.getIntent().getStringExtra("id_lote");
         idPersona = prefs.getInt("id_persona", 0);
         Log.e("idLote", String.valueOf(idLote));
 
         try {
-            Dao daoLotes = datosReforest.getLoteDao();
-            lote = (Lote) daoLotes.queryForId(idLote);
+            Dao<Lote, String> daoLotes = datosReforest.getLoteDao();
+            lote = daoLotes.queryForId(idLote);
             nombreLote = lote.getNombre();
 
             listaArboles = lote.getArboles();
@@ -154,7 +159,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             daoPersona = datosReforest.getPersonasDao();
             daoAltura = datosReforest.getAlturaDao();
 
-            usuario = (Persona)daoPersona.queryForId(idPersona);
+            usuario = daoPersona.queryForId(idPersona);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -165,7 +170,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void setToolbar() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_detalles);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detalles);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar !=null){
@@ -199,14 +204,10 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         txtLote.append(nombreLote);
 
         sdf = new SimpleDateFormat("dd/MM/yyyy");
-        currentDateandTime = sdf.format(new Date());
-        edtFecha.setText(currentDateandTime);
-
-        fechaActividad = new java.sql.Date(new Date().getTime());
-
+        fechaActividad = sdf.format(new Date());
+        edtFecha.setText(fechaActividad);
 
         filePath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.lista_tipo_actividades, R.layout.item_spinner);
@@ -217,6 +218,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         actividades.setAdapter(adapter);
         actividades.setOnItemSelectedListener(this);
 
+        setEstadoEntidad();
         ArrayAdapter<CharSequence> adapterSaludArbol = ArrayAdapter.createFromResource(this,
                 R.array.lista_estados, R.layout.item_spinner);
 
@@ -230,19 +232,15 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 switch (position) {
                     case 0:
                         idEstado = 1;
-                        setEstadoEntidad();
                         break;
                     case 1:
                         idEstado = 2;
-                        setEstadoEntidad();
                         break;
                     case 2:
                         idEstado = 3;
-                        setEstadoEntidad();
                         break;
                     case 3:
                         idEstado = 4;
-                        setEstadoEntidad();
                         break;
                 }
             }
@@ -265,7 +263,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void setEstadoEntidad() {
 
         try {
-            estadoEntidad = (Estado) daoEstado.queryForId(idEstado);
+            estados = daoEstado.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -448,7 +446,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void setActividad() {
 
         try {
-            actividad = (Actividad) daoActividad.queryForId(idActividad);
+            actividad = daoActividad.queryForId(idActividad);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -488,9 +486,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         if (idActividad != 1){  // si la actividad no es preparar terreno
 
-            if (idArbol != 0){
+            if (!(idArbol.equals(""))){
 
-                if (idActividad == 6 || idActividad == 2) {  // sustitucion de plantas
+                if (idActividad == 6 || idActividad == 2) {  // sustitucion de plantas o sembrar arbol
 
                     Log.e("actividad", String.valueOf(idActividad));
                     especie = edtEspecie.getText().toString();
@@ -520,7 +518,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 else if(idActividad == 8){
 
                     Log.e("actividad es", "EStado");
-                    arbolEstado = new ArbolEstado(arbol, estadoEntidad);
+                    arbolEstado = new ArbolEstado(arbol, estados.get(idEstado-1));
                     daoArbolEstado.create(arbolEstado);
                     guardarActividad_2_3_4_6_7_8();
 
@@ -528,8 +526,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
                     guardarActividad_2_3_4_6_7_8();
                 }
-
-
             }else {Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();}  //y no se ha dado click en ningun terreno
 
 
@@ -565,17 +561,27 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void guardarActividad6() {
 
 
-        if (idArbol == 0){
+        if (idArbol.equals("")){
 
             Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();
 
         }else{
+
             Log.e("idArbol es", String.valueOf(idArbol));
             alturaEntity = new Altura(arbol, altura);
             especieEntidad = new Especie(especie);
             arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
             Log.e("guardando","actividad 2 o 6");
             Log.e("idActividad", String.valueOf(actividad.getId()));
+
+            if (idActividad == 6){  // Estado resiembra
+
+                arbolEstado = new ArbolEstado(arbol, estados.get(3));
+            }else if (idActividad == 2){  // Estado Bueno
+
+                arbolEstado = new ArbolEstado(arbol, estados.get(0));
+            }
+
             desarrolloActividad = new DesarrolloActividades(fotoPath, comentariosActividad
                     , fechaActividad, actividad, arbol, usuario);
             try {
@@ -670,9 +676,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        idArbol = (Integer)marker.getTag();
+        idArbol = (String) marker.getTag();
         try {
-            arbol = (Arbol)daoArboles.queryForId(idArbol);
+            arbol = daoArboles.queryForId(idArbol);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -704,7 +710,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         volver.show();
     }
-
 
     @Override
     protected void onDestroy() {

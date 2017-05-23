@@ -37,7 +37,7 @@ public class Lotes extends AppCompatActivity {
     //private SQLiteDatabase dbReforest;
     private TextView tvNoHayLotes;
     basededatos datosReforest;
-    Dao<Lote, Integer> lotesDao;
+    Dao<Lote, String> lotesDao;
 
 
     private void init(){
@@ -122,7 +122,6 @@ public class Lotes extends AppCompatActivity {
 
             if ( listaLotes.size() > 0){
                 cargarListaLotes(listaLotes);
-                Log.e("si hay","lotes ");
             }else {
 
                 tvNoHayLotes.setVisibility(View.VISIBLE);
@@ -138,8 +137,7 @@ public class Lotes extends AppCompatActivity {
         for (int i= 0; i<listaLotes.size(); i++){
 
             int numeroArboles = getTotalArbolesLote(listaLotes.get(i));
-            Log.e("areaClaseLotes: ", String.valueOf(listaLotes.get(i).getArea()));
-            itemLotes.add(new ItemLote(listaLotes.get(i).getNombre() , listaLotes.get(i).getFecha().toString(),
+            itemLotes.add(new ItemLote(listaLotes.get(i).getNombre() , listaLotes.get(i).getFecha_creacion(),
                     numeroArboles, listaLotes.get(i).getArea()) );
         }
 
@@ -147,10 +145,9 @@ public class Lotes extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("clik","item");
-                Log.e("Lote String",listaLotes.get(position).toString());
+
                 Intent irDetalles = new Intent(Lotes.this, Detalles.class);
-                irDetalles.putExtra("id_lote", position+1);
+                irDetalles.putExtra("id_lote", listaLotes.get(position).getId());
                 irDetalles.putExtra("nombre_lote", listaLotes.get(position).getNombre());
                 startActivity(irDetalles);
                 finish();

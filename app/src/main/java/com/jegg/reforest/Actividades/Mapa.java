@@ -35,6 +35,7 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Especie;
+import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.LocationUtils;
@@ -147,7 +148,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
                 if (arbol.estaSembrado()){
 
                     listaArboles.add(arbol);
-                    dibujaArbol(arbol.getPosicion() , arbol.getId());
+                    dibujaArbol(arbol.getPosicion() , arbol.getId(), listaArboles.size()-1);
                 }
             }
         }
@@ -163,10 +164,10 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
     }
 
-    private void dibujaArbol(LatLng posicion, int id) {
+    private void dibujaArbol(LatLng posicion, String id, int positionList) {
 
         mMap.addMarker(new MarkerOptions().position(posicion)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(id);
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(positionList);
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(posicion.latitude, posicion.longitude), 18f));
 
@@ -214,11 +215,11 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) throws NullPointerException {
+    public boolean onMarkerClick(Marker marker){
 
         Log.e("marker","click");
         Log.e("numClicks ", String.valueOf(numeroClicksMarker));
-        if (numeroClicksMarker < 4){
+/*        if (numeroClicksMarker < 4){
             options.add(marker.getPosition());
 
             dibujarPuntoRef(marker);
@@ -228,18 +229,20 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             options.fillColor(0x7F00FF00).strokeColor(Color.GREEN);
          //   Polygon lotePoligono = mMap.addPolygon(options);
         }
-
+*/
         Log.e("id marker ", String.valueOf(marker.getTag()));
-        Arbol arbolMarker = listaArboles.get((Integer)marker.getTag() - 1);
 
+        Arbol arbolMarker = listaArboles.get((int)marker.getTag());
 
-        int sizeListaAlturas = arbolMarker.getAlturas().size();
+        String fecha = arbolMarker.getFecha_sembrado();
+        //int sizeListaAlturas = arbolMarker.getAlturas().size();
         int sizeListaEspecies = arbolMarker.getArbolEspecie().size();
 
-        Altura altura = arbolMarker.getAlturas().get(sizeListaAlturas-1);
+        //Altura altura = arbolMarker.getAlturas().get(sizeListaAlturas-1);
         Especie especie = arbolMarker.getArbolEspecie().get(sizeListaEspecies-1).getEspecie();
+        Estado estado = arbolMarker.getLastEstado();
         marker.setTitle(especie.getNombre());
-        marker.setSnippet("Altura "+ altura.getMedida() +" m");
+        marker.setSnippet("Sembrado en "+ fecha + "\n" + "Estado: " + estado.getNombre());
 
         marker.showInfoWindow();
         Log.e("marker","click");
