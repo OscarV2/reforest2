@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="com.jegg.reforest.Actividades.MainActivity"
+    tools:context="com.jegg.reforest.actividades.MainActivity"
     android:background="@drawable/side_nav_bar">
 
   <TextView

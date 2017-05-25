@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/side_nav_bar"
-    tools:context="com.jegg.reforest.Actividades.CrearLote">
+    tools:context="com.jegg.reforest.actividades.CrearLote">
 
     <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"

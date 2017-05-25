@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:gravity="center_horizontal"
     android:layout_height="match_parent"
-    tools:context="com.jegg.reforest.Actividades.Preferecias">
+    tools:context="com.jegg.reforest.actividades.Preferecias">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"

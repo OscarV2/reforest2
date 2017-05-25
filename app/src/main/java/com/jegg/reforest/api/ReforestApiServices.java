@@ -12,6 +12,7 @@ import com.jegg.reforest.Utils.Constantes;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -29,10 +30,10 @@ public interface ReforestApiServices {
     Call<List<Persona>> getPersonas();
 
     @POST(Constantes.POST_ALTURA)
-    Call<String> postAltura(@Body Altura altura);
+    Call<ResponseBody> postAltura(@Body Altura altura);
 
     @POST(Constantes.POST_ARBOL)
-    Call<String> postArbol(@Body Arbol arbol);
+    Call<ResponseBody> postArbol(@Body Arbol arbol);
 
     /*@FormUrlEncoded
     @POST(Constantes.POST_ARBOL)
@@ -41,23 +42,23 @@ public interface ReforestApiServices {
 */
     @FormUrlEncoded
     @POST(Constantes.POST_DESARROLLO_ACTIVIDAD)
-    Call<String> postDesarrolloAct(@Field("urlimagen") String imagen, @Field("comentario") String comentario,
+    Call<ResponseBody> postDesarrolloAct(@Field("urlimagen") String imagen, @Field("comentario") String comentario,
                                    @Field("fecha") String fecha, @Field("actividades_id") int ActId,
                                    @Field("arbol_id") String ArbolId, @Field("personas_id") int persona);
 
     @POST(Constantes.POST_ESPECIE)
-    Call<String> postEspecie(@Body Especie especie);
+    Call<ResponseBody> postEspecie(@Body Especie especie);
 
 
     @POST(Constantes.POST_ESPECIE_ARBOL)
-    Call<String> postEspecieArbol(@Body ArbolEspecie arbolEspecie);
+    Call<ResponseBody> postEspecieArbol(@Body ArbolEspecie arbolEspecie);
 
 
     @POST(Constantes.POST_ESTADO_ARBOL)
-    Call<String> postEstadoArbol(@Body ArbolEstado arbolEstado);
+    Call<ResponseBody> postEstadoArbol(@Body ArbolEstado arbolEstado);
 
 
     @POST("lote")
-    Call<String> postLotes(@Body Lote lote);
+    Call<ResponseBody> postLotes(@Body Lote lote);
 
 }

@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/21 10:05:37
+# generated on 2017/05/24 05:20:05
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -33,6 +33,10 @@ canBeNull=false
 # --field-start--
 fieldName=municipio_id
 columnName=municipio_id
+# --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
 # --field-end--
 # --field-start--
 fieldName=municipio
@@ -108,7 +112,7 @@ tableName=especie
 # --field-start--
 fieldName=id
 columnName=_id
-id=true
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=nombre
@@ -230,6 +234,10 @@ columnName=lote
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
 # --field-end--
 # --field-start--
 fieldName=arbolEspecies

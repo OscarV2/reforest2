@@ -26,7 +26,7 @@ public class ArbolEspecie {
    private String arbol_id;
 
     @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE_ARBOL+ "2")
-    private String especie_id;
+    private int especie_id;
 
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
@@ -63,11 +63,11 @@ public class ArbolEspecie {
         return uploaded;
     }
 
-    public String getEspecie_id() {
+    public int getEspecie_id() {
         return especie_id;
     }
 
-    public void setEspecie_id(String especie_id) {
+    public void setEspecie_id(int especie_id) {
         this.especie_id = especie_id;
     }
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/side_nav_bar"
-    tools:context="com.jegg.reforest.Actividades.Detalles">
+    tools:context="com.jegg.reforest.actividades.Detalles">
 
 
     <android.support.v7.widget.Toolbar
@@ -206,7 +206,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white">
-                <EditText
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/hint_detalles_especie"
+                    android:id="@+id/especieArbol"
+                    android:maxLines="1"
+                    android:textColor="@color/white"/>
+                <!--EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
@@ -220,8 +228,7 @@
                     android:id="@+id/especieArbol"
                     android:layout_gravity="center_horizontal"
                     android:textColorHint="@color/white"
-                    android:hint="Especie:" />
-
+                    android:hint="Especie:" /-->
 
             </android.support.design.widget.TextInputLayout>
 

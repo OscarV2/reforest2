@@ -49,6 +49,9 @@ public class ArbolEstado {
     }
 */
     public ArbolEstado(Arbol arbol, Estado estado) {
+
+        this.estado = estado;
+        this.arbol = arbol;
         this.arbol_id = arbol.getId();
         this.estado_id = estado.getId();
     }

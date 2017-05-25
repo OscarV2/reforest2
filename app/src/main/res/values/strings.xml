@@ -64,6 +64,53 @@
     <string name="op_mapa_hibrido">Mapa Hibrido</string>
     <string name="op_mapa_satelite">Mapa Satelite</string>
     <string name="op_tierra">Tierra</string>
+    <string name="hint_detalles_especie">Especie</string>
+
+    <!-- Especies  -->
+    <string-array name="lista_especies" >
+        <item>Algarrobillo</item>
+        <item>Camajon</item>
+        <item>Campano</item>
+        <item>Cantagallo</item>
+        <item>Cañaguate</item>
+        <item>Caracolí</item>
+        <item>Carrero</item>
+        <item>Caucho</item>
+        <item>Cedro</item>
+        <item>Ceiba</item>
+        <item>Ciruela</item>
+        <item>Cotopri</item>
+        <item>Dividivi</item>
+        <item>Guacamacho</item>
+        <item>Guasimo</item>
+        <item>Guayabo</item>
+        <item>Guayacan</item>
+        <item>Higueron</item>
+        <item>Jobo</item>
+        <item>Limoncillo</item>
+        <item>Mamon</item>
+        <item>Mango</item>
+        <item>Matarraton</item>
+        <item>Naranjo</item>
+        <item>Nin</item>
+        <item>Nispero</item>
+        <item>Otro</item>
+        <item>Perehuetano</item>
+        <item>Puy</item>
+        <item>Roble</item>
+        <item>Santa Cruz</item>
+        <item>Sapote</item>
+        <item>Tamarindo</item>
+        <item>Totumo</item>
+        <item>Trupillo</item>
+    </string-array>
+
 
 
 </resources>
+
+
+
+
+
+

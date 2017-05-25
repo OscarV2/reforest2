@@ -1,6 +1,5 @@
 package com.jegg.reforest.Utils;
 
-
 import android.os.Build;
 
 import java.security.SecureRandom;
@@ -10,12 +9,10 @@ public class Constantes {
 
     public static final String BASE_URL = "http://appreforest.com/servicios/";
 
-    public static final String URL_SITIO_WEB = "https://es.wikipedia.org/wiki/Wikipedia:Portada";
+    public static final String URL_SITIO_WEB = "http://appreforest.com";
     public static final String GET_PERSONAS = "personas/";
 
-
     public static final String POST_ARBOL = "arbol";
-    public static final String POST_LOTE = "lote";
 
     public static final String POST_DESARROLLO_ACTIVIDAD = "desarrolloactividades";
 

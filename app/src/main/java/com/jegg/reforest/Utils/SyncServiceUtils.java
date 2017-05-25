@@ -38,50 +38,36 @@ public class SyncServiceUtils {
     private Context context;
     private basededatos datosReforest;
     Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
-    Dao<Actividad, Integer> daoActividad;
     Dao<Especie, Integer> daoEspecie;
     Dao<Arbol, String> daoArboles;
-    Dao<Estado, Integer> daoEstado;
     Dao<ArbolEstado, Integer> daoArbolEstado;
     Dao<ArbolEspecie, Integer> daoArbolEspecie;
     Dao<Altura, Integer> daoAltura;
     Dao<Lote, String> daoLotes;
-    Dao<Persona, Integer> daoPersonas;
+    private Dao<Persona, Integer> daoPersonas;
 
     private List<Persona> listaUsuarios = new ArrayList<>();
     private List<Lote> listaLotes = new ArrayList<>();
     private List<Arbol> listaArbol = new ArrayList<>();
     private List<DesarrolloActividades> listaDesarrolloAct = new ArrayList<>();
     private List<Altura> listaAltura = new ArrayList<>();
-    List<Estado> listaEstados = new ArrayList<>();
     private List<ArbolEstado> listaArbolEstado = new ArrayList<>();
     private List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
     private List<Especie> listaEspecie = new ArrayList<>();
 
     public boolean checkTablas() {
 
-        boolean siHayRegistros = false;
-        consultarTablas();
-        if (!(listaDesarrolloAct.size() == 0 || listaLotes.size() == 0 || listaArbol.size() == 0)) {
-            siHayRegistros = true;
-        }
-
-        return siHayRegistros;
+        return (listaAltura.size() > 0 || listaArbolEstado.size() > 0 || listaArbol.size() > 0 ||
+                listaDesarrolloAct.size() > 0 || listaArbolEspecie.size() > 0 || listaLotes.size() > 0);
     }
 
-    private void consultarTablas() {
+    public void consultarTablas() {
 
         try {
-            listaArbol = daoArboles.queryForAll();
-            listaLotes = daoLotes.queryForAll();
-            listaEspecie = daoEspecie.queryForAll();
+            //listaEspecie = daoEspecie.queryForAll();
 
             // llenar lista con registros no sincronizados
             llenarListasSync();
-            //listaDesarrolloAct = daoDesarrolloAct.queryForAll();
-            //listaAltura = daoAltura.queryForAll();
-            //listaArbolEspecie = daoArbolEspecie.queryForAll();
-            //listaArbolEstado = daoArbolEstado.queryForAll();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,13 +77,26 @@ public class SyncServiceUtils {
 
     private void llenarListasSync() throws SQLException {
 
+        QueryBuilder<Lote, String> qBLote = daoLotes.queryBuilder();
+
+        Where where =qBLote.where();
+        where.eq(Constantes.UPLOADED, false);
+        PreparedQuery<Lote> pQLote = qBLote.prepare();
+        listaLotes = daoLotes.query(pQLote);
+
+        QueryBuilder<Arbol, String> qBArbol = daoArboles.queryBuilder();
+
+        where = qBArbol.where();
+        where.eq(Constantes.UPLOADED, false);
+        PreparedQuery<Arbol> pqArbol = qBArbol.prepare();
+        listaArbol = daoArboles.query(pqArbol);
+
         QueryBuilder<DesarrolloActividades, Integer> queryBuilder = daoDesarrolloAct.queryBuilder();
 
-        Where where = queryBuilder.where();
+        where = queryBuilder.where();
         where.eq(Constantes.UPLOADED, false);
         PreparedQuery<DesarrolloActividades> preparedQuery = queryBuilder.prepare();
         listaDesarrolloAct = daoDesarrolloAct.query(preparedQuery);
-
 
         QueryBuilder<Altura, Integer> qBAltura = daoAltura.queryBuilder();
 
@@ -132,20 +131,40 @@ public class SyncServiceUtils {
         Log.e("numArbolEstados ", String.valueOf(listaArbolEstado.size()));
         Log.e("numArbolEspecies ", String.valueOf(listaArbolEspecie.size()));
 
-        SyncApi sincronizarBaseDatos = new SyncApi(datosReforest);
-/*
-        sincronizarBaseDatos.sincronizarLotes(listaLotes);
-        sincronizarBaseDatos.sincronizarArboles(listaArbol);
+        SyncApi sincronizarBaseDatos = new SyncApi(context, datosReforest);
 
-        sincronizarBaseDatos.sincronizarEspecie(listaEspecie);
+        if (listaAltura.size() > 0){
 
-        sincronizarBaseDatos.sincronizarArbolEspecie(listaArbolEspecie);
+            sincronizarBaseDatos.sincronizarAlturas(listaAltura);
+        }
 
-        sincronizarBaseDatos.sincronizarAlturas(listaAltura);
-        sincronizarBaseDatos.sincronizarArbolEstado(listaArbolEstado);
+        if (listaArbol.size() > 0){
 
-        sincronizarBaseDatos.sincronizarDesarrolloAct(listaDesarrolloAct);
-  */
+            sincronizarBaseDatos.sincronizarArboles(listaArbol);
+        }
+
+        if (listaArbolEstado.size() > 0){
+
+            sincronizarBaseDatos.sincronizarArbolEstado(listaArbolEstado);
+        }
+
+        if (listaLotes.size() > 0){
+
+            sincronizarBaseDatos.sincronizarLotes(listaLotes);
+        }
+
+        if (listaArbolEspecie.size() > 0){
+
+
+            sincronizarBaseDatos.sincronizarArbolEspecie(listaArbolEspecie);
+        }//else{Log.e("","")}
+
+
+        if (listaDesarrolloAct.size() > 0){
+
+            sincronizarBaseDatos.sincronizarDesarrolloAct(listaDesarrolloAct);
+        }
+
     }
 
     public SyncServiceUtils(Context context) {
@@ -157,13 +176,11 @@ public class SyncServiceUtils {
             daoLotes = datosReforest.getLoteDao();
 
             daoArboles = datosReforest.getArbolDao();
-            daoActividad = datosReforest.getActividadsDao();
             daoDesarrolloAct = datosReforest.getDesarrolloActividadesDao();
 
             daoEspecie = datosReforest.getEspeciesDao();
             daoArbolEspecie = datosReforest.getArbolEspeciesDao();
 
-            daoEstado = datosReforest.getEstadoDao();
             daoArbolEstado = datosReforest.getArbolEstadosDao();
 
             daoAltura = datosReforest.getAlturaDao();

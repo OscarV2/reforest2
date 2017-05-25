@@ -25,12 +25,9 @@ import retrofit2.Response;
 
 public class SinconizacionService extends Service {
 
-
     private int idPersona;
 
     public final static String MY_ACTION = "MY_ACTION";
-
-
 
     SharedPreferences prefs;
     private SyncServiceUtils utils;
@@ -48,26 +45,36 @@ public class SinconizacionService extends Service {
         boolean automaticSync = prefs.getBoolean("automatic_sync",false);
         ConnectivityManager conMan = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
-            Log.e("Wifi","conectado");          // Wifi conectado o hay datos
+        if (conMan.getActiveNetworkInfo() != null &&
+                conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
+
+            //Log.e("Wifi","conectado");          // Wifi conectado o hay datos
 
             if (utils.checkPersonas()){         // no hay usuarios en la app, se procede a bajarlos de la api
                 Log.e("no hay","usuarios");
                 getUsuariosFromApi();
-                this.stopSelf();
+                stopSelf();
+
             }else if(automaticSync){                // sincronizacion automatica enabled
 
+                utils.consultarTablas();
+                utils.sincronizar();
+                Log.e("automatyc","able");
                 if(utils.checkTablas()){                             // si hay usuarios,
                     // check tablas
                     //hay tablas entonces se subiran todas las tablas a la api
-                    utils.sincronizar();
-                    this.stopSelf();
+
+
+                }else {
+
+                    stopSelf();
                 }
             }else {
                 Log.e("automaticSync","disabled");
-                this.stopSelf();
+                stopSelf();
             }
         }else {
+            // wifi disabled
             stopSelf();
         }
         return START_STICKY;
@@ -111,9 +118,10 @@ public class SinconizacionService extends Service {
 
     @Override
     public void onDestroy() {
-        Intent send = new Intent(MY_ACTION);
-        sendBroadcast(send);
-        Log.e("servicio","onDestroy");
+        utils.releaseHelper();
+        //Intent send = new Intent(MY_ACTION);
+        //sendBroadcast(send);
+        Log.e("servicio","stopped");
         super.onDestroy();
     }
 

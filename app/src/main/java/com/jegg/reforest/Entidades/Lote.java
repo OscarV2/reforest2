@@ -35,6 +35,8 @@ public class Lote {
 
     @DatabaseField(columnName = Constantes.MUNICIPIO_LOTE)
     private int municipio_id;
+    @DatabaseField(columnName = Constantes.UPLOADED)
+    private transient boolean uploaded;
 
     @DatabaseField(columnName = "muni", canBeNull = false, foreign = true)
     private transient Municipio municipio;
@@ -112,6 +114,10 @@ public class Lote {
 
     public int getMunicipio_id() {
         return municipio_id;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
     }
 
     public void setMunicipio_id(int municipio_id) {

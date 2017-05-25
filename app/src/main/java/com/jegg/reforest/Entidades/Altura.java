@@ -47,6 +47,7 @@ public class Altura {
 
     public Altura(Arbol arbol, String medida) {
 
+        this.arbol = arbol;
         this.medida = medida;
         this.arbol_id = arbol.getId();
     }

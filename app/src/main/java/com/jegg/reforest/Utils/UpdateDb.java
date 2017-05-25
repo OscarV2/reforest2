@@ -18,7 +18,6 @@ public class UpdateDb extends SyncServiceUtils{
 
     private basededatos datosReforest;
 
-
     public UpdateDb(Context context, basededatos datosReforest) {
         super(context);
         this.datosReforest = datosReforest;
@@ -28,7 +27,7 @@ public class UpdateDb extends SyncServiceUtils{
     void updateAbol(Arbol arbol) throws SQLException {
 
         UpdateBuilder<Arbol, String> updateBuilder = this.daoArboles.updateBuilder();
-        updateBuilder.where().eq("id", arbol.getId());
+        updateBuilder.where().eq(Constantes.ID_ARBOL, arbol.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.update();
 
@@ -62,8 +61,8 @@ public class UpdateDb extends SyncServiceUtils{
 
     void update(ArbolEspecie arbolEspecie) throws SQLException {
 
-        UpdateBuilder<Arbol, String> updateBuilder = this.daoArboles.updateBuilder();
-        updateBuilder.where().eq("id", arbolEspecie.getId());
+        UpdateBuilder<ArbolEspecie, Integer> updateBuilder = this.daoArbolEspecie.updateBuilder();
+        updateBuilder.where().eq("idArbolEspecie", arbolEspecie.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
 
         updateBuilder.update();

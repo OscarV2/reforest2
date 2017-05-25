@@ -11,17 +11,17 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ESPECIE)
 public class Especie {
 
-    @DatabaseField(columnName = Constantes.ID_ESPECIE, id = true )
-    private String id;
+    @DatabaseField(generatedId = true, columnName = Constantes.ID_ESPECIE)
+    private transient int id;
 
     @DatabaseField(columnName = Constantes.ESPECIE_ESPECIE, canBeNull = false)
     private String nombre;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,7 +31,6 @@ public class Especie {
     public Especie(String nombre) {
 
         this.nombre = nombre;
-        this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }
 
     public String getNombre() {

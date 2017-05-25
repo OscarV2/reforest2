@@ -32,6 +32,13 @@ public class Arbol {
     @DatabaseField(columnName = "lote", foreign = true, foreignAutoRefresh = true)
     private transient Lote lote;
 
+    @DatabaseField(columnName = Constantes.UPLOADED)
+    private transient boolean uploaded;
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
     @ForeignCollectionField
     private transient ForeignCollection<ArbolEspecie> arbolEspecies;
 
@@ -50,14 +57,6 @@ public class Arbol {
 
     public void setArbolEspecies(ForeignCollection<ArbolEspecie> arbolEspecies) {
         this.arbolEspecies = arbolEspecies;
-    }
-
-    public String getCoodenadas() {
-        return coodenadas;
-    }
-
-    public void setCoodenadas(String coodenadas) {
-        this.coodenadas = coodenadas;
     }
 
     public ForeignCollection<ArbolEstado> getArbolEstados() {
@@ -103,8 +102,13 @@ public class Arbol {
         CloseableWrappedIterable<ArbolEstado> iterable = arbolEstados.getWrappedIterable();
         for (ArbolEstado arbolEstado : iterable){
 
-            estado = arbolEstado.getEstado();
+            listAe.add(arbolEstado);
+
         }
+        if (listAe.size()>0){
+            estado = listAe.get(listAe.size()-1).getEstado();
+        }
+
         return estado;
     }
     public Arbol() {
