@@ -25,7 +25,6 @@ import static android.content.Context.LOCATION_SERVICE;
 public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-
     private Context context;
     private GoogleApiClient client;
     private Location location1;
@@ -53,12 +52,11 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 
-        Log.e("apiLocate", "Conectada");
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        while (location1 == null) {
-            //Log.e("location todavia es", "null");
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+           Log.e("Location en If", "Location");
+            Log.e("apiLocate", "Conectada");
+
             location1 = LocationServices.FusedLocationApi.getLastLocation(client);
 
             LocationRequest mLocationRequest = new LocationRequest();
@@ -74,8 +72,20 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
 
                 }
             });
-
         }
+      //  while (location1 == null) {
+            //Log.e("location todavia es", "null");
+/*
+            LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest, new com.google.android.gms.location.LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+
+                    location1 = location;
+
+                }
+            });
+*/
+        //}
 
     }
 

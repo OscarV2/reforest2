@@ -31,6 +31,7 @@ import retrofit2.Response;
 
 /**
  * Created by oscarvc on 10/05/17.
+ * kmnḱnṕ
  */
 
 public class SyncServiceUtils {
@@ -67,6 +68,10 @@ public class SyncServiceUtils {
             //listaEspecie = daoEspecie.queryForAll();
 
             // llenar lista con registros no sincronizados
+
+           // listaDesarrolloAct = daoDesarrolloAct.queryForAll();
+           // listaArbol = daoArboles.queryForAll();
+           // listaLotes = daoLotes.queryForAll();
             llenarListasSync();
 
         } catch (SQLException e) {
@@ -131,7 +136,7 @@ public class SyncServiceUtils {
         Log.e("numArbolEstados ", String.valueOf(listaArbolEstado.size()));
         Log.e("numArbolEspecies ", String.valueOf(listaArbolEspecie.size()));
 
-        SyncApi sincronizarBaseDatos = new SyncApi(context, datosReforest);
+        SyncApi sincronizarBaseDatos = new SyncApi(context);
 
         if (listaAltura.size() > 0){
 

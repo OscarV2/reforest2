@@ -47,7 +47,7 @@ package="com.jegg.reforest">
     <activity android:name=".actividades.Mapa" android:screenOrientation="portrait"/>
 
 
-    <activity android:name=".actividades.CrearLote">
+    <activity android:name=".actividades.CrearLote" android:screenOrientation="portrait">
         <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.jegg.reforest.actividades.Lotes" />
     </activity>
 

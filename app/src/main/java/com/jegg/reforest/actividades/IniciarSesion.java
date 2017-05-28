@@ -116,6 +116,7 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(IniciarSesion.this, MainActivity.class);
                         startActivity(i);
+                        OpenHelperManager.releaseHelper();
                         finish();
 
                     }

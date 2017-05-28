@@ -3,24 +3,19 @@ package com.jegg.reforest.Utils;
 import android.content.Context;
 
 import com.j256.ormlite.stmt.UpdateBuilder;
-import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.ArbolEspecie;
 import com.jegg.reforest.Entidades.ArbolEstado;
 import com.jegg.reforest.Entidades.DesarrolloActividades;
-import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Lote;
 
 import java.sql.SQLException;
 
-public class UpdateDb extends SyncServiceUtils{
+class UpdateDb extends SyncServiceUtils{
 
-    private basededatos datosReforest;
-
-    public UpdateDb(Context context, basededatos datosReforest) {
+    UpdateDb(Context context) {
         super(context);
-        this.datosReforest = datosReforest;
 
     }
 
@@ -49,14 +44,6 @@ public class UpdateDb extends SyncServiceUtils{
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.update();
 
-    }
-
-    void updateEspecie(Especie especie) throws SQLException {
-
-        UpdateBuilder<Especie, Integer> updateBuilder = this.daoEspecie.updateBuilder();
-        updateBuilder.where().eq("id", especie.getId());
-        updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.update();
     }
 
     void update(ArbolEspecie arbolEspecie) throws SQLException {

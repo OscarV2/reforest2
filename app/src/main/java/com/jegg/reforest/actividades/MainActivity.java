@@ -117,8 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Dao<Actividad, Integer> actividadesDao = datosReforest.getActividadsDao();
         List<Actividad> listActividades = new ArrayList<>();
 
-        listActividades.add(new Actividad("Preparar terreno"));
-        listActividades.add(new Actividad("Sembrar o Plantar"));
+        listActividades.add(new Actividad("Preparar terreno y sembrar"));
         listActividades.add(new Actividad("Abonar"));
         listActividades.add(new Actividad("Control de Malezas"));
         listActividades.add(new Actividad("Fertilización"));
@@ -161,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Register BroadcastReceiver
         //to receive event from our service
-        myReceiver = new MyReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(SinconizacionService.MY_ACTION);
-        registerReceiver(myReceiver, intentFilter);
+    //    myReceiver = new MyReceiver();
+    //    IntentFilter intentFilter = new IntentFilter();
+    //    intentFilter.addAction(SinconizacionService.MY_ACTION);
+    //    registerReceiver(myReceiver, intentFilter);
 
         sincronizando();
         super.onStart();

@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.Entidades.Arbol;
@@ -77,9 +79,9 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
 
         spinner = (Spinner) findViewById(R.id.spinner_mapa);
-
-        cargarLotes();
         options = new PolygonOptions();
+        cargarLotes();
+
 
         if (!(utils.gpsEnabled())){
             mostrarDialogoGps();
@@ -103,7 +105,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
     }
 
-    private void cargarSpinner(List<Lote> listaLotes) {
+    private void cargarSpinner(final List<Lote> listaLotes) {
 
         nombresLotes = new String[listaLotes.size()];
         for (int i = 0; i<listaLotes.size(); i++){
@@ -120,11 +122,15 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                dibujarLote(position);
+                Log.e("Position", String.valueOf(position));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+                if (listaLotes.size() > 0){
+                    dibujarLote(0);
+                }
             }
         });
 
@@ -132,7 +138,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
     private void dibujarLote(int position) {
 
-        mMap.clear();
+        //mMap.clear();
         Lote lote = listaLotes.get(position);
         recLote = lote.getPuntos();
 
@@ -153,14 +159,24 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             }
         }
 
-        PolygonOptions options = new PolygonOptions();
-
+        PolylineOptions rectOptions = new PolylineOptions();
         for (int i = 0; i<recLote.size(); i++){
+
             options.add(recLote.get(i));
+            rectOptions.add(recLote.get(i));
+            Log.e("dentro for", String.valueOf(i));
+        }
+        for (int i = 0; i<recLote.size(); i++){
+
+            options.add(recLote.get(i));
+            rectOptions.add(recLote.get(i));
+            Log.e("dentro for", String.valueOf(i));
         }
         options.fillColor(0x7F0000FF).strokeColor(Color.GREEN);
-        Polygon lotePoligono = mMap.addPolygon(options);
 
+        Polyline polyline = mMap.addPolyline(rectOptions);
+        Polygon lotePoligono = mMap.addPolygon(options);
+        Log.e("Poligogo", "dibuhado");
 
     }
 
@@ -226,7 +242,8 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
         Log.e("marker","click");
         Log.e("numClicks ", String.valueOf(numeroClicksMarker));
-/*        if (numeroClicksMarker < 4){
+/*
+        if (numeroClicksMarker < 4){
             options.add(marker.getPosition());
 
             dibujarPuntoRef(marker);
@@ -234,9 +251,10 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         }else {
 
             options.fillColor(0x7F00FF00).strokeColor(Color.GREEN);
-         //   Polygon lotePoligono = mMap.addPolygon(options);
+            Polygon lotePoligono = mMap.addPolygon(options);
         }
 */
+
         Log.e("id marker ", String.valueOf(marker.getTag()));
 
         Arbol arbolMarker = listaArboles.get((int)marker.getTag());
@@ -255,7 +273,6 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         }else {
             marker.setSnippet("Estado: " + estado.getNombre());
         }
-
 
         marker.showInfoWindow();
         Log.e("marker","click");

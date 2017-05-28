@@ -37,12 +37,10 @@ import java.util.List;
 
 public class CrearLote extends AppCompatActivity {
 
-    private TextInputEditText nombre, fecha, area, edtDepartamento, edtMunicipio;
+    private TextInputEditText nombre;
+    private TextInputEditText area;
+    private TextInputEditText edtMunicipio;
     private TextView punto_referencia;
-    private Button addPunto;
-    private Toolbar toolbar;
-    private ActionBar actionBar;
-    private String delimitacion;
     private StringBuffer delimitacionBuffer;
     private Double areaLote;
     private basededatos datosReforest;
@@ -50,7 +48,6 @@ public class CrearLote extends AppCompatActivity {
 
     private int contPuntosLote = 1;
     List<LatLng> recLote = new ArrayList<>();
-    private Location location;
 
     Municipio municipio;
 
@@ -60,13 +57,13 @@ public class CrearLote extends AppCompatActivity {
     private void init(){
 
         nombre = (TextInputEditText) findViewById(R.id.nombre_crear_lote);
-        fecha  = (TextInputEditText) findViewById(R.id.fecha_crear_lote);
+        TextInputEditText fecha = (TextInputEditText) findViewById(R.id.fecha_crear_lote);
         area = (TextInputEditText) findViewById(R.id.area_crear_lote);
-        edtDepartamento = (TextInputEditText)findViewById(R.id.departamento_crear_lote);
+        TextInputEditText edtDepartamento = (TextInputEditText) findViewById(R.id.departamento_crear_lote);
         edtMunicipio = (TextInputEditText)findViewById(R.id.municipio_crear_lote);
 
         punto_referencia = (TextView ) findViewById(R.id.PuntoReferencialote);
-        addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
+        Button addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
 
         edtDepartamento.setText("Cesar");
         edtMunicipio.setText("Valledupar");
@@ -99,7 +96,7 @@ public class CrearLote extends AppCompatActivity {
 
         if (contPuntosLote < 9){
 
-            location = utils.getLocation();
+            Location location = utils.getLocation();
             if (location != null){
 
                 lat = location.getLatitude();
@@ -149,10 +146,10 @@ public class CrearLote extends AppCompatActivity {
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar_crear_lote);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_crear_lote);
         setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
             actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
@@ -228,7 +225,7 @@ public class CrearLote extends AppCompatActivity {
 
         else{
             setDelimitacionBuffer();
-            delimitacion = delimitacionBuffer.toString();
+            String delimitacion = delimitacionBuffer.toString();
             delimitacion = delimitacion.substring(0, delimitacion.length()-1);
             Log.e("delimi", delimitacion);
             String fechaLote = Constantes.sdf.format(new Date());

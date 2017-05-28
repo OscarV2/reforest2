@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.jegg.reforest.R;
+import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.Utils.Constantes;
 
 public class Menu extends AppCompatActivity {
@@ -56,7 +57,7 @@ public class Menu extends AppCompatActivity {
         MenuItem item2 = menu.findItem(R.id.opcionIrWeb);
         SpannableStringBuilder builder2 = new SpannableStringBuilder("  Ir a Reforest");
         // replace "*" with icon
-        builder2.setSpan(new ImageSpan(this, R.drawable.ic_cached_black_24dp), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder2.setSpan(new ImageSpan(this, android.R.drawable.ic_media_play), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         item2.setTitle(builder2);
         return true;
     }
@@ -65,6 +66,7 @@ public class Menu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.opcionSincronizar:
+                startService(new Intent(Menu.this, SinconizacionService.class));
                 break;
             case R.id.opcionIrWeb:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_SITIO_WEB));

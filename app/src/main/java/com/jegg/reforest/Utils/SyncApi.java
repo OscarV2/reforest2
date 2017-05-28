@@ -24,12 +24,10 @@ import retrofit2.Response;
 
 class SyncApi {
 
-
     private UpdateDb updateDb;
 
-    SyncApi(Context context, basededatos datosReforest) {
-        basededatos datosReforest1 = datosReforest;
-        this.updateDb = new UpdateDb(context, datosReforest);
+    SyncApi(Context context) {
+        this.updateDb = new UpdateDb(context);
     }
 
     void sincronizarLotes(List<Lote> listaLotes) {
@@ -100,34 +98,6 @@ class SyncApi {
                 }
             });
         }
-    }
-
-    void sincronizarEspecie(List<Especie> listaEspecie) {
-
-        if (listaEspecie.size() > 0){
-
-            //sinc Especie
-            for (int i = listaEspecie.size()-1; i==0; i--) {
-
-                Especie especie = listaEspecie.get(i);
-                Call<ResponseBody> subirEspecie = ReforestApiAdapter.getApiService().postEspecie(especie);
-                subirEspecie.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                        if (response.isSuccessful()){
-                            Log.e("subirEspecie","Sucessful");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                        Log.e("subirArbolEspecie","Fallo");
-                    }
-                });
-            }
-        }else{Log.e("esta vacia", "Especie");}
     }
 
     void sincronizarArbolEstado(List<ArbolEstado> listaArbolEstado) {
@@ -231,9 +201,7 @@ class SyncApi {
         //sinc lotes
         for (final DesarrolloActividades dsa : listaDesarrolloAct){
 
-            Call<ResponseBody> subirDsaAct = ReforestApiAdapter.getApiService().postDesarrolloAct(dsa.getUrlFoto(),
-                    dsa.getComentario(), dsa.getFecha(), dsa.getIdActividad().getId(),
-                    dsa.getArbol().getId(), dsa.getPersona().getId());
+            Call<ResponseBody> subirDsaAct = ReforestApiAdapter.getApiService().postDesarrolloAct(dsa);
             subirDsaAct.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

@@ -25,8 +25,6 @@ import retrofit2.Response;
 
 public class SinconizacionService extends Service {
 
-    private int idPersona;
-
     public final static String MY_ACTION = "MY_ACTION";
 
     SharedPreferences prefs;

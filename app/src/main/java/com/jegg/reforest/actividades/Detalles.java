@@ -130,6 +130,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     Dao<Altura, Integer> daoAltura;
     Dao<Persona, Integer> daoPersona;
 
+    private boolean ButonLocationPressed;
     HandleEspecies handleEspecies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,6 +317,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
+            assert imageBitmap != null;
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 
             byte[] b = baos.toByteArray();
@@ -336,16 +338,23 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     public void irMapa(View v) {
 
-        location = utils.getLocation();
-        if (location != null) {
-            latitud = location.getLatitude();
-            longitud = location.getLongitude();
-            txtCoordenadas.append("\n" + "Latitud: " + String.format("%.3f", latitud) +
-                    "\n" + "Longitud: " + String.format("%.3f", longitud));
 
-        } else {
-            Toast.makeText(Detalles.this, "Locatiom null", Toast.LENGTH_SHORT).show();
+        location = utils.getLocation();
+        if (!ButonLocationPressed){
+
+            if (location != null) {
+                latitud = location.getLatitude();
+                longitud = location.getLongitude();
+                txtCoordenadas.append("\n" + "Latitud: " + String.format("%.3f", latitud) +
+                        "\n" + "Longitud: " + String.format("%.3f", longitud));
+
+                ButonLocationPressed = true;
+
+            } else {
+                Toast.makeText(Detalles.this, "Locatiom null", Toast.LENGTH_SHORT).show();
+            }
         }
+
 
     }
 
@@ -588,11 +597,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void guardarActividad6() {
 
-
         if (idArbol.equals("") || (arbol == null)){
 
             Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();
-
         }else{
 
             QueryBuilder<Especie, Integer> qBEspecie = daoEspecie.queryBuilder();
@@ -603,7 +610,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
             }
 
-            PreparedQuery<Especie> pqEspecie = null;
+            PreparedQuery<Especie> pqEspecie;
             try {
                 pqEspecie = qBEspecie.prepare();
                 especieEntidad = daoEspecie.query(pqEspecie).get(0);
@@ -727,7 +734,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Toast.makeText(Detalles.this, "Arbol: " + String.valueOf(marker.getTag()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(Detalles.this, "Arbol Seleccionado", Toast.LENGTH_SHORT).show();
 
         return false;
     }
