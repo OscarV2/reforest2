@@ -59,6 +59,7 @@ import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
+import com.jegg.reforest.Utils.DetallesAux;
 import com.jegg.reforest.Utils.HandleEspecies;
 import com.jegg.reforest.Utils.LocationUtils;
 
@@ -74,7 +75,7 @@ import java.util.List;
 public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         AdapterView.OnItemSelectedListener, GoogleMap.OnMarkerClickListener {
 
-    EditText edtFecha, edtComentarios, edtAltura;
+    EditText edtFecha, edtComentarios, edtAltura, edtBuscarArbol;
     AutoCompleteTextView edtEspecie;
     ImageView fotoArbol;
     TextView txtCoordenadas, txtLote;
@@ -89,7 +90,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     File filePath;
     private GoogleMap mMap;
 
-    RelativeLayout layCordenadas;
+    RelativeLayout layCordenadas, layBuscarArbol;
     LinearLayout lay_edt_especie, lay_edt_altura,
             laySpinnerSaludArbol, layMapa;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -98,7 +99,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     String fotoPath = "";
     boolean arbolesCargados = false;
 
-    int idPersona;
+    int idPersona, numArboles;
     String fechaActividad;
     Lote lote;
     Arbol arbol;
@@ -120,18 +121,10 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     Persona usuario;
     ForeignCollection<Arbol> listaArboles;
 
-    Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
-    Dao<Actividad, Integer> daoActividad;
-    Dao<Especie, Integer> daoEspecie;
-    Dao<Arbol, String> daoArboles;
-    Dao<Estado, Integer> daoEstado;
-    Dao<ArbolEstado, Integer> daoArbolEstado;
-    Dao<ArbolEspecie, Integer> daoArbolEspecie;
-    Dao<Altura, Integer> daoAltura;
-    Dao<Persona, Integer> daoPersona;
-
+    private DetallesAux detallesAux;
     private boolean ButonLocationPressed;
     HandleEspecies handleEspecies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,15 +141,17 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         idLote = this.getIntent().getStringExtra("id_lote");
         idPersona = prefs.getInt("id_persona", 0);
+        numArboles = prefs.getInt("num_arboles", 0);
         Log.e("idLote", String.valueOf(idLote));
 
+        detallesAux = new DetallesAux(Detalles.this);
         try {
             Dao<Lote, String> daoLotes = datosReforest.getLoteDao();
             lote = daoLotes.queryForId(idLote);
             nombreLote = lote.getNombre();
 
             listaArboles = lote.getArboles();
-
+/*
             daoArboles = datosReforest.getArbolDao();
             daoActividad = datosReforest.getActividadsDao();
             daoDesarrolloAct = datosReforest.getDesarrolloActividadesDao();
@@ -167,8 +162,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
             daoPersona = datosReforest.getPersonasDao();
             daoAltura = datosReforest.getAlturaDao();
-
-            usuario = daoPersona.queryForId(idPersona);
+*/
+            usuario = detallesAux.getPersona(idPersona);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -197,11 +192,13 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         laySpinnerSaludArbol = (LinearLayout) findViewById(R.id.linear_spiner_salud_arbol);
         layMapa = (LinearLayout) findViewById(R.id.lay_mapa);
         layCordenadas = (RelativeLayout) findViewById(R.id.lay_cordenadas);
+        layBuscarArbol = (RelativeLayout) findViewById(R.id.lay_buscar_arbol);
 
         edtComentarios = (EditText) findViewById(R.id.comentario_detalles);
         edtEspecie = (AutoCompleteTextView) findViewById(R.id.especieArbol);
         edtFecha = (EditText) findViewById(R.id.FechaActividadArbol);
         edtAltura = (EditText) findViewById(R.id.alturaArbol);
+        edtBuscarArbol = (EditText) findViewById(R.id.edt_numero_arbol);
 
         txtCoordenadas = (TextView) findViewById(R.id.CoordenadasArbol);
         fotoArbol = (ImageView) findViewById(R.id.foto_arbol);
@@ -232,7 +229,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         actividades.setAdapter(adapter);
         actividades.setOnItemSelectedListener(this);
 
-        setEstadoEntidad();
+        try {
+            estados = detallesAux.getListEstados();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         ArrayAdapter<CharSequence> adapterSaludArbol = ArrayAdapter.createFromResource(this,
                 R.array.lista_estados, R.layout.item_spinner);
 
@@ -263,7 +264,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             public void onNothingSelected(AdapterView<?> parent) {
 
                 idEstado = 1;
-                setEstadoEntidad();
             }
         });
         utils = new LocationUtils(getApplicationContext());
@@ -273,7 +273,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         }
 
     }
-
+/*
     private void setEstadoEntidad() {
 
         try {
@@ -283,7 +283,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         }
 
     }
-
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {//esto es para la navegacion hacia atras
         switch (item.getItemId()) {
@@ -390,35 +390,25 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         switch (position) {
             case 0:
-                //Preparar terreno
+                //Preparar terreno y sembrar
                 idActividad = 1;
                 setActividad();
-
-                lay_edt_altura.setVisibility(View.GONE);
-                lay_edt_especie.setVisibility(View.GONE);
+                esconderVistas(false);
                 layMapa.setVisibility(View.GONE);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 layCordenadas.setVisibility(View.VISIBLE);
+                layBuscarArbol.setVisibility(View.GONE);
                 break;
             case 1:
-                //Sembrar
                 idActividad = 2;
-                setActividad();
-                esconderVistas(false);
-                layMapa.setVisibility(View.VISIBLE);
-                laySpinnerSaludArbol.setVisibility(View.GONE);
-                cargarArboles();
-                break;
-            case 2:
-                idActividad = 3;
                 setActividad();
                 //Abonar
                 esconderVistas(true);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 cargarArboles();
                 break;
-            case 3:
-                idActividad = 4;
+            case 2:
+                idActividad = 3;
                 setActividad();
                 //Control de Malezas
                 esconderVistas(true);
@@ -426,25 +416,26 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 cargarArboles();
                 break;
 
-            case 4:
-                idActividad = 5;
+            case 3:
+                idActividad = 4;
                 setActividad();
                 //Fertilizacion
                 esconderVistas(true);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 cargarArboles();
                 break;
-            case 5:
-                idActividad = 6;
+            case 4:
+                idActividad = 5;
                 setActividad();
                 //Sustitucion de plantas
                 esconderVistas(false);
                 layMapa.setVisibility(View.VISIBLE);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
+                layBuscarArbol.setVisibility(View.VISIBLE);
                 cargarArboles();
                 break;
-            case 6:
-                idActividad = 7;
+            case 5:
+                idActividad = 6;
                 setActividad();
                 //Enfermedades
                 lay_edt_altura.setVisibility(View.GONE);
@@ -452,10 +443,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 layMapa.setVisibility(View.VISIBLE);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 layCordenadas.setVisibility(View.GONE);
+                layBuscarArbol.setVisibility(View.VISIBLE);
                 cargarArboles();
                 break;
-            case 7:
-                idActividad = 8;
+            case 6:
+                idActividad = 7;
                 setActividad();
                 //Estado del arbol
                 laySpinnerSaludArbol.setVisibility(View.VISIBLE);
@@ -468,7 +460,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void setActividad() {
 
         try {
-            actividad = daoActividad.queryForId(idActividad);
+            actividad = detallesAux.getActividad(idActividad);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -481,6 +473,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             lay_edt_altura.setVisibility(View.GONE);
             lay_edt_especie.setVisibility(View.GONE);
             layMapa.setVisibility(View.VISIBLE);
+            layBuscarArbol.setVisibility(View.VISIBLE);
             location = utils.getLocation();
             if (location != null){
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
@@ -506,147 +499,118 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void validarDatos() throws SQLException {
 
-        if (idActividad != 1){  // si la actividad no es preparar terreno
+        if (idActividad == 5 || idActividad == 1) {  // sustitucion de plantas
 
-            if (!(idArbol.equals(""))){
+            Log.e("actividad", String.valueOf(idActividad));
+            especie = edtEspecie.getText().toString();
+            altura = edtAltura.getText().toString();
 
-                if (idActividad == 6 || idActividad == 2) {  // sustitucion de plantas o sembrar arbol
+            if (especie.equals("")) {
 
-                    Log.e("actividad", String.valueOf(idActividad));
-                    especie = edtEspecie.getText().toString();
-                    altura = edtAltura.getText().toString();
-
-                    if (especie.equals("")) {
-
-                        edtEspecie.requestFocus();
-                    } else if (altura.equals("")) {
-
-                        edtAltura.requestFocus();
-
-                    }else if (!handleEspecies.checkEspecie(especie)) { //no coincide la especie
-
-                        Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    else {
-                        Log.e("guardando", "actividad 6 o 2");
-                        guardarActividad6();
+                edtEspecie.requestFocus();
+            }else if (altura.equals("")) {
+                edtAltura.requestFocus();
+            }else if (!handleEspecies.checkEspecie(especie)) { //no coincide la especie
+                Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
+            }else {
+                if (idActividad == 5){
+                    Log.e("guardando", "actividad 6 o 2");
+                    guardarActividad5();
+                }else {   // idActividad = 1
+                    if (location == null){
+                        Toast.makeText(this, "No hay coordenadas para preparar terreno.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        prepararTerreno();
                     }
                 }
-                else if(idActividad == 7){ especie = edtEspecie.getText().toString();
+            }
+        }
+        else if(idActividad == 6){ especie = edtEspecie.getText().toString();  // Enfermedad Arbol
 
-                    if (especie.equals("")) { edtEspecie.requestFocus();
+            if (especie.equals("")) { edtEspecie.requestFocus();
 
-                    }else{  // guardar actividad 7 Enfermedades
+            }else{  // guardar actividad 6 Enfermedades
 
-                        guardarAct7();
-                    }
-                }
-                else if(idActividad == 8){
+                        guardarAct6();
+            }
+        }
+        else if(idActividad == 7){     // Estado Arbol
 
-                    Log.e("actividad es", "EStado");
-                    arbolEstado = new ArbolEstado(arbol, estados.get(idEstado-1));
-                    daoArbolEstado.create(arbolEstado);
-                    guardarActividad_2_3_4_6_7_8();
+            Log.e("actividad es", "EStado");
+            arbolEstado = new ArbolEstado(arbol, estados.get(idEstado-1));
+            detallesAux.crearEstado(arbolEstado);
+            detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
+                    fechaActividad, actividad, arbol, usuario);
 
-                }else {         // actividades 3, 4, 5
+        }else {         // actividades 2,3, 4
 
-                    guardarActividad_2_3_4_6_7_8();
-                }
-            }else {Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();}  //y no se ha dado click en ningun terreno
-
-
-            }else  {
-
+            detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
+                    fechaActividad, actividad, arbol, usuario);
+        }
+    }//else {Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();}  //y no se ha dado click en ningun terreno
+            //}
+           /*     {
             if (location != null){
-
                 //Actividad preparar terreno
-                prepararTerreno();
-
             }else {
                 Toast.makeText(this, "No hay coordenadas para preparar terreno.", Toast.LENGTH_SHORT).show();
             }
+        }*/
 
-        }
-        }
+    private void guardarAct6() throws SQLException {   // Enfermedades
 
-    private void guardarAct7() throws SQLException {
+        especieEntidad = detallesAux.getEspecie(especie);
+        if (especieEntidad == null){
 
-        QueryBuilder<Especie, Integer> qBEspecie = daoEspecie.queryBuilder();
-        Where<Especie, Integer> where = qBEspecie.where();
-        try {
-            where.eq(Constantes.ESPECIE_ESPECIE, especie);
-        } catch (SQLException e) {
             Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
         }
 
-        PreparedQuery<Especie> pqEspecie = qBEspecie.prepare();
-        especieEntidad = daoEspecie.query(pqEspecie).get(0);
-        //especieEntidad = new Especie(especie);
         arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
 
         try {
 
-            daoArbolEspecie.create(arbolEspecie);
-            guardarActividad_2_3_4_6_7_8();
+            detallesAux.crearArbolEspecie(arbolEspecie);
+            detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
+                    fechaActividad, actividad, arbol, usuario);
+            volverALotes();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    private void guardarActividad6() {
+    private void guardarActividad5() {     //Resiembra
 
         if (idArbol.equals("") || (arbol == null)){
 
             Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();
         }else{
 
-            QueryBuilder<Especie, Integer> qBEspecie = daoEspecie.queryBuilder();
-            Where<Especie, Integer> where = qBEspecie.where();
-            try {
-                where.eq(Constantes.ESPECIE_ESPECIE, especie);
-            } catch (SQLException e) {
+            especieEntidad = detallesAux.getEspecie(especie);
+
+            if (especieEntidad == null){
                 Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
-            }
+            }else {
 
-            PreparedQuery<Especie> pqEspecie;
-            try {
-                pqEspecie = qBEspecie.prepare();
-                especieEntidad = daoEspecie.query(pqEspecie).get(0);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-
-            Log.e("idArbol es", String.valueOf(idArbol));
-            alturaEntity = new Altura(arbol, altura);
-            arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
-            Log.e("guardando","actividad 2 o 6");
-            Log.e("idActividad", String.valueOf(actividad.getId()));
-
-            if (idActividad == 6){  // Estado resiembra
+                alturaEntity = new Altura(arbol, altura);
+                arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
+                Log.e("guardando","actividad 2 o 6");
+                Log.e("idActividad", String.valueOf(actividad.getId()));
 
                 arbolEstado = new ArbolEstado(arbol, estados.get(3));
-            }else if (idActividad == 2){  // Estado Bueno
 
-                arbolEstado = new ArbolEstado(arbol, estados.get(0));
+                desarrolloActividad = new DesarrolloActividades(fotoPath, comentariosActividad
+                        , fechaActividad, actividad, arbol, usuario);
+                try {
+                    detallesAux.createEntitiesActivity6(desarrolloActividad, arbolEspecie,
+                            alturaEntity, arbolEstado);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                volverALotes();
             }
-
-            desarrolloActividad = new DesarrolloActividades(fotoPath, comentariosActividad
-                    , fechaActividad, actividad, arbol, usuario);
-            try {
-
-                daoDesarrolloAct.create(desarrolloActividad);
-                daoArbolEspecie.create(arbolEspecie);
-                daoAltura.create(alturaEntity);
-                daoArbolEstado.create(arbolEstado);
-
-            }catch (SQLException r){r.printStackTrace();}
-            volverALotes();
         }
     }
-
+/*
     private void guardarActividad_2_3_4_6_7_8() {
 
             try {
@@ -662,15 +626,30 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         Toast.makeText(this, "Actividad exitosa.", Toast.LENGTH_SHORT).show();
         volverALotes();
     }
-
+*/
     private void prepararTerreno() throws SQLException {
 
         String coordenadas = String.valueOf(location.getLatitude()) + " " +
                 String.valueOf(location.getLongitude());
 
         arbol = new Arbol(coordenadas, fechaActividad, lote);
-        daoArboles.create(arbol);
-        guardarActividad_2_3_4_6_7_8();
+        arbol.setNumArbol(numArboles + 1);
+        arbolEstado = new ArbolEstado(arbol, estados.get(0));
+        alturaEntity = new Altura(arbol, altura);
+        especieEntidad = detallesAux.getEspecie(especie);
+        if (especieEntidad == null){
+
+            Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
+        }
+
+
+        detallesAux.crearArbol(arbol);
+        detallesAux.crearEstado(arbolEstado);
+        detallesAux.crearArbolEspecie(arbolEspecie);
+        detallesAux.crearAltura(alturaEntity);
+        detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
+                                                 fechaActividad, actividad, arbol, usuario);
+        volverALotes();
     }
 
     private void cargarArboles(){
@@ -684,15 +663,12 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
                     Marker marcadorArbol = mMap.addMarker(new MarkerOptions().position(arbol1.getPosicion()));
                     marcadorArbol.setTag(arbol1.getId());
-                    // Location arbolLocation = getLocationString(arbol1);
                 }
                 arbolesCargados = true;
                 if (location != null){
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18f));
                 }
-
             }
-
         }else {
 
             Toast.makeText(Detalles.this, "No se ha preparado el terreno", Toast.LENGTH_SHORT).show();
@@ -714,6 +690,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         if (keyCode == KeyEvent.KEYCODE_BACK){
             onClickBack();
             return true;
@@ -727,16 +704,19 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         idArbol = (String) marker.getTag();
         Log.e("idArbol", idArbol);
         try {
-            arbol = daoArboles.queryForId(idArbol);
-            if (arbol != null){
-                Log.e("arbol", "no nulo");
-            }else {Log.e("arbol", "nulo");}
+            arbol = detallesAux.getArbol(idArbol);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         Toast.makeText(Detalles.this, "Arbol Seleccionado", Toast.LENGTH_SHORT).show();
 
         return false;
+    }
+
+    public void buscarArbol(View v){
+
+        // verificar que el dato sea numerico y que no se pase del numero de arboles del lote
     }
 
     private void onClickBack(){
@@ -765,7 +745,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     protected void onDestroy() {
-        OpenHelperManager.releaseHelper();
+        detallesAux.releaseHelper();
         utils.disConnect();
         super.onDestroy();
     }

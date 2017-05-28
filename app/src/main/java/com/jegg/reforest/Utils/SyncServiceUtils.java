@@ -45,7 +45,9 @@ public class SyncServiceUtils {
     Dao<ArbolEspecie, Integer> daoArbolEspecie;
     Dao<Altura, Integer> daoAltura;
     Dao<Lote, String> daoLotes;
-    private Dao<Persona, Integer> daoPersonas;
+    Dao<Estado, Integer> daoEstado;
+    Dao<Persona, Integer> daoPersonas;
+    Dao<Actividad, Integer> daoActividad;
 
     private List<Persona> listaUsuarios = new ArrayList<>();
     private List<Lote> listaLotes = new ArrayList<>();

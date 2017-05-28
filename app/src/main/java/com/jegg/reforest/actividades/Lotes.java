@@ -146,6 +146,7 @@ public class Lotes extends AppCompatActivity {
                 Intent irDetalles = new Intent(Lotes.this, Detalles.class);
                 irDetalles.putExtra("id_lote", listaLotes.get(position).getId());
                 irDetalles.putExtra("nombre_lote", listaLotes.get(position).getNombre());
+                irDetalles.putExtra("num_arboles", getTotalArbolesLote(listaLotes.get(position)));
                 startActivity(irDetalles);
                 finish();
             }
@@ -159,17 +160,9 @@ public class Lotes extends AppCompatActivity {
         ForeignCollection<Arbol> arboles = itemLote.getArboles();
         if (arboles.size() > 0){
 
-            CloseableWrappedIterable<Arbol> iterable = arboles.getWrappedIterable();
-            for (Arbol arbol : iterable){
-                if (arbol.estaSembrado()){
-                    num++;
-                }
-            }
-
+            num = arboles.size();
         }
-
         return num;
-
     }
 }
 

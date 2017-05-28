@@ -20,6 +20,9 @@ public class Arbol {
     @DatabaseField(columnName = Constantes.ID_ARBOL, id = true)
     private String id;
 
+    @DatabaseField(columnName = "numArbol")
+    private int numArbol;
+
     @DatabaseField(columnName = Constantes.COORDENADAS_ARBOL, canBeNull = false)
     private String coodenadas;
 
@@ -147,6 +150,14 @@ public class Arbol {
         this.lote = lote;
     }
 
+    public int getNumArbol() {
+        return numArbol;
+    }
+
+    public void setNumArbol(int numArbol) {
+        this.numArbol = numArbol;
+    }
+
     public LatLng getPosicion(){
 
         String[] coordenadasArray = coodenadas.split(" ");
@@ -156,7 +167,7 @@ public class Arbol {
         return new LatLng(lat, lng);
 
     }
-
+/*
     public boolean estaSembrado(){
 
         boolean estasembrado = false;
@@ -174,7 +185,7 @@ public class Arbol {
 
         return estasembrado;
     }
-
+*/
     public String getLote_id() {
         return lote_id;
     }

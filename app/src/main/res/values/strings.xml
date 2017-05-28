@@ -65,6 +65,10 @@
     <string name="op_mapa_satelite">Mapa Satelite</string>
     <string name="op_tierra">Tierra</string>
     <string name="hint_detalles_especie">Especie</string>
+    <string name="hint_fecha">Fecha:</string>
+    <string name="coordenadas_arbol">Coordenadas Arbol:</string>
+    <string name="btn_plus">+</string>
+    <string name="buscar_arbol_por_numero">Buscar Arbol por numero:</string>
 
     <!-- Especies  -->
     <string-array name="lista_especies" >

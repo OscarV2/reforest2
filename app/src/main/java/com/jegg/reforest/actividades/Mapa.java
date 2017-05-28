@@ -151,11 +151,8 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             CloseableWrappedIterable<Arbol> iterator = arboles.getWrappedIterable();
             for (Arbol arbol : iterator){
 
-                if (arbol.estaSembrado()){
-
-                    listaArboles.add(arbol);
-                    dibujaArbol(arbol.getPosicion() , arbol.getId(), listaArboles.size()-1);
-                }
+                listaArboles.add(arbol);
+                dibujaArbol(arbol.getPosicion() , arbol.getId(), listaArboles.size()-1);
             }
         }
 
