@@ -77,7 +77,7 @@ public class CrearLote extends AppCompatActivity {
 
         sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        String currentDateandTime = Constantes.sdf.format(new Date());
+        String currentDateandTime = sdf.format(new Date());
         fecha.setText(currentDateandTime);
 
         datosReforest = OpenHelperManager.getHelper(CrearLote.this,
@@ -90,6 +90,10 @@ public class CrearLote extends AppCompatActivity {
             mostrarDialogoGps();
         }
 
+        edtDepartamento.setEnabled(false);
+        edtMunicipio.setEnabled(false);
+
+        //area.setEnabled(false);
     }
 
     private void irMapa() {
@@ -152,13 +156,12 @@ public class CrearLote extends AppCompatActivity {
         if (actionBar !=null){
             actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         }
     }
 
     public void eliminarPunto(View v){
 
-        Log.e("rec size antes", String.valueOf(recLote.size()));
         //borrar ultimas dos lineas del textview
 
         if (!(recLote.size() == 0)){
@@ -196,14 +199,15 @@ public class CrearLote extends AppCompatActivity {
 
     public void calcularArea(View v){
         if (recLote.size() < 4){
+
             Toast.makeText(CrearLote.this, "Minimo 4 puntos de referencia.", Toast.LENGTH_SHORT).show();
 
         }else {
-            Toast.makeText(this, "en m2 "+String.valueOf(areaLote), Toast.LENGTH_SHORT).show();
+
             areaLote = (SphericalUtil.computeArea(recLote))/10000;
             area.setText(String.valueOf(areaLote));
+            Toast.makeText(this, "Area en m2: "+String.valueOf(SphericalUtil.computeArea(recLote)), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void guardarLote(View view) throws ParseException {

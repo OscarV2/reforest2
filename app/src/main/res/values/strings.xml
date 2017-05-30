@@ -33,8 +33,7 @@
     <string name="title_activity_menu">Menu</string>
 
     <string-array name="lista_tipo_actividades">
-        <item>Preparar terreno</item>
-        <item>Sembrar o Plantar</item>
+        <item>Preparar terreno y sembrar</item>
         <item>Abonar</item>
         <item>Control de Malezas</item>
         <item>Fertilizacion</item>

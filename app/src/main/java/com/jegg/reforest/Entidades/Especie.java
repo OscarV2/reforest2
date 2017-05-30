@@ -1,10 +1,6 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 

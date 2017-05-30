@@ -1,39 +1,28 @@
 package com.jegg.reforest.actividades;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.jegg.reforest.DBdatos.basededatos;
-import com.jegg.reforest.Entidades.Actividad;
-import com.jegg.reforest.Entidades.Especie;
-import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
-import com.jegg.reforest.Utils.HandleEspecies;
+import com.jegg.reforest.Utils.MainActivityAux;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    basededatos datosReforest;
     SharedPreferences prefs;
     String PATH_BASE_DE_DATOS = "datosReforest";
-    private ProgressDialog progressDialog = null;
-    MyReceiver myReceiver;
-    boolean inicioSesion;
+
+    ProgressDialog progressDialog;
+    boolean inicioSesion, autoSync;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         inicioSesion = prefs.getBoolean("inicio_sesion", false);
+        autoSync = prefs.getBoolean("automatic_sync", false);
         Log.e("Bool InicioSesion", String.valueOf(inicioSesion));
-
-
-        datosReforest = OpenHelperManager.getHelper(MainActivity.this,
-                basededatos.class);
 
         (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,14 +50,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        try{
-            insertarActividadesEnBd();
-            insertarcrearEstadosEnBd();
-            insertarEspecies();
-        }catch (SQLException e){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-            e.printStackTrace();
-        }
+                    try {
+                        MainActivityAux main = new MainActivityAux(getApplicationContext());
+                        main.insertarEspecies();
+                        main.insertarActividadesEnBd();
+                        main.insertarcrearEstadosEnBd();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
 
     private void irMenu() {
@@ -81,77 +74,34 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void insertarEspecies(){
-
-        HandleEspecies handle = new HandleEspecies(this);
-        String[] lista = handle.getListaEspecies();
-        try {
-            Dao<Especie, Integer> especiesDao = datosReforest.getEspeciesDao();
-            for (String especie : lista){
-                especiesDao.create(new Especie(especie));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void insertarcrearEstadosEnBd() throws SQLException {
-
-        Dao<Estado, Integer> estadosDao = datosReforest.getEstadoDao();
-        List<Estado> listEstados = new ArrayList<>();
-
-        listEstados.add(new Estado("Bueno"));
-        listEstados.add(new Estado("Enfremo"));
-        listEstados.add(new Estado("Resiembra"));
-        listEstados.add(new Estado("Erradicado"));
-
-        for (int i = 0; i<listEstados.size(); i++){
-            estadosDao.create(listEstados.get(i));
-        }
-
-
-    }
-
-    private void insertarActividadesEnBd() throws SQLException {
-
-        Dao<Actividad, Integer> actividadesDao = datosReforest.getActividadsDao();
-        List<Actividad> listActividades = new ArrayList<>();
-
-        listActividades.add(new Actividad("Preparar terreno y sembrar"));
-        listActividades.add(new Actividad("Abonar"));
-        listActividades.add(new Actividad("Control de Malezas"));
-        listActividades.add(new Actividad("Fertilización"));
-        listActividades.add(new Actividad("Sustitución de plantas"));
-        listActividades.add(new Actividad("Enfermedades"));
-        listActividades.add(new Actividad("Estado del Arbol"));
-        for (int i = 0; i<listActividades.size(); i++){
-            actividadesDao.create(listActividades.get(i));
-        }
-
-    }
-
     private void sincronizando(){
+  //
+        if (autoSync || (!inicioSesion)){
 
-      //  progressDialog = ProgressDialog.show(MainActivity.this, "Sincronizando...", "Por favor espere..", true);
+            progressDialog = ProgressDialog.show(MainActivity.this, "Sincronizando...", "Por favor espere..", true);
 
-//        progressDialog.setCancelable(false);
-  //      if (progressDialog.isShowing()){
+            progressDialog.setCancelable(false);
 
-            Log.e("proegress", "showing");
-            startService(new Intent(MainActivity.this, SinconizacionService.class));
-    //    }
-    }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-    private class MyReceiver extends BroadcastReceiver {
-        //Recibo Mi posicion
-        @Override
-        public void onReceive(Context arg0, Intent arg1) {
-/*
-            if (progressDialog.isShowing()){
-                progressDialog.dismiss();
-                Log.e("progress","dissmiss");
-            }
-*/
+                    startService(new Intent(MainActivity.this, SinconizacionService.class));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            progressDialog.dismiss();
+                            if (autoSync){
+
+                                Toast.makeText(MainActivity.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+
+
+            }).start();
         }
     }
 
@@ -194,8 +144,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
        // unregisterReceiver(myReceiver);
        // progressDialog.dismiss();
-        OpenHelperManager.releaseHelper();
+        //OpenHelperManager.releaseHelper();
         super.onDestroy();
     }
-
 }

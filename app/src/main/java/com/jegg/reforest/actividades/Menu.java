@@ -1,5 +1,6 @@
 package com.jegg.reforest.actividades;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
@@ -20,8 +22,7 @@ import com.jegg.reforest.Utils.Constantes;
 public class Menu extends AppCompatActivity {
 
     SharedPreferences prefs;
-    private Toolbar toolbar;
-    private ActionBar actionBar;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +34,11 @@ public class Menu extends AppCompatActivity {
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
         setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
             actionBar.setTitle("");
-            //actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
         }
     }
 
@@ -57,7 +56,7 @@ public class Menu extends AppCompatActivity {
         MenuItem item2 = menu.findItem(R.id.opcionIrWeb);
         SpannableStringBuilder builder2 = new SpannableStringBuilder("  Ir a Reforest");
         // replace "*" with icon
-        builder2.setSpan(new ImageSpan(this, android.R.drawable.ic_media_play), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder2.setSpan(new ImageSpan(this, R.drawable.ic_arrow_forward), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         item2.setTitle(builder2);
         return true;
     }
@@ -66,13 +65,32 @@ public class Menu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.opcionSincronizar:
-                startService(new Intent(Menu.this, SinconizacionService.class));
+
+                progressDialog = ProgressDialog.show(Menu.this, "Sincronizando...", "Por favor espere..", true);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        startService(new Intent(Menu.this, SinconizacionService.class));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                progressDialog.dismiss();
+                                Toast.makeText(Menu.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+
+                }).start();
+
                 break;
             case R.id.opcionIrWeb:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_SITIO_WEB));
                 startActivity(browserIntent);
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }

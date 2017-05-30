@@ -6,7 +6,6 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-import java.sql.Date;
 
 @DatabaseTable(tableName = Constantes.TABLA_PERSONAS)
 public class Persona {
@@ -45,34 +44,6 @@ public class Persona {
     @DatabaseField(columnName = "municipio_id")
     private int municipio_id;
 
-    public int getMunicipio_id() {
-        return municipio_id;
-    }
-
-    public void setMunicipio_id(int municipio_id) {
-        this.municipio_id = municipio_id;
-    }
-/*
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.NOMBRE_PERSONAS, nombre);
-        objetoJson.addProperty(Constantes.APELLIDO_PERSONAS, apellidos);
-        objetoJson.addProperty(Constantes.FECHA_NACIMIENTO_PERSONAS, fecha_nacimiento.toString());
-        objetoJson.addProperty(Constantes.GENERO_PERSONAS, genero);
-        objetoJson.addProperty(Constantes.DIRECCION_PERSONAS, direccion);
-        objetoJson.addProperty(Constantes.TELEFONO_PERSONAS, telefono);
-        objetoJson.addProperty(Constantes.MUNICIPIO_PERSONAS, municipio_id);
-        objetoJson.addProperty("correo", correo);
-        objetoJson.addProperty("clave", clave);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
-*/
     public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
         return desarrolloActividades;
     }

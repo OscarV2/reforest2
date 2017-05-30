@@ -20,15 +20,6 @@ public class Actividad {
     @ForeignCollectionField
     private ForeignCollection<DesarrolloActividades> desarrolloActividades;
 
-    public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
-        return desarrolloActividades;
-    }
-
-    public void setDesarrolloActividades(ForeignCollection<DesarrolloActividades> desarrolloActividades) {
-        this.desarrolloActividades = desarrolloActividades;
-    }
-
-
     public Actividad(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;

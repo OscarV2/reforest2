@@ -1,15 +1,9 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-/**
- * Created by oscarvc on 29/04/17.
- */
 @DatabaseTable(tableName = Constantes.TABLA_ESPECIE_ARBOL)
 public class ArbolEspecie {
 
@@ -49,26 +43,6 @@ public class ArbolEspecie {
         this.especie = especie;
         this.arbol_id = arbol.getId();
         this.especie_id = especie.getId();
-    }
-
-    public String getArbol_id() {
-        return arbol_id;
-    }
-
-    public void setArbol_id(String arbol_id) {
-        this.arbol_id = arbol_id;
-    }
-
-    public boolean isUploaded() {
-        return uploaded;
-    }
-
-    public int getEspecie_id() {
-        return especie_id;
-    }
-
-    public void setEspecie_id(int especie_id) {
-        this.especie_id = especie_id;
     }
 
     public int getId() {

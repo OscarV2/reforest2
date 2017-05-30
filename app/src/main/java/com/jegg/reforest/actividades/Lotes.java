@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.DBdatos.basededatos;
@@ -31,7 +30,6 @@ import java.util.List;
 public class Lotes extends AppCompatActivity {
 
     private ListView listView;
-    //private SQLiteDatabase dbReforest;
     private TextView tvNoHayLotes;
     basededatos datosReforest;
     Dao<Lote, String> lotesDao;
@@ -63,7 +61,7 @@ public class Lotes extends AppCompatActivity {
         if (actionBar !=null){
             actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         }
     }
 
@@ -100,18 +98,6 @@ public class Lotes extends AppCompatActivity {
         finish();
     }
 
-    private void onClickListaLotes(){
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-
-    }
-
     private void cargarDatosLotes(){
         try {
             lotesDao = datosReforest.getLoteDao();
@@ -125,6 +111,7 @@ public class Lotes extends AppCompatActivity {
             }
         } catch (SQLException e) {
 
+            e.printStackTrace();
         }
     }
 

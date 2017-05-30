@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Created by oscarvc on 29/04/17.
+ * Clase main para ORM Lite
  */
 
 public class DataBaseConfig extends OrmLiteConfigUtil {

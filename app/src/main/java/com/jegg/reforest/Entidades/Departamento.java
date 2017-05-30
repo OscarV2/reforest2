@@ -11,10 +11,6 @@ import com.jegg.reforest.Utils.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by oscarvc on 29/04/17.
- */
-
 @DatabaseTable(tableName = Constantes.TABLA_DEPARTAMENTO)
 public class Departamento {
 
@@ -26,18 +22,6 @@ public class Departamento {
 
     @ForeignCollectionField
     private ForeignCollection<Municipio> municipios;
-
-    public ForeignCollection<Municipio> getMunicipios() {
-      /*  ArrayList<Municipio> municipiosList = new ArrayList<Municipio>();
-        for (Municipio m : municipiosList){
-            municipiosList.add(m);
-        }*/
-        return municipios;
-    }
-
-    public void setMunicipios(ForeignCollection<Municipio> municipios) {
-        this.municipios = municipios;
-    }
 
     public int getId() {
         return id;
@@ -55,7 +39,6 @@ public class Departamento {
         this.nombre = nombre;
     }
 
-
     public Departamento() {
     }
 
@@ -63,15 +46,4 @@ public class Departamento {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.NOMBRE_DEPARTAMENTO, nombre);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
 }

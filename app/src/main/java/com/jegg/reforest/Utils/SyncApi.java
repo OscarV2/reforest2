@@ -206,6 +206,7 @@ class SyncApi {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                    //Log.e("Desa onResponse", "mayor a cero");
                     if (response.isSuccessful()){
                         try {
                             updateDb.updateDesaAct(dsa);

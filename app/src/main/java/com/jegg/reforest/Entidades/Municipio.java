@@ -1,22 +1,11 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-import java.sql.SQLException;
-import java.util.List;
-
-/**
- * Created by oscarvc on 29/04/17.
- */
 @DatabaseTable(tableName = Constantes.TABLA_MUNICIPIO)
 public class Municipio {
 
@@ -38,12 +27,6 @@ public class Municipio {
 
     public void setLotes(ForeignCollection<Lote> lotes) {
         this.lotes = lotes;
-    }
-
-    public List<Lote> findByMunicipio(ConnectionSource cs, Municipio municipio) throws SQLException {
-        Dao<Lote, Integer> dao = DaoManager.createDao(cs, Lote.class);
-        return dao.queryForEq(Constantes.ID_MUNICIPIO, municipio.getId());
-
     }
 
     public Municipio(String nombre) {
@@ -70,27 +53,8 @@ public class Municipio {
         return idDepartamento;
     }
 
-    public void setIdDepartamento(Departamento idDepartamento) {
-        this.idDepartamento = idDepartamento;
-    }
-
     public Municipio() {
+
     }
-
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.NOMBRE_MUNICIPIO, nombre);
-        objetoJson.addProperty(Constantes.DEPARTAMENTO_MUNICIPIO, idDepartamento.getId());
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
-
-
-
 
 }

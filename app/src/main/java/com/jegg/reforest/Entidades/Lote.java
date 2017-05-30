@@ -1,18 +1,13 @@
 package com.jegg.reforest.Entidades;
 
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
@@ -74,17 +69,10 @@ public class Lote {
 
         ArrayList<LatLng> puntos = new ArrayList<>();
 
-        Log.e("delimitacion", delimitacion);
         String[] cadenaPuntos = delimitacion.split(",");
 
-        for (String s : cadenaPuntos){
-
-            Log.e("punto", s);
-        }
-
         for (int i = 0; i<cadenaPuntos.length; i++){
-            String[] puntoLatLng = cadenaPuntos[1].split(" ");
-
+            String[] puntoLatLng = cadenaPuntos[i].split(" ");
 
             puntos.add(new LatLng(Double.parseDouble(puntoLatLng[0]) ,
                     Double.parseDouble(puntoLatLng[1])));
@@ -104,23 +92,8 @@ public class Lote {
         return fecha_creacion;
     }
 
-    public void setFecha_creacion(String fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
-    }
-
     public Double getArea() {
         return area;
     }
 
-    public int getMunicipio_id() {
-        return municipio_id;
-    }
-
-    public void setUploaded(boolean uploaded) {
-        this.uploaded = uploaded;
-    }
-
-    public void setMunicipio_id(int municipio_id) {
-        this.municipio_id = municipio_id;
-    }
 }

@@ -200,7 +200,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:hint="@string/buscar_arbol_por_numero"
-                    android:onClick="buscarArbol"/>
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -213,9 +213,9 @@
                 android:textSize="@dimen/btn_text_entrar"
                 android:textColor="@color/btn_letra_entrar"
                 android:layout_centerVertical="true"
-                android:onClick="irMapa"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:onClick="buscarArbol"/>
 
         </RelativeLayout>
 

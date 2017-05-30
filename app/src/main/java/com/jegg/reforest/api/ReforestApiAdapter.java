@@ -7,11 +7,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by oscarvc on 18/05/17.
+ * Clase encargada de inicializar retrofit.
  */
 
 public class ReforestApiAdapter {
 
-    private static ReforestApiServices API_SERVICE;
+    public static ReforestApiServices API_SERVICE;
 
     public static ReforestApiServices getApiService() {
 

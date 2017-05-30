@@ -1,6 +1,8 @@
 package com.jegg.reforest.Utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import com.jegg.reforest.Entidades.DesarrolloActividades;
 import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.actividades.Detalles;
+import com.jegg.reforest.actividades.Lotes;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -76,6 +80,10 @@ public class DetallesAux extends SyncServiceUtils {
         }
         Toast.makeText(this.context, "Actividad exitosa.", Toast.LENGTH_SHORT).show();
         //volverALotes();
+        Activity activity = (Activity)context;
+        Intent i = new Intent(context, Lotes.class);
+        activity.startActivity(i);
+        activity.finish();
     }
 
 
@@ -117,6 +125,19 @@ public class DetallesAux extends SyncServiceUtils {
         daoArboles.create(arbol);
     }
 
+    public Arbol getArbol(int numArbol, String idLote) throws SQLException {
+
+        Arbol arbol = null;
+        QueryBuilder<Arbol, String> qBArbol = daoArboles.queryBuilder();
+
+        Where where = qBArbol.where();
+        where.eq("numArbol", numArbol).and().eq(Constantes.LOTE_ID_ARBOL, idLote);
+
+        PreparedQuery<Arbol> pqArbol = qBArbol.prepare();
+        arbol = daoArboles.query(pqArbol).get(0);
+        return arbol;
+
+    }
 
 
     @Override

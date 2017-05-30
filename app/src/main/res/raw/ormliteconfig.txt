@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/28 01:01:42
+# generated on 2017/05/28 03:31:43
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -132,7 +132,7 @@ columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=urlFoto
+fieldName=urlimagen
 columnName=urlimagen
 # --field-end--
 # --field-start--
@@ -145,15 +145,27 @@ columnName=fecha
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=idActividad
+fieldName=actividades_id
 columnName=actividades_id
+# --field-end--
+# --field-start--
+fieldName=arbol_id
+columnName=arbol_id
+# --field-end--
+# --field-start--
+fieldName=personas_id
+columnName=personas_id
+# --field-end--
+# --field-start--
+fieldName=idActividad
+columnName=actividades_id2
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=arbol
-columnName=arbol_id
+columnName=arbol_id2
 canBeNull=false
 foreign=true
 foreignAutoRefresh=true
@@ -161,7 +173,7 @@ maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=persona
-columnName=personas_id
+columnName=personas_id2
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2

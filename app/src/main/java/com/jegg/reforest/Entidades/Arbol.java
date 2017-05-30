@@ -1,8 +1,6 @@
 package com.jegg.reforest.Entidades;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
@@ -10,7 +8,6 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class Arbol {
     private String id;
 
     @DatabaseField(columnName = "numArbol")
-    private int numArbol;
+    private transient  int numArbol;
 
     @DatabaseField(columnName = Constantes.COORDENADAS_ARBOL, canBeNull = false)
     private String coodenadas;
@@ -38,10 +35,6 @@ public class Arbol {
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
 
-    public void setUploaded(boolean uploaded) {
-        this.uploaded = uploaded;
-    }
-
     @ForeignCollectionField
     private transient ForeignCollection<ArbolEspecie> arbolEspecies;
 
@@ -53,34 +46,6 @@ public class Arbol {
 
     @ForeignCollectionField
     private transient ForeignCollection<DesarrolloActividades> desarrolloActividades;
-
-    public ForeignCollection<ArbolEspecie> getArbolEspecies() {
-        return arbolEspecies;
-    }
-
-    public void setArbolEspecies(ForeignCollection<ArbolEspecie> arbolEspecies) {
-        this.arbolEspecies = arbolEspecies;
-    }
-
-    public ForeignCollection<ArbolEstado> getArbolEstados() {
-        return arbolEstados;
-    }
-
-    public void setArbolEstados(ForeignCollection<ArbolEstado> arbolEstados) {
-        this.arbolEstados = arbolEstados;
-    }
-
-    public List<Altura> getAlturas() {
-
-        List<Altura> listaAlturas = new ArrayList<>();
-        CloseableWrappedIterable<Altura> iterable = alturas.getWrappedIterable();
-        for (Altura al : iterable){
-
-            listaAlturas.add(al);
-        }
-
-        return listaAlturas;
-    }
 
     public List<ArbolEspecie> getArbolEspecie() {
 
@@ -94,9 +59,6 @@ public class Arbol {
         return listaArbolEspecie;
     }
 
-    public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
-        return desarrolloActividades;
-    }
 
     public Estado getLastEstado(){
 
@@ -138,20 +100,12 @@ public class Arbol {
         return fecha_sembrado;
     }
 
-    public void setFecha_sembrado(String fecha_sembrado) {
-        this.fecha_sembrado = fecha_sembrado;
-    }
-
     public Lote getLote() {
         return lote;
     }
 
     public void setLote(Lote lote) {
         this.lote = lote;
-    }
-
-    public int getNumArbol() {
-        return numArbol;
     }
 
     public void setNumArbol(int numArbol) {
@@ -167,32 +121,7 @@ public class Arbol {
         return new LatLng(lat, lng);
 
     }
-/*
-    public boolean estaSembrado(){
 
-        boolean estasembrado = false;
-        try {
-            CloseableWrappedIterable<DesarrolloActividades> iterable = desarrolloActividades.getWrappedIterable();
-            for (DesarrolloActividades da : iterable){
-                if (da.getIdActividad().getNombre().equals("Sembrar o Plantar")){
-                    estasembrado = true;
-                }
-            }
-
-        }catch (NullPointerException e){
-            estasembrado = false;
-        }
-
-        return estasembrado;
-    }
-*/
-    public String getLote_id() {
-        return lote_id;
-    }
-
-    public void setLote_id(String lote_id) {
-        this.lote_id = lote_id;
-    }
 }
 
 

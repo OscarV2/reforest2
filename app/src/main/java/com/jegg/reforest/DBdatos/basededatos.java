@@ -2,7 +2,6 @@ package com.jegg.reforest.DBdatos;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -91,7 +90,6 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
 
         try {
-            Log.e(basededatos.class.getSimpleName(), "onCreate");
 
             TableUtils.createTable(connectionSource, Arbol.class);
             TableUtils.createTable(connectionSource, Departamento.class);
@@ -110,8 +108,6 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
 
             TableUtils.createTable(connectionSource, Actividad.class);
             TableUtils.createTable(connectionSource, DesarrolloActividades.class);
-
-            Log.e("tablas","creadas");
 
         }catch (SQLException ex){
             Log.e("no se pudo","crear la db");

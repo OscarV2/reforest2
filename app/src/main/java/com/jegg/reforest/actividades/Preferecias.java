@@ -16,16 +16,13 @@ import com.jegg.reforest.R;
 public class Preferecias extends AppCompatActivity {
 
     SharedPreferences prefs;
-    private Toolbar toolbar;
-    private ActionBar actionBar;
-    private Switch aSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferecias);
         setToolbar();
-        aSwitch = (Switch) findViewById(R.id.switch_preferencias);
+        Switch aSwitch = (Switch) findViewById(R.id.switch_preferencias);
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         boolean isChecked = prefs.getBoolean("automatic_sync", false);
@@ -57,13 +54,13 @@ public class Preferecias extends AppCompatActivity {
     }
 
     private void setToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar_preferencias);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_preferencias);
         setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
             actionBar.setTitle("");
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_back));
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         }
     }
 

@@ -8,9 +8,6 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
-/**
- * Created by oscarvc on 29/04/17.
- */
 @DatabaseTable(tableName = Constantes.TABLA_ESTADO)
 public class Estado {
 
@@ -43,15 +40,4 @@ public class Estado {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-
-        JsonObject objetoJson = new JsonObject();
-        objetoJson.addProperty("id", id);
-        objetoJson.addProperty(Constantes.ESTADO_ESTADO, nombre);
-
-        Gson gson = new Gson();
-
-        return gson.toJson(objetoJson);
-    }
 }

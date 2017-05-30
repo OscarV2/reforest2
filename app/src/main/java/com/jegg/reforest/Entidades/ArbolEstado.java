@@ -1,9 +1,6 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
@@ -27,27 +24,7 @@ public class ArbolEstado {
 
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
-/*
-    public void setUploaded(boolean uploaded) {
-        this.uploaded = uploaded;
-    }
 
-    public Arbol getArbol() {
-        return arbol;
-    }
-
-    public void setArbol(Arbol arbol) {
-        this.arbol = arbol;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-*/
     public ArbolEstado(Arbol arbol, Estado estado) {
 
         this.estado = estado;
@@ -58,30 +35,6 @@ public class ArbolEstado {
 
     public int getId() {
         return id;
-    }
-
-    public String getArbol_id() {
-        return arbol_id;
-    }
-
-    public void setArbol_id(String arbol_id) {
-        this.arbol_id = arbol_id;
-    }
-
-    public int getEstado_id() {
-        return estado_id;
-    }
-
-    public void setEstado_id(int estado_id) {
-        this.estado_id = estado_id;
-    }
-
-    public boolean isUploaded() {
-        return uploaded;
-    }
-
-    public void setUploaded(boolean uploaded) {
-        this.uploaded = uploaded;
     }
 
     public Estado getEstado() {

@@ -1,7 +1,6 @@
 package com.jegg.reforest.Utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -19,15 +18,10 @@ import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.api.ReforestApiAdapter;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by oscarvc on 10/05/17.
@@ -37,7 +31,6 @@ import retrofit2.Response;
 public class SyncServiceUtils {
 
     private Context context;
-    private basededatos datosReforest;
     Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
     Dao<Especie, Integer> daoEspecie;
     Dao<Arbol, String> daoArboles;
@@ -56,13 +49,6 @@ public class SyncServiceUtils {
     private List<Altura> listaAltura = new ArrayList<>();
     private List<ArbolEstado> listaArbolEstado = new ArrayList<>();
     private List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
-    private List<Especie> listaEspecie = new ArrayList<>();
-
-    public boolean checkTablas() {
-
-        return (listaAltura.size() > 0 || listaArbolEstado.size() > 0 || listaArbol.size() > 0 ||
-                listaDesarrolloAct.size() > 0 || listaArbolEspecie.size() > 0 || listaLotes.size() > 0);
-    }
 
     public void consultarTablas() {
 
@@ -130,14 +116,6 @@ public class SyncServiceUtils {
 
     public void sincronizar(){
 
-        Log.e("numero lotes", String.valueOf(listaLotes.size()));
-        Log.e("numero arboles", String.valueOf(listaArbol.size()));
-        Log.e("numDesaAct ", String.valueOf(listaDesarrolloAct.size()));
-        Log.e("numAlturas ", String.valueOf(listaAltura.size()));
-        Log.e("numEspecies ", String.valueOf(listaEspecie.size()));
-        Log.e("numArbolEstados ", String.valueOf(listaArbolEstado.size()));
-        Log.e("numArbolEspecies ", String.valueOf(listaArbolEspecie.size()));
-
         SyncApi sincronizarBaseDatos = new SyncApi(context);
 
         if (listaAltura.size() > 0){
@@ -162,10 +140,8 @@ public class SyncServiceUtils {
 
         if (listaArbolEspecie.size() > 0){
 
-
             sincronizarBaseDatos.sincronizarArbolEspecie(listaArbolEspecie);
-        }//else{Log.e("","")}
-
+        }
 
         if (listaDesarrolloAct.size() > 0){
 
@@ -177,7 +153,7 @@ public class SyncServiceUtils {
     public SyncServiceUtils(Context context) {
         this.context = context;
 
-        this.datosReforest = OpenHelperManager.getHelper(context, basededatos.class);
+        basededatos datosReforest = OpenHelperManager.getHelper(context, basededatos.class);
 
         try {
             daoLotes = datosReforest.getLoteDao();
@@ -192,6 +168,9 @@ public class SyncServiceUtils {
 
             daoAltura = datosReforest.getAlturaDao();
             daoPersonas = datosReforest.getPersonasDao();
+
+            daoActividad = datosReforest.getActividadsDao();
+            daoEstado = datosReforest.getEstadoDao();
 
         } catch (SQLException e) {
             e.printStackTrace();

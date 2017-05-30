@@ -1,7 +1,5 @@
 package com.jegg.reforest.Entidades;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
@@ -24,25 +22,8 @@ public class Altura {
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
 
-    public void setUploaded(boolean uploaded) {
-        this.uploaded = uploaded;
-    }
-/*
-    public Arbol getArbol() {
-        return arbol;
-    }
-
-    public void setArbol(Arbol arbol) {
-        this.arbol = arbol;
-    }
-*/
-
     public int getId() {
         return id;
-    }
-
-    public String getMedida() {
-        return medida;
     }
 
     public Altura(Arbol arbol, String medida) {

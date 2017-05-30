@@ -7,25 +7,21 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.SyncServiceUtils;
 import com.jegg.reforest.api.ReforestApiAdapter;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SinconizacionService extends Service {
-
-    public final static String MY_ACTION = "MY_ACTION";
 
     SharedPreferences prefs;
     private SyncServiceUtils utils;
@@ -40,7 +36,6 @@ public class SinconizacionService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         init();
-        boolean automaticSync = prefs.getBoolean("automatic_sync",false);
         ConnectivityManager conMan = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (conMan.getActiveNetworkInfo() != null &&
@@ -53,23 +48,12 @@ public class SinconizacionService extends Service {
                 getUsuariosFromApi();
                 stopSelf();
 
-            }else if(automaticSync){                // sincronizacion automatica enabled
+            }else{                // sincronizacion automatica enabled
 
                 utils.consultarTablas();
                 utils.sincronizar();
-                Log.e("automatyc","able");
-                if(utils.checkTablas()){                             // si hay usuarios,
-                    // check tablas
-                    //hay tablas entonces se subiran todas las tablas a la api
-
-
-                }else {
-
-                    stopSelf();
-                }
-            }else {
-                Log.e("automaticSync","disabled");
                 stopSelf();
+                Log.e("automatyc","able");
             }
         }else {
             // wifi disabled
@@ -83,10 +67,10 @@ public class SinconizacionService extends Service {
         Call<List<Persona>> getPersonas = ReforestApiAdapter.getApiService().getPersonas();
         getPersonas.enqueue(new Callback<List<Persona>>() {
             @Override
-            public void onResponse(Call<List<Persona>> call, Response<List<Persona>> response) {
+            public void onResponse(@NonNull Call<List<Persona>> call, @NonNull Response<List<Persona>> response) {
 
                 if (response.isSuccessful()){
-                    Log.e("get personas", "successfull");
+
                     List<Persona> personaList = response.body();
                     if (personaList != null && personaList.size() > 0) {
 
@@ -94,18 +78,14 @@ public class SinconizacionService extends Service {
                             utils.crearPersona(p);
                         }
                     }
-                }else {
-                    //
                 }
-
             }
-
             @Override
-            public void onFailure(Call<List<Persona>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Persona>> call, @NonNull Throwable t) {
+
                 stopSelf();
             }
         });
-
     }
 
     private void init() {
@@ -117,8 +97,6 @@ public class SinconizacionService extends Service {
     @Override
     public void onDestroy() {
         utils.releaseHelper();
-        //Intent send = new Intent(MY_ACTION);
-        //sendBroadcast(send);
         Log.e("servicio","stopped");
         super.onDestroy();
     }
