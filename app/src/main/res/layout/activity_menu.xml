@@ -110,7 +110,8 @@
                 android:contentDescription="@string/lotes"
                 android:layout_centerInParent="true"
                 android:src="@drawable/preferencias"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitXY"
+                />
 
             <TextView
                 android:id="@+id/pref_name"

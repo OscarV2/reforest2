@@ -30,13 +30,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.j256.ormlite.dao.CloseableWrappedIterable;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.LastLocationReady;
 import com.jegg.reforest.Utils.LocationUtils;
 import com.jegg.reforest.Utils.SyncServiceUtils;
 
@@ -44,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
-         GoogleMap.OnMarkerClickListener {
+         GoogleMap.OnMarkerClickListener, LastLocationReady {
 
     private GoogleMap mMap;
 
@@ -68,6 +67,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         setToolbar();
 
         utils = new LocationUtils(Mapa.this);
+        utils.setLastLocation(this);
         sync = new SyncServiceUtils(Mapa.this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -86,17 +86,13 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     private void cargarLotes() {
 
             listaLotes = sync.getListaLotes();
-
             if ( listaLotes.size() > 0){
 
                 cargarSpinner(listaLotes);
-
             }else {
                 Toast.makeText(this, "no hay lotes", Toast.LENGTH_SHORT).show();
                 //mostrarDialogo();
-
             }
-
     }
 
     private void cargarSpinner(final List<Lote> listaLotes) {
@@ -132,16 +128,14 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         Lote lote = listaLotes.get(position);
         recLote = lote.getPuntos();
 
-        ForeignCollection<Arbol> arboles = lote.getArboles();
+        listaArboles = lote.getArboles();
 
-        if (arboles.size() == 0){
+        if (listaArboles.size() == 0){
             Toast.makeText(this, "No se han sembrado árboles en este lote.", Toast.LENGTH_SHORT).show();
         }else {
 
-            CloseableWrappedIterable<Arbol> iterator = arboles.getWrappedIterable();
-            for (Arbol arbol : iterator){
+            for (Arbol arbol : listaArboles){
 
-                listaArboles.add(arbol);
                 dibujaArbol(arbol.getPosicion() , listaArboles.size()-1);
             }
         }
@@ -160,7 +154,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         mMap.addMarker(new MarkerOptions().position(posicion)
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(positionList);
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(posicion.latitude, posicion.longitude), 18f));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(posicion.latitude, posicion.longitude), 19f));
 
     }
 
@@ -169,14 +163,12 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
         mMap = googleMap;
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(this);
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        utils = new LocationUtils(Mapa.this);
         miLocation = utils.getLocation();
 
         if (miLocation != null){
@@ -285,4 +277,8 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         volver.show();
     }
 
+    @Override
+    public void locationReady(Location location) {
+
+    }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opt_ir_crear_lote"
+        android:title="@string/opt_nueva_actividad" />
+    <item
+        android:id="@+id/opt_eliminar_lote"
+        android:title="@string/opt_borrar_lote"/>
+
+</menu>

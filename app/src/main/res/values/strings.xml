@@ -68,6 +68,12 @@
     <string name="coordenadas_arbol">Coordenadas Arbol:</string>
     <string name="btn_plus">+</string>
     <string name="buscar_arbol_por_numero">Buscar Arbol por numero:</string>
+    <string name="opt_nueva_actividad">Nueva Actividad</string>
+    <string name="opt_borrar_lote">Eliminar  lote</string>
+    <string name="municipio_crear_lote">Municipio</string>
+    <string name="nombre_crear_lote">Nombre:</string>
+    <string name="fecha_crear_lote">Fecha:</string>
+    <string name="refrescar_mi_posicion">Refrescar mi posicion</string>
 
     <!-- Especies  -->
     <string-array name="lista_especies" >

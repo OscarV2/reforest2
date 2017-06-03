@@ -31,7 +31,7 @@ public class DesarrolloActividades {
     @DatabaseField(columnName = Constantes.ACTIVIDAD_DESARROLLO_ACTIVIDADES + "2", foreign = true, foreignAutoRefresh = true)
     private transient Actividad idActividad;
 
-    @DatabaseField(columnName = Constantes.ARBOL_DESARROLLO_ACTIVIDADES + "2", canBeNull = false, foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(columnName = Constantes.ARBOL_DESARROLLO_ACTIVIDADES + "2", canBeNull = false, foreign = true)
     private transient Arbol arbol;
 
     @DatabaseField(columnName = Constantes.PERSONA_DESARROLLO_ACTIVIDADES + "2", foreign = true, foreignAutoRefresh = true)

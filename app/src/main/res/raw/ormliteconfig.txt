@@ -1,5 +1,5 @@
 #
-# generated on 2017/05/28 03:31:43
+# generated on 2017/05/30 07:02:13
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
@@ -168,8 +168,6 @@ fieldName=arbol
 columnName=arbol_id2
 canBeNull=false
 foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=persona

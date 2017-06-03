@@ -122,6 +122,48 @@ public class Arbol {
 
     }
 
+    public List<ArbolEspecie> getArbolEspecies() {
+
+        List<ArbolEspecie> list = new ArrayList<>();
+        CloseableWrappedIterable<ArbolEspecie> iterable = arbolEspecies.getWrappedIterable();
+
+        for (ArbolEspecie arbolEspecie : iterable){
+
+            list.add(arbolEspecie);
+        }
+        return list;
+    }
+
+    public List<ArbolEstado> getArbolEstados() {
+        List<ArbolEstado> list = new ArrayList<>();
+        CloseableWrappedIterable<ArbolEstado> iterable = arbolEstados.getWrappedIterable();
+        for (ArbolEstado arbolEstado : iterable){
+
+            list.add(arbolEstado);
+        }
+        return list;
+    }
+
+    public List<Altura> getAlturas() {
+        List<Altura> list = new ArrayList<>();
+        CloseableWrappedIterable<Altura> iterable = alturas.getWrappedIterable();
+        for (Altura altura : iterable){
+
+            list.add(altura);
+        }
+        return list;
+    }
+
+    public List<DesarrolloActividades> getDesarrolloActividades() {
+        List<DesarrolloActividades> list = new ArrayList<>();
+        CloseableWrappedIterable<DesarrolloActividades> iterable = desarrolloActividades.getWrappedIterable();
+        for (DesarrolloActividades desa : iterable){
+
+            list.add(desa);
+        }
+        return list;
+    }
+
 }
 
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Environment;
@@ -16,11 +17,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -40,10 +42,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Altura;
@@ -59,6 +60,7 @@ import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.DetallesAux;
 import com.jegg.reforest.Utils.HandleEspecies;
+import com.jegg.reforest.Utils.LastLocationReady;
 import com.jegg.reforest.Utils.LocationUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -71,7 +73,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
-        AdapterView.OnItemSelectedListener, GoogleMap.OnMarkerClickListener {
+        AdapterView.OnItemSelectedListener, GoogleMap.OnMarkerClickListener,
+        LastLocationReady {
 
     EditText edtFecha, edtComentarios, edtAltura, edtBuscarArbol;
     AutoCompleteTextView edtEspecie;
@@ -79,9 +82,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     TextView txtCoordenadas, txtLote;
     Spinner actividades, saludArbol;
 
-    int  idActividad, idEstado;
+    int idActividad, idEstado;
     String idLote;
-    String nombreLote, idArbol="";
+    String nombreLote, idArbol = "";
     String comentariosActividad;
     String altura;
     String especie;
@@ -102,6 +105,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     Lote lote;
     Arbol arbol;
 
+    PolygonOptions options;
+
     Altura alturaEntity;
 
     Actividad actividad;
@@ -117,11 +122,12 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     LocationUtils utils;
     SharedPreferences prefs;
     Persona usuario;
-    ForeignCollection<Arbol> listaArboles;
+    List<Arbol> listaArboles;
 
     private DetallesAux detallesAux;
     private boolean ButonLocationPressed;
     HandleEspecies handleEspecies;
+    Marker miPosicionMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +139,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
 
         setToolbar();
-
+        utils = new LocationUtils(Detalles.this);
+        utils.setLastLocation(this);
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         basededatos datosReforest = OpenHelperManager.getHelper(Detalles.this, basededatos.class);
 
@@ -153,21 +160,14 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        List<LatLng> recLote = lote.getPuntos();
+        options = new PolygonOptions();
+        for (int i = 0; i < recLote.size(); i++) {
 
-        init();
-    }
-
-    private void setToolbar() {
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detalles);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar !=null){
-            actionBar.setTitle("");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+            options.add(recLote.get(i));
         }
-
+        options.fillColor(0x7F0000FF).strokeColor(Color.GREEN);
+        init();
     }
 
     private void init() {
@@ -252,24 +252,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 idEstado = 1;
             }
         });
-        utils = new LocationUtils(getApplicationContext());
 
-        if (!(utils.gpsEnabled())){
-            mostrarDialogoGps();
-        }
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {//esto es para la navegacion hacia atras
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                startActivity(new Intent(Detalles.this, Lotes.class));
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -286,37 +269,38 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
-           // Uri selectedImage = data.getData();
+            try {
 
-            Bundle extras = data.getExtras();
+                Bundle extras = data.getExtras();
 
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            assert imageBitmap != null;
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                assert imageBitmap != null;
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 
-            byte[] b = baos.toByteArray();
+                byte[] b = baos.toByteArray();
 
-            fotoPath = Base64.encodeToString(b, Base64.DEFAULT);
+                fotoPath = Base64.encodeToString(b, Base64.DEFAULT);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 
-                fotoArbol.setBackground(null);
+                    fotoArbol.setBackground(null);
+                }
+                fotoArbol.setImageBitmap(imageBitmap);
+
+            } catch (Exception e) {
+
+                Toast.makeText(this, "No se pudo tomar la foto. Por favor intentelo de nuevo.", Toast.LENGTH_SHORT).show();
             }
-            fotoArbol.setImageBitmap(imageBitmap);
-            //fotoPath = getPath(selectedImage);
-
+            edtComentarios.requestFocus();
         }
-        edtComentarios.requestFocus();
-
     }
 
     public void irMapa(View v) {
 
-
         location = utils.getLocation();
-        if (!ButonLocationPressed){
+        if (!ButonLocationPressed) {
 
             if (location != null) {
                 latitud = location.getLatitude();
@@ -324,6 +308,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 txtCoordenadas.append("\n" + "Latitud: " + String.format("%.3f", latitud) +
                         "\n" + "Longitud: " + String.format("%.3f", longitud));
 
+                miPosicionMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                miPosicionMarker.setTitle("Nuevo Arbol!");
+                miPosicionMarker.showInfoWindow();
                 ButonLocationPressed = true;
 
             } else {
@@ -350,15 +337,28 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         comentariosActividad = edtComentarios.getText().toString();
 
-        if (fotoPath.equals("")){
+        if (fotoPath.equals("")) {
             Toast.makeText(Detalles.this, R.string.tomar_foto, Toast.LENGTH_SHORT).show();
-        }else if(comentariosActividad.equals("")) {
+        } else if (comentariosActividad.equals("")) {
             Toast.makeText(Detalles.this, "Llenar campos faltantes.", Toast.LENGTH_SHORT).show();
             edtComentarios.requestFocus();
-        }else{
+        } else {
             validarDatos();
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_detalles, menu);
+        MenuItem item = menu.findItem(R.id.opt_refresh_position);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder("   Actualizar mi posicion");
+        // replace "*" with icon
+        builder.setSpan(new ImageSpan(this, R.drawable.ic_cached_black_24dp), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -370,7 +370,12 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 idActividad = 1;
                 setActividad();
                 esconderVistas(false);
-                layMapa.setVisibility(View.GONE);
+                if (location != null) {
+
+                    initMap();
+                }
+
+                Log.e("position 0", "position 0");
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 layCordenadas.setVisibility(View.VISIBLE);
                 layBuscarArbol.setVisibility(View.GONE);
@@ -440,6 +445,18 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (idActividad != 1) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            if (miPosicionMarker.isVisible()){
+
+                miPosicionMarker.remove();
+            }
+
+        }
     }
 
     private void esconderVistas(boolean b) {
@@ -448,10 +465,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         if (b) {
             lay_edt_altura.setVisibility(View.GONE);
             lay_edt_especie.setVisibility(View.GONE);
-            layMapa.setVisibility(View.VISIBLE);
             layBuscarArbol.setVisibility(View.VISIBLE);
             location = utils.getLocation();
-            if (location != null){
+            if (location != null) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
 
             }
@@ -460,7 +476,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             lay_edt_altura.setVisibility(View.VISIBLE);
             lay_edt_especie.setVisibility(View.VISIBLE);
             location = utils.getLocation();
-            if (location != null){
+            if (location != null) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
 
             }
@@ -484,41 +500,41 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             if (especie.equals("")) {
 
                 edtEspecie.requestFocus();
-            }else if (altura.equals("")) {
+            } else if (altura.equals("")) {
                 edtAltura.requestFocus();
-            }else if (!handleEspecies.checkEspecie(especie)) { //no coincide la especie
+            } else if (!handleEspecies.checkEspecie(especie)) { //no coincide la especie
                 Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
-            }else {
-                if (idActividad == 5){
+            } else {
+                if (idActividad == 5) {
                     Log.e("guardando", "actividad 6 o 2");
                     guardarActividad5();
-                }else {   // idActividad = 1
-                    if (location == null){
+                } else {   // idActividad = 1
+                    if (location == null) {
                         Toast.makeText(this, "No hay coordenadas para preparar terreno.", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         prepararTerreno();
                     }
                 }
             }
-        }
-        else if(idActividad == 6){ especie = edtEspecie.getText().toString();  // Enfermedad Arbol
+        } else if (idActividad == 6) {
+            especie = edtEspecie.getText().toString();  // Enfermedad Arbol
 
-            if (especie.equals("")) { edtEspecie.requestFocus();
+            if (especie.equals("")) {
+                edtEspecie.requestFocus();
 
-            }else{  // guardar actividad 6 Enfermedades
+            } else {  // guardar actividad 6 Enfermedades
 
-                        guardarAct6();
+                guardarAct6();
             }
-        }
-        else if(idActividad == 7){     // Estado Arbol
+        } else if (idActividad == 7) {     // Estado Arbol
 
             Log.e("actividad es", "EStado");
-            arbolEstado = new ArbolEstado(arbol, estados.get(idEstado-1));
+            arbolEstado = new ArbolEstado(arbol, estados.get(idEstado - 1));
             detallesAux.crearEstado(arbolEstado);
             detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
                     fechaActividad, actividad, arbol, usuario);
 
-        }else {         // actividades 2,3, 4
+        } else {         // actividades 2,3, 4
 
             detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
                     fechaActividad, actividad, arbol, usuario);
@@ -528,7 +544,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void guardarAct6() throws SQLException {   // Enfermedades
 
         especieEntidad = detallesAux.getEspecie(especie);
-        if (especieEntidad == null){
+        if (especieEntidad == null) {
 
             Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
         }
@@ -548,20 +564,20 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void guardarActividad5() {     //Resiembra
 
-        if (idArbol.equals("") || (arbol == null)){
+        if (idArbol.equals("") || (arbol == null)) {
 
             Toast.makeText(Detalles.this, R.string.select_arbol, Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
 
             especieEntidad = detallesAux.getEspecie(especie);
 
-            if (especieEntidad == null){
+            if (especieEntidad == null) {
                 Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
 
                 alturaEntity = new Altura(arbol, altura);
                 arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
-                Log.e("guardando","actividad 2 o 6");
+                Log.e("guardando", "actividad 2 o 6");
                 Log.e("idActividad", String.valueOf(actividad.getId()));
 
                 arbolEstado = new ArbolEstado(arbol, estados.get(3));
@@ -590,7 +606,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         alturaEntity = new Altura(arbol, altura);
         especieEntidad = detallesAux.getEspecie(especie);
         arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
-        if (especieEntidad == null){
+        if (especieEntidad == null) {
 
             Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
         }
@@ -601,28 +617,28 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         detallesAux.crearArbolEspecie(arbolEspecie);
         detallesAux.crearAltura(alturaEntity);
         detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
-                                                 fechaActividad, actividad, arbol, usuario);
+                fechaActividad, actividad, arbol, usuario);
         volverALotes();
     }
 
-    private void cargarArboles(){
+    private void cargarArboles() {
 
-        if (listaArboles.size() > 0){
+        if (listaArboles.size() > 0) {
 
-            if (!arbolesCargados){
-                CloseableWrappedIterable<Arbol> iterator = listaArboles.getWrappedIterable();
+            if (!arbolesCargados) {
 
-                for (Arbol arbol1 : iterator){
+                for (Arbol arbol1 : listaArboles) {
 
                     Marker marcadorArbol = mMap.addMarker(new MarkerOptions().position(arbol1.getPosicion()));
                     marcadorArbol.setTag(arbol1.getId());
                 }
+
                 arbolesCargados = true;
-                if (location != null){
+                if (location != null) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18f));
                 }
             }
-        }else {
+        } else {
 
             Toast.makeText(Detalles.this, "No se ha preparado el terreno", Toast.LENGTH_SHORT).show();
         }
@@ -634,49 +650,72 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         Log.e("mapa", "listo");
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+
+        if (!(utils.gpsEnabled())) {
+            mostrarDialogoGps();
         }
-        mMap.setMyLocationEnabled(true);
+        // dibujar lote
         mMap.setOnMarkerClickListener(this);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             onClickBack();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
+    private void initMap() {
+
+        mMap.clear();
+        mMap.addPolygon(options);
+        location = utils.getLocation();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(false);
+            miPosicionMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+            miPosicionMarker.setTag("MiPosicion");
+            miPosicionMarker.setTitle("¡Aquí estoy!");
+            miPosicionMarker.showInfoWindow();
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 19f));
+
+        } else {
+
+            Toast.makeText(this, "Por favor habilite el permiso de ubicacion para seguir usando la aplicación.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public boolean onMarkerClick(Marker marker) {
 
         idArbol = (String) marker.getTag();
-        Log.e("idArbol", idArbol);
-        try {
-            arbol = detallesAux.getArbol(idArbol);
+        assert idArbol != null;
+        if (!idArbol.equals("MiPosicion")) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+            try {
+                arbol = detallesAux.getArbol(idArbol);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(Detalles.this, "Arbol Seleccionado", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(Detalles.this, "Arbol Seleccionado", Toast.LENGTH_SHORT).show();
-
         return false;
     }
 
-    public void buscarArbol(View v){
+    public void buscarArbol(View v) {
 
         // verificar que el dato sea numerico y que no se pase del numero de arboles del lote
         String numeroArbolCadena = edtBuscarArbol.getText().toString();
         int numArbolBuscar = Integer.parseInt(numeroArbolCadena);
 
-        if (numArbolBuscar > numArboles){
+        if (numArbolBuscar > numArboles) {
 
             Toast.makeText(this, "Arbol " + String.valueOf(numArbolBuscar) + " no existe.", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
 
             try {
                 arbol = detallesAux.getArbol(numArbolBuscar, idLote);
@@ -691,6 +730,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void dibujarArbolBusqueda(Arbol arbol, int numArbolBuscar) {
 
         mMap.clear();
+        mMap.addPolygon(options);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }
+
         Marker marker =  mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 .position(arbol.getPosicion()));
 
@@ -742,5 +786,42 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         startActivity(i);
         finish();
 
+    }
+
+    private void setToolbar() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detalles);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
+            actionBar.setTitle("");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {//esto es para la navegacion hacia atras
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                startActivity(new Intent(Detalles.this, Lotes.class));
+                finish();
+                return true;
+            case R.id.opt_refresh_position:
+                if (idActividad == 1){
+
+                    initMap();
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void locationReady(Location location) {
+
+            initMap();
     }
 }

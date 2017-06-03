@@ -53,19 +53,11 @@ public class SyncServiceUtils {
     public void consultarTablas() {
 
         try {
-            //listaEspecie = daoEspecie.queryForAll();
-
             // llenar lista con registros no sincronizados
-
-           // listaDesarrolloAct = daoDesarrolloAct.queryForAll();
-           // listaArbol = daoArboles.queryForAll();
-           // listaLotes = daoLotes.queryForAll();
             llenarListasSync();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     private void llenarListasSync() throws SQLException {

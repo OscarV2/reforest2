@@ -25,9 +25,11 @@ import static android.content.Context.LOCATION_SERVICE;
 public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private Context context;
-    private GoogleApiClient client;
-    private Location location1;
+    Context context;
+    GoogleApiClient client;
+    Location location1;
+    LocationRequest mLocationRequest;
+    private LastLocationReady lastLocation;
 
     public LocationUtils(Context context) {
         this.context = context;
@@ -52,16 +54,28 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-           Log.e("Location en If", "Location");
-            Log.e("apiLocate", "Conectada");
+        Log.e("onConncted","");
+        if (ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
 
-            location1 = LocationServices.FusedLocationApi.getLastLocation(client);
+            while (location1 == null){
 
-            LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(20000);
-            mLocationRequest.setFastestInterval(15000);
+                location1 = LocationServices.FusedLocationApi.getLastLocation(client);
+                if (location1 != null){
+
+                    lastLocation.locationReady(location1);
+                    break;
+                }
+            }
+
+
+
+            mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(15000);
+            mLocationRequest.setFastestInterval(10000);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
             LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest, new com.google.android.gms.location.LocationListener() {
@@ -87,6 +101,10 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
 */
         //}
 
+    }
+
+    public void setLastLocation(LastLocationReady lastLocation) {
+        this.lastLocation = lastLocation;
     }
 
     public Location getLocation() {

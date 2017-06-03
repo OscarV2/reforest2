@@ -4,53 +4,79 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/side_nav_bar"
+
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/image_item_lote"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/forest"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="nombre"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:id="@+id/nombre_lote_item"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            style="@style/Base.TextAppearance.AppCompat.Large"/>
+            android:orientation="vertical"
+            android:paddingBottom="6dp">
 
-    <TextView
-            android:layout_marginTop="1dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="fecha"
-            android:id="@+id/fecha_lote_item"
-            style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nombre"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:id="@+id/nombre_lote_item"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                style="@style/Base.TextAppearance.AppCompat.Large"/>
 
-    <TextView
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fecha"
-        android:id="@+id/arboles_lote_item"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/white"/>
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_item_lote"
+                android:text="fecha"
+                android:id="@+id/fecha_lote_item"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"/>
 
-    <TextView
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_item_lote"
+                android:text="fecha"
+                android:id="@+id/arboles_lote_item"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"/>
 
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fecha"
-        android:id="@+id/area_lote_item"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/white"/>
+            <TextView
+
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fecha"
+                android:textSize="@dimen/text_item_lote"
+                android:id="@+id/area_lote_item"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
     <View

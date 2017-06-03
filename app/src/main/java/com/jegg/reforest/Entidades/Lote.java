@@ -2,6 +2,7 @@ package com.jegg.reforest.Entidades;
 
 
 import com.google.android.gms.maps.model.LatLng;
+import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -9,6 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
 public class Lote {
@@ -39,8 +41,17 @@ public class Lote {
     @ForeignCollectionField
     private transient ForeignCollection<Arbol> arboles;
 
-    public ForeignCollection<Arbol> getArboles() {
-        return arboles;
+    public List<Arbol> getArboles() {
+
+        CloseableWrappedIterable<Arbol> iterable = arboles.getWrappedIterable();
+        List<Arbol> arbols = new ArrayList<>();
+
+        for (Arbol arbol : iterable){
+
+            arbols.add(arbol);
+        }
+
+        return arbols;
     }
 
     public Lote() {
@@ -53,7 +64,7 @@ public class Lote {
         this.municipio = municipio;
         this.delimitacion = delimitacion;
 
-        this.municipio_id = municipio.getId();
+        this.municipio_id = 11;
         this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }
 
@@ -96,4 +107,7 @@ public class Lote {
         return area;
     }
 
+    public boolean isUploaded() {
+        return uploaded;
+    }
 }

@@ -6,20 +6,24 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.DeleteLote;
 import com.jegg.reforest.Utils.ItemAdapter;
 import com.jegg.reforest.Utils.ItemLote;
 
@@ -33,14 +37,19 @@ public class Lotes extends AppCompatActivity {
     private TextView tvNoHayLotes;
     basededatos datosReforest;
     Dao<Lote, String> lotesDao;
-
-
+    List<Lote> listaLotes;
+    ItemAdapter itemAdapter;
+    List<ItemLote> itemLotes = new ArrayList<>();
     private void init(){
 
+        listaLotes = new ArrayList<>();
         listView = (ListView ) findViewById(R.id.lista_lotes);
+        registerForContextMenu(listView);
+        Log.e("lista", "registrada");
         tvNoHayLotes = (TextView)findViewById(R.id.tvNoHayLotes);
         datosReforest = OpenHelperManager.getHelper(Lotes.this,
                 basededatos.class);
+
     }
 
     @Override
@@ -51,28 +60,18 @@ public class Lotes extends AppCompatActivity {
 
         init();
         cargarDatosLotes();
+
      //   onClickListaLotes();
     }
 
-    private void setToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_lotes);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar !=null){
-            actionBar.setTitle("");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
-        }
-    }
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                backMenu();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+        Log.e("create context", "menu");
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_context, menu);
+
     }
 
     @Override
@@ -101,7 +100,7 @@ public class Lotes extends AppCompatActivity {
     private void cargarDatosLotes(){
         try {
             lotesDao = datosReforest.getLoteDao();
-            List<Lote> listaLotes = lotesDao.queryForAll();
+            listaLotes = lotesDao.queryForAll();
 
             if ( listaLotes.size() > 0){
                 cargarListaLotes(listaLotes);
@@ -115,9 +114,60 @@ public class Lotes extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int position = info.position;
+        switch (item.getItemId()){
+
+            case R.id.opt_ir_crear_lote:
+
+                Intent irDetalles = new Intent(Lotes.this, Detalles.class);
+                irDetalles.putExtra("id_lote", listaLotes.get(position).getId());
+                irDetalles.putExtra("nombre_lote", listaLotes.get(position).getNombre());
+                irDetalles.putExtra("num_arboles", getTotalArbolesLote(listaLotes.get(position)));
+                startActivity(irDetalles);
+                finish();
+                break;
+
+            case R.id.opt_eliminar_lote:
+
+                final Lote lote = listaLotes.get(position);
+                if (!lote.isUploaded()){
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            DeleteLote borrarLote = new DeleteLote(Lotes.this, lote);
+                            borrarLote.eliminar();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    Toast.makeText(Lotes.this, "Se elimino el lote con exito!.", Toast.LENGTH_LONG).show();
+                                    itemLotes.remove(position);
+                                    itemAdapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    }).start();
+
+
+
+                }else {
+
+                    Toast.makeText(this, "No se puede eliminar el lote.", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
     private void cargarListaLotes(final List<Lote> listaLotes) {
 
-        List<ItemLote> itemLotes = new ArrayList<>();
         for (int i= 0; i<listaLotes.size(); i++){
 
             int numeroArboles = getTotalArbolesLote(listaLotes.get(i));
@@ -125,8 +175,11 @@ public class Lotes extends AppCompatActivity {
                     numeroArboles, listaLotes.get(i).getArea()) );
         }
 
-        listView.setAdapter(new ItemAdapter(this, itemLotes));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        itemAdapter = new ItemAdapter(this, itemLotes);
+        listView.setAdapter(itemAdapter);
+
+
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -137,26 +190,39 @@ public class Lotes extends AppCompatActivity {
                 startActivity(irDetalles);
                 finish();
             }
-        });
+        });*/
     }
 
     private int getTotalArbolesLote(Lote itemLote) {
 
         int num = 0;
 
-        ForeignCollection<Arbol> arboles = itemLote.getArboles();
+        List<Arbol> arboles = itemLote.getArboles();
         if (arboles.size() > 0){
 
             num = arboles.size();
         }
         return num;
     }
+
+    private void setToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_lotes);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar !=null){
+            actionBar.setTitle("");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                backMenu();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
-
-
-
-
-
-
-
-
