@@ -71,8 +71,6 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
                 }
             }
 
-
-
             mLocationRequest = new LocationRequest();
             mLocationRequest.setInterval(15000);
             mLocationRequest.setFastestInterval(10000);
@@ -83,6 +81,11 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
                 public void onLocationChanged(Location location) {
 
                     location1 = location;
+                    if (lastLocation != null){
+
+                        lastLocation.locationReady(location1);
+                    }
+
 
                 }
             });

@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
@@ -136,7 +137,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
 
             for (Arbol arbol : listaArboles){
 
-                dibujaArbol(arbol.getPosicion() , listaArboles.size()-1);
+                dibujaArbol(arbol.getPosicion() , listaArboles.indexOf(arbol));
             }
         }
 
@@ -145,8 +146,14 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
             options.add(recLote.get(i));
         }
 
-        options.fillColor(0x7F0000FF).strokeColor(Color.GREEN);
-        mMap.addPolygon(options);
+        PolylineOptions lineOptions = new PolylineOptions();
+        lineOptions.color(Color.GREEN);
+        lineOptions.add(recLote.get(0));
+        lineOptions.add(recLote.get(1));
+        lineOptions.add(recLote.get(2));
+        lineOptions.add(recLote.get(3));
+        lineOptions.add(recLote.get(0));
+        mMap.addPolyline(lineOptions);
     }
 
     private void dibujaArbol(LatLng posicion, int positionList) {
@@ -203,10 +210,8 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         Arbol arbolMarker = listaArboles.get((int)marker.getTag());
 
         String fecha = arbolMarker.getFecha_sembrado();
-        //int sizeListaAlturas = arbolMarker.getAlturas().size();
         int sizeListaEspecies = arbolMarker.getArbolEspecie().size();
 
-        //Altura altura = arbolMarker.getAlturas().get(sizeListaAlturas-1);
         Especie especie = arbolMarker.getArbolEspecie().get(sizeListaEspecies-1).getEspecie();
         Estado estado = arbolMarker.getLastEstado();
         marker.setTitle(especie.getNombre());
@@ -233,6 +238,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     private void onClickBack(){
+
         startActivity(new Intent(this, Menu.class));
         finish();
     }

@@ -20,8 +20,9 @@ package="com.jegg.reforest">
 
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
-<application android:allowBackup="true" android:icon="@mipmap/icono_aplicacion" android:label="@string/app_name"
-    android:supportsRtl="true" android:theme="@style/AppTheme.NoActionBar">
+<application android:allowBackup="true" android:icon="@drawable/icon_reforest" android:label="@string/app_name"
+    android:supportsRtl="true" android:theme="@style/AppTheme.NoActionBar"
+    android:name="android.support.multidex.MultiDexApplication">
     <activity android:name=".actividades.MainActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

@@ -42,7 +42,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.jegg.reforest.DBdatos.basededatos;
@@ -105,7 +105,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     Lote lote;
     Arbol arbol;
 
-    PolygonOptions options;
+    PolylineOptions options;
 
     Altura alturaEntity;
 
@@ -161,12 +161,13 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             e.printStackTrace();
         }
         List<LatLng> recLote = lote.getPuntos();
-        options = new PolygonOptions();
-        for (int i = 0; i < recLote.size(); i++) {
-
-            options.add(recLote.get(i));
-        }
-        options.fillColor(0x7F0000FF).strokeColor(Color.GREEN);
+        options = new PolylineOptions();
+        options.color(Color.GREEN);
+        options.add(recLote.get(0));
+        options.add(recLote.get(1));
+        options.add(recLote.get(2));
+        options.add(recLote.get(3));
+        options.add(recLote.get(0));
         init();
     }
 
@@ -671,8 +672,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void initMap() {
 
         mMap.clear();
-        mMap.addPolygon(options);
-        location = utils.getLocation();
+        mMap.addPolyline(options);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(false);
             miPosicionMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
@@ -730,7 +731,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void dibujarArbolBusqueda(Arbol arbol, int numArbolBuscar) {
 
         mMap.clear();
-        mMap.addPolygon(options);
+        mMap.addPolyline(options);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         }
@@ -820,8 +821,12 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
-    public void locationReady(Location location) {
+    public void locationReady(Location location2) {
 
+        if (idActividad == 1 && (!ButonLocationPressed)){
+
+            location = location2;
             initMap();
+        }
     }
 }

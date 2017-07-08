@@ -20,6 +20,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class LocationLoteUtils extends LocationUtils {
     private GoogleMap mapa;
     private PolygonOptions options;
     private boolean FlagMarkerRemoved;
-    private Polygon lotePolygon;
+    private ArrayList<Polyline> lineasLote;
 
     public LocationLoteUtils(Context context, GoogleMap map) {
 
@@ -39,6 +41,7 @@ public class LocationLoteUtils extends LocationUtils {
         this.mapa = map;
         options = new PolygonOptions();
         puntos = new ArrayList<>();
+        lineasLote = new ArrayList<>();
     }
 
     @Override
@@ -72,7 +75,8 @@ public class LocationLoteUtils extends LocationUtils {
                     }else {
                         assert location1 != null;
                         miPositionMarker.setPosition(new LatLng(location1.getLatitude(), location1.getLongitude()));
-
+                        miPositionMarker.setTitle("¡Aqui estoy!");
+                        miPositionMarker.showInfoWindow();
                     }
                 }
             }
@@ -80,24 +84,38 @@ public class LocationLoteUtils extends LocationUtils {
         super.onConnected(bundle);
     }
 
-    public void dibujarLote(List<LatLng> recLote){
+    public void dibujarLinea(List<LatLng> recLote){
 
-        for (int i = 0; i < recLote.size(); i++){
+        PolylineOptions lineOptions = new PolylineOptions();
+        lineOptions.color(Color.GREEN);
 
-            options.add(recLote.get(i));
+        if (recLote.size() == 4){
+
+            lineOptions.add(recLote.get(2));
+            lineOptions.add(recLote.get(3));
+            lineOptions.add(recLote.get(0));
+            lineasLote.add(mapa.addPolyline(lineOptions));
+            miPositionMarker.remove();
+            FlagMarkerRemoved = true;
+        }else if (recLote.size() >= 2 && recLote.size() < 4){
+
+            lineOptions.add(recLote.get(recLote.size() - 1));
+            lineOptions.add(recLote.get(recLote.size() - 2));
+            lineasLote.add(mapa.addPolyline(lineOptions));
         }
-
-        options.fillColor(0x7F0000FF).strokeColor(Color.GREEN);
-        lotePolygon =  mapa.addPolygon(options);
-        miPositionMarker.remove();
-        FlagMarkerRemoved = true;
     }
 
     public void borrarPunto(int i){
 
         puntos.get(i).remove();
         FlagMarkerRemoved = false;
-        lotePolygon.remove();
+        int sizePolygon = lineasLote.size();
+        if (sizePolygon > 0){
+
+            lineasLote.get(sizePolygon-1).remove();
+            lineasLote.remove((sizePolygon - 1));
+
+        }
     }
 
     public void dibujarPunto(Location location){
@@ -118,11 +136,3 @@ public class LocationLoteUtils extends LocationUtils {
         super.disConnect();
     }
 }
-
-
-
-
-
-
-
-

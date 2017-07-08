@@ -195,15 +195,6 @@
             android:layout_marginLeft="10dp">
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab_vista_previa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="vistaPrevia"
-                android:src="@android:drawable/ic_menu_view"
-                fab:fab_label="Vista Previa"
-                fab:fab_size="mini" />
-
-            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_calcular_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -93,7 +93,7 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
 
     private void irMapa() {
 
-        if (contPuntosLote < 9){
+        if (contPuntosLote < 5){
 
                 location = utils.getLocation();
             if (location != null){
@@ -103,13 +103,7 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
                 recLote.add(new LatLng(lat,lng));
 
                 utils.dibujarPunto(location);
-
-/*                punto_referencia.append("Punto " +
-                        String.valueOf(contPuntosLote) +   ": " +
-                        "\n" +
-                        "Latitud: " + String.valueOf(lat) +
-                        "\n   Longitud: " + String.valueOf(lng) + "\n");
-*/
+                utils.dibujarLinea(recLote);
                 contPuntosLote++;
             }
         }
@@ -164,11 +158,6 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
         //borrar ultimas dos lineas del textview
 
         if (!(recLote.size() == 0)){
-
-            String contenidoTxtPuntos = punto_referencia.getText().toString();
-
-            int lastNewLineAt = contenidoTxtPuntos.lastIndexOf("P");
-//            punto_referencia.setText(contenidoTxtPuntos.substring(0, lastNewLineAt));
 
             int positionPunto = recLote.size() - 1;
             //borrar ultima coordenada de recLote
@@ -283,30 +272,9 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    public void vistaPrevia(View v){
-
-        if(recLote.size() >= 4){
-
-            utils.dibujarLote(recLote);
-
-        }else {
-
-            Toast.makeText(CrearLote.this, "Minimo 4 puntos de referencia.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         utils.disConnect();
     }
 }
-
-
-
-
-
-
-
-
-
