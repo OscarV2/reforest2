@@ -3,17 +3,12 @@ package com.jegg.reforest.Utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.SphericalUtil;
 import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
-import com.jegg.reforest.Entidades.Lote;
-import com.jegg.reforest.Entidades.Municipio;
+import com.jegg.reforest.controladores.HandleEspecies;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivityAux extends SyncServiceUtils{

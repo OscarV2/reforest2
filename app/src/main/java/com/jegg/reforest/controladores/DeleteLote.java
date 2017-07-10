@@ -1,4 +1,4 @@
-package com.jegg.reforest.Utils;
+package com.jegg.reforest.controladores;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,7 @@ import com.jegg.reforest.Entidades.ArbolEspecie;
 import com.jegg.reforest.Entidades.ArbolEstado;
 import com.jegg.reforest.Entidades.DesarrolloActividades;
 import com.jegg.reforest.Entidades.Lote;
+import com.jegg.reforest.Utils.SyncServiceUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

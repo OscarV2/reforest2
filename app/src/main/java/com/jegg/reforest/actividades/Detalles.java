@@ -59,7 +59,7 @@ import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.DetallesAux;
-import com.jegg.reforest.Utils.HandleEspecies;
+import com.jegg.reforest.controladores.HandleEspecies;
 import com.jegg.reforest.Utils.LastLocationReady;
 import com.jegg.reforest.Utils.LocationUtils;
 

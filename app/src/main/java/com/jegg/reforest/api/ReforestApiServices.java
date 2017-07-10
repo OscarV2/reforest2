@@ -33,18 +33,11 @@ public interface ReforestApiServices {
     @POST(Constantes.POST_ARBOL)
     Call<ResponseBody> postArbol(@Body Arbol arbol);
 
-    /*@FormUrlEncoded
-    @POST(Constantes.POST_ARBOL)
-    Call<String> postArbol(@Field("id") String id, @Field("coodenadas") String coodenadas,
-                           @Field("fecha_sembrado") String fecha, @Field("lote_id") String lote);
-*/
-
     @POST(Constantes.POST_DESARROLLO_ACTIVIDAD)
     Call<ResponseBody> postDesarrolloAct(@Body DesarrolloActividades dsa);
 
     @POST(Constantes.POST_ESPECIE_ARBOL)
     Call<ResponseBody> postEspecieArbol(@Body ArbolEspecie arbolEspecie);
-
 
     @POST(Constantes.POST_ESTADO_ARBOL)
     Call<ResponseBody> postEstadoArbol(@Body ArbolEstado arbolEstado);

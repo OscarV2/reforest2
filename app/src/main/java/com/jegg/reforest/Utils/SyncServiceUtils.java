@@ -31,16 +31,16 @@ import java.util.List;
 public class SyncServiceUtils {
 
     private Context context;
-    Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
-    Dao<Especie, Integer> daoEspecie;
-    Dao<Arbol, String> daoArboles;
-    Dao<ArbolEstado, Integer> daoArbolEstado;
-    Dao<ArbolEspecie, Integer> daoArbolEspecie;
-    Dao<Altura, Integer> daoAltura;
-    Dao<Lote, String> daoLotes;
-    Dao<Estado, Integer> daoEstado;
-    Dao<Persona, Integer> daoPersonas;
-    Dao<Actividad, Integer> daoActividad;
+    public Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
+    public Dao<Especie, Integer> daoEspecie;
+    public Dao<Arbol, String> daoArboles;
+    public Dao<ArbolEstado, Integer> daoArbolEstado;
+    public Dao<ArbolEspecie, Integer> daoArbolEspecie;
+    public Dao<Altura, Integer> daoAltura;
+    public Dao<Lote, String> daoLotes;
+    public Dao<Estado, Integer> daoEstado;
+    public Dao<Persona, Integer> daoPersonas;
+    public Dao<Actividad, Integer> daoActividad;
 
     private List<Persona> listaUsuarios = new ArrayList<>();
     private List<Lote> listaLotes = new ArrayList<>();

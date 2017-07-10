@@ -47,10 +47,8 @@ public class ItemAdapter extends BaseAdapter {
         TextView tvArboles = (TextView) row.findViewById(R.id.arboles_lote_item);
         TextView tvArea = (TextView) row.findViewById(R.id.area_lote_item);
 
-        tvFecha.setText(this.listaItemLote.get(position).getFecha());
-        tvNombre.setText(this.listaItemLote.get(position).getNombre());
-
-        Log.e("areaAdapter",String.valueOf(this.listaItemLote.get(position).getArea()));
+        tvFecha.setText(this.listaItemLote.get(position).getFecha()); // mostrar fecha
+        tvNombre.setText(this.listaItemLote.get(position).getNombre()); // mostrar nombre de lote
 
         tvArea.setText("Area: "+ String.format("%.2f", listaItemLote.get(position).getArea()) + " Hectareas");
         tvArboles.setText("Arboles: "+ String.valueOf(this.listaItemLote.get(position).getNumArboles()));

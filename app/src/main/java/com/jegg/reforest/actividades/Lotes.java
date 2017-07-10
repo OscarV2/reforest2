@@ -23,7 +23,7 @@ import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
-import com.jegg.reforest.Utils.DeleteLote;
+import com.jegg.reforest.controladores.DeleteLote;
 import com.jegg.reforest.Utils.ItemAdapter;
 import com.jegg.reforest.Utils.ItemLote;
 
