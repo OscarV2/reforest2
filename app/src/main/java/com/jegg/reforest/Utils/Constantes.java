@@ -16,7 +16,6 @@ public class Constantes {
 
     public static final String POST_DESARROLLO_ACTIVIDAD = "desarrolloactividades";
 
-    public static final String POST_ESPECIE = "especie";
     public static final String POST_ESPECIE_ARBOL = "arbolespecie";
 
 
@@ -34,7 +33,6 @@ public class Constantes {
     public static final String ESTADO_ESTADO="estado";
 
     public static final String TABLA_ARBOL_ESTADO="arbol_estado";
-    public static final String ARBOL_ID="arbol_id";
     public static final String ID_ARBOL_ESTADO="_id";
     public static final String ESTADO_ARBOL_ESTADO="estado_id";
 
@@ -43,7 +41,6 @@ public class Constantes {
     public static final String ESPECIE_ESPECIE="especie";
 
     public static final String TABLA_ESPECIE_ARBOL="especie_arbol";
-    public static final String ID_ESPECIE_ARBOL="_id";
     public static final String ESPECIE_ESPECIE_ARBOL="especie_id";
     public static final String ARBOL_ESPECIE_ARBOL="arbol_id";
 
@@ -54,7 +51,6 @@ public class Constantes {
     public static final String FECHA_ARBOL="fecha_arbol";
 
     public static final String TABLA_ALTURA="altura";
-    public static final String ID_ALTURA="_id";
     public static final String ALTURA_ARBOL="arbol_id";
     public static final String MEDIDAS_ALTURA="medidas";
 
@@ -84,7 +80,6 @@ public class Constantes {
     public static final String GENERO_PERSONAS="genero";
     public static final String DIRECCION_PERSONAS="direccion";
     public static final String TELEFONO_PERSONAS="telefono";
-    public static final String MUNICIPIO_PERSONAS="municipio_id";
 
 
     public static final String TABLA_ACTIVIDADES="actividades";
@@ -92,7 +87,6 @@ public class Constantes {
     public static final String NOMBRE_ACTIVIDADES="nombre";
 
     public static final String TABLA_DESARROLLO_ACTIVIDADES="desarrollo_actividades";
-    public static final String ID_DESARROLLO_ACTIVIDADES="_id";
     public static final String FOTO_DESARROLLO_ACTIVIDADES="urlimagen";
     public static final String COMENTARIO_DESARROLLO_ACTIVIDADES="comentario";
     public static final String FECHA_DESARROLLO_ACTIVIDADES="fecha";

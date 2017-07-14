@@ -75,6 +75,11 @@
     <string name="fecha_crear_lote">Fecha:</string>
     <string name="refrescar_mi_posicion">Refrescar mi posicion</string>
 
+    <string name="txt_btn_guardar_actividad">Guardar</string>
+    <string name="hint_comentario"></string>
+    <string name="hint_hin_altura">Altura del arbol:</string>
+    <string name="hint_"></string>
+
     <!-- Especies  -->
     <string-array name="lista_especies" >
         <item>Algarrobillo</item>
@@ -97,6 +102,7 @@
         <item>Higueron</item>
         <item>Jobo</item>
         <item>Limoncillo</item>
+        <item>Maíz tostado</item>
         <item>Mamon</item>
         <item>Mango</item>
         <item>Matarraton</item>
@@ -112,6 +118,7 @@
         <item>Tamarindo</item>
         <item>Totumo</item>
         <item>Trupillo</item>
+        <item>Zapote</item>
     </string-array>
 
 

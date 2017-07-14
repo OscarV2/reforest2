@@ -17,9 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.*;
@@ -38,6 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -91,13 +89,14 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     File filePath;
     private GoogleMap mMap;
 
+
     RelativeLayout layCordenadas, layBuscarArbol;
     LinearLayout lay_edt_especie, lay_edt_altura,
             laySpinnerSaludArbol, layMapa;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     double latitud, longitud;
     SimpleDateFormat sdf;
-    String fotoPath = "";
+    String fotoPath;
     boolean arbolesCargados = false;
 
     int idPersona, numArboles;
@@ -350,19 +349,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_detalles, menu);
-        MenuItem item = menu.findItem(R.id.opt_refresh_position);
-
-        SpannableStringBuilder builder = new SpannableStringBuilder("   Actualizar mi posicion");
-        // replace "*" with icon
-        builder.setSpan(new ImageSpan(this, R.drawable.ic_cached_black_24dp), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        item.setTitle(builder);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         switch (position) {
@@ -598,8 +584,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void prepararTerreno() throws SQLException {
 
-        String coordenadas = String.valueOf(location.getLatitude()) + " " +
-                String.valueOf(location.getLongitude());
+        String coordenadas = String.valueOf(latitud) + " " +
+                String.valueOf(longitud);
 
         arbol = new Arbol(coordenadas, fechaActividad, lote);
         arbol.setNumArbol(numArboles + 1);
@@ -610,16 +596,16 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         if (especieEntidad == null) {
 
             Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
+        }else{
+
+            detallesAux.crearArbol(arbol);
+            detallesAux.crearEstado(arbolEstado);
+            detallesAux.crearArbolEspecie(arbolEspecie);
+            detallesAux.crearAltura(alturaEntity);
+            detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
+                    fechaActividad, actividad, arbol, usuario);
+            volverALotes();
         }
-
-
-        detallesAux.crearArbol(arbol);
-        detallesAux.crearEstado(arbolEstado);
-        detallesAux.crearArbolEspecie(arbolEspecie);
-        detallesAux.crearAltura(alturaEntity);
-        detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
-                fechaActividad, actividad, arbol, usuario);
-        volverALotes();
     }
 
     private void cargarArboles() {
@@ -650,6 +636,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         Log.e("mapa", "listo");
         mMap = googleMap;
+        UiSettings mUiSettings;
+        mUiSettings = mMap.getUiSettings();
+        mUiSettings.setZoomControlsEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         if (!(utils.gpsEnabled())) {
@@ -810,12 +799,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 startActivity(new Intent(Detalles.this, Lotes.class));
                 finish();
                 return true;
-            case R.id.opt_refresh_position:
-                if (idActividad == 1){
 
-                    initMap();
-                }
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

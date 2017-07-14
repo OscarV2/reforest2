@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -263,6 +264,9 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+        UiSettings mUiSettings;
+        mUiSettings = mMap.getUiSettings();
+        mUiSettings.setZoomControlsEnabled(true);
         utils = new LocationLoteUtils(CrearLote.this, mMap);
 
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);

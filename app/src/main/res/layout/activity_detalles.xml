@@ -419,7 +419,7 @@
                 android:id="@+id/btn_guardar_detalle_actividad"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="Guardar"
+                android:text="@string/txt_btn_guardar_actividad"
                 android:textStyle="bold"
                 android:textSize="@dimen/btn_text_entrar"
                 android:textColor="@color/btn_letra_entrar"
