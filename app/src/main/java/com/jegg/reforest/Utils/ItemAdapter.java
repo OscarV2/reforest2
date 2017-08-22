@@ -1,12 +1,10 @@
 package com.jegg.reforest.Utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jegg.reforest.R;
@@ -43,7 +41,6 @@ public class ItemAdapter extends BaseAdapter {
         TextView tvNombre = (TextView) row.findViewById(R.id.nombre_lote_item);
         TextView tvFecha = (TextView) row.findViewById(R.id.fecha_lote_item);
 
-        ImageView image = (ImageView) row.findViewById(R.id.image_item_lote);
         TextView tvArboles = (TextView) row.findViewById(R.id.arboles_lote_item);
         TextView tvArea = (TextView) row.findViewById(R.id.area_lote_item);
 

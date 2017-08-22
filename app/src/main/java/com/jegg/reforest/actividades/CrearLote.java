@@ -14,7 +14,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -42,13 +41,11 @@ import java.util.List;
 public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
 
     private TextInputEditText nombre, area, edtMunicipio;
-    private TextView punto_referencia;
     private StringBuffer delimitacionBuffer;
     private Double areaLote;
     private basededatos datosReforest;
     SimpleDateFormat sdf;
 
-    private GoogleMap mMap;
     private int contPuntosLote = 1;
     List<LatLng> recLote = new ArrayList<>();
 
@@ -64,7 +61,6 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
         area = (TextInputEditText) findViewById(R.id.area_crear_lote);
         edtMunicipio = (TextInputEditText)findViewById(R.id.municipio_crear_lote);
 
-        punto_referencia = (TextView ) findViewById(R.id.PuntoReferencialote);
         Button addPunto = (Button) findViewById(R.id.AgregarPuntoLocalizacionLote);
 
         edtMunicipio.setText("Valledupar, Cesar");
@@ -263,13 +259,12 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mMap = googleMap;
         UiSettings mUiSettings;
-        mUiSettings = mMap.getUiSettings();
+        mUiSettings = googleMap.getUiSettings();
         mUiSettings.setZoomControlsEnabled(true);
-        utils = new LocationLoteUtils(CrearLote.this, mMap);
+        utils = new LocationLoteUtils(CrearLote.this, googleMap);
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         if (!(utils.gpsEnabled())){
             mostrarDialogoGps();
