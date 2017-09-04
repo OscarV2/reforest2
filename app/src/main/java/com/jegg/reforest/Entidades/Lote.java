@@ -110,4 +110,8 @@ public class Lote {
     public boolean isUploaded() {
         return uploaded;
     }
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
 }

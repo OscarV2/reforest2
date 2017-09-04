@@ -139,7 +139,6 @@ public class DetallesAux extends SyncServiceUtils {
 
     }
 
-
     @Override
     public void releaseHelper() {
         super.releaseHelper();

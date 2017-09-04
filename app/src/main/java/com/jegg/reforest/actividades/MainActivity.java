@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         main.insertarEspecies();
                         main.insertarActividadesEnBd();
                         main.insertarcrearEstadosEnBd();
-
+                        //  main.restaurarDatos();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

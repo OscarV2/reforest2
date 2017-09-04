@@ -6,12 +6,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.DetallesAux;
+import com.jegg.reforest.api.ReforestApiAdapter;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Preferecias extends AppCompatActivity {
 
@@ -71,7 +80,7 @@ public class Preferecias extends AppCompatActivity {
         editor.putBoolean("inicio_sesion", false);
         editor.apply();
 
-        Intent intent = new Intent(this, IniciarSesion.class);
+        Intent intent = new Intent(Preferecias.this, IniciarSesion.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();

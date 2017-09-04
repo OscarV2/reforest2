@@ -57,7 +57,7 @@ import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.DetallesAux;
-import com.jegg.reforest.controladores.HandleEspecies;
+import com.jegg.reforest.controladores.ControllerEspecies;
 import com.jegg.reforest.Utils.LastLocationReady;
 import com.jegg.reforest.Utils.LocationUtils;
 
@@ -125,7 +125,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private DetallesAux detallesAux;
     private boolean ButonLocationPressed;
-    HandleEspecies handleEspecies;
+    ControllerEspecies controllerEspecies;
     Marker miPosicionMarker;
 
     @Override
@@ -155,6 +155,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
             listaArboles = lote.getArboles();
             usuario = detallesAux.getPersona(idPersona);
+            Log.e("idPersona", String.valueOf(usuario.getId()));
+            Log.e("persona clave", usuario.getClave());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -194,9 +196,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         txtLote = (TextView) findViewById(R.id.nombre_lote);
         txtLote.append(nombreLote);
 
-        handleEspecies = new HandleEspecies(this);
+        controllerEspecies = new ControllerEspecies(this);
         ArrayAdapter<String> especieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                handleEspecies.getListaEspecies());
+                controllerEspecies.getListaEspecies());
 
         edtEspecie.setAdapter(especieAdapter);
 
@@ -489,7 +491,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 edtEspecie.requestFocus();
             } else if (altura.equals("")) {
                 edtAltura.requestFocus();
-            } else if (!handleEspecies.checkEspecie(especie)) { //no coincide la especie
+            } else if (!controllerEspecies.checkEspecie(especie)) { //no coincide la especie
                 Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
             } else {
                 if (idActividad == 5) {

@@ -37,6 +37,8 @@ public class Persona {
     @DatabaseField(columnName = "clave")
     private String clave;
 
+    @DatabaseField(columnName = "eliminado")
+    private int eliminado;
 
     @ForeignCollectionField
     private transient ForeignCollection<DesarrolloActividades> desarrolloActividades;
@@ -52,36 +54,12 @@ public class Persona {
         this.desarrolloActividades = desarrolloActividades;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public int getEliminado() {
+        return eliminado;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha_nacimiento(String fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEliminado(int eliminado) {
+        this.eliminado = eliminado;
     }
 
     public String getClave() {

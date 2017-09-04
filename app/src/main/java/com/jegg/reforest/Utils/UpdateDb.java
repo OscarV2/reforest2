@@ -12,14 +12,14 @@ import com.jegg.reforest.Entidades.Lote;
 
 import java.sql.SQLException;
 
-class UpdateDb extends SyncServiceUtils{
+public class UpdateDb extends SyncServiceUtils{
 
-    UpdateDb(Context context) {
+    public UpdateDb(Context context) {
         super(context);
 
     }
 
-    void updateAbol(Arbol arbol) throws SQLException {
+    public void updateAbol(Arbol arbol) throws SQLException {
 
         UpdateBuilder<Arbol, String> updateBuilder = this.daoArboles.updateBuilder();
         updateBuilder.where().eq(Constantes.ID_ARBOL, arbol.getId());
@@ -28,7 +28,7 @@ class UpdateDb extends SyncServiceUtils{
 
     }
 
-    void updateLote(Lote lote) throws SQLException {
+    public void updateLote(Lote lote) throws SQLException {
 
         UpdateBuilder<Lote, String> updateBuilder = this.daoLotes.updateBuilder();
         updateBuilder.where().eq("id", lote.getId());
@@ -37,7 +37,7 @@ class UpdateDb extends SyncServiceUtils{
 
     }
 
-    void updateAltura(Altura altura) throws SQLException {
+    public void updateAltura(Altura altura) throws SQLException {
 
         UpdateBuilder<Altura, Integer> updateBuilder = this.daoAltura.updateBuilder();
         updateBuilder.where().eq("id", altura.getId());
@@ -46,17 +46,16 @@ class UpdateDb extends SyncServiceUtils{
 
     }
 
-    void update(ArbolEspecie arbolEspecie) throws SQLException {
+    public void update(ArbolEspecie arbolEspecie) throws SQLException {
 
         UpdateBuilder<ArbolEspecie, Integer> updateBuilder = this.daoArbolEspecie.updateBuilder();
         updateBuilder.where().eq("idArbolEspecie", arbolEspecie.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-
         updateBuilder.update();
 
     }
 
-    void updateArbolEstado(ArbolEstado arbolEstado) throws SQLException {
+    public void updateArbolEstado(ArbolEstado arbolEstado) throws SQLException {
 
         UpdateBuilder<ArbolEstado, Integer> updateBuilder = this.daoArbolEstado.updateBuilder();
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
@@ -65,7 +64,7 @@ class UpdateDb extends SyncServiceUtils{
 
     }
 
-    void updateDesaAct(DesarrolloActividades desarrolloActividades) throws SQLException {
+    public void updateDesaAct(DesarrolloActividades desarrolloActividades) throws SQLException {
 
         UpdateBuilder<DesarrolloActividades, Integer> updateBuilder = this.daoDesarrolloAct.updateBuilder();
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);

@@ -23,9 +23,9 @@ import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.R;
-import com.jegg.reforest.controladores.DeleteLote;
-import com.jegg.reforest.Utils.ItemAdapter;
-import com.jegg.reforest.Utils.ItemLote;
+import com.jegg.reforest.controladores.ControllerLote;
+import com.jegg.reforest.adapter.ItemAdapter;
+import com.jegg.reforest.adapter.ItemLote;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -140,7 +140,7 @@ public class Lotes extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            DeleteLote borrarLote = new DeleteLote(Lotes.this, lote);
+                            ControllerLote borrarLote = new ControllerLote(Lotes.this, lote);
                             borrarLote.eliminar();
                             runOnUiThread(new Runnable() {
                                 @Override

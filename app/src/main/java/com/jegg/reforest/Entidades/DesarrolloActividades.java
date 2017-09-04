@@ -69,6 +69,10 @@ public class DesarrolloActividades {
         this.arbol = arbol;
     }
 
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
     public int getId() {
         return id;
     }

@@ -86,10 +86,10 @@
         <item>Camajon</item>
         <item>Campano</item>
         <item>Cantagallo</item>
-        <item>Cañaguate</item>
         <item>Caracolí</item>
         <item>Carrero</item>
         <item>Caucho</item>
+        <item>Cañaguate</item>
         <item>Cedro</item>
         <item>Ceiba</item>
         <item>Ciruela</item>
@@ -102,7 +102,6 @@
         <item>Higueron</item>
         <item>Jobo</item>
         <item>Limoncillo</item>
-        <item>Maíz tostado</item>
         <item>Mamon</item>
         <item>Mango</item>
         <item>Matarraton</item>
@@ -118,11 +117,7 @@
         <item>Tamarindo</item>
         <item>Totumo</item>
         <item>Trupillo</item>
-        <item>Zapote</item>
     </string-array>
-
-
-
 </resources>
 
 

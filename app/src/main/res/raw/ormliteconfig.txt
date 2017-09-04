@@ -1,6 +1,55 @@
 #
-# generated on 2017/05/30 07:02:13
+# generated on 2017/08/25 09:41:23
 #
+# --table-start--
+dataClass=com.jegg.reforest.Entidades.Municipio
+tableName=municipio
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nombre
+columnName=nombre
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=idDepartamento
+columnName=departamento_id
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=lotes
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.jegg.reforest.Entidades.Actividad
+tableName=actividades
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nombre
+columnName=nombre
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=desarrolloActividades
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Lote
 tableName=lote
@@ -52,62 +101,41 @@ foreignCollection=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.jegg.reforest.Entidades.Persona
-tableName=personas
+dataClass=com.jegg.reforest.Entidades.Altura
+tableName=altura
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=_id
-id=true
+columnName=id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=nombre
-columnName=nombre
+fieldName=arbol
+columnName=arbol_id
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=arbol_id
+columnName=arbol_id2
+# --field-end--
+# --field-start--
+fieldName=medida
+columnName=medidas
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=apellidos
-columnName=apellidos
-canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=fecha_nacimiento
-columnName=fecha_nacimiento
-# --field-end--
-# --field-start--
-fieldName=genero
-columnName=genero
-# --field-end--
-# --field-start--
-fieldName=direccion
-columnName=direccion
-# --field-end--
-# --field-start--
-fieldName=telefono
-columnName=telefono
-# --field-end--
-# --field-start--
-fieldName=correo
-columnName=correo
-# --field-end--
-# --field-start--
-fieldName=clave
-columnName=clave
-# --field-end--
-# --field-start--
-fieldName=desarrolloActividades
-foreignCollection=true
-# --field-end--
-# --field-start--
-fieldName=municipio_id
-columnName=municipio_id
+fieldName=uploaded
+columnName=uploaded
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.jegg.reforest.Entidades.Especie
-tableName=especie
+dataClass=com.jegg.reforest.Entidades.Estado
+tableName=estado
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -116,7 +144,7 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=nombre
-columnName=especie
+columnName=estado
 canBeNull=false
 # --field-end--
 # --table-fields-end--
@@ -184,34 +212,22 @@ columnName=uploaded
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.jegg.reforest.Entidades.Altura
-tableName=altura
+dataClass=com.jegg.reforest.Entidades.Departamento
+tableName=departamento
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
+columnName=_id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=arbol
-columnName=arbol_id
-canBeNull=false
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
-# --field-end--
-# --field-start--
-fieldName=arbol_id
-columnName=arbol_id2
-# --field-end--
-# --field-start--
-fieldName=medida
-columnName=medidas
+fieldName=nombre
+columnName=nombre
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=uploaded
-columnName=uploaded
+fieldName=municipios
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -268,44 +284,6 @@ foreignCollection=true
 # --field-start--
 fieldName=desarrolloActividades
 foreignCollection=true
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.jegg.reforest.Entidades.Departamento
-tableName=departamento
-# --table-fields-start--
-# --field-start--
-fieldName=id
-columnName=_id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=nombre
-columnName=nombre
-canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=municipios
-foreignCollection=true
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.jegg.reforest.Entidades.Estado
-tableName=estado
-# --table-fields-start--
-# --field-start--
-fieldName=id
-columnName=_id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=nombre
-columnName=estado
-canBeNull=false
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -387,8 +365,8 @@ columnName=uploaded
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.jegg.reforest.Entidades.Municipio
-tableName=municipio
+dataClass=com.jegg.reforest.Entidades.Especie
+tableName=especie
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -397,31 +375,20 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=nombre
-columnName=nombre
+columnName=especie
 canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=idDepartamento
-columnName=departamento_id
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
-# --field-end--
-# --field-start--
-fieldName=lotes
-foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.jegg.reforest.Entidades.Actividad
-tableName=actividades
+dataClass=com.jegg.reforest.Entidades.Persona
+tableName=personas
 # --table-fields-start--
 # --field-start--
 fieldName=id
 columnName=_id
-generatedId=true
+id=true
 # --field-end--
 # --field-start--
 fieldName=nombre
@@ -429,8 +396,45 @@ columnName=nombre
 canBeNull=false
 # --field-end--
 # --field-start--
+fieldName=apellidos
+columnName=apellidos
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=fecha_nacimiento
+columnName=fecha_nacimiento
+# --field-end--
+# --field-start--
+fieldName=genero
+columnName=genero
+# --field-end--
+# --field-start--
+fieldName=direccion
+columnName=direccion
+# --field-end--
+# --field-start--
+fieldName=telefono
+columnName=telefono
+# --field-end--
+# --field-start--
+fieldName=correo
+columnName=correo
+# --field-end--
+# --field-start--
+fieldName=clave
+columnName=clave
+# --field-end--
+# --field-start--
+fieldName=eliminado
+columnName=eliminado
+# --field-end--
+# --field-start--
 fieldName=desarrolloActividades
 foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=municipio_id
+columnName=municipio_id
 # --field-end--
 # --table-fields-end--
 # --table-end--

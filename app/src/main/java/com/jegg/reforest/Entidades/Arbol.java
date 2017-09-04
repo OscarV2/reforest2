@@ -164,6 +164,9 @@ public class Arbol {
         return list;
     }
 
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
 }
 
 

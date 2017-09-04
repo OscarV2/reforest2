@@ -41,6 +41,10 @@ public class ArbolEstado {
         return estado;
     }
 
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
     public ArbolEstado() {
 
     }

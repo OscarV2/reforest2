@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,9 +20,15 @@ import com.j256.ormlite.stmt.Where;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
+import com.jegg.reforest.api.ReforestApiAdapter;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IniciarSesion extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,7 +71,6 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         }else {
             // hacer query para usuario
             consultarUsuario();
-
         }
     }
 
@@ -86,12 +92,15 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
             }
 
             else {
+                Persona persona = userList.get(0);
+                // Inicio de sesion exitoso
                 SharedPreferences.Editor editor = prefs.edit();
-                Persona usuario = userList.get(0);
                 editor.putBoolean("inicio_sesion", true);
-                editor.putInt("id_persona", usuario.getId());
+                editor.putInt("id_persona", persona.getId());
+                Log.e("id p sesion", String.valueOf(persona.getId()));
                 editor.apply();
-                // usuario valido
+                editor.commit();
+                // descargar lotes de esta persona
                 irMenu();
             }
 

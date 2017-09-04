@@ -16,6 +16,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 /**
  * Created by oscarvc on 18/05/17.
@@ -24,8 +26,32 @@ import retrofit2.http.POST;
 
 public interface ReforestApiServices {
 
+    @GET(Constantes.GET_PERSONAS+"{id}")
+    Call<Persona> getPersona(@Path("id") int id);
+
     @GET(Constantes.GET_PERSONAS)
     Call<List<Persona>> getPersonas();
+
+    @GET(Constantes.GET_DESA_ACT_PERSONAS)
+    Call<List<DesarrolloActividades>> getDesaActPersona(int id);
+
+    @GET(Constantes.GET_ALTURA)
+    Call<List<Altura>> getAlturas(String id);
+
+    @GET(Constantes.GET_ARBOL_ESTADO)
+    Call<List<ArbolEstado>> getArbolEstado(String id);
+
+    @GET(Constantes.GET_ARBOL)
+    Call<List<Arbol>> getArboles(String id);
+
+    @GET(Constantes.GET_LOTE)
+    Call<List<Lote>> getLotes(int id);
+
+    @GET(Constantes.GET_ARBOL_ESPECIE)
+    Call<List<ArbolEspecie>> getArbolEspecies(String id);
+
+    @PUT(Constantes.GET_PERSONAS+"{id}")
+    Call<ResponseBody> updatePersona(@Path("id") int id, @Body Persona persona);
 
     @POST(Constantes.POST_ALTURA)
     Call<ResponseBody> postAltura(@Body Altura altura);

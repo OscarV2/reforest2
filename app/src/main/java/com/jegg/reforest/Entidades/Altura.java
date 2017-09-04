@@ -33,6 +33,10 @@ public class Altura {
         this.arbol_id = arbol.getId();
     }
 
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
     public Altura() {
 
     }
