@@ -37,8 +37,8 @@ public class Persona {
     @DatabaseField(columnName = "clave")
     private String clave;
 
-    @DatabaseField(columnName = "eliminado")
-    private int eliminado;
+    @ForeignCollectionField
+    private transient ForeignCollection<Lote> lotes;
 
     @ForeignCollectionField
     private transient ForeignCollection<DesarrolloActividades> desarrolloActividades;
@@ -46,28 +46,8 @@ public class Persona {
     @DatabaseField(columnName = "municipio_id")
     private int municipio_id;
 
-    public ForeignCollection<DesarrolloActividades> getDesarrolloActividades() {
-        return desarrolloActividades;
-    }
-
-    public void setDesarrolloActividades(ForeignCollection<DesarrolloActividades> desarrolloActividades) {
-        this.desarrolloActividades = desarrolloActividades;
-    }
-
-    public int getEliminado() {
-        return eliminado;
-    }
-
-    public void setEliminado(int eliminado) {
-        this.eliminado = eliminado;
-    }
-
     public String getClave() {
         return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
     }
 
     public Persona() {
@@ -88,6 +68,10 @@ public class Persona {
         return id;
     }
 
+    public ForeignCollection<Lote> getLotes() {
+        return lotes;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -99,21 +83,4 @@ public class Persona {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
 }

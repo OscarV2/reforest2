@@ -1,6 +1,7 @@
 package com.jegg.reforest.actividades;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -14,14 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.CloseableIterator;
+import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.Lote;
+import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.controladores.ControllerLote;
 import com.jegg.reforest.adapter.ItemAdapter;
@@ -34,22 +38,29 @@ import java.util.List;
 public class Lotes extends AppCompatActivity {
 
     private ListView listView;
-    private TextView tvNoHayLotes;
-    basededatos datosReforest;
+    private basededatos datosReforest;
+    private Persona persona;
     Dao<Lote, String> lotesDao;
     List<Lote> listaLotes;
     ItemAdapter itemAdapter;
     List<ItemLote> itemLotes = new ArrayList<>();
+
     private void init(){
 
         listaLotes = new ArrayList<>();
         listView = (ListView ) findViewById(R.id.lista_lotes);
         registerForContextMenu(listView);
-        Log.e("lista", "registrada");
-        tvNoHayLotes = (TextView)findViewById(R.id.tvNoHayLotes);
         datosReforest = OpenHelperManager.getHelper(Lotes.this,
                 basededatos.class);
 
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        int idPersona = prefs.getInt("id_persona", 0);
+        try {
+            Dao<Persona, Integer> daoPersonas = datosReforest.getPersonasDao();
+            persona = daoPersonas.queryForId(idPersona);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -60,8 +71,6 @@ public class Lotes extends AppCompatActivity {
 
         init();
         cargarDatosLotes();
-
-     //   onClickListaLotes();
     }
 
     @Override
@@ -81,7 +90,6 @@ public class Lotes extends AppCompatActivity {
             backMenu();
             return true;
         }
-
         return super.onKeyDown(keyCode, event);
     }
 
@@ -98,19 +106,18 @@ public class Lotes extends AppCompatActivity {
     }
 
     private void cargarDatosLotes(){
-        try {
-            lotesDao = datosReforest.getLoteDao();
-            listaLotes = lotesDao.queryForAll();
 
-            if ( listaLotes.size() > 0){
-                cargarListaLotes(listaLotes);
-            }else {
+        ForeignCollection<Lote> foreignLotes = persona.getLotes();
+        CloseableWrappedIterable<Lote> iterator = foreignLotes.getWrappedIterable();
+        for (Lote lote: iterator){
 
-                tvNoHayLotes.setVisibility(View.VISIBLE);
-            }
-        } catch (SQLException e) {
+            listaLotes.add(lote);
+        }
+        if ( listaLotes.size() > 0){
+            cargarListaLotes(listaLotes);
+        }else {
 
-            e.printStackTrace();
+            Toast.makeText(this, "No hay lotes creados.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -214,6 +221,12 @@ public class Lotes extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        datosReforest.close();
     }
 
     @Override

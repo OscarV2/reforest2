@@ -1,8 +1,10 @@
 package com.jegg.reforest.actividades;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,15 +22,10 @@ import com.j256.ormlite.stmt.Where;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
-import com.jegg.reforest.api.ReforestApiAdapter;
+import com.jegg.reforest.controladores.DownloadUserData;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class IniciarSesion extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,8 +33,9 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
 
     private String password, correo;
     Dao<Persona, Integer>  daoPersonas;
-
+    private ProgressDialog progressDialog;
     SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +90,11 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
             }
 
             else {
+                progressDialog = ProgressDialog.show(IniciarSesion.this, "Sincronizando...", "Por favor espere..", true);
+                progressDialog.setCancelable(false);
+
                 Persona persona = userList.get(0);
+                descargarDatos(persona.getId());
                 // Inicio de sesion exitoso
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("inicio_sesion", true);
@@ -107,6 +109,33 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         } catch (SQLException  e) {
             e.printStackTrace();
         }
+    }
+
+    private void descargarDatos(int id) {
+
+        final DownloadUserData downloadData = new DownloadUserData(id, IniciarSesion.this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadData.descargar();
+                    }
+                }).start();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+            }
+
+
+        }, 1500);
+
     }
 
     public void irMenu (){

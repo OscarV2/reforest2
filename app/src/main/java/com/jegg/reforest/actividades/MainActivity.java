@@ -3,6 +3,7 @@ package com.jegg.reforest.actividades;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,21 +51,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-                    try {
-                        MainActivityAux main = new MainActivityAux(getApplicationContext());
-                        main.insertarEspecies();
-                        main.insertarActividadesEnBd();
-                        main.insertarcrearEstadosEnBd();
-                        //  main.restaurarDatos();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            MainActivityAux main = new MainActivityAux(getApplicationContext());
+                            main.insertarEspecies();
+                            main.insertarActividadesEnBd();
+                            main.insertarcrearEstadosEnBd();
+                            //  main.restaurarDatos();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }).start();
+                }).start();
+
+            }
+        }, 1500);
+
         }
 
     private void irMenu() {

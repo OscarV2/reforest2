@@ -32,8 +32,12 @@ public class Lote {
 
     @DatabaseField(columnName = Constantes.MUNICIPIO_LOTE)
     private int municipio_id;
+
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
+
+    @DatabaseField(columnName = "persona_lote", canBeNull = false, foreign = true)
+    private transient Persona persona;
 
     @DatabaseField(columnName = "muni", canBeNull = false, foreign = true)
     private transient Municipio municipio;
@@ -57,13 +61,14 @@ public class Lote {
     public Lote() {
     }
 
-    public Lote(String nombre, String fecha, Double area, Municipio municipio, String delimitacion) {
+    public Lote(String nombre, String fecha, Double area, Municipio municipio,
+                String delimitacion, Persona persona) {
         this.nombre = nombre;
         this.fecha_creacion = fecha;
         this.area = area;
         this.municipio = municipio;
         this.delimitacion = delimitacion;
-
+        this.persona = persona;
         this.municipio_id = 11;
         this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }

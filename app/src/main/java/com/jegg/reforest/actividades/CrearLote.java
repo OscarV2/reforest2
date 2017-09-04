@@ -2,6 +2,7 @@ package com.jegg.reforest.actividades;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
@@ -27,6 +28,7 @@ import com.j256.ormlite.dao.Dao;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Municipio;
+import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.LocationLoteUtils;
@@ -53,6 +55,8 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
     double lat, lng;
     LocationLoteUtils utils;
     Location location;
+
+    private Persona persona;
 
     private void init(){
 
@@ -81,6 +85,14 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
         datosReforest = OpenHelperManager.getHelper(CrearLote.this,
                 basededatos.class);
 
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        int idPersona = prefs.getInt("id_persona", 0);
+        try {
+            Dao<Persona, Integer> daoPersonas = datosReforest.getPersonasDao();
+            persona = daoPersonas.queryForId(idPersona);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         nombre.requestFocus();
 
         edtMunicipio.setEnabled(false);
@@ -222,7 +234,8 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
             Log.e("delimi", delimitacion);
             String fechaLote = Constantes.sdf.format(new Date());
             municipio = new Municipio(edtMunicipio.getText().toString());
-            Lote lote = new Lote(nombreLote, fechaLote, areaLote, municipio, delimitacion);
+            Lote lote = new Lote(nombreLote, fechaLote, areaLote, municipio,
+                    delimitacion, persona);
 
             try {
                 Dao<Lote, String> lotesDao = datosReforest.getLoteDao();
