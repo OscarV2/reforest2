@@ -22,6 +22,7 @@ import com.j256.ormlite.stmt.Where;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.MainActivityAux;
 import com.jegg.reforest.controladores.DownloadUserData;
 
 import java.sql.SQLException;
@@ -33,7 +34,6 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
 
     private String password, correo;
     Dao<Persona, Integer>  daoPersonas;
-    private ProgressDialog progressDialog;
     SharedPreferences prefs;
 
     @Override
@@ -57,6 +57,12 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 
@@ -90,11 +96,11 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
             }
 
             else {
-                progressDialog = ProgressDialog.show(IniciarSesion.this, "Sincronizando...", "Por favor espere..", true);
-                progressDialog.setCancelable(false);
+//                progressDialog = ProgressDialog.show(IniciarSesion.this, "Sincronizando...", "Por favor espere..", true);
+  //              progressDialog.setCancelable(false);
 
                 Persona persona = userList.get(0);
-                descargarDatos(persona.getId());
+                descargarDatos(persona);
                 // Inicio de sesion exitoso
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("inicio_sesion", true);
@@ -111,9 +117,9 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void descargarDatos(int id) {
+    private void descargarDatos(Persona persona) {
 
-        final DownloadUserData downloadData = new DownloadUserData(id, IniciarSesion.this);
+        final DownloadUserData downloadData = new DownloadUserData(persona, IniciarSesion.this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -128,7 +134,7 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                     }
                 });
             }

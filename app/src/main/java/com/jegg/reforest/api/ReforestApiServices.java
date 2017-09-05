@@ -32,26 +32,23 @@ public interface ReforestApiServices {
     @GET(Constantes.GET_PERSONAS)
     Call<List<Persona>> getPersonas();
 
-    @GET(Constantes.GET_DESA_ACT_PERSONAS)
-    Call<List<DesarrolloActividades>> getDesaActPersona(int id);
+    @GET(Constantes.GET_DESA_ACT_PERSONAS + "{id}")
+    Call<List<DesarrolloActividades>> getDesaActPersona(@Path("id") int id);
 
-    @GET(Constantes.GET_ALTURA)
-    Call<List<Altura>> getAlturas(String id);
+    @GET(Constantes.GET_ALTURA +"{id}")
+    Call<List<Altura>> getAlturas(@Path("id") String id);
 
-    @GET(Constantes.GET_ARBOL_ESTADO)
-    Call<List<ArbolEstado>> getArbolEstado(String id);
+    @GET(Constantes.GET_ARBOL_ESTADO +"{id}")
+    Call<List<ArbolEstado>> getArbolEstado(@Path("id") String id);
 
-    @GET(Constantes.GET_ARBOL)
-    Call<List<Arbol>> getArboles(String id);
+    @GET(Constantes.GET_ARBOL +"{id}")
+    Call<List<Arbol>> getArboles(@Path("id") String id);
 
-    @GET(Constantes.GET_LOTE)
-    Call<List<Lote>> getLotes(int id);
+    @GET(Constantes.GET_LOTE +"{id}")
+    Call<List<Lote>> getLotes(@Path("id") int id);
 
-    @GET(Constantes.GET_ARBOL_ESPECIE)
-    Call<List<ArbolEspecie>> getArbolEspecies(String id);
-
-    @PUT(Constantes.GET_PERSONAS+"{id}")
-    Call<ResponseBody> updatePersona(@Path("id") int id, @Body Persona persona);
+    @GET(Constantes.GET_ARBOL_ESPECIE +"{id}")
+    Call<List<ArbolEspecie>> getArbolEspecies(@Path("id") String id);
 
     @POST(Constantes.POST_ALTURA)
     Call<ResponseBody> postAltura(@Body Altura altura);

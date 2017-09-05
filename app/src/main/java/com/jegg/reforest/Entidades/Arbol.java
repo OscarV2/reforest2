@@ -14,7 +14,7 @@ import java.util.List;
 @DatabaseTable(tableName = Constantes.TABLA_ARBOL)
 public class Arbol {
 
-    @DatabaseField(columnName = Constantes.ID_ARBOL, id = true)
+    @DatabaseField(columnName = Constantes.ID_ARBOL, id = true, unique = true)
     private String id;
 
     @DatabaseField(columnName = "numArbol")
@@ -122,18 +122,6 @@ public class Arbol {
 
     }
 
-    public List<ArbolEspecie> getArbolEspecies() {
-
-        List<ArbolEspecie> list = new ArrayList<>();
-        CloseableWrappedIterable<ArbolEspecie> iterable = arbolEspecies.getWrappedIterable();
-
-        for (ArbolEspecie arbolEspecie : iterable){
-
-            list.add(arbolEspecie);
-        }
-        return list;
-    }
-
     public List<ArbolEstado> getArbolEstados() {
         List<ArbolEstado> list = new ArrayList<>();
         CloseableWrappedIterable<ArbolEstado> iterable = arbolEstados.getWrappedIterable();
@@ -166,6 +154,10 @@ public class Arbol {
 
     public void setUploaded(boolean uploaded) {
         this.uploaded = uploaded;
+    }
+
+    public Arbol(Lote lote) {
+        this.lote = lote;
     }
 }
 

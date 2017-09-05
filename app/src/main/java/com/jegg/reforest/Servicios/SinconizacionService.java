@@ -41,22 +41,20 @@ public class SinconizacionService extends Service {
         if (conMan.getActiveNetworkInfo() != null &&
                 conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
 
-            //Log.e("Wifi","conectado");          // Wifi conectado o hay datos
-
             if (utils.checkPersonas()){         // no hay usuarios en la app, se procede a bajarlos de la api
                 Log.e("no hay","usuarios");
                 getUsuariosFromApi();
-                stopSelf();
 
             }else{                // sincronizacion automatica enabled
 
+                Log.e("automatyc","able");
                 utils.consultarTablas();
                 utils.sincronizar();
                 stopSelf();
-                Log.e("automatyc","able");
             }
         }else {
             // wifi disabled
+            Log.e("wifi","disabled");
             stopSelf();
         }
         return START_STICKY;
@@ -78,11 +76,13 @@ public class SinconizacionService extends Service {
                             utils.crearPersona(p);
                         }
                     }
+                    stopSelf();
                 }
             }
             @Override
             public void onFailure(@NonNull Call<List<Persona>> call, @NonNull Throwable t) {
 
+                Log.e("falla","peticion personas");
                 stopSelf();
             }
         });

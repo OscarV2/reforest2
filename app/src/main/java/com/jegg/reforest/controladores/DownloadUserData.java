@@ -1,6 +1,7 @@
 package com.jegg.reforest.controladores;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.jegg.reforest.Entidades.Altura;
@@ -9,12 +10,11 @@ import com.jegg.reforest.Entidades.ArbolEspecie;
 import com.jegg.reforest.Entidades.ArbolEstado;
 import com.jegg.reforest.Entidades.DesarrolloActividades;
 import com.jegg.reforest.Entidades.Lote;
+import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.Utils.SyncServiceUtils;
-import com.jegg.reforest.Utils.UpdateDb;
 import com.jegg.reforest.api.ReforestApiAdapter;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,19 +24,18 @@ import retrofit2.Response;
 public class DownloadUserData extends SyncServiceUtils {
 
     private int idPersona;
+    private Persona persona;
     private Context context;
-    private UpdateDb updateDb;
 
-    public DownloadUserData(int idPersona, Context context) {
+    public DownloadUserData(Persona persona, Context context) {
         super(context);
-        this.idPersona = idPersona;
+        this.idPersona = persona.getId();
+        this.persona = persona;
         this.context = context;
-        updateDb = new UpdateDb(context);
     }
 
     public void descargar(){
         descargarLote();
-        descargarDesaActividades();
     }
 
     private void descargarLote(){
@@ -55,10 +54,11 @@ public class DownloadUserData extends SyncServiceUtils {
                         for (Lote lote: lotes){
                             try {
                                 lote.setUploaded(true);
+                                lote.setPersona(persona);
                                 daoLotes.create(lote);
 
                                 //descargar arboles
-                                descargarArboles(lote.getId());
+                                descargarArboles(lote);
 
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -77,45 +77,50 @@ public class DownloadUserData extends SyncServiceUtils {
         });
     }
 
-    private void descargarArboles(String idLote){
+    private void descargarArboles(final Lote idLote){
 
         Call<List<Arbol>> getArboles = ReforestApiAdapter.getApiService()
-                .getArboles(idLote);
+                .getArboles(idLote.getId());
 
         getArboles.enqueue(new Callback<List<Arbol>>() {
             @Override
             public void onResponse(Call<List<Arbol>> call, Response<List<Arbol>> response) {
+                Log.e("on response", "arbol");
                 List<Arbol> lista = response.body();
                 if (response.isSuccessful() && lista != null){
+                    Log.e("response es", "successfull y lista no es nula");
                     if (lista.size() > 0){
 
                         for (Arbol arbol: lista){
                             try {
                                 arbol.setUploaded(true);
+                                arbol.setLote(idLote);
                                 daoArboles.create(arbol);
-                                descargarAlturas(arbol.getId());
-                                descargarArbolEstado(arbol.getId());
-                                descargarArbolEspecie(arbol.getId());
+                                descargarAlturas(arbol);
+                                descargarArbolEstado(arbol);
+                                descargarArbolEspecie(arbol);
+                                descargarDesaActividades(arbol);
 
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
                         }
-                    }
-                }
+                    }else {Log.e("lista size es", "cero");}
+                }else {Log.e("response es", "NO successfull y lista es nula");}
             }
 
             @Override
             public void onFailure(Call<List<Arbol>> call, Throwable t) {
 
+                Log.e("peticion failed"," ARBOL PERSONAS");
             }
         });
     }
 
-    private void descargarAlturas(String idArbol){
+    private void descargarAlturas(final Arbol idArbol){
 
         Call<List<Altura>> getAlturas = ReforestApiAdapter.getApiService()
-                .getAlturas(idArbol);
+                .getAlturas(idArbol.getId());
 
         getAlturas.enqueue(new Callback<List<Altura>>() {
             @Override
@@ -127,6 +132,7 @@ public class DownloadUserData extends SyncServiceUtils {
                         for (Altura altura: lista){
                             try {
                                 altura.setUploaded(true);
+                                altura.setArbol(idArbol);
                                 daoAltura.create(altura);
 
                             } catch (SQLException e) {
@@ -139,15 +145,15 @@ public class DownloadUserData extends SyncServiceUtils {
 
             @Override
             public void onFailure(Call<List<Altura>> call, Throwable t) {
-
+                Log.e("peticion failed","Alturas  PERSONAS");
             }
         });
     }
 
-    private void descargarArbolEstado(String idArbol){
+    private void descargarArbolEstado(final Arbol idArbol){
 
         Call<List<ArbolEstado>> getEstadosArboles = ReforestApiAdapter.getApiService()
-                .getArbolEstado(idArbol);
+                .getArbolEstado(idArbol.getId());
 
         getEstadosArboles.enqueue(new Callback<List<ArbolEstado>>() {
             @Override
@@ -160,6 +166,7 @@ public class DownloadUserData extends SyncServiceUtils {
                         for (ArbolEstado arbolEstado: lista){
                             try {
                                 arbolEstado.setUploaded(true);
+                                arbolEstado.setArbol(idArbol);
                                 daoArbolEstado.create(arbolEstado);
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -171,15 +178,15 @@ public class DownloadUserData extends SyncServiceUtils {
 
             @Override
             public void onFailure(Call<List<ArbolEstado>> call, Throwable t) {
-
+                Log.e("peticion failed","ARBOL ESTADO  PERSONAS");
             }
         });
     }
 
-    private void descargarArbolEspecie(String idArbol){
+    private void descargarArbolEspecie(final Arbol idArbol){
 
         Call<List<ArbolEspecie>> getArbolEspecies = ReforestApiAdapter.getApiService()
-                .getArbolEspecies(idArbol);
+                .getArbolEspecies(idArbol.getId());
 
         getArbolEspecies.enqueue(new Callback<List<ArbolEspecie>>() {
             @Override
@@ -192,6 +199,7 @@ public class DownloadUserData extends SyncServiceUtils {
                         for (ArbolEspecie arbolEspecie: lista){
                             try {
                                 arbolEspecie.setUploaded(true);
+                                arbolEspecie.setArbol(idArbol);
                                 daoArbolEspecie.create(arbolEspecie);
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -204,13 +212,13 @@ public class DownloadUserData extends SyncServiceUtils {
 
             @Override
             public void onFailure(Call<List<ArbolEspecie>> call, Throwable t) {
-
+                Log.e("peticion failed","ARBOL ESPECIE  PERSONAS");
             }
         });
 
     }
 
-    private void descargarDesaActividades(){
+    private void descargarDesaActividades(final Arbol arbol){
 
         Call<List<DesarrolloActividades>> getDesaAct = ReforestApiAdapter.getApiService()
                 .getDesaActPersona(idPersona);
@@ -226,6 +234,7 @@ public class DownloadUserData extends SyncServiceUtils {
                         for (DesarrolloActividades desa: lista){
                             try {
                                 desa.setUploaded(true);
+                                desa.setArbol(arbol);
                                 daoDesarrolloAct.create(desa);
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -238,10 +247,15 @@ public class DownloadUserData extends SyncServiceUtils {
             @Override
             public void onFailure(Call<List<DesarrolloActividades>> call, Throwable t) {
 
+                Log.e("peticion failed"," DESARROLLO ACTIVIDADES PERSONAS");
                 Toast.makeText(context, "No se pudo sincronizar sus datos, revise su conexion" +
                         " a Internet", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    @Override
+    public void releaseHelper() {
+        super.releaseHelper();
+    }
 }

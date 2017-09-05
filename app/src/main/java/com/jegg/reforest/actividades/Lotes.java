@@ -18,7 +18,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.CloseableIterator;
 import com.j256.ormlite.dao.CloseableWrappedIterable;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
@@ -40,7 +39,6 @@ public class Lotes extends AppCompatActivity {
     private ListView listView;
     private basededatos datosReforest;
     private Persona persona;
-    Dao<Lote, String> lotesDao;
     List<Lote> listaLotes;
     ItemAdapter itemAdapter;
     List<ItemLote> itemLotes = new ArrayList<>();

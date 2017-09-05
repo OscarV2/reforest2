@@ -15,7 +15,7 @@ import java.util.List;
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
 public class Lote {
 
-    @DatabaseField(columnName = Constantes.ID_LOTE, id = true)
+    @DatabaseField(columnName = Constantes.ID_LOTE, id = true, unique = true)
     private String id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_LOTE, canBeNull = false)
@@ -39,7 +39,7 @@ public class Lote {
     @DatabaseField(columnName = "persona_lote", canBeNull = false, foreign = true)
     private transient Persona persona;
 
-    @DatabaseField(columnName = "muni", canBeNull = false, foreign = true)
+    @DatabaseField(columnName = "muni", foreign = true)
     private transient Municipio municipio;
 
     @ForeignCollectionField
@@ -61,6 +61,10 @@ public class Lote {
     public Lote() {
     }
 
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
     public Lote(String nombre, String fecha, Double area, Municipio municipio,
                 String delimitacion, Persona persona) {
         this.nombre = nombre;
@@ -69,6 +73,7 @@ public class Lote {
         this.municipio = municipio;
         this.delimitacion = delimitacion;
         this.persona = persona;
+
         this.municipio_id = 11;
         this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }

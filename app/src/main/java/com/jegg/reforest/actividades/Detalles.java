@@ -41,9 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
@@ -141,7 +139,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         utils = new LocationUtils(Detalles.this);
         utils.setLastLocation(this);
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        basededatos datosReforest = OpenHelperManager.getHelper(Detalles.this, basededatos.class);
 
         idLote = this.getIntent().getStringExtra("id_lote");
         idPersona = prefs.getInt("id_persona", 0);
@@ -149,7 +146,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         detallesAux = new DetallesAux(Detalles.this);
         try {
-            Dao<Lote, String> daoLotes = datosReforest.getLoteDao();
+            Dao<Lote, String> daoLotes = detallesAux.daoLotes;
             lote = daoLotes.queryForId(idLote);
             nombreLote = lote.getNombre();
 

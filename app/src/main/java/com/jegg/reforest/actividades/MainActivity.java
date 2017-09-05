@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.Utils.MainActivityAux;
@@ -35,6 +36,32 @@ public class MainActivity extends AppCompatActivity {
         autoSync = prefs.getBoolean("automatic_sync", false);
         Log.e("Bool InicioSesion", String.valueOf(inicioSesion));
 
+        if (!existeBaseDatos()){
+            Log.e("base de datos","no hay");
+            //new Handler().postDelayed(new Runnable() {
+            //  @Override
+            //public void run() {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    try {
+                        MainActivityAux main = new MainActivityAux(getApplicationContext());
+                        main.insertarEspecies();
+                        main.insertarActividadesEnBd();
+                        main.insertarcrearEstadosEnBd();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            //      }
+            //        }, 1500);
+
+        }
+
         (findViewById(R.id.btn_acceso_main)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,38 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
                     irMenu();
                 }else{
-
                     IniciarSesion();
-                    if (existeBaseDatos()){
-                        Log.e("base de datos","");
-                    }
                 }
             }
         });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        try {
-                            MainActivityAux main = new MainActivityAux(getApplicationContext());
-                            main.insertarEspecies();
-                            main.insertarActividadesEnBd();
-                            main.insertarcrearEstadosEnBd();
-                            //  main.restaurarDatos();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
-            }
-        }, 1500);
-
         }
 
     private void irMenu() {
@@ -91,38 +90,39 @@ public class MainActivity extends AppCompatActivity {
 
             progressDialog.setCancelable(false);
 
-            new Thread(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
 
-                    startService(new Intent(MainActivity.this, SinconizacionService.class));
-                    runOnUiThread(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
 
-                            progressDialog.dismiss();
-                            if (autoSync){
+                            startService(new Intent(MainActivity.this, SinconizacionService.class));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                Toast.makeText(MainActivity.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
-                            }
+                                    progressDialog.dismiss();
+                                    if (autoSync){
+
+                                        Toast.makeText(MainActivity.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
                         }
-                    });
+
+
+                    }).start();
+
                 }
+            }, 1000);
 
-
-            }).start();
         }
     }
 
     @Override
     protected void onStart() {
-
-        //Register BroadcastReceiver
-        //to receive event from our service
-    //    myReceiver = new MyReceiver();
-    //    IntentFilter intentFilter = new IntentFilter();
-    //    intentFilter.addAction(SinconizacionService.MY_ACTION);
-    //    registerReceiver(myReceiver, intentFilter);
 
         sincronizando();
         super.onStart();
@@ -151,9 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-       // unregisterReceiver(myReceiver);
-       // progressDialog.dismiss();
-        //OpenHelperManager.releaseHelper();
+
+        OpenHelperManager.releaseHelper();
         super.onDestroy();
     }
 }

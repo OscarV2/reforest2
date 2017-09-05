@@ -7,7 +7,7 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ARBOL_ESTADO)
 public class ArbolEstado {
 
-    @DatabaseField(generatedId =  true, columnName = "id")
+    @DatabaseField(generatedId =  true, columnName = "id", unique = true)
     private transient int id;
 
     @DatabaseField(columnName = Constantes.ID_ARBOL_ESTADO, foreign = true, foreignAutoRefresh = true)
@@ -43,6 +43,10 @@ public class ArbolEstado {
 
     public void setUploaded(boolean uploaded) {
         this.uploaded = uploaded;
+    }
+
+    public void setArbol(Arbol arbol) {
+        this.arbol = arbol;
     }
 
     public ArbolEstado() {

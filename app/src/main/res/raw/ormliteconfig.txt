@@ -1,5 +1,5 @@
 #
-# generated on 2017/08/25 09:41:23
+# generated on 2017/09/04 11:53:12
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Municipio
@@ -58,6 +58,7 @@ tableName=lote
 fieldName=id
 columnName=id
 id=true
+unique=true
 # --field-end--
 # --field-start--
 fieldName=nombre
@@ -88,9 +89,14 @@ fieldName=uploaded
 columnName=uploaded
 # --field-end--
 # --field-start--
+fieldName=persona
+columnName=persona_lote
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
 fieldName=municipio
 columnName=muni
-canBeNull=false
 foreign=true
 # --field-end--
 # --field-start--
@@ -108,6 +114,7 @@ tableName=altura
 fieldName=id
 columnName=id
 generatedId=true
+unique=true
 # --field-end--
 # --field-start--
 fieldName=arbol
@@ -158,6 +165,7 @@ tableName=desarrollo_actividades
 fieldName=id
 columnName=id
 generatedId=true
+unique=true
 # --field-end--
 # --field-start--
 fieldName=urlimagen
@@ -240,6 +248,7 @@ tableName=arbol
 fieldName=id
 columnName=_id
 id=true
+unique=true
 # --field-end--
 # --field-start--
 fieldName=numArbol
@@ -296,6 +305,7 @@ tableName=arbol_estado
 fieldName=id
 columnName=id
 generatedId=true
+unique=true
 # --field-end--
 # --field-start--
 fieldName=arbol
@@ -334,6 +344,7 @@ tableName=especie_arbol
 fieldName=id
 columnName=idArbolEspecie
 generatedId=true
+unique=true
 # --field-end--
 # --field-start--
 fieldName=arbol
@@ -425,8 +436,8 @@ fieldName=clave
 columnName=clave
 # --field-end--
 # --field-start--
-fieldName=eliminado
-columnName=eliminado
+fieldName=lotes
+foreignCollection=true
 # --field-end--
 # --field-start--
 fieldName=desarrolloActividades
