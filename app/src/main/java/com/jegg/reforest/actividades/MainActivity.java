@@ -1,8 +1,10 @@
 package com.jegg.reforest.actividades;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.Utils.MainActivityAux;
@@ -34,14 +35,21 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         inicioSesion = prefs.getBoolean("inicio_sesion", false);
         autoSync = prefs.getBoolean("automatic_sync", false);
-        Log.e("Bool InicioSesion", String.valueOf(inicioSesion));
+
+        progressDialog = new ProgressDialog(MainActivity.this);
+
+        progressDialog.setIndeterminate(true);
+        progressDialog.setTitle("Cargando...");
+        progressDialog.setMessage("Por favor espere..");
+        progressDialog.setCancelable(false);
 
         if (!existeBaseDatos()){
             Log.e("base de datos","no hay");
-            //new Handler().postDelayed(new Runnable() {
-            //  @Override
-            //public void run() {
+            new Handler().postDelayed(new Runnable() {
+              @Override
+            public void run() {
 
+            progressDialog.show();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -57,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).start();
 
-            //      }
-            //        }, 1500);
+                  }
+                    }, 1000);
 
         }
 
@@ -82,41 +90,40 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    private class SincTask extends AsyncTask<Context, Void, Boolean>{
+        @Override
+        protected Boolean doInBackground(Context... contexts) {
+            startService(new Intent(contexts[0], SinconizacionService.class));
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            progressDialog.dismiss();
+            if (autoSync){
+
+                Toast.makeText(MainActivity.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
+            }
+            super.onPostExecute(aBoolean);
+        }
+    }
+
     private void sincronizando(){
-  //
+
         if (autoSync || (!inicioSesion)){
 
-            progressDialog = ProgressDialog.show(MainActivity.this, "Sincronizando...", "Por favor espere..", true);
 
-            progressDialog.setCancelable(false);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            startService(new Intent(MainActivity.this, SinconizacionService.class));
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    progressDialog.dismiss();
-                                    if (autoSync){
-
-                                        Toast.makeText(MainActivity.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                        }
-
-
-                    }).start();
+                    SincTask sincronizar = new SincTask();
+                    sincronizar.execute(MainActivity.this);
 
                 }
-            }, 1000);
+            }, 2000);
 
         }
     }
@@ -149,10 +156,4 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onDestroy() {
-
-        OpenHelperManager.releaseHelper();
-        super.onDestroy();
-    }
 }

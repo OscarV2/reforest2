@@ -224,7 +224,7 @@ public class Lotes extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        datosReforest.close();
+        OpenHelperManager.releaseHelper();
     }
 
     @Override

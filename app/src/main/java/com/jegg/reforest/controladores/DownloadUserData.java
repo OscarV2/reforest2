@@ -4,11 +4,14 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jegg.reforest.Entidades.Actividad;
 import com.jegg.reforest.Entidades.Altura;
 import com.jegg.reforest.Entidades.Arbol;
 import com.jegg.reforest.Entidades.ArbolEspecie;
 import com.jegg.reforest.Entidades.ArbolEstado;
 import com.jegg.reforest.Entidades.DesarrolloActividades;
+import com.jegg.reforest.Entidades.Especie;
+import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.Utils.SyncServiceUtils;
@@ -85,12 +88,10 @@ public class DownloadUserData extends SyncServiceUtils {
         getArboles.enqueue(new Callback<List<Arbol>>() {
             @Override
             public void onResponse(Call<List<Arbol>> call, Response<List<Arbol>> response) {
-                Log.e("on response", "arbol");
                 List<Arbol> lista = response.body();
                 if (response.isSuccessful() && lista != null){
                     Log.e("response es", "successfull y lista no es nula");
                     if (lista.size() > 0){
-
                         for (Arbol arbol: lista){
                             try {
                                 arbol.setUploaded(true);
@@ -105,8 +106,8 @@ public class DownloadUserData extends SyncServiceUtils {
                                 e.printStackTrace();
                             }
                         }
-                    }else {Log.e("lista size es", "cero");}
-                }else {Log.e("response es", "NO successfull y lista es nula");}
+                    }
+                }
             }
 
             @Override
@@ -126,9 +127,8 @@ public class DownloadUserData extends SyncServiceUtils {
             @Override
             public void onResponse(Call<List<Altura>> call, Response<List<Altura>> response) {
                 List<Altura> lista = response.body();
-                if (response.isSuccessful()){
+                if (response.isSuccessful() && lista != null){
                     if (lista.size() > 0){
-
                         for (Altura altura: lista){
                             try {
                                 altura.setUploaded(true);
@@ -151,7 +151,6 @@ public class DownloadUserData extends SyncServiceUtils {
     }
 
     private void descargarArbolEstado(final Arbol idArbol){
-
         Call<List<ArbolEstado>> getEstadosArboles = ReforestApiAdapter.getApiService()
                 .getArbolEstado(idArbol.getId());
 
@@ -161,12 +160,14 @@ public class DownloadUserData extends SyncServiceUtils {
 
                 List<ArbolEstado> lista = response.body();
                 if (response.isSuccessful() && lista != null){
-                    if (lista.size() > 0){
 
+                    if (lista.size() > 0){
                         for (ArbolEstado arbolEstado: lista){
                             try {
                                 arbolEstado.setUploaded(true);
                                 arbolEstado.setArbol(idArbol);
+                                Estado estado = daoEstado.queryForId(arbolEstado.getEstado_id());
+                                arbolEstado.setEstado(estado);
                                 daoArbolEstado.create(arbolEstado);
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -194,12 +195,16 @@ public class DownloadUserData extends SyncServiceUtils {
 
                 List<ArbolEspecie> lista = response.body();
                 if (response.isSuccessful() && lista != null){
+                    Log.e("Arbol especie", "response successfull y lista no es null");
                     if (lista.size() > 0){
-
+                        Log.e("Arbol especie", "lista Arbol especie es mayor a cero");
                         for (ArbolEspecie arbolEspecie: lista){
                             try {
                                 arbolEspecie.setUploaded(true);
                                 arbolEspecie.setArbol(idArbol);
+                                Especie especie = daoEspecie.queryForId(arbolEspecie.getEspecie_id());
+                                Log.e("especie downloaded", especie.getNombre());
+                                arbolEspecie.setEspecie(especie);
                                 daoArbolEspecie.create(arbolEspecie);
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -235,11 +240,14 @@ public class DownloadUserData extends SyncServiceUtils {
                             try {
                                 desa.setUploaded(true);
                                 desa.setArbol(arbol);
+                                Actividad actividad = daoActividad.queryForId(desa.getActividades_id());
+                                desa.setIdActividad(actividad);
                                 daoDesarrolloAct.create(desa);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
                         }
+                        releaseHelper();
                     }
                 }
             }
@@ -254,8 +262,4 @@ public class DownloadUserData extends SyncServiceUtils {
         });
     }
 
-    @Override
-    public void releaseHelper() {
-        super.releaseHelper();
-    }
 }

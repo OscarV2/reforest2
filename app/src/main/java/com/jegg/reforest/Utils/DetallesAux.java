@@ -89,17 +89,19 @@ public class DetallesAux extends SyncServiceUtils {
 
     public void crearEstado(ArbolEstado arbolEstado) throws SQLException {
 
-
         daoArbolEstado.create(arbolEstado);
     }
+
     public Actividad getActividad(int idActividad) throws SQLException {
 
         return daoActividad.queryForId(idActividad);
     }
+
     public Persona getPersona(int idPersona) throws SQLException {
 
         return daoPersonas.queryForId(idPersona);
     }
+
     public List<Estado> getListEstados() throws SQLException {
 
         return daoEstado.queryForAll();
@@ -141,6 +143,7 @@ public class DetallesAux extends SyncServiceUtils {
 
     @Override
     public void releaseHelper() {
+        Log.e("release","detallesAux");
         super.releaseHelper();
     }
 }

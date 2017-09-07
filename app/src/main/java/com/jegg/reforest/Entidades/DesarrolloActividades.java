@@ -73,8 +73,16 @@ public class DesarrolloActividades {
         this.uploaded = uploaded;
     }
 
+    public int getActividades_id() {
+        return actividades_id;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setIdActividad(Actividad idActividad) {
+        this.idActividad = idActividad;
     }
 
     public DesarrolloActividades() {

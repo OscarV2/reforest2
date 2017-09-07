@@ -87,7 +87,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     File filePath;
     private GoogleMap mMap;
 
-
     RelativeLayout layCordenadas, layBuscarArbol;
     LinearLayout lay_edt_especie, lay_edt_altura,
             laySpinnerSaludArbol, layMapa;
@@ -152,8 +151,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
             listaArboles = lote.getArboles();
             usuario = detallesAux.getPersona(idPersona);
-            Log.e("idPersona", String.valueOf(usuario.getId()));
-            Log.e("persona clave", usuario.getClave());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -215,7 +212,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         try {
             estados = detallesAux.getListEstados();
-            Log.e("estados size", String.valueOf(estados.size()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -251,7 +247,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 idEstado = 1;
             }
         });
-
     }
 
     @Override
@@ -316,8 +311,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 Toast.makeText(Detalles.this, "Locatiom null", Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
 
     public void tomarFoto(View v) throws IOException {
@@ -333,7 +326,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     public void guardarActividad(View v) throws ParseException, SQLException {
 
-
         comentariosActividad = edtComentarios.getText().toString();
 
         if (fotoPath.equals("")) {
@@ -343,7 +335,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             edtComentarios.requestFocus();
         } else {
             validarDatos();
-
         }
     }
 
@@ -427,6 +418,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void setActividad() {
 
         try {
+
             actividad = detallesAux.getActividad(idActividad);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -754,7 +746,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                         Intent i = new Intent(Detalles.this, CrearLote.class);
                         startActivity(i);
                         finish();
-
                     }
                 })
                 .create();
@@ -764,7 +755,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     protected void onDestroy() {
-        detallesAux.releaseHelper();
+        //detallesAux.releaseHelper();
         utils.disConnect();
         super.onDestroy();
     }
@@ -787,7 +778,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         }
-
     }
 
     @Override

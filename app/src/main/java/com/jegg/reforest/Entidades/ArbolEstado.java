@@ -37,6 +37,14 @@ public class ArbolEstado {
         return id;
     }
 
+    public int getEstado_id() {
+        return estado_id;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     public Estado getEstado() {
         return estado;
     }

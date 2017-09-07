@@ -33,6 +33,14 @@ public class ArbolEspecie {
         return arbol;
     }
 
+    public int getEspecie_id() {
+        return especie_id;
+    }
+
+    public void setEspecie(Especie especie) {
+        this.especie = especie;
+    }
+
     public void setArbol(Arbol arbol) {
         this.arbol = arbol;
     }

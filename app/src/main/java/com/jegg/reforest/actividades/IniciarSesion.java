@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,12 +33,13 @@ import java.util.List;
 
 public class IniciarSesion extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText cajaCorreo,cajaContraseña;
+    private EditText cajaCorreo, cajaContraseña;
 
     private String password, correo;
     Dao<Persona, Integer>  daoPersonas;
     SharedPreferences prefs;
 
+    public ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,30 +121,37 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private class TareaDescarga extends AsyncTask<Persona, Void, Boolean>{
+
+
+        @Override
+        protected Boolean doInBackground(Persona... personas) {
+            try{
+                DownloadUserData downloadData = new DownloadUserData(personas[0], getApplicationContext());
+
+                downloadData.descargar();
+            }finally {
+                Log.e("tarea","completada");
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            dialog.dismiss();
+            super.onPostExecute(aBoolean);
+        }
+    }
+
+
+
     private void descargarDatos(Persona persona) {
 
-        final DownloadUserData downloadData = new DownloadUserData(persona, IniciarSesion.this);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        dialog = ProgressDialog.show(IniciarSesion.this, "Sincronizando",
+                "Por favor espere...", true, false);
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        downloadData.descargar();
-                    }
-                }).start();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        progressDialog.dismiss();
-                    }
-                });
-            }
-
-
-        }, 1500);
+        TareaDescarga descargar = new TareaDescarga();
+        descargar.execute(persona);
 
     }
 
