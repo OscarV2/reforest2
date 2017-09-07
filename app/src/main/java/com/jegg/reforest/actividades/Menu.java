@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -15,14 +16,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.jegg.reforest.DBdatos.basededatos;
+import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.Utils.Constantes;
+import com.jegg.reforest.controladores.DownloadUserData;
+
+import java.sql.SQLException;
 
 public class Menu extends AppCompatActivity {
 
     SharedPreferences prefs;
     ProgressDialog progressDialog;
+    private Persona usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +39,15 @@ public class Menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setToolbar();
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        int idPersona = prefs.getInt("id_persona", 0);
+        basededatos datosReforest = OpenHelperManager.getHelper(Menu.this, basededatos.class);
 
+        try {
+            Dao<Persona, Integer> daoPersonas = datosReforest.getPersonasDao();
+            usuario = daoPersonas.queryForId(idPersona);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setToolbar(){
@@ -86,6 +103,20 @@ public class Menu extends AppCompatActivity {
 
                 }).start();
 
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+                            }
+                        });
+                    }
+                }, 1000);
+
                 break;
             case R.id.opcionIrWeb:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_SITIO_WEB));
@@ -112,5 +143,4 @@ public class Menu extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

@@ -1,5 +1,5 @@
 #
-# generated on 2017/09/04 11:53:12
+# generated on 2017/09/06 09:57:45
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Municipio
@@ -113,7 +113,7 @@ tableName=altura
 # --field-start--
 fieldName=id
 columnName=id
-generatedId=true
+id=true
 unique=true
 # --field-end--
 # --field-start--
@@ -164,7 +164,7 @@ tableName=desarrollo_actividades
 # --field-start--
 fieldName=id
 columnName=id
-generatedId=true
+id=true
 unique=true
 # --field-end--
 # --field-start--
@@ -304,7 +304,7 @@ tableName=arbol_estado
 # --field-start--
 fieldName=id
 columnName=id
-generatedId=true
+id=true
 unique=true
 # --field-end--
 # --field-start--
@@ -343,7 +343,7 @@ tableName=especie_arbol
 # --field-start--
 fieldName=id
 columnName=idArbolEspecie
-generatedId=true
+id=true
 unique=true
 # --field-end--
 # --field-start--
