@@ -18,7 +18,7 @@ public class Constantes {
 
     public static final String POST_ESPECIE_ARBOL = "arbolespecie";
 
-    public static final String GET_DESA_ACT_PERSONAS = "desarrollo_actividades";
+    public static final String GET_DESA_ACT_PERSONAS = "desarrollo_actividades/";
     public static final String GET_ARBOL_ESTADO = "arbol_estado/";
     public static final String GET_ARBOL_ESPECIE = "arbol_especie/";
     public static final String GET_ARBOL = "arbol_/";

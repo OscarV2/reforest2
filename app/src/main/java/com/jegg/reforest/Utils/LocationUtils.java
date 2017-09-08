@@ -18,10 +18,6 @@ import com.google.android.gms.location.LocationServices;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-/**
- * Created by oscarvc on 4/05/17.
- */
-
 public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -118,7 +114,26 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
     public void disConnect(){
 
         client.disconnect();
+    }
 
+    public boolean permisosGranted(){
+        boolean b;
+
+        if (ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            b = false;
+        }else {
+
+            b = true;
+        }
+
+
+        return b;
     }
 
     public boolean isConnected(){

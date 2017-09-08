@@ -7,7 +7,7 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ESPECIE_ARBOL)
 public class ArbolEspecie {
 
-    @DatabaseField(id = true, columnName = "idArbolEspecie", unique = true)
+    @DatabaseField(columnName = "idArbolEspecie", unique = true)
     private transient int id;
 
     @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)

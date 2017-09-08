@@ -22,6 +22,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6ce304b-81cd-4e52-a337-c78794219fa4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/CerrarDialogo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
@@ -30,11 +31,20 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Altura.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Altura.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEspecie.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEspecie.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/Constantes.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/Constantes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationLoteUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationLoteUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Menu.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Menu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/ormliteconfig.txt" afterPath="$PROJECT_DIR$/app/src/main/res/raw/ormliteconfig.txt" />
     </list>
     <ignored path="Reforest.iws" />
@@ -72,30 +82,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Menu.java">
+      <file leaf-file-name="DownloadUserData.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1690">
-              <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+            <state relative-caret-position="472">
+              <caret line="81" column="56" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
               <folding>
-                <element signature="method#setToolbar#0;class#Menu#0" expanded="false" />
-                <element signature="method#onCreateOptionsMenu#0;class#Menu#0" expanded="false" />
-                <element signature="method#irLotes#0;class#Menu#0" expanded="false" />
-                <element signature="method#irMapa#0;class#Menu#0" expanded="false" />
-                <element signature="method#irPreferencias#0;class#Menu#0" expanded="false" />
+                <element signature="method#DownloadUserData#0;class#DownloadUserData#0" expanded="false" />
+                <element signature="method#setPersona#0;class#DownloadUserData#0" expanded="false" />
+                <element signature="method#onFailure#0;class#1695:3261" expanded="false" />
+                <element signature="method#descargarArboles#0;class#DownloadUserData#0" expanded="false" />
+                <element signature="method#onFailure#0;class#3477:4872" expanded="false" />
+                <element signature="method#descargarAlturas#0;class#DownloadUserData#0" expanded="false" />
+                <element signature="class#5131:6096" expanded="false" />
+                <element signature="method#onFailure#0;class#5131:6096" expanded="false" />
+                <element signature="method#descargarArbolEstado#0;class#DownloadUserData#0" expanded="false" />
+                <element signature="method#descargarArbolEspecie#0;class#DownloadUserData#0" expanded="false" />
+                <element signature="method#onResponse#0;class#7779:8986" expanded="false" />
+                <element signature="method#onFailure#0;class#7779:8986" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Altura.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Altura.java">
+      <file leaf-file-name="IniciarSesion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            <state relative-caret-position="97">
+              <caret line="131" column="73" selection-start-line="131" selection-start-column="73" selection-end-line="131" selection-end-column="73" />
               <folding>
-                <element signature="method#Altura#0;class#Altura#0" expanded="false" />
-                <element signature="method#Altura#1;class#Altura#0" expanded="false" />
+                <element signature="method#onStart#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#iniciarSesion#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#cerrardialogo#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="class#TareaDescarga#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#doInBackground#0;class#TareaDescarga#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#descargarDatos#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#irMenu#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#mostrarDialogo#0;class#IniciarSesion#0" expanded="false" />
+                <element signature="method#onClick#0;class#IniciarSesion#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -107,9 +131,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
-        <option value="Interface" />
         <option value="resourceFile" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -2584,25 +2608,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_lista_lote.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_context.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/DeleteLote.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LastLocationReady.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_detalles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationLoteUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_crear_lote.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_iniciar_sesion.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_spinner_mapa.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/SyncApi.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/SyncServiceUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DeleteLote.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detalles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/ItemAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/LoteController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/ActividadController.java" />
@@ -2619,22 +2638,27 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_lotes.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/MainActivityAux.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Lote.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Arbol.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/api/ReforestApiServices.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/DetallesAux.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Detalles.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Lotes.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/Constantes.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationLoteUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/CerrarDialogo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Altura.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEspecie.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Menu.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/Constantes.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEspecie.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Altura.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java" />
       </list>
     </option>
   </component>
@@ -2676,7 +2700,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -2689,7 +2713,17 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane />
+      </pane>
+      <pane id="Scratches" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -2708,7 +2742,7 @@
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="VectorAssetImportPath" value="$USER_HOME$" />
-    <property name="SearchEverywhereHistoryKey" value="Arbol&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java&#10;esarr&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;Altu&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Altura.java&#10;Det&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Detalles.java&#10;Serv&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/SyncServiceUtils.java&#10;Main&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java&#10;Syn&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/SyncServiceUtils.java&#10;Men&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Menu.java&#10;Down&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java&#10;Inic&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java&#10;Cons&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/Constantes.java&#10;Desar&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;Especi&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Especie.java&#10;Espe&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.Especie&#10;Lotes&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Lotes.java&#10;Con&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/ControllerEspecies.java&#10;Deta&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/DetallesAux.java&#10;Ini&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java&#10;Dow&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java&#10;Ma&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java&#10;Api&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/api/ReforestApiServices.java&#10;Lot&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Lote.java&#10;Aux&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/MainActivityAux.java&#10;Alt&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Altura.java&#10;Lote&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Lote.java&#10;iT&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/adapter/ItemLote.java&#10;Crea&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java&#10;lotes&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/res/layout/activity_lotes.xml&#10;Cre&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java&#10;Perso&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Persona.java&#10;Pref&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Preferecias.java&#10;Desa&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;Arbo&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.ArbolEstado&#10;Altur&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.Altura&#10;Arb&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.Arbol&#10;M&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java&#10;Per&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Persona.java&#10;Map&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/actividades/Mapa.java&#10;strin&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/res/values/strings.xml&#10;stri&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/res/values/strings.xml&#10;deta&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/res/layout/activity_detalles.xml&#10;Menu&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/actividades/Menu.java&#10;Mapa&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/actividades/Mapa.java&#10;Crear&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java&#10;Loca&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java&#10;ac&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/res/layout/activity_crear_lote.xml&#10;oca&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java&#10;Ut&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java&#10;act&#9;FILE&#9;file:///home/oscarvc/AndroidStudioProjects/reforest/app/src/main/res/layout/activity_menu.xml&#10;cre&#9;PSI&#9;JAVA://com.jegg.reforest.actividades.CrearLote" />
+    <property name="SearchEverywhereHistoryKey" value="Consta&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/Constantes.java&#10;Desar&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;Const&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/Constantes.java&#10;Menu&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Menu.java&#10;Main&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java&#10;Serv&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java&#10;Ini&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java&#10;Arbol&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java&#10;Desarro&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;Altu&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Altura.java&#10;ocation&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java&#10;Mapa&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Mapa.java&#10;Loca&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java&#10;own&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java&#10;rbol&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java&#10;Manif&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/AndroidManifest.xml&#10;LocationU&#9;PSI&#9;JAVA://com.jegg.reforest.Utils.LocationUtils&#10;Crear&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java&#10;Deta&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Detalles.java&#10;Detalles&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/DetallesAux.java&#10;Down&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java&#10;Desa&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;esarr&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java&#10;Det&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Detalles.java&#10;Syn&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/SyncServiceUtils.java&#10;Men&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Menu.java&#10;Inic&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java&#10;Cons&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/Constantes.java&#10;Especi&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Especie.java&#10;Espe&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.Especie&#10;Lotes&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Lotes.java&#10;Con&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/ControllerEspecies.java&#10;Dow&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java&#10;Ma&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java&#10;Api&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/api/ReforestApiServices.java&#10;Lot&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Lote.java&#10;Aux&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Utils/MainActivityAux.java&#10;Alt&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Altura.java&#10;Lote&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Lote.java&#10;iT&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/adapter/ItemLote.java&#10;Crea&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java&#10;lotes&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/res/layout/activity_lotes.xml&#10;Cre&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java&#10;Perso&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Persona.java&#10;Pref&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/Preferecias.java&#10;Arbo&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.ArbolEstado&#10;Altur&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.Altura&#10;Arb&#9;PSI&#9;JAVA://com.jegg.reforest.Entidades.Arbol&#10;M&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java&#10;Per&#9;FILE&#9;file:///home/oscar/AndroidStudioProjects/reforest2/app/src/main/java/com/jegg/reforest/Entidades/Persona.java" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -3356,7 +3390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504748710763</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Version final 2">
+      <created>1504753612069</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1504753612069</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3377,21 +3418,21 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952815" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.68122977" sideWeight="0.5242424" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.81391585" sideWeight="0.47575757" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6828479" sideWeight="0.4909091" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60841423" sideWeight="0.5272727" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60841423" sideWeight="0.47272727" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6828479" sideWeight="0.4909091" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5210356" sideWeight="0.46818182" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24961948" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52589" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23560606" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23517382" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24961948" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3418,7 +3459,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Mapa Arbol." />
     <MESSAGE value="Lista Lotes." />
     <MESSAGE value="Servicio SincronizacionService.&#10;Creacion clase PostAsyncrona" />
     <MESSAGE value="Sembrar Arbol" />
@@ -3443,7 +3483,8 @@
     <MESSAGE value="Lotes por persona" />
     <MESSAGE value="Syncronization almost ready" />
     <MESSAGE value="Version final 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version final 1" />
+    <MESSAGE value="Version final 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version final 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3472,7 +3513,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java</url>
-          <line>62</line>
+          <line>65</line>
           <properties class="com.jegg.reforest.Servicios.SinconizacionService" method="getUsuariosFromApi" />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
@@ -3502,7 +3543,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java</url>
-          <line>32</line>
+          <line>34</line>
           <properties class="com.jegg.reforest.controladores.DownloadUserData" method="&lt;init&gt;" />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
@@ -3579,7 +3620,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java</url>
-          <line>171</line>
+          <line>180</line>
           <properties />
           <option name="timeStamp" value="42" />
         </line-breakpoint>
@@ -3603,7 +3644,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java</url>
-          <line>98</line>
+          <line>107</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
@@ -3621,24 +3662,46 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java</url>
-          <line>122</line>
+          <line>137</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java</url>
+          <line>240</line>
+          <properties />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java</url>
+          <line>278</line>
+          <properties />
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java</url>
+          <line>127</line>
+          <properties />
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java</url>
+          <line>101</line>
+          <properties />
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java</url>
+          <line>101</line>
+          <properties />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="55" />
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/medida_48.png" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/message_48.png" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/preferencias.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/spade_48.png" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/user_48.png" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_lista_lote.xml">
       <provider editor-type-id="android-designer2">
@@ -3647,16 +3710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1978">
           <caret line="86" column="15" selection-start-line="86" selection-start-column="15" selection-end-line="86" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -3752,6 +3805,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="85" column="17" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+          <folding>
+            <element signature="method#onOptionsItemSelected#0;class#Preferecias#0" expanded="false" />
+            <element signature="method#setToolbar#0;class#Preferecias#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3776,46 +3833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/MainActivityAux.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5">
-          <caret line="78" column="31" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
-          <folding>
-            <element signature="e#751#760#0" expanded="false" />
-            <element signature="method#onFailure#0;class#1969:2759" expanded="false" />
-            <element signature="method#init#0;class#SinconizacionService#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-          <folding>
-            <element signature="method#irMapa#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#onOptionsItemSelected#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#onKeyDown#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#onClickBack#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#setToolbar#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#eliminarPunto#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#setDelimitacionBuffer#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#calcularArea#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#guardarLote#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#mostrarDialogoGps#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#onMapReady#0;class#CrearLote#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#CrearLote#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3855,53 +3872,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/DetallesAux.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding>
-            <element signature="method#DetallesAux#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#getEspecie#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#createEntitiesActivity6#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#guardarActividad_2_3_4_6_7_8#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#crearEstado#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#getPersona#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#getListEstados#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#getArbol#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#crearArbolEspecie#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#crearAltura#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#crearArbol#0;class#DetallesAux#0" expanded="false" />
-            <element signature="method#getArbol#1;class#DetallesAux#0" expanded="false" />
-            <element signature="method#releaseHelper#0;class#DetallesAux#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Lotes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1040">
           <caret line="224" column="28" selection-start-line="224" selection-start-column="28" selection-end-line="224" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
           <folding>
-            <element signature="e#1990#2016#0" expanded="false" />
-            <element signature="method#cargarLotes#0;class#Mapa#0" expanded="false" />
-            <element signature="method#cargarSpinner#0;class#Mapa#0" expanded="false" />
-            <element signature="method#dibujarLote#0;class#Mapa#0" expanded="false" />
-            <element signature="method#dibujaArbol#0;class#Mapa#0" expanded="false" />
-            <element signature="method#onMapReady#0;class#Mapa#0" expanded="false" />
-            <element signature="method#setToolbar#0;class#Mapa#0" expanded="false" />
-            <element signature="method#onCreateOptionsMenu#0;class#Mapa#0" expanded="false" />
-            <element signature="method#onKeyDown#0;class#Mapa#0" expanded="false" />
-            <element signature="method#onClickBack#0;class#Mapa#0" expanded="false" />
-            <element signature="method#onOptionsItemSelected#0;class#Mapa#0" expanded="false" />
-            <element signature="method#mostrarDialogoGps#0;class#Mapa#0" expanded="false" />
-            <element signature="method#locationReady#0;class#Mapa#0" expanded="false" />
+            <element signature="method#init#0;class#Lotes#0" expanded="false" />
+            <element signature="method#onCreate#0;class#Lotes#0" expanded="false" />
+            <element signature="method#onCreateContextMenu#0;class#Lotes#0" expanded="false" />
+            <element signature="method#onKeyDown#0;class#Lotes#0" expanded="false" />
+            <element signature="method#idCrearLote#0;class#Lotes#0" expanded="false" />
+            <element signature="method#backMenu#0;class#Lotes#0" expanded="false" />
+            <element signature="method#cargarDatosLotes#0;class#Lotes#0" expanded="false" />
+            <element signature="method#onContextItemSelected#0;class#Lotes#0" expanded="false" />
+            <element signature="method#cargarListaLotes#0;class#Lotes#0" expanded="false" />
+            <element signature="method#getTotalArbolesLote#0;class#Lotes#0" expanded="false" />
+            <element signature="method#setToolbar#0;class#Lotes#0" expanded="false" />
+            <element signature="method#onStop#0;class#Lotes#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#Lotes#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3930,62 +3918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/Constantes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="22" column="66" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="153" column="35" selection-start-line="153" selection-start-column="35" selection-end-line="153" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="82" column="52" selection-start-line="82" selection-start-column="52" selection-end-line="82" selection-end-column="52" />
-          <folding>
-            <element signature="method#DownloadUserData#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="method#descargarLote#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="class#1398:2558" expanded="false" />
-            <element signature="method#onResponse#0;class#1398:2558" expanded="false" />
-            <element signature="method#onFailure#0;class#1398:2558" expanded="false" />
-            <element signature="method#descargarArboles#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="method#onFailure#0;class#2774:4048" expanded="false" />
-            <element signature="method#descargarAlturas#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="method#onFailure#0;class#4268:5233" expanded="false" />
-            <element signature="method#descargarArbolEstado#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="class#5479:6666" expanded="false" />
-            <element signature="method#onResponse#0;class#5479:6666" expanded="false" />
-            <element signature="method#onFailure#0;class#5479:6666" expanded="false" />
-            <element signature="method#descargarArbolEspecie#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="method#descargarDesaActividades#0;class#DownloadUserData#0" expanded="false" />
-            <element signature="class#8621:10047" expanded="false" />
-            <element signature="method#onFailure#0;class#8621:10047" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="70" column="7" selection-start-line="70" selection-start-column="7" selection-end-line="70" selection-end-column="7" />
-          <folding>
-            <element signature="e#1526#2217#0" expanded="true" />
-            <element signature="e#2216#2217#0" expanded="true" />
-            <element signature="method#irMenu#0;class#MainActivity#0" expanded="false" />
-            <element signature="class#SincTask#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#existeBaseDatos#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#IniciarSesion#0;class#MainActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/SyncServiceUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
@@ -4000,10 +3932,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LastLocationReady.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/CrearLote.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+          <folding>
+            <element signature="method#irMapa#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#onKeyDown#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#onClickBack#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#setToolbar#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#eliminarPunto#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#setDelimitacionBuffer#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#calcularArea#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#guardarLote#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#mostrarDialogoGps#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#onMapReady#0;class#CrearLote#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#CrearLote#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Detalles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="142" column="8" selection-start-line="142" selection-start-column="8" selection-end-line="142" selection-end-column="50" />
+        <state relative-caret-position="26">
+          <caret line="99" column="8" selection-start-line="99" selection-start-column="8" selection-end-line="99" selection-end-column="8" />
           <folding>
             <element signature="method#init#0;class#Detalles#0" expanded="false" />
             <element signature="class#8162:8922" expanded="false" />
@@ -4035,50 +3995,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Menu.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1690">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+        <state relative-caret-position="1586">
+          <caret line="61" column="11" selection-start-line="61" selection-start-column="11" selection-end-line="61" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/DetallesAux.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
           <folding>
-            <element signature="method#setToolbar#0;class#Menu#0" expanded="false" />
-            <element signature="method#onCreateOptionsMenu#0;class#Menu#0" expanded="false" />
-            <element signature="method#irLotes#0;class#Menu#0" expanded="false" />
-            <element signature="method#irMapa#0;class#Menu#0" expanded="false" />
-            <element signature="method#irPreferencias#0;class#Menu#0" expanded="false" />
+            <element signature="method#DetallesAux#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#getEspecie#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#createEntitiesActivity6#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#guardarActividad_2_3_4_6_7_8#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#getPersona#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#getListEstados#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#getArbol#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#crearArbolEspecie#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#crearArbol#0;class#DetallesAux#0" expanded="false" />
+            <element signature="method#getArbol#1;class#DetallesAux#0" expanded="false" />
+            <element signature="method#releaseHelper#0;class#DetallesAux#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/MainActivityAux.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationLoteUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/CerrarDialogo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding>
-            <element signature="method#ArbolEstado#0;class#ArbolEstado#0" expanded="false" />
-            <element signature="e#1266#1267#0" expanded="true" />
-            <element signature="e#1302#1303#0" expanded="true" />
-            <element signature="method#ArbolEstado#1;class#ArbolEstado#0" expanded="false" />
-          </folding>
+          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEspecie.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/LocationUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        <state relative-caret-position="26">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="method#ArbolEspecie#0;class#ArbolEspecie#0" expanded="false" />
-            <element signature="method#ArbolEspecie#1;class#ArbolEspecie#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
-          <folding>
-            <element signature="method#DesarrolloActividades#0;class#DesarrolloActividades#0" expanded="false" />
+            <element signature="method#LocationUtils#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#onConnected#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#setLastLocation#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#getLocation#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#disConnect#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#permisosGranted#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#isConnected#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#gpsEnabled#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#onConnectionSuspended#0;class#LocationUtils#0" expanded="false" />
+            <element signature="method#onConnectionFailed#0;class#LocationUtils#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4086,10 +4071,152 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/Altura.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <caret line="9" column="51" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="51" />
           <folding>
             <element signature="method#Altura#0;class#Altura#0" expanded="false" />
             <element signature="method#Altura#1;class#Altura#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEspecie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="9" column="63" selection-start-line="9" selection-start-column="63" selection-end-line="9" selection-end-column="63" />
+          <folding>
+            <element signature="method#ArbolEspecie#0;class#ArbolEspecie#0" expanded="false" />
+            <element signature="method#ArbolEspecie#1;class#ArbolEspecie#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/ArbolEstado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="155" column="21" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+          <folding>
+            <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#irMenu#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#sincronizando#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onStart#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#existeBaseDatos#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#IniciarSesion#0;class#MainActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Servicios/SinconizacionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="110" column="28" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
+          <folding>
+            <element signature="e#910#919#0" expanded="false" />
+            <element signature="method#getUsuariosFromApi#0;class#SinconizacionService#0" expanded="false" />
+            <element signature="method#onFailure#0;class#2131:2921" expanded="false" />
+            <element signature="method#init#0;class#SinconizacionService#0" expanded="false" />
+            <element signature="class#LocalBinder#0;class#SinconizacionService#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="84" column="56" selection-start-line="84" selection-start-column="56" selection-end-line="84" selection-end-column="56" />
+          <folding>
+            <element signature="method#setToolbar#0;class#Menu#0" expanded="false" />
+            <element signature="method#onCreateOptionsMenu#0;class#Menu#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#Menu#0" expanded="false" />
+            <element signature="method#irLotes#0;class#Menu#0" expanded="false" />
+            <element signature="method#irMapa#0;class#Menu#0" expanded="false" />
+            <element signature="method#irPreferencias#0;class#Menu#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/Mapa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-266">
+          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+          <folding>
+            <element signature="e#1990#2016#0" expanded="false" />
+            <element signature="method#cargarLotes#0;class#Mapa#0" expanded="false" />
+            <element signature="method#cargarSpinner#0;class#Mapa#0" expanded="false" />
+            <element signature="method#dibujarLote#0;class#Mapa#0" expanded="false" />
+            <element signature="method#dibujaArbol#0;class#Mapa#0" expanded="false" />
+            <element signature="method#onMapReady#0;class#Mapa#0" expanded="false" />
+            <element signature="method#setToolbar#0;class#Mapa#0" expanded="false" />
+            <element signature="method#onCreateOptionsMenu#0;class#Mapa#0" expanded="false" />
+            <element signature="method#onKeyDown#0;class#Mapa#0" expanded="false" />
+            <element signature="method#onClickBack#0;class#Mapa#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#Mapa#0" expanded="false" />
+            <element signature="method#mostrarDialogoGps#0;class#Mapa#0" expanded="false" />
+            <element signature="method#locationReady#0;class#Mapa#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Utils/Constantes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="20" column="79" selection-start-line="20" selection-start-column="79" selection-end-line="20" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/Entidades/DesarrolloActividades.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
+          <folding>
+            <element signature="e#2665#2666#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/actividades/IniciarSesion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="131" column="73" selection-start-line="131" selection-start-column="73" selection-end-line="131" selection-end-column="73" />
+          <folding>
+            <element signature="method#onStart#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#iniciarSesion#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#cerrardialogo#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="class#TareaDescarga#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#doInBackground#0;class#TareaDescarga#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#descargarDatos#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#irMenu#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#mostrarDialogo#0;class#IniciarSesion#0" expanded="false" />
+            <element signature="method#onClick#0;class#IniciarSesion#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jegg/reforest/controladores/DownloadUserData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="81" column="56" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
+          <folding>
+            <element signature="method#DownloadUserData#0;class#DownloadUserData#0" expanded="false" />
+            <element signature="method#setPersona#0;class#DownloadUserData#0" expanded="false" />
+            <element signature="method#onFailure#0;class#1695:3261" expanded="false" />
+            <element signature="method#descargarArboles#0;class#DownloadUserData#0" expanded="false" />
+            <element signature="method#onFailure#0;class#3477:4872" expanded="false" />
+            <element signature="method#descargarAlturas#0;class#DownloadUserData#0" expanded="false" />
+            <element signature="class#5131:6096" expanded="false" />
+            <element signature="method#onFailure#0;class#5131:6096" expanded="false" />
+            <element signature="method#descargarArbolEstado#0;class#DownloadUserData#0" expanded="false" />
+            <element signature="method#descargarArbolEspecie#0;class#DownloadUserData#0" expanded="false" />
+            <element signature="method#onResponse#0;class#7779:8986" expanded="false" />
+            <element signature="method#onFailure#0;class#7779:8986" expanded="false" />
           </folding>
         </state>
       </provider>

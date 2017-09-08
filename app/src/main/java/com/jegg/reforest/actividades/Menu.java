@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,22 +23,24 @@ import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.Utils.CerrarDialogo;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.controladores.DownloadUserData;
 
 import java.sql.SQLException;
 
-public class Menu extends AppCompatActivity {
+public class Menu extends AppCompatActivity implements CerrarDialogo{
 
     SharedPreferences prefs;
     ProgressDialog progressDialog;
     private Persona usuario;
-
+    DownloadUserData descargarDatos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         setToolbar();
+        descargarDatos = new DownloadUserData(Menu.this, this);
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         int idPersona = prefs.getInt("id_persona", 0);
         basededatos datosReforest = OpenHelperManager.getHelper(Menu.this, basededatos.class);
@@ -84,24 +87,7 @@ public class Menu extends AppCompatActivity {
             case R.id.opcionSincronizar:
 
                 progressDialog = ProgressDialog.show(Menu.this, "Sincronizando...", "Por favor espere..", true);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        startService(new Intent(Menu.this, SinconizacionService.class));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                progressDialog.dismiss();
-                                Toast.makeText(Menu.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-
-
-                }).start();
+                startService(new Intent(Menu.this, SinconizacionService.class));
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -110,12 +96,22 @@ public class Menu extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
+                                Log.e("descargando","sinc");
+                                descargarDatos.setPersona(usuario);
+                                descargarDatos.descargar();
+                            }
+                        }).start();
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
+                                Toast.makeText(Menu.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
-                }, 1000);
+                }, 1800);
+
 
                 break;
             case R.id.opcionIrWeb:
@@ -142,5 +138,10 @@ public class Menu extends AppCompatActivity {
         Intent intent = new Intent(this, Preferecias.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void cerrardialogo() {
+        progressDialog.dismiss();
     }
 }

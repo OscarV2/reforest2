@@ -69,20 +69,29 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback,
         setToolbar();
 
         utils = new LocationUtils(Mapa.this);
-        utils.setLastLocation(this);
-        sync = new SyncServiceUtils(Mapa.this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (utils.permisosGranted()){
 
-        spinner = (Spinner) findViewById(R.id.spinner_mapa);
-        options = new PolygonOptions();
-        cargarLotes();
+            if (!(utils.gpsEnabled())){
+                mostrarDialogoGps();
+            }else{
 
-        if (!(utils.gpsEnabled())){
-            mostrarDialogoGps();
+                utils.setLastLocation(this);
+                sync = new SyncServiceUtils(Mapa.this);
+
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                mapFragment.getMapAsync(this);
+
+                spinner = (Spinner) findViewById(R.id.spinner_mapa);
+                options = new PolygonOptions();
+                cargarLotes();
+            }
+        }else {
+
+            ActivityCompat.requestPermissions(Mapa.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
         }
-
     }
 
     private void cargarLotes() {

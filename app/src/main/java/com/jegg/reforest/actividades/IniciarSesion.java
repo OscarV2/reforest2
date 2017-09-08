@@ -25,20 +25,22 @@ import com.j256.ormlite.stmt.Where;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
+import com.jegg.reforest.Utils.CerrarDialogo;
 import com.jegg.reforest.Utils.MainActivityAux;
 import com.jegg.reforest.controladores.DownloadUserData;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class IniciarSesion extends AppCompatActivity implements View.OnClickListener {
+public class IniciarSesion extends AppCompatActivity implements View.OnClickListener, CerrarDialogo {
 
     private EditText cajaCorreo, cajaContraseña;
 
     private String password, correo;
     Dao<Persona, Integer>  daoPersonas;
     SharedPreferences prefs;
-
+    DownloadUserData downloadData;
+    Persona persona;
     public ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         cajaContraseña = (EditText) findViewById(R.id.tvContraseña);
         Button entrar = (Button) findViewById(R.id.btn_entrar_iniciar);
         entrar.setOnClickListener(this);
+
+        downloadData = new DownloadUserData(IniciarSesion.this, this);
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
 
@@ -100,20 +104,10 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
             }
 
             else {
-//                progressDialog = ProgressDialog.show(IniciarSesion.this, "Sincronizando...", "Por favor espere..", true);
-  //              progressDialog.setCancelable(false);
 
-                Persona persona = userList.get(0);
+                persona = userList.get(0);
                 descargarDatos(persona);
-                // Inicio de sesion exitoso
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("inicio_sesion", true);
-                editor.putInt("id_persona", persona.getId());
-                Log.e("id p sesion", String.valueOf(persona.getId()));
-                editor.apply();
-                editor.commit();
-                // descargar lotes de esta persona
-                irMenu();
+
             }
 
         } catch (SQLException  e) {
@@ -121,38 +115,44 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private class TareaDescarga extends AsyncTask<Persona, Void, Boolean>{
+    @Override
+    public void cerrardialogo() {
 
+        dialog.dismiss();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("inicio_sesion", true);
+        editor.putInt("id_persona", persona.getId());
+        Log.e("id p sesion", String.valueOf(persona.getId()));
+        editor.apply();
+        editor.commit();
+        // descargar lotes de esta persona
+        irMenu();
+    }
+
+    private class TareaDescarga extends AsyncTask<Persona, Void, Boolean>{
 
         @Override
         protected Boolean doInBackground(Persona... personas) {
-            try{
-                DownloadUserData downloadData = new DownloadUserData(personas[0], getApplicationContext());
 
                 downloadData.descargar();
-            }finally {
-                Log.e("tarea","completada");
-            }
             return true;
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            dialog.dismiss();
             super.onPostExecute(aBoolean);
         }
     }
-
-
 
     private void descargarDatos(Persona persona) {
 
         dialog = ProgressDialog.show(IniciarSesion.this, "Sincronizando",
                 "Por favor espere...", true, false);
 
+        downloadData.setPersona(persona);
+
         TareaDescarga descargar = new TareaDescarga();
         descargar.execute(persona);
-
     }
 
     public void irMenu (){
