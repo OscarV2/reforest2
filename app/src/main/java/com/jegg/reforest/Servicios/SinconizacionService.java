@@ -27,7 +27,6 @@ public class SinconizacionService extends Service {
 
     SharedPreferences prefs;
     private SyncServiceUtils utils;
-    CerrarDialogo cerrarDialogo;
     private final IBinder mBinder = new LocalBinder();
     @Nullable
     @Override

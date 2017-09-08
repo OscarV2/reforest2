@@ -45,19 +45,18 @@ public class DownloadUserData extends SyncServiceUtils {
     }
 
     public void descargar(){
-        Log.e("metodo","descargar");
         descargarLote();
     }
 
     private void descargarLote(){
-        Log.e("descargar","lote");
+
         Call<List<Lote>> getLotes = ReforestApiAdapter.getApiService()
                 .getLotes(idPersona);
 
         getLotes.enqueue(new Callback<List<Lote>>() {
             @Override
             public void onResponse(Call<List<Lote>> call, Response<List<Lote>> response) {
-                Log.e("onResponse","lote");
+
                 List<Lote> lotes = response.body();
                 if (response.isSuccessful() && lotes != null){
                     if (lotes.size() > 0){
@@ -79,7 +78,7 @@ public class DownloadUserData extends SyncServiceUtils {
                         cerrarDialogo.cerrardialogo();
                     }else{cerrarDialogo.cerrardialogo();}
                 }else{
-                    Log.e("response","lote no exitosa");
+
                     cerrarDialogo.cerrardialogo();
                     }
             }

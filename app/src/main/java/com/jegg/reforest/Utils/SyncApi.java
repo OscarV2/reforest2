@@ -62,7 +62,6 @@ class SyncApi {
                 @Override
                 public void onFailure(@NonNull Call<ResponseBody> call, Throwable t) {
 
-
                     Log.e("FalloLote", call.toString());
                     Log.e("subirLote","Fallo");
                 }

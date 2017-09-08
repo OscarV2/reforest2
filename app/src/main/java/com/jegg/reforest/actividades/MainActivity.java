@@ -103,12 +103,8 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected Boolean doInBackground(Context... contexts) {
 
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction("stop");
-            registerReceiver(myReceiver, intentFilter);
             Intent intent = new Intent(contexts[0], SinconizacionService.class);
             startService(intent);
-
             return true;
         }
 
@@ -144,6 +140,9 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
 
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("stop");
+        registerReceiver(myReceiver, intentFilter);
         sincronizando();
         super.onStart();
     }

@@ -1,11 +1,14 @@
 package com.jegg.reforest.actividades;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -51,6 +54,20 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+        if (ActivityCompat.checkSelfPermission(Menu.this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(Menu.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(Menu.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        }
+
     }
 
     private void setToolbar(){

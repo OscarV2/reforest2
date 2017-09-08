@@ -126,9 +126,10 @@ public class LocationUtils implements GoogleApiClient.ConnectionCallbacks,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
+            Log.e("permisos","not GRANTED");
             b = false;
         }else {
-
+            Log.e("Permisos","granted");
             b = true;
         }
 

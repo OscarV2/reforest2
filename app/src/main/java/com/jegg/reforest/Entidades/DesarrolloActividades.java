@@ -8,7 +8,7 @@ import com.jegg.reforest.Utils.Constantes;
 public class DesarrolloActividades {
 
     @DatabaseField(columnName = "id", unique = true)
-    private transient int id;
+    private transient Integer id;
 
     @DatabaseField(columnName = Constantes.FOTO_DESARROLLO_ACTIVIDADES)
     private String urlimagen;
@@ -77,7 +77,7 @@ public class DesarrolloActividades {
         return actividades_id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

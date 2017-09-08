@@ -56,4 +56,6 @@
     <dimen name="alto_boton_menu">170dp</dimen>
     <dimen name="text_item_lote">16sp</dimen>
 
+    <dimen name="alto_menu_landscape">150dp</dimen>
+
 </resources>

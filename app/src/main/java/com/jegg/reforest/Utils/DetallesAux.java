@@ -89,6 +89,16 @@ public class DetallesAux extends SyncServiceUtils {
 
     public void crearEstado(ArbolEstado arbolEstado) throws SQLException {
 
+        Log.e("id de estado: ",String.valueOf(arbolEstado.getId()));
+        List<ArbolEstado> todos = daoArbolEstado.queryForAll();
+        for (int i = 0; i < todos.size(); i++){
+if (todos.get(i).getId() != null){
+    Log.e("id estado lista", String.valueOf(i) + " " + todos.get(i));
+
+}else{Log.e("id estado lista", String.valueOf(i) + "NULL " );}
+
+            }
+
         daoArbolEstado.create(arbolEstado);
     }
 

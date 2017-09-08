@@ -8,7 +8,7 @@ import com.jegg.reforest.Utils.Constantes;
 public class Altura {
 
     @DatabaseField(columnName = "id", unique = true)
-    private transient int id;
+    private transient Integer id;
 
     @DatabaseField(columnName = Constantes.ALTURA_ARBOL, canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private Arbol arbol;
@@ -22,7 +22,7 @@ public class Altura {
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

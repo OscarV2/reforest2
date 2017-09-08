@@ -39,37 +39,46 @@ public class UpdateDb extends SyncServiceUtils{
 
     public void updateAltura(Altura altura) throws SQLException {
 
-        UpdateBuilder<Altura, Integer> updateBuilder = this.daoAltura.updateBuilder();
+        altura.setUploaded(true);
+        daoAltura.update(altura);
+      /*  UpdateBuilder<Altura, Integer> updateBuilder = this.daoAltura.updateBuilder();
         updateBuilder.where().eq("id", altura.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.update();
-
+*/
     }
 
     public void update(ArbolEspecie arbolEspecie) throws SQLException {
 
-        UpdateBuilder<ArbolEspecie, Integer> updateBuilder = this.daoArbolEspecie.updateBuilder();
+        arbolEspecie.setUploaded(true);
+        daoArbolEspecie.update(arbolEspecie);
+
+      /*  UpdateBuilder<ArbolEspecie, Integer> updateBuilder = this.daoArbolEspecie.updateBuilder();
         updateBuilder.where().eq("idArbolEspecie", arbolEspecie.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.update();
-
+*/
     }
 
     public void updateArbolEstado(ArbolEstado arbolEstado) throws SQLException {
 
-        UpdateBuilder<ArbolEstado, Integer> updateBuilder = this.daoArbolEstado.updateBuilder();
+        arbolEstado.setUploaded(true);
+        daoArbolEstado.update(arbolEstado);
+    /*    UpdateBuilder<ArbolEstado, Integer> updateBuilder = this.daoArbolEstado.updateBuilder();
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.where().eq("id", arbolEstado.getId());
         updateBuilder.update();
-
+*/
     }
 
     public void updateDesaAct(DesarrolloActividades desarrolloActividades) throws SQLException {
 
-        UpdateBuilder<DesarrolloActividades, Integer> updateBuilder = this.daoDesarrolloAct.updateBuilder();
+        desarrolloActividades.setUploaded(true);
+        daoDesarrolloAct.update(desarrolloActividades);
+        /*UpdateBuilder<DesarrolloActividades, Integer> updateBuilder = this.daoDesarrolloAct.updateBuilder();
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.where().eq("id", desarrolloActividades.getId());
+        updateBuilder.where().eq("uploaded", false);
         updateBuilder.update();
-
+*/
     }
 }

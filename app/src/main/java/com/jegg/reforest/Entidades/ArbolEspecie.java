@@ -8,7 +8,7 @@ import com.jegg.reforest.Utils.Constantes;
 public class ArbolEspecie {
 
     @DatabaseField(columnName = "idArbolEspecie", unique = true)
-    private transient int id;
+    private transient Integer id;
 
     @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)
     private transient Arbol arbol;
@@ -53,7 +53,7 @@ public class ArbolEspecie {
         this.especie_id = especie.getId();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
