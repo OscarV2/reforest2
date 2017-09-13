@@ -220,7 +220,6 @@ class SyncApi {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                    Log.e("DesaResponse", call.toString());
                     Log.e("subirDesa","Fallo");
                 }
             });

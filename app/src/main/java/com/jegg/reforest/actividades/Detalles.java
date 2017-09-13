@@ -397,7 +397,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 setActividad();
                 //Enfermedades
                 lay_edt_altura.setVisibility(View.GONE);
-                lay_edt_especie.setVisibility(View.VISIBLE);
+                lay_edt_especie.setVisibility(View.GONE);
                 layMapa.setVisibility(View.VISIBLE);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 layCordenadas.setVisibility(View.GONE);
@@ -495,15 +495,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 }
             }
         } else if (idActividad == 6) {
-            especie = edtEspecie.getText().toString();  // Enfermedad Arbol
-
-            if (especie.equals("")) {
-                edtEspecie.requestFocus();
-
-            } else {  // guardar actividad 6 Enfermedades
 
                 guardarAct6();
-            }
+
         } else if (idActividad == 7) {     // Estado Arbol
 
             Log.e("actividad es", "EStado");
@@ -521,23 +515,19 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void guardarAct6() throws SQLException {   // Enfermedades
 
-        especieEntidad = detallesAux.getEspecie(especie);
-        if (especieEntidad == null) {
+        //especieEntidad = detallesAux.getEspecie(especie);
+        //if (especieEntidad == null) {
 
-            Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
-        }
+          //  Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
+       // }
 
-        arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
+        //arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
 
-        try {
-
-            detallesAux.crearArbolEspecie(arbolEspecie);
+            //detallesAux.crearArbolEspecie(arbolEspecie);
             detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
                     fechaActividad, actividad, arbol, usuario);
             volverALotes();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private void guardarActividad5() {     //Resiembra
@@ -690,22 +680,32 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     public void buscarArbol(View v) {
 
         // verificar que el dato sea numerico y que no se pase del numero de arboles del lote
+
         String numeroArbolCadena = edtBuscarArbol.getText().toString();
-        int numArbolBuscar = Integer.parseInt(numeroArbolCadena);
 
-        if (numArbolBuscar > numArboles) {
+        if (!numeroArbolCadena.equals("")){
 
-            Toast.makeText(this, "Arbol " + String.valueOf(numArbolBuscar) + " no existe.", Toast.LENGTH_SHORT).show();
-        } else {
+            int numArbolBuscar = Integer.parseInt(numeroArbolCadena);
 
-            try {
-                arbol = detallesAux.getArbol(numArbolBuscar, idLote);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (numArbolBuscar > numArboles) {
+
+                Toast.makeText(this, "Arbol " + String.valueOf(numArbolBuscar) + " no existe.", Toast.LENGTH_SHORT).show();
+            } else {
+
+                try {
+                    arbol = detallesAux.getArbol(numArbolBuscar, idLote);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                dibujarArbolBusqueda(arbol, numArbolBuscar);
             }
-
-            dibujarArbolBusqueda(arbol, numArbolBuscar);
+        }else
+        {
+            Toast.makeText(this, "Por favor digitar numero de arbol", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     private void dibujarArbolBusqueda(Arbol arbol, int numArbolBuscar) {
