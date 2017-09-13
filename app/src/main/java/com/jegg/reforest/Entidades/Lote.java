@@ -10,7 +10,10 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.jegg.reforest.Utils.Constantes.sdf;
 
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
 public class Lote {
@@ -41,6 +44,12 @@ public class Lote {
 
     @DatabaseField(columnName = "muni", foreign = true)
     private transient Municipio municipio;
+
+    @DatabaseField(columnName = Constantes.CREATED_AT)
+    private String created_at;
+
+    @DatabaseField(columnName = Constantes.UPDATED_AT)
+    private String updated_at;
 
     @ForeignCollectionField
     private transient ForeignCollection<Arbol> arboles;
@@ -73,7 +82,8 @@ public class Lote {
         this.municipio = municipio;
         this.delimitacion = delimitacion;
         this.persona = persona;
-
+        this.created_at = sdf.format(new Date());
+        this.updated_at = sdf.format(new Date());
         this.municipio_id = 11;
         this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
     }

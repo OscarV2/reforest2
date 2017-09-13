@@ -38,6 +38,7 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
     ProgressDialog progressDialog;
     private Persona usuario;
     DownloadUserData descargarDatos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,8 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
 
                 progressDialog = ProgressDialog.show(Menu.this, "Sincronizando...", "Por favor espere..", true);
                 startService(new Intent(Menu.this, SinconizacionService.class));
-
+                progressDialog.dismiss();
+/*
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -113,9 +115,9 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.e("descargando","sinc");
-                                descargarDatos.setPersona(usuario);
-                                descargarDatos.descargar();
+                                //Log.e("descargando","sinc");
+                                //descargarDatos.setPersona(usuario);
+                                //descargarDatos.descargar();
                             }
                         }).start();
 
@@ -127,8 +129,8 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
                             }
                         });
                     }
-                }, 1800);
-
+                }, 4800);
+*/
 
                 break;
             case R.id.opcionIrWeb:
@@ -159,6 +161,6 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
 
     @Override
     public void cerrardialogo() {
-        progressDialog.dismiss();
+
     }
 }

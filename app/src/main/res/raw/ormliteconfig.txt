@@ -1,5 +1,5 @@
 #
-# generated on 2017/09/08 10:27:03
+# generated on 2017/09/12 10:54:03
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Municipio
@@ -100,6 +100,14 @@ columnName=muni
 foreign=true
 # --field-end--
 # --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
+# --field-end--
+# --field-start--
 fieldName=arboles
 foreignCollection=true
 # --field-end--
@@ -112,8 +120,13 @@ tableName=altura
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
+columnName=ida
 unique=true
+# --field-end--
+# --field-start--
+fieldName=idA
+columnName=id
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=arbol
@@ -135,6 +148,14 @@ canBeNull=false
 # --field-start--
 fieldName=uploaded
 columnName=uploaded
+# --field-end--
+# --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -162,8 +183,13 @@ tableName=desarrollo_actividades
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
+columnName=iddesa
 unique=true
+# --field-end--
+# --field-start--
+fieldName=iddesa
+columnName=id
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=urlimagen
@@ -189,6 +215,14 @@ columnName=arbol_id
 # --field-start--
 fieldName=personas_id
 columnName=personas_id
+# --field-end--
+# --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
 # --field-end--
 # --field-start--
 fieldName=idActividad
@@ -249,7 +283,7 @@ id=true
 unique=true
 # --field-end--
 # --field-start--
-fieldName=numArbol
+fieldName=num_arbol
 columnName=numArbol
 # --field-end--
 # --field-start--
@@ -277,6 +311,14 @@ fieldName=uploaded
 columnName=uploaded
 # --field-end--
 # --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
+# --field-end--
+# --field-start--
 fieldName=arbolEspecies
 foreignCollection=true
 # --field-end--
@@ -301,8 +343,13 @@ tableName=arbol_estado
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
+columnName=idabest
 unique=true
+# --field-end--
+# --field-start--
+fieldName=idAest
+columnName=id
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=arbol
@@ -327,6 +374,14 @@ fieldName=estado_id
 columnName=estado_id2
 # --field-end--
 # --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
+# --field-end--
+# --field-start--
 fieldName=uploaded
 columnName=uploaded
 # --field-end--
@@ -339,8 +394,13 @@ tableName=especie_arbol
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=idArbolEspecie
+columnName=idaesp
 unique=true
+# --field-end--
+# --field-start--
+fieldName=idAEsp
+columnName=id
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=arbol
@@ -367,6 +427,14 @@ columnName=especie_id2
 # --field-start--
 fieldName=uploaded
 columnName=uploaded
+# --field-end--
+# --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
 # --field-end--
 # --table-fields-end--
 # --table-end--

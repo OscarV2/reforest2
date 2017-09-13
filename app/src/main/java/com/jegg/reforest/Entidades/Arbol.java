@@ -9,7 +9,10 @@ import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.jegg.reforest.Utils.Constantes.sdf;
 
 @DatabaseTable(tableName = Constantes.TABLA_ARBOL)
 public class Arbol {
@@ -18,7 +21,7 @@ public class Arbol {
     private String id;
 
     @DatabaseField(columnName = "numArbol")
-    private transient  int numArbol;
+    private  int num_arbol;
 
     @DatabaseField(columnName = Constantes.COORDENADAS_ARBOL, canBeNull = false)
     private String coodenadas;
@@ -34,6 +37,12 @@ public class Arbol {
 
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
+
+    @DatabaseField(columnName = Constantes.CREATED_AT)
+    private String created_at;
+
+    @DatabaseField(columnName = Constantes.UPDATED_AT)
+    private String updated_at;
 
     @ForeignCollectionField
     private transient ForeignCollection<ArbolEspecie> arbolEspecies;
@@ -58,7 +67,6 @@ public class Arbol {
 
         return listaArbolEspecie;
     }
-
 
     public Estado getLastEstado(){
 
@@ -86,6 +94,8 @@ public class Arbol {
 
         this.lote_id = lote.getId();
         this.id = Constantes.SERIAL + Constantes.secureRandom.nextInt();
+        this.created_at = sdf.format(new Date());
+        this.updated_at = sdf.format(new Date());
     }
 
     public String getId() {
@@ -109,7 +119,7 @@ public class Arbol {
     }
 
     public void setNumArbol(int numArbol) {
-        this.numArbol = numArbol;
+        this.num_arbol = numArbol;
     }
 
     public LatLng getPosicion(){

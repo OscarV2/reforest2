@@ -4,11 +4,18 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.jegg.reforest.Utils.Constantes;
 
+import java.util.Date;
+
+import static com.jegg.reforest.Utils.Constantes.sdf;
+
 @DatabaseTable(tableName = Constantes.TABLA_ESPECIE_ARBOL)
 public class ArbolEspecie {
 
-    @DatabaseField(columnName = "idArbolEspecie", unique = true)
+    @DatabaseField(columnName = "idaesp", unique = true)
     private transient Integer id;
+
+    @DatabaseField(generatedId = true, columnName = "id")
+    private transient Integer idAEsp;
 
     @DatabaseField(columnName = Constantes.ARBOL_ESPECIE_ARBOL, foreign = true, foreignAutoRefresh = true)
     private transient Arbol arbol;
@@ -24,6 +31,12 @@ public class ArbolEspecie {
 
     @DatabaseField(columnName = Constantes.UPLOADED)
     private transient boolean uploaded;
+
+    @DatabaseField(columnName = Constantes.CREATED_AT)
+    private String created_at;
+
+    @DatabaseField(columnName = Constantes.UPDATED_AT)
+    private String updated_at;
 
     public void setUploaded(boolean uploaded) {
         this.uploaded = uploaded;
@@ -51,6 +64,8 @@ public class ArbolEspecie {
         this.especie = especie;
         this.arbol_id = arbol.getId();
         this.especie_id = especie.getId();
+        this.created_at = sdf.format(new Date());
+        this.updated_at = sdf.format(new Date());
     }
 
     public Integer getId() {

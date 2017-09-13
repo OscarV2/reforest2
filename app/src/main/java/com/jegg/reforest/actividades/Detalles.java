@@ -271,7 +271,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                 assert imageBitmap != null;
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
                 byte[] b = baos.toByteArray();
 
@@ -719,14 +719,19 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         Marker marker =  mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 .position(arbol.getPosicion()));
 
-        int sizeListaEspecies = arbol.getArbolEspecie().size();
-        Especie especieA = arbol.getArbolEspecie().get(sizeListaEspecies-1).getEspecie();
-        Estado estadoA = arbol.getLastEstado();
+        try {
+            int sizeListaEspecies = arbol.getArbolEspecie().size();
+            Especie especieA = arbol.getArbolEspecie().get(sizeListaEspecies-1).getEspecie();
+            Estado estadoA = arbol.getLastEstado();
 
-        marker.setTag(arbol.getId());
-        marker.setTitle(especieA.getNombre() + " " + String.valueOf(numArbolBuscar));
-        marker.setSnippet("Estado: " + estadoA.getNombre());
-        marker.showInfoWindow();
+            marker.setTag(arbol.getId());
+            marker.setTitle(especieA.getNombre() + " " + String.valueOf(numArbolBuscar));
+            marker.setSnippet("Estado: " + estadoA.getNombre());
+            marker.showInfoWindow();
+        }catch (Exception e){
+            Toast.makeText(this, "No se encuentra la especie", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

@@ -201,7 +201,7 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
         }else {
 
             areaLote = (SphericalUtil.computeArea(recLote))/10000;
-            area.setText(String.format("%.3f", areaLote));
+            area.setText(String.format("%.4f", areaLote));
             Toast.makeText(this, "Area en m2: "+String.format("%.3f", SphericalUtil.computeArea(recLote)), Toast.LENGTH_SHORT).show();
         }
     }
@@ -209,11 +209,6 @@ public class CrearLote extends AppCompatActivity implements OnMapReadyCallback {
     public void guardarLote(View view) throws ParseException {
 
         String nombreLote = nombre.getText().toString();
-
-        if (!area.getText().toString().equals("")){
-
-            areaLote = Double.parseDouble(area.getText().toString());
-        }
 
         if (nombreLote.equals("")){
             Toast.makeText(CrearLote.this, "Por favor llene los campos faltantes.", Toast.LENGTH_SHORT).show();

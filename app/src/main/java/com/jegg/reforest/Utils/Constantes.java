@@ -27,7 +27,11 @@ public class Constantes {
     public static final String UPLOADED = "uploaded";
     public static final String POST_ALTURA = "altura";
 
+
     public static final String POST_ESTADO_ARBOL = "arbolestado";
+
+    public static final String CREATED_AT = "created_at";
+    public static final String UPDATED_AT = "updated_at";
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final String SERIAL = Build.SERIAL;

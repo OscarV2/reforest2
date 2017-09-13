@@ -1,6 +1,7 @@
 package com.jegg.reforest.Utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.jegg.reforest.Entidades.Altura;
@@ -25,10 +26,13 @@ public class UpdateDb extends SyncServiceUtils{
         updateBuilder.where().eq(Constantes.ID_ARBOL, arbol.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.update();
-
     }
 
     public void updateLote(Lote lote) throws SQLException {
+
+        Log.e("actualizado","lote");
+
+//        daoLotes.delete(lote);
 
         UpdateBuilder<Lote, String> updateBuilder = this.daoLotes.updateBuilder();
         updateBuilder.where().eq("id", lote.getId());
@@ -41,38 +45,32 @@ public class UpdateDb extends SyncServiceUtils{
 
         altura.setUploaded(true);
         daoAltura.update(altura);
-      /*  UpdateBuilder<Altura, Integer> updateBuilder = this.daoAltura.updateBuilder();
-        updateBuilder.where().eq("id", altura.getId());
-        updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.update();
-*/
     }
 
     public void update(ArbolEspecie arbolEspecie) throws SQLException {
 
+        Log.e("borrando","arbolespecie");
+
         arbolEspecie.setUploaded(true);
         daoArbolEspecie.update(arbolEspecie);
 
-      /*  UpdateBuilder<ArbolEspecie, Integer> updateBuilder = this.daoArbolEspecie.updateBuilder();
-        updateBuilder.where().eq("idArbolEspecie", arbolEspecie.getId());
-        updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.update();
-*/
     }
 
     public void updateArbolEstado(ArbolEstado arbolEstado) throws SQLException {
 
+        Log.e("borrando","arbolestado");
+
         arbolEstado.setUploaded(true);
         daoArbolEstado.update(arbolEstado);
-    /*    UpdateBuilder<ArbolEstado, Integer> updateBuilder = this.daoArbolEstado.updateBuilder();
-        updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.where().eq("id", arbolEstado.getId());
-        updateBuilder.update();
-*/
+
     }
 
     public void updateDesaAct(DesarrolloActividades desarrolloActividades) throws SQLException {
 
+        Log.e("borrando","desaAct");
+        desarrolloActividades.setUploaded(true);
+        daoDesarrolloAct.update(desarrolloActividades);
+/*
         desarrolloActividades.setUploaded(true);
         daoDesarrolloAct.update(desarrolloActividades);
         /*UpdateBuilder<DesarrolloActividades, Integer> updateBuilder = this.daoDesarrolloAct.updateBuilder();

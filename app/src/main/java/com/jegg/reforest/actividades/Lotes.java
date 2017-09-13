@@ -205,6 +205,9 @@ public class Lotes extends AppCompatActivity {
         List<Arbol> arboles = itemLote.getArboles();
         if (arboles.size() > 0){
 
+            for(Arbol arbol : arboles){
+                Log.e("idARBOL", arbol.getId());
+            }
             num = arboles.size();
         }
         return num;
