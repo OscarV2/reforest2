@@ -70,13 +70,6 @@ public class UpdateDb extends SyncServiceUtils{
         Log.e("borrando","desaAct");
         desarrolloActividades.setUploaded(true);
         daoDesarrolloAct.update(desarrolloActividades);
-/*
-        desarrolloActividades.setUploaded(true);
-        daoDesarrolloAct.update(desarrolloActividades);
-        /*UpdateBuilder<DesarrolloActividades, Integer> updateBuilder = this.daoDesarrolloAct.updateBuilder();
-        updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.where().eq("uploaded", false);
-        updateBuilder.update();
-*/
+
     }
 }

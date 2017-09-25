@@ -1,6 +1,8 @@
 package com.jegg.reforest.Utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -18,10 +20,18 @@ import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.SincronizacionExitosa;
+import com.jegg.reforest.api.ReforestApiAdapter;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by oscarvc on 10/05/17.
@@ -31,6 +41,8 @@ import java.util.List;
 public class SyncServiceUtils {
 
     private Context context;
+    private UpdateDb updateDb;
+    private SincronizacionExitosa sinc;
     public Dao<DesarrolloActividades, Integer> daoDesarrolloAct;
     public Dao<Especie, Integer> daoEspecie;
     public Dao<Arbol, String> daoArboles;
@@ -50,101 +62,103 @@ public class SyncServiceUtils {
     private List<ArbolEstado> listaArbolEstado = new ArrayList<>();
     private List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
 
-    public void consultarTablas() {
+    public boolean consultarTablas(){
+
+        return  listaAltura.size() == 0 || listaArbol.size() == 0
+                || listaArbolEspecie.size() == 0  || listaArbolEstado.size() == 0
+                || listaDesarrolloAct.size() == 0 || listaLotes.size() == 0;
+
+
+    }
+
+    public void llenarListasSync(){
 
         try {
+
             // llenar lista con registros no sincronizados
-            llenarListasSync();
-        } catch (SQLException e) {
+            QueryBuilder<Lote, String> qBLote = daoLotes.queryBuilder();
+
+            Where where = qBLote.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<Lote> pQLote = qBLote.prepare();
+            listaLotes = daoLotes.query(pQLote);
+
+            QueryBuilder<Arbol, String> qBArbol = daoArboles.queryBuilder();
+
+            where = qBArbol.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<Arbol> pqArbol = qBArbol.prepare();
+            listaArbol = daoArboles.query(pqArbol);
+
+            QueryBuilder<DesarrolloActividades, Integer> queryBuilder = daoDesarrolloAct.queryBuilder();
+
+            where = queryBuilder.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<DesarrolloActividades> preparedQuery = queryBuilder.prepare();
+            listaDesarrolloAct = daoDesarrolloAct.query(preparedQuery);
+
+            QueryBuilder<Altura, Integer> qBAltura = daoAltura.queryBuilder();
+
+            where = qBAltura.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<Altura> pQAltura = qBAltura.prepare();
+            listaAltura = daoAltura.query(pQAltura);
+
+            QueryBuilder<ArbolEspecie, Integer> qBArbolEspecie = daoArbolEspecie.queryBuilder();
+
+            where = qBArbolEspecie.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<ArbolEspecie> pQArbolEspecie = qBArbolEspecie.prepare();
+            listaArbolEspecie = daoArbolEspecie.query(pQArbolEspecie);
+
+            QueryBuilder<ArbolEstado, Integer> qBArbolEstado = daoArbolEstado.queryBuilder();
+
+            where = qBArbolEstado.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<ArbolEstado> pQArbolEstado = qBArbolEstado.prepare();
+            listaArbolEstado = daoArbolEstado.query(pQArbolEstado);
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    private void llenarListasSync() throws SQLException {
-
-        QueryBuilder<Lote, String> qBLote = daoLotes.queryBuilder();
-
-        Where where =qBLote.where();
-        where.eq(Constantes.UPLOADED, false);
-        PreparedQuery<Lote> pQLote = qBLote.prepare();
-        listaLotes = daoLotes.query(pQLote);
-
-        QueryBuilder<Arbol, String> qBArbol = daoArboles.queryBuilder();
-
-        where = qBArbol.where();
-        where.eq(Constantes.UPLOADED, false);
-        PreparedQuery<Arbol> pqArbol = qBArbol.prepare();
-        listaArbol = daoArboles.query(pqArbol);
-
-        QueryBuilder<DesarrolloActividades, Integer> queryBuilder = daoDesarrolloAct.queryBuilder();
-
-        where = queryBuilder.where();
-        where.eq(Constantes.UPLOADED, false);
-        PreparedQuery<DesarrolloActividades> preparedQuery = queryBuilder.prepare();
-        listaDesarrolloAct = daoDesarrolloAct.query(preparedQuery);
-
-        QueryBuilder<Altura, Integer> qBAltura = daoAltura.queryBuilder();
-
-        where = qBAltura.where();
-        where.eq(Constantes.UPLOADED, false);
-        PreparedQuery<Altura> pQAltura = qBAltura.prepare();
-        listaAltura = daoAltura.query(pQAltura);
-
-        QueryBuilder<ArbolEspecie, Integer> qBArbolEspecie = daoArbolEspecie.queryBuilder();
-
-        where = qBArbolEspecie.where();
-        where.eq(Constantes.UPLOADED, false);
-        PreparedQuery<ArbolEspecie> pQArbolEspecie = qBArbolEspecie.prepare();
-        listaArbolEspecie = daoArbolEspecie.query(pQArbolEspecie);
-
-        QueryBuilder<ArbolEstado, Integer> qBArbolEstado = daoArbolEstado.queryBuilder();
-
-        where = qBArbolEstado.where();
-        where.eq(Constantes.UPLOADED, false);
-        PreparedQuery<ArbolEstado> pQArbolEstado = qBArbolEstado.prepare();
-        listaArbolEstado = daoArbolEstado.query(pQArbolEstado);
-
-    }
-
     public void sincronizar(){
 
-        SyncApi sincronizarBaseDatos = new SyncApi(context);
+        if (listaLotes.size() > 0){
+
+            sincronizarLotes(listaLotes);
+        }
+
+
 
         if (listaAltura.size() > 0){
 
-            sincronizarBaseDatos.sincronizarAlturas(listaAltura);
-        }
-
-        if (listaArbol.size() > 0){
-
-            sincronizarBaseDatos.sincronizarArboles(listaArbol);
+            sincronizarAlturas(listaAltura);
         }
 
         if (listaArbolEstado.size() > 0){
 
-            sincronizarBaseDatos.sincronizarArbolEstado(listaArbolEstado);
-        }
-
-        if (listaLotes.size() > 0){
-
-            sincronizarBaseDatos.sincronizarLotes(listaLotes);
+            sincronizarArbolEstado(listaArbolEstado);
         }
 
         if (listaArbolEspecie.size() > 0){
 
-            sincronizarBaseDatos.sincronizarArbolEspecie(listaArbolEspecie);
+            sincronizarArbolEspecie(listaArbolEspecie);
         }
 
         if (listaDesarrolloAct.size() > 0){
 
-            sincronizarBaseDatos.sincronizarDesarrolloAct(listaDesarrolloAct);
+            sincronizarDesarrolloAct(listaDesarrolloAct);
         }
-
     }
 
     public SyncServiceUtils(Context context) {
-        this.context = context;
 
+        this.context = context;
+        init();
+    }
+
+    public void init(){
         basededatos datosReforest = OpenHelperManager.getHelper(context, basededatos.class);
 
         try {
@@ -167,6 +181,13 @@ public class SyncServiceUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public SyncServiceUtils(Context context, SincronizacionExitosa sincronizacionExitosa) {
+
+        this.context = context;
+        this.updateDb = new UpdateDb(context);
+        this.sinc = sincronizacionExitosa;
+        init();
     }
 
     public boolean checkPersonas() {
@@ -204,5 +225,209 @@ public class SyncServiceUtils {
         }
         return listaLotes;
 
+    }
+
+    private void sincronizarLotes(final List<Lote> listaLotes) {
+
+        //sinc lotes
+        for (final Lote lote : listaLotes){
+
+            Call<ResponseBody> subirLotes = ReforestApiAdapter.getApiService().postLotes(lote);
+            subirLotes.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    Log.e("postLotes toString",response.toString());
+                    if (response.isSuccessful()){
+
+                        Log.e("subirLote","Sucessful");
+                        try {
+                            updateDb.updateLote(lote);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }finally {
+                            if (lote == listaLotes.get(listaLotes.size()-1)){
+                                //ultimo lote
+                                if (listaArbol.size() > 0){
+
+                                    sincronizarArboles(listaArbol);
+                                }
+                            }
+                        }
+                    }else {
+                        Log.e("postLotes toString",response.toString());
+                        //                    Log.e("resultado postLotes",response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, Throwable t) {
+
+                    sinc.exitosa(false);
+                    Log.e("subirLote","Fallo");
+                }
+            });
+        }
+
+    }
+
+    private void sincronizarArboles(List<Arbol> listaArbol) {
+
+        //sinc arboles
+        for (final Arbol arbol : listaArbol){
+
+            Call<ResponseBody> subirArbol = ReforestApiAdapter.getApiService().postArbol(arbol);
+            subirArbol.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()){
+
+                        Log.e("subirArbol","Sucessful");
+                        try {
+                            updateDb.updateAbol(arbol);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    sinc.exitosa(false);
+                    Log.e("subirArbol","Fallo");
+                }
+            });
+        }
+    }
+
+    private void sincronizarArbolEstado(List<ArbolEstado> listaArbolEstado) {
+
+        if (listaArbolEstado.size() > 0){
+
+            //sinc Estado
+            for (final ArbolEstado arbolEstado : listaArbolEstado){
+
+                Call<ResponseBody> subirEspecie = ReforestApiAdapter.getApiService().postEstadoArbol(arbolEstado);
+                subirEspecie.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if (response.isSuccessful()){
+                            Log.e("subirArbolEstado","Sucessful");
+                            try {
+                                updateDb.updateArbolEstado(arbolEstado);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        sinc.exitosa(false);
+                        Log.e("subirArbolEstado","Fallo");
+                    }
+                });
+            }
+        }else{Log.e("esta vacia", "arbolEstado");}
+
+    }
+
+    private void sincronizarArbolEspecie(List<ArbolEspecie> listaArbolEspecie) {
+
+        //sinc ArbolEspecie
+        for (final ArbolEspecie arbolEspecie : listaArbolEspecie){
+
+            Call<ResponseBody> subirArbolEspecie = ReforestApiAdapter.getApiService().postEspecieArbol(arbolEspecie);
+            subirArbolEspecie.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()){
+                        Log.e("subirArbolEspecie","Sucessful");
+                        try {
+                            updateDb.update(arbolEspecie);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    sinc.exitosa(false);
+                    Log.e("subirArbolEspecie","Fallo");
+                }
+            });
+        }
+    }
+
+    private void sincronizarAlturas(List<Altura> listaAltura) {
+
+        //sinc Alturas
+        for (final Altura altura : listaAltura){
+            //Log.e("sincronizando alturas","dentro del for");
+
+            Call<ResponseBody> subirAltura = ReforestApiAdapter.getApiService().postAltura(altura);
+            subirAltura.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()){
+                        Log.e("subirAltura","Sucessful");
+                        try {
+                            updateDb.updateAltura(altura);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    sinc.exitosa(false);
+                    Log.e("subirAltura","Fallo");
+                }
+            });
+
+
+        }
+    }
+
+    private void sincronizarDesarrolloAct(final List<DesarrolloActividades> listaDesarrolloAct) {
+
+        for (final DesarrolloActividades dsa : listaDesarrolloAct){
+
+            Call<ResponseBody> subirDsaAct = ReforestApiAdapter.getApiService().postDesarrolloAct(dsa);
+            subirDsaAct.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()){
+                        try {
+                            updateDb.updateDesaAct(dsa);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("subirDesarrollo", "es successfull");
+                        if (dsa == listaDesarrolloAct.get(listaDesarrolloAct.size() - 1)){
+
+                            sinc.exitosa(true);
+                            Log.e("ultimo " , "desarrolloActividad ");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    sinc.exitosa(false);
+                    Log.e("subirDesa","Fallo");
+                }
+            });
+
+        }
     }
 }

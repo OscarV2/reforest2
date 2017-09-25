@@ -2,7 +2,10 @@ package com.jegg.reforest.actividades;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -26,13 +29,14 @@ import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.SyncServiceStopped;
 import com.jegg.reforest.Utils.CerrarDialogo;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.controladores.DownloadUserData;
 
 import java.sql.SQLException;
 
-public class Menu extends AppCompatActivity implements CerrarDialogo{
+public class Menu extends AppCompatActivity implements CerrarDialogo, SyncServiceStopped{
 
     SharedPreferences prefs;
     ProgressDialog progressDialog;
@@ -105,33 +109,8 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
             case R.id.opcionSincronizar:
 
                 progressDialog = ProgressDialog.show(Menu.this, "Sincronizando...", "Por favor espere..", true);
-                startService(new Intent(Menu.this, SinconizacionService.class));
-                progressDialog.dismiss();
-/*
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Log.e("descargando","sinc");
-                                //descargarDatos.setPersona(usuario);
-                                //descargarDatos.descargar();
-                            }
-                        }).start();
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                Toast.makeText(Menu.this, "Datos sincronizados exitosamente.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                }, 4800);
-*/
-
+                SinconizacionService sin = new SinconizacionService(Menu.this, this);
+                sin.comenzar();
                 break;
             case R.id.opcionIrWeb:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_SITIO_WEB));
@@ -163,4 +142,38 @@ public class Menu extends AppCompatActivity implements CerrarDialogo{
     public void cerrardialogo() {
 
     }
+
+    @Override
+    public void onSyncFinished(String msg) {
+
+        Log.e("mensaje", msg);
+        switch (msg) {
+            case "SyncUsuariosSuccess":
+                try {
+                    progressDialog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "stop":
+                try {
+                    progressDialog.dismiss();
+                    Toast.makeText(Menu.this, "Sincronizacion exitosa.", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "SyncFiled":
+                try {
+                    progressDialog.dismiss();
+                    Toast.makeText(Menu.this, "Sincronizacion fallida, Por favor intente mas tarde.", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                progressDialog.dismiss();
+        }
+    }
+
 }

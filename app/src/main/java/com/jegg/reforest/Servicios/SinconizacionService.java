@@ -1,19 +1,14 @@
 package com.jegg.reforest.Servicios;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Binder;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.Utils.CerrarDialogo;
+import com.jegg.reforest.SincronizacionExitosa;
+import com.jegg.reforest.SyncServiceStopped;
 import com.jegg.reforest.Utils.SyncServiceUtils;
 import com.jegg.reforest.api.ReforestApiAdapter;
 
@@ -23,22 +18,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SinconizacionService extends Service {
+public class SinconizacionService implements SincronizacionExitosa{
 
-    SharedPreferences prefs;
+    //private SharedPreferences prefs;
     private SyncServiceUtils utils;
-    private final IBinder mBinder = new LocalBinder();
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return mBinder;
+    private SyncServiceStopped syncServiceStopped;
+    private Context context;
+
+    public SinconizacionService(Context context, SyncServiceStopped syncServiceStopped) {
+        this.syncServiceStopped = syncServiceStopped;
+        this.context = context;
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
+    public void comenzar(){
         init();
-        ConnectivityManager conMan = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager conMan = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (conMan.getActiveNetworkInfo() != null &&
                 conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
@@ -50,67 +44,79 @@ public class SinconizacionService extends Service {
             }else{                // sincronizacion automatica enabled
 
                 Log.e("automatyc","able");
-                utils.consultarTablas();
+                utils.llenarListasSync();
                 utils.sincronizar();
-                stopSelf();
+                if (!utils.consultarTablas()){ // no hay datos para Sync
+                    syncServiceStopped.onSyncFinished("nada");
+                    Log.e("no hay","datos");
+                }
             }
         }else {
             // wifi disabled
             Log.e("wifi","disabled");
-            stopSelf();
+            syncServiceStopped.onSyncFinished("wifidisabled");
         }
-        return START_STICKY;
     }
 
     private void getUsuariosFromApi() {
 
+        Log.e("in","getUsuariosFromApi");
         Call<List<Persona>> getPersonas = ReforestApiAdapter.getApiService().getPersonas();
         getPersonas.enqueue(new Callback<List<Persona>>() {
             @Override
             public void onResponse(@NonNull Call<List<Persona>> call, @NonNull Response<List<Persona>> response) {
 
+                Log.e("in","Personas on response");
                 if (response.isSuccessful()){
 
+                    Log.e("in","response sucessfull");
                     List<Persona> personaList = response.body();
                     if (personaList != null && personaList.size() > 0) {
 
                         for (Persona p : personaList) {
                             utils.crearPersona(p);
+                            if (p == personaList.get(personaList.size() - 1)){
+
+                                Log.e("in","ultima persona");
+                                syncServiceStopped.onSyncFinished("SyncUsuariosSuccess");
+                                release();
+                            }
                         }
                     }
-                    stopSelf();
+
                 }
             }
             @Override
             public void onFailure(@NonNull Call<List<Persona>> call, @NonNull Throwable t) {
 
                 Log.e("falla","peticion personas");
-                stopSelf();
+                syncServiceStopped.onSyncFinished("Error");
+                release();
             }
         });
     }
 
     private void init() {
 
-        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        utils = new SyncServiceUtils(getApplicationContext());
+    //    prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        utils = new SyncServiceUtils(context, this);
     }
 
-    public class LocalBinder extends Binder {
-        public SinconizacionService getServiceInstance(){
-            return SinconizacionService.this;
-        }
+    private void release(){
+        utils.releaseHelper();
     }
 
     @Override
-    public void onDestroy() {
-        utils.releaseHelper();
+    public void exitosa(boolean success) {
 
-        Intent i = new Intent();
-        i.setAction("stop");
-        Log.e("servicio","stopped");
-        sendBroadcast(i);
-        super.onDestroy();
+        if(success){
+
+            syncServiceStopped.onSyncFinished("stop");
+            release();
+            Log.e("servicio","stopped");
+        }else{
+            syncServiceStopped.onSyncFinished("SyncFiled");
+            release();
+        }
     }
-
 }
