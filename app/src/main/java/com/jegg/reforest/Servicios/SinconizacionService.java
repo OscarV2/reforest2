@@ -113,8 +113,10 @@ public class SinconizacionService implements SincronizacionExitosa{
 
             syncServiceStopped.onSyncFinished("stop");
             release();
-            Log.e("servicio","stopped");
+            Log.e("exitosa","enviando mensaje stop");
         }else{
+            Log.e("NO exitosa","enviando mensaje SyncFiled");
+
             syncServiceStopped.onSyncFinished("SyncFiled");
             release();
         }

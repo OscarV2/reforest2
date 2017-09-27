@@ -129,8 +129,6 @@ public class SyncServiceUtils {
             sincronizarLotes(listaLotes);
         }
 
-
-
         if (listaAltura.size() > 0){
 
             sincronizarAlturas(listaAltura);
@@ -182,6 +180,7 @@ public class SyncServiceUtils {
             e.printStackTrace();
         }
     }
+
     public SyncServiceUtils(Context context, SincronizacionExitosa sincronizacionExitosa) {
 
         this.context = context;
