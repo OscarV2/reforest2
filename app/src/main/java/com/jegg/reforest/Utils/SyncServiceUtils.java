@@ -64,15 +64,16 @@ public class SyncServiceUtils {
 
     public boolean consultarTablas(){
 
-        return  listaAltura.size() == 0 || listaArbol.size() == 0
-                || listaArbolEspecie.size() == 0  || listaArbolEstado.size() == 0
-                || listaDesarrolloAct.size() == 0 || listaLotes.size() == 0;
+        return  listaAltura.size() == 0 && listaArbol.size() == 0
+                && listaArbolEspecie.size() == 0  && listaArbolEstado.size() == 0
+                && listaDesarrolloAct.size() == 0 && listaLotes.size() == 0;
 
 
     }
 
     public void llenarListasSync(){
 
+        Log.e("dentro de","metodo llenarlistasSync");
         try {
 
             // llenar lista con registros no sincronizados
@@ -124,6 +125,7 @@ public class SyncServiceUtils {
 
     public void sincronizar(){
 
+        Log.e("dentro de","metodo sincronizar");
         if (listaLotes.size() > 0){
 
             sincronizarLotes(listaLotes);
@@ -228,6 +230,7 @@ public class SyncServiceUtils {
 
     private void sincronizarLotes(final List<Lote> listaLotes) {
 
+        Log.e("dentro de","sincronizarLotes");
         //sinc lotes
         for (final Lote lote : listaLotes){
 
@@ -272,6 +275,7 @@ public class SyncServiceUtils {
 
     private void sincronizarArboles(List<Arbol> listaArbol) {
 
+        Log.e("dentro de","sincronizarArboles");
         //sinc arboles
         for (final Arbol arbol : listaArbol){
 
@@ -303,6 +307,7 @@ public class SyncServiceUtils {
 
     private void sincronizarArbolEstado(List<ArbolEstado> listaArbolEstado) {
 
+        Log.e("dentro de","ArbolEstado");
         if (listaArbolEstado.size() > 0){
 
             //sinc Estado
@@ -336,6 +341,7 @@ public class SyncServiceUtils {
 
     private void sincronizarArbolEspecie(List<ArbolEspecie> listaArbolEspecie) {
 
+        Log.e("dentro de","sincArbolEspacio");
         //sinc ArbolEspecie
         for (final ArbolEspecie arbolEspecie : listaArbolEspecie){
 
@@ -365,6 +371,7 @@ public class SyncServiceUtils {
 
     private void sincronizarAlturas(List<Altura> listaAltura) {
 
+        Log.e("dentro de","Alturas");
         //sinc Alturas
         for (final Altura altura : listaAltura){
             //Log.e("sincronizando alturas","dentro del for");
@@ -398,6 +405,7 @@ public class SyncServiceUtils {
 
     private void sincronizarDesarrolloAct(final List<DesarrolloActividades> listaDesarrolloAct) {
 
+        Log.e("dentro de","sincDesarrolloAct");
         for (final DesarrolloActividades dsa : listaDesarrolloAct){
 
             Call<ResponseBody> subirDsaAct = ReforestApiAdapter.getApiService().postDesarrolloAct(dsa);

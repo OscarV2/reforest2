@@ -90,10 +90,14 @@ public class MainActivity extends AppCompatActivity implements SyncServiceStoppe
 
     private void sincronizando(){
 
-        if (autoSync || (!inicioSesion)){
+        SinconizacionService sin = new SinconizacionService(MainActivity.this, this);
+
+        if (!inicioSesion){
             progressDialog.show();
-            SinconizacionService sin = new SinconizacionService(MainActivity.this, this);
-            sin.comenzar();
+            sin.comenzar("downloadUsers");
+        }else if (autoSync){
+            progressDialog.show();
+            sin.comenzar("autoSync");
                    // Intent intent = new Intent(MainActivity.this, SinconizacionService.class);
                   //  startService(intent);
             }

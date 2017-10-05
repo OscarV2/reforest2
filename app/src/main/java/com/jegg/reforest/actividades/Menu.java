@@ -100,13 +100,13 @@ public class Menu extends AppCompatActivity implements CerrarDialogo, SyncServic
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)     {
         switch (item.getItemId()){
             case R.id.opcionSincronizar:
 
                 progressDialog = ProgressDialog.show(Menu.this, "Sincronizando...", "Por favor espere..", true);
                 SinconizacionService sin = new SinconizacionService(Menu.this, this);
-                sin.comenzar();
+                sin.comenzar("autoSync");
                 break;
             case R.id.opcionIrWeb:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_SITIO_WEB));

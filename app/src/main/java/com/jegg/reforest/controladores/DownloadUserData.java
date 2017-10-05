@@ -76,9 +76,15 @@ public class DownloadUserData extends SyncServiceUtils {
                         }
                         Log.e("despues del","for");
                         cerrarDialogo.cerrardialogo();
-                    }else{cerrarDialogo.cerrardialogo();}
-                }else{
+                    }else{
+                        Log.e("tamaño de","lista de lotes es cero");
 
+                        cerrarDialogo.cerrardialogo();}
+                }else{
+                    Log.e("lotes response","was not successfull");
+
+                    Toast.makeText(context, "No se pudo sincronizar sus datos, revise su conexion" +
+                            " a Internet", Toast.LENGTH_SHORT).show();
                     cerrarDialogo.cerrardialogo();
                     }
             }
@@ -86,6 +92,7 @@ public class DownloadUserData extends SyncServiceUtils {
             @Override
             public void onFailure(Call<List<Lote>> call, Throwable t) {
 
+                Log.e("fallo","descarga de lotes");
                 cerrarDialogo.cerrardialogo();
                 Toast.makeText(context, "No se pudo sincronizar sus datos, revise su conexion" +
                         " a Internet", Toast.LENGTH_SHORT).show();

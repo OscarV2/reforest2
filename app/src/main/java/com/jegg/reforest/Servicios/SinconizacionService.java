@@ -30,25 +30,29 @@ public class SinconizacionService implements SincronizacionExitosa{
         this.context = context;
     }
 
-    public void comenzar(){
+    public void comenzar(String msg){
         init();
         ConnectivityManager conMan = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (conMan.getActiveNetworkInfo() != null &&
                 conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
 
-            if (utils.checkPersonas()){         // no hay usuarios en la app, se procede a bajarlos de la api
+
+            if (utils.checkPersonas() && msg.equals("downloadUsers")){         // no hay usuarios en la app, se procede a bajarlos de la api
                 Log.e("no hay","usuarios");
                 getUsuariosFromApi();
 
-            }else{                // sincronizacion automatica enabled
+            }else if (msg.equals("autoSync")){      // sincronizacion automatica enabled
 
                 Log.e("automatyc","able");
                 utils.llenarListasSync();
-                utils.sincronizar();
-                if (!utils.consultarTablas()){ // no hay datos para Sync
+
+                if (utils.consultarTablas()){ // no hay datos para Sync
                     syncServiceStopped.onSyncFinished("nada");
                     Log.e("no hay","datos");
+                }else{
+                    Log.e("dentro de","else si hay datos");
+                    utils.sincronizar();
                 }
             }
         }else {
@@ -98,7 +102,6 @@ public class SinconizacionService implements SincronizacionExitosa{
 
     private void init() {
 
-    //    prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         utils = new SyncServiceUtils(context, this);
     }
 

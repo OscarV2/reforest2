@@ -17,7 +17,6 @@ public class UpdateDb extends SyncServiceUtils{
 
     public UpdateDb(Context context) {
         super(context);
-
     }
 
     public void updateAbol(Arbol arbol) throws SQLException {
@@ -29,8 +28,6 @@ public class UpdateDb extends SyncServiceUtils{
     }
 
     public void updateLote(Lote lote) throws SQLException {
-
-        Log.e("actualizado","lote");
 
 //        daoLotes.delete(lote);
 
@@ -49,7 +46,7 @@ public class UpdateDb extends SyncServiceUtils{
 
     public void update(ArbolEspecie arbolEspecie) throws SQLException {
 
-        Log.e("borrando","arbolespecie");
+ //       Log.e("borrando","arbolespecie");
 
         arbolEspecie.setUploaded(true);
         daoArbolEspecie.update(arbolEspecie);
@@ -58,7 +55,7 @@ public class UpdateDb extends SyncServiceUtils{
 
     public void updateArbolEstado(ArbolEstado arbolEstado) throws SQLException {
 
-        Log.e("borrando","arbolestado");
+  //      Log.e("borrando","arbolestado");
 
         arbolEstado.setUploaded(true);
         daoArbolEstado.update(arbolEstado);
@@ -67,9 +64,8 @@ public class UpdateDb extends SyncServiceUtils{
 
     public void updateDesaAct(DesarrolloActividades desarrolloActividades) throws SQLException {
 
-        Log.e("borrando","desaAct");
+//        Log.e("borrando","desaAct");
         desarrolloActividades.setUploaded(true);
         daoDesarrolloAct.update(desarrolloActividades);
-
     }
 }
