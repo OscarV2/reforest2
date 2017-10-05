@@ -44,16 +44,18 @@ public class SinconizacionService implements SincronizacionExitosa{
 
             }else if (msg.equals("autoSync")){      // sincronizacion automatica enabled
 
-                Log.e("automatyc","able");
                 utils.llenarListasSync();
 
-                if (utils.consultarTablas()){ // no hay datos para Sync
+                if (utils.consultarTablas()){ // si hay datos para Sync
+                    Log.e("dentro de","si hay datos");
+                    utils.sincronizar();
+                }else{
+
                     syncServiceStopped.onSyncFinished("nada");
                     Log.e("no hay","datos");
-                }else{
-                    Log.e("dentro de","else si hay datos");
-                    utils.sincronizar();
                 }
+            }else if(!utils.checkPersonas() && msg.equals("downloadUsers")){
+                syncServiceStopped.onSyncFinished("nada");
             }
         }else {
             // wifi disabled

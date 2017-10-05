@@ -64,9 +64,9 @@ public class SyncServiceUtils {
 
     public boolean consultarTablas(){
 
-        return  listaAltura.size() == 0 && listaArbol.size() == 0
-                && listaArbolEspecie.size() == 0  && listaArbolEstado.size() == 0
-                && listaDesarrolloAct.size() == 0 && listaLotes.size() == 0;
+        return  listaAltura.size() > 0 || listaArbol.size() > 0
+                || listaArbolEspecie.size()  > 0 || listaArbolEstado.size() > 0
+                || listaDesarrolloAct.size() > 0 || listaLotes.size() > 0;
 
 
     }
@@ -129,6 +129,11 @@ public class SyncServiceUtils {
         if (listaLotes.size() > 0){
 
             sincronizarLotes(listaLotes);
+        }
+
+        if (listaArbol.size() > 0){
+
+            sincronizarArboles(listaArbol);
         }
 
         if (listaAltura.size() > 0){
@@ -247,14 +252,6 @@ public class SyncServiceUtils {
                             updateDb.updateLote(lote);
                         } catch (SQLException e) {
                             e.printStackTrace();
-                        }finally {
-                            if (lote == listaLotes.get(listaLotes.size()-1)){
-                                //ultimo lote
-                                if (listaArbol.size() > 0){
-
-                                    sincronizarArboles(listaArbol);
-                                }
-                            }
                         }
                     }else {
                         Log.e("postLotes toString",response.toString());
@@ -405,6 +402,7 @@ public class SyncServiceUtils {
 
     private void sincronizarDesarrolloAct(final List<DesarrolloActividades> listaDesarrolloAct) {
 
+        Log.e("numero de actividades", String.valueOf(listaDesarrolloAct.size()));
         Log.e("dentro de","sincDesarrolloAct");
         for (final DesarrolloActividades dsa : listaDesarrolloAct){
 
@@ -413,13 +411,29 @@ public class SyncServiceUtils {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                    Log.e("onResponse","desarrolloactividades");
+                    Log.e("respuesta",response.toString());
                     if (response.isSuccessful()){
+                        Log.e("response","desarrolloactividades fue exitosa.");
+                        Log.e("","");
                         try {
                             updateDb.updateDesaAct(dsa);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                         Log.e("subirDesarrollo", "es successfull");
+                        if (dsa == listaDesarrolloAct.get(listaDesarrolloAct.size() - 1)){
+
+                            sinc.exitosa(true);
+                            Log.e("ultimo " , "desarrolloActividad ");
+                        }
+                    }else {
+                        try {
+                            updateDb.updateDesaAct(dsa);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("onResponse","desarrolloactividades no fue exitosa");
                         if (dsa == listaDesarrolloAct.get(listaDesarrolloAct.size() - 1)){
 
                             sinc.exitosa(true);
