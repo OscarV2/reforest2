@@ -74,8 +74,7 @@ public class DownloadUserData extends SyncServiceUtils {
                             }
 
                         }
-                        Log.e("despues del","for");
-                        cerrarDialogo.cerrardialogo();
+
                     }else{
                         Log.e("tamaño de","lista de lotes es cero");
 
@@ -95,7 +94,7 @@ public class DownloadUserData extends SyncServiceUtils {
                 Log.e("fallo","descarga de lotes");
                 cerrarDialogo.cerrardialogo();
                 Toast.makeText(context, "No se pudo sincronizar sus datos, revise su conexion" +
-                        " a Internet", Toast.LENGTH_SHORT).show();
+                        " a Internet", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -269,6 +268,7 @@ public class DownloadUserData extends SyncServiceUtils {
                                 e.printStackTrace();
                             }
                         }
+                        cerrarDialogo.cerrardialogo();
                     }else {Log.e("descargando","desarrolloactividades lista esta vacia");}
                 }else {Log.e("descargando","desarrolloactividades response WASNT SUCCESSFULL");}
             }

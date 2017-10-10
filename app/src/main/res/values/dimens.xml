@@ -57,5 +57,6 @@
     <dimen name="text_item_lote">16sp</dimen>
 
     <dimen name="alto_menu_landscape">150dp</dimen>
+    <dimen name="ancho_mapa_detalles">200dp</dimen>
 
 </resources>

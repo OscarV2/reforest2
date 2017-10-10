@@ -76,9 +76,19 @@
     <string name="refrescar_mi_posicion">Refrescar mi posicion</string>
 
     <string name="txt_btn_guardar_actividad">Guardar</string>
-    <string name="hint_comentario"></string>
+    <string name="hint_comentario">Comentario:</string>
     <string name="hint_hin_altura">Altura del arbol:</string>
-    <string name="hint_"></string>
+
+    <string name="st_lote">Lote:</string>
+    <string name="realizar_actividad">Realizar actividad</string>
+    <string name="lote">Lote:</string>
+    <string name="tipo_actividad">Tipo actividad</string>
+    <string name="comentario">Comentario:</string>
+    <string name="st_salud_del_arbol">Salud del arbol</string>
+    <string name="nombre_comun">Nombre Comun</string>
+    <string name="st_nombre_cientifico">Nombre Cientifico</string>
+    <string name="hint_altura_del_arbol">Altura del arbol:</string>
+    <string name="hint_tallo_del_arbol">Grosor del tallo (cm)</string>
 
     <!-- Especies  -->
     <string-array name="lista_especies" >
@@ -125,6 +135,52 @@
         <item>Trupillo</item>
         <item>Uvito</item>
         <item>Zapote</item>
+    </string-array>
+
+    <string-array name="nombres_cientificos">
+        <item>Samanea saman</item>
+        <item>Manihot carthaginensis</item>
+        <item>Sterculia apetala</item>
+        <item>Samanea saman</item>
+        <item>Erythrina fusca</item>
+        <item>Anacardium excelsum</item>
+        <item>Enterolobium cyclocarpum</item>
+        <item>Aspidosperma polyneuron</item>
+        <item>Ficus elastica</item>
+        <item>Tabebuia  crischantha </item>
+        <item>Cedrus</item>
+        <item>Pseudobombax septenatum</item>
+        <item>Pictadenia speciosa</item>
+        <item>Prunus domestica</item>
+        <item>Melicoca bijugatus</item>
+        <item>Lividivia coriaria</item>
+        <item>Pereskia colombiana</item>
+        <item>Guazumaulmifolia</item>
+        <item>Psidium guajava </item>
+        <item>Tabebuia chrysantha</item>
+        <item>Ficus luschnathiana</item>
+        <item>Sponia mombis</item>
+        <item>Citrus aurantifolia</item>
+        <item>Mangifera indica</item>
+        <item>Melicoccus bijugatus</item>
+        <item>Matarraton</item>
+        <item>Rubus</item>
+        <item>Citrus aurantium var Amara</item>
+        <item>Azadirachta indica</item>
+        <item>Eriobotrya japonica</item>
+        <item>Enterolobium cyclocarpum.</item>
+        <item>Parinari Pachyphylla</item>
+        <item>Tabebuia serratifolia</item>
+        <item>Tabebuis bilberggi</item>
+        <item>Aspidosperma</item>
+        <item>Tacaloa</item>
+        <item>Tamarindus indica</item>
+        <item>Crescentia cujete</item>
+        <item>Prosopis juliflora</item>
+        <item>Tabebula rosea</item>
+        <item>Catasetum osculatum</item>
+        <item>Vitis vinifera</item>
+        <item>Pouteria sapota</item>
     </string-array>
 </resources>
 

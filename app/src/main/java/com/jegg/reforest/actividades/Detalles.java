@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -72,7 +73,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         AdapterView.OnItemSelectedListener, GoogleMap.OnMarkerClickListener,
         LastLocationReady {
 
-    EditText edtFecha, edtComentarios, edtAltura, edtBuscarArbol;
+    EditText edtFecha, edtComentarios,
+             edtAltura, edtBuscarArbol,
+             edtTallo;
     AutoCompleteTextView edtEspecie;
     ImageView fotoArbol;
     TextView txtCoordenadas, txtLote;
@@ -88,8 +91,9 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private GoogleMap mMap;
 
     RelativeLayout layCordenadas, layBuscarArbol;
-    LinearLayout lay_edt_especie, lay_edt_altura,
-            laySpinnerSaludArbol, layMapa;
+    LinearLayout   laySpinnerSaludArbol, layMapa;
+    TextInputLayout lay_edt_especie, lay_edt_altura,
+            layTallo;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     double latitud, longitud;
     SimpleDateFormat sdf;
@@ -168,27 +172,29 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     private void init() {
 
-        lay_edt_altura = (LinearLayout) findViewById(R.id.lay_edt_altura);
-        lay_edt_especie = (LinearLayout) findViewById(R.id.lay_edt_especie);
-        laySpinnerSaludArbol = (LinearLayout) findViewById(R.id.linear_spiner_salud_arbol);
-        layMapa = (LinearLayout) findViewById(R.id.lay_mapa);
-        layCordenadas = (RelativeLayout) findViewById(R.id.lay_cordenadas);
-        layBuscarArbol = (RelativeLayout) findViewById(R.id.lay_buscar_arbol);
+        lay_edt_altura  = findViewById(R.id.lay_edt_altura);
+        lay_edt_especie = findViewById(R.id.lay_edt_especie);
+        laySpinnerSaludArbol = findViewById(R.id.linear_spiner_salud_arbol);
+        layMapa = findViewById(R.id.lay_mapa);
+        layCordenadas  = findViewById(R.id.lay_cordenadas);
+        layBuscarArbol = findViewById(R.id.lay_buscar_arbol);
+        layTallo = findViewById(R.id.lay_edt_tallo);
 
-        edtComentarios = (EditText) findViewById(R.id.comentario_detalles);
-        edtEspecie = (AutoCompleteTextView) findViewById(R.id.especieArbol);
-        edtFecha = (EditText) findViewById(R.id.FechaActividadArbol);
-        edtAltura = (EditText) findViewById(R.id.alturaArbol);
-        edtBuscarArbol = (EditText) findViewById(R.id.edt_numero_arbol);
+        edtComentarios = findViewById(R.id.comentario_detalles);
+        edtEspecie = findViewById(R.id.especieArbol);
+        edtFecha = findViewById(R.id.FechaActividadArbol);
+        edtAltura = findViewById(R.id.alturaArbol);
+        edtBuscarArbol = findViewById(R.id.edt_numero_arbol);
+        edtTallo = findViewById(R.id.edt_talloArbol);
 
-        txtCoordenadas = (TextView) findViewById(R.id.CoordenadasArbol);
-        fotoArbol = (ImageView) findViewById(R.id.foto_arbol);
+        txtCoordenadas = findViewById(R.id.CoordenadasArbol);
+        fotoArbol = findViewById(R.id.foto_arbol);
 
-        actividades = (Spinner) findViewById(R.id.spinner_detalle_actividad);
-        saludArbol = (Spinner) findViewById(R.id.spinner_salud_arbol);
+        actividades = findViewById(R.id.spinner_detalle_actividad);
+        saludArbol  = findViewById(R.id.spinner_salud_arbol);
 
-        txtLote = (TextView) findViewById(R.id.nombre_lote);
-        txtLote.append(nombreLote);
+        txtLote = findViewById(R.id.nombre_lote);
+        txtLote.append(" " + nombreLote);
 
         controllerEspecies = new ControllerEspecies(this);
         ArrayAdapter<String> especieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
@@ -198,7 +204,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         fechaActividad = Constantes.sdf.format(new Date());
-        edtFecha.setText(sdf.format(new Date()));
+        //edtFecha.setText(sdf.format(new Date()));
 
         filePath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -247,6 +253,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 idEstado = 1;
             }
         });
+
     }
 
     @Override
@@ -267,7 +274,10 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
                 Bundle extras = data.getExtras();
 
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                Bitmap imageBitmap = null;
+                if (extras != null) {
+                    imageBitmap = (Bitmap) extras.get("data");
+                }
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                 assert imageBitmap != null;
@@ -347,12 +357,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 idActividad = 1;
                 setActividad();
                 esconderVistas(false);
+
                 if (location != null) {
 
                     initMap();
                 }
-
-                Log.e("position 0", "position 0");
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 layCordenadas.setVisibility(View.VISIBLE);
                 layBuscarArbol.setVisibility(View.GONE);
@@ -363,6 +372,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 //Abonar
                 esconderVistas(true);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
+                layTallo.setVisibility(View.GONE);
                 cargarArboles();
                 break;
             case 2:
@@ -371,6 +381,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 //Control de Malezas
                 esconderVistas(true);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
+                layTallo.setVisibility(View.GONE);
                 cargarArboles();
                 break;
 
@@ -380,6 +391,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 //Fertilizacion
                 esconderVistas(true);
                 laySpinnerSaludArbol.setVisibility(View.GONE);
+                layTallo.setVisibility(View.GONE);
                 cargarArboles();
                 break;
             case 4:
@@ -402,6 +414,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 laySpinnerSaludArbol.setVisibility(View.GONE);
                 layCordenadas.setVisibility(View.GONE);
                 layBuscarArbol.setVisibility(View.VISIBLE);
+                layTallo.setVisibility(View.GONE);
                 cargarArboles();
                 break;
             case 6:
@@ -409,6 +422,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 setActividad();
                 //Estado del arbol
                 laySpinnerSaludArbol.setVisibility(View.VISIBLE);
+                layTallo.setVisibility(View.VISIBLE);
                 esconderVistas(true);
                 cargarArboles();
                 break;
@@ -418,7 +432,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     private void setActividad() {
 
         try {
-
             actividad = detallesAux.getActividad(idActividad);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -444,6 +457,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             lay_edt_altura.setVisibility(View.GONE);
             lay_edt_especie.setVisibility(View.GONE);
             layBuscarArbol.setVisibility(View.VISIBLE);
+
             location = utils.getLocation();
             if (location != null) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
@@ -453,13 +467,13 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         } else {
             lay_edt_altura.setVisibility(View.VISIBLE);
             lay_edt_especie.setVisibility(View.VISIBLE);
+            layTallo.setVisibility(View.VISIBLE);
             location = utils.getLocation();
             if (location != null) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
 
             }
         }
-
     }
 
     @Override
@@ -615,7 +629,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        Log.e("mapa", "listo");
         mMap = googleMap;
         UiSettings mUiSettings;
         mUiSettings = mMap.getUiSettings();
@@ -770,12 +783,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         Intent i = new Intent(Detalles.this, Lotes.class);
         startActivity(i);
         finish();
-
     }
 
     private void setToolbar() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detalles);
+        Toolbar toolbar = findViewById(R.id.toolbar_detalles);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar !=null){
