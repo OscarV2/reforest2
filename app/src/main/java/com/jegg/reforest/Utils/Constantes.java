@@ -24,6 +24,8 @@ public class Constantes {
     public static final String GET_ARBOL = "arbol_/";
     public static final String GET_LOTE = "Lote_/";
     public static final String GET_ALTURA = "altura_/";
+    public static final String GET_TALLOS = "tallo_/";
+
     public static final String UPLOADED = "uploaded";
     public static final String POST_ALTURA = "altura";
 

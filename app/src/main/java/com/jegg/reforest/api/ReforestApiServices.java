@@ -48,6 +48,9 @@ public interface ReforestApiServices {
     @GET(Constantes.GET_LOTE +"{id}")
     Call<List<Lote>> getLotes(@Path("id") int id);
 
+    @GET(Constantes.GET_TALLOS +"{id}")
+    Call<List<Lote>> getTallos(@Path("id") int id);
+
     @GET(Constantes.GET_ARBOL_ESPECIE +"{id}")
     Call<List<ArbolEspecie>> getArbolEspecies(@Path("id") String id);
 

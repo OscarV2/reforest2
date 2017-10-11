@@ -77,7 +77,6 @@ public class DownloadUserData extends SyncServiceUtils {
                                 //descargar arboles
                                 descargarArboles(lote);
                             }
-
                         }
 
                     }else{
@@ -131,10 +130,11 @@ public class DownloadUserData extends SyncServiceUtils {
 
                                 if (arbol == lista.get(lista.size() -1)){
 
-                                    descargarDesaActividades(arbol, true);
+                                    cerrarDialogo.cerrardialogo();
+                                 //   descargarDesaActividades(arbol, true);
                                 }else {
 
-                                    descargarDesaActividades(arbol, false);
+                                 //   descargarDesaActividades(arbol, false);
                                 }
                             }
                         }

@@ -205,7 +205,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         fechaActividad = Constantes.sdf.format(new Date());
-        //edtFecha.setText(sdf.format(new Date()));
+        edtFecha.setText(sdf.format(new Date()));
 
         filePath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
@@ -506,7 +506,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 if (idActividad == 5) {
                     Log.e("guardando", "actividad 6 o 2");
                     guardarActividad5();
-                } else {   // idActividad = 1
+                } else {   // idActividad = 1 Preparar terreno
                     if (location == null) {
                         Toast.makeText(this, "No hay coordenadas para preparar terreno.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -530,7 +530,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 alturaEntity = new Altura(arbol, altura);
                 talloEntidad = new Tallo(arbol, tallo);
 
-                detallesAux.crearEstado(arbolEstado);
+                detallesAux.crearEstadoAlturaTallo(arbolEstado, talloEntidad, alturaEntity);
+
                 detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
                         fechaActividad, actividad, arbol, usuario);
             }
@@ -574,16 +575,15 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
                 alturaEntity = new Altura(arbol, altura);
                 arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
-                Log.e("guardando", "actividad 2 o 6");
-                Log.e("idActividad", String.valueOf(actividad.getId()));
-
                 arbolEstado = new ArbolEstado(arbol, estados.get(3));
+                talloEntidad = new Tallo(arbol, tallo);
+
+                detallesAux.crearEstadoAlturaTallo(arbolEstado, talloEntidad, alturaEntity);
 
                 desarrolloActividad = new DesarrolloActividades(fotoPath, comentariosActividad
                         , fechaActividad, actividad, arbol, usuario);
                 try {
-                    detallesAux.createEntitiesActivity6(desarrolloActividad, arbolEspecie,
-                            alturaEntity, arbolEstado);
+                    detallesAux.createEntitiesActivity6(desarrolloActividad, arbolEspecie);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -600,8 +600,10 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         arbol = new Arbol(coordenadas, fechaActividad, lote);
         arbol.setNumArbol(numArboles + 1);
         arbolEstado = new ArbolEstado(arbol, estados.get(0));
+        talloEntidad = new Tallo(arbol, tallo);
         alturaEntity = new Altura(arbol, altura);
         especieEntidad = detallesAux.getEspecie(especie);
+        talloEntidad = new Tallo(arbol, tallo);
         arbolEspecie = new ArbolEspecie(arbol, especieEntidad);
         if (especieEntidad == null) {
 
@@ -609,9 +611,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         }else{
 
             detallesAux.crearArbol(arbol);
-            detallesAux.crearEstado(arbolEstado);
+            detallesAux.crearEstadoAlturaTallo(arbolEstado, talloEntidad, alturaEntity);
             detallesAux.crearArbolEspecie(arbolEspecie);
-            detallesAux.crearAltura(alturaEntity);
             detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
                     fechaActividad, actividad, arbol, usuario);
             volverALotes();

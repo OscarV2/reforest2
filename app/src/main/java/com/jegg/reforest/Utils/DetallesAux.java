@@ -56,13 +56,11 @@ public class DetallesAux extends SyncServiceUtils {
         return especieEntidad;
     }
 
-    public void createEntitiesActivity6(DesarrolloActividades desarrolloActividad, ArbolEspecie arbolEspecie,
-                                        Altura alturaEntity, ArbolEstado arbolEstado) throws SQLException {
+    public void createEntitiesActivity6(DesarrolloActividades desarrolloActividad,
+                                        ArbolEspecie arbolEspecie) throws SQLException {
 
         daoDesarrolloAct.create(desarrolloActividad);
         daoArbolEspecie.create(arbolEspecie);
-        daoAltura.create(alturaEntity);
-        daoArbolEstado.create(arbolEstado);
     }
 
     public void guardarActividad_2_3_4_6_7_8(String fotoPath, String comentariosActividad,
@@ -151,18 +149,21 @@ if (todos.get(i).getId() != null){
 
     }
 
-    public void crearTallo(String medida, Arbol arbol){
-
-        try {
-            daoTallo.create(new Tallo(arbol, medida));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void releaseHelper() {
         Log.e("release","detallesAux");
         super.releaseHelper();
+    }
+
+    public void crearEstadoAlturaTallo(ArbolEstado arbolEstado, Tallo talloEntidad, Altura alturaEntity) {
+
+        try {
+            daoTallo.create(talloEntidad);
+            daoArbolEstado.create(arbolEstado);
+            daoAltura.create(alturaEntity);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -63,6 +63,7 @@ public class SyncServiceUtils {
     private List<Altura> listaAltura = new ArrayList<>();
     private List<ArbolEstado> listaArbolEstado = new ArrayList<>();
     private List<ArbolEspecie> listaArbolEspecie = new ArrayList<>();
+    private List<Tallo> listaTallos = new ArrayList<>();
 
     public boolean consultarTablas(){
 
@@ -77,7 +78,6 @@ public class SyncServiceUtils {
 
         Log.e("dentro de","metodo llenarlistasSync");
         try {
-
             // llenar lista con registros no sincronizados
             QueryBuilder<Lote, String> qBLote = daoLotes.queryBuilder();
 
@@ -120,6 +120,14 @@ public class SyncServiceUtils {
             where.eq(Constantes.UPLOADED, false);
             PreparedQuery<ArbolEstado> pQArbolEstado = qBArbolEstado.prepare();
             listaArbolEstado = daoArbolEstado.query(pQArbolEstado);
+
+            QueryBuilder<Tallo, Integer> qBTallo = daoTallo.queryBuilder();
+
+            where = qBTallo.where();
+            where.eq(Constantes.UPLOADED, false);
+            PreparedQuery<Tallo> pQTallo = qBTallo.prepare();
+            listaTallos = daoTallo.query(pQTallo);
+
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -156,6 +164,11 @@ public class SyncServiceUtils {
         if (listaDesarrolloAct.size() > 0){
 
             sincronizarDesarrolloAct(listaDesarrolloAct);
+        }
+
+        if (listaTallos.size() > 0){
+
+            sincronizarTallos(listaTallos);
         }
     }
 
