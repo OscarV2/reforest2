@@ -11,7 +11,7 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_ESTADO)
 public class Estado {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_ESTADO)
+    @DatabaseField(generatedId = true, columnName = Constantes.ID)
     private int id;
 
     @DatabaseField(columnName = Constantes.ESTADO_ESTADO, canBeNull = false)

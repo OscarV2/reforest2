@@ -17,7 +17,7 @@ public class ArbolEstado {
     @DatabaseField(generatedId = true, columnName = "id")
     private transient Integer idAest;
 
-    @DatabaseField(columnName = Constantes.ID_ARBOL_ESTADO, foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(columnName = Constantes.ID, foreign = true, foreignAutoRefresh = true)
     private Arbol arbol;
 
     @DatabaseField(columnName = Constantes.ESTADO_ARBOL_ESTADO, foreign = true, foreignAutoRefresh = true)

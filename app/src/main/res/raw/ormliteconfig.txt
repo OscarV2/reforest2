@@ -1,5 +1,5 @@
 #
-# generated on 2017/09/12 10:54:03
+# generated on 2017/10/10 11:31:21
 #
 # --table-start--
 dataClass=com.jegg.reforest.Entidades.Municipio
@@ -56,7 +56,7 @@ tableName=lote
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
+columnName=_id
 id=true
 unique=true
 # --field-end--
@@ -384,6 +384,52 @@ columnName=updated_at
 # --field-start--
 fieldName=uploaded
 columnName=uploaded
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.jegg.reforest.Entidades.Tallo
+tableName=tallos
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=ida
+unique=true
+# --field-end--
+# --field-start--
+fieldName=idA
+columnName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=arbol
+columnName=arbol_id
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=arbol_id
+columnName=arbol_id2
+# --field-end--
+# --field-start--
+fieldName=medida
+columnName=medidas
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=uploaded
+columnName=uploaded
+# --field-end--
+# --field-start--
+fieldName=created_at
+columnName=created_at
+# --field-end--
+# --field-start--
+fieldName=updated_at
+columnName=updated_at
 # --field-end--
 # --table-fields-end--
 # --table-end--

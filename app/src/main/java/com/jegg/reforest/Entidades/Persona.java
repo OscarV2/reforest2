@@ -10,7 +10,7 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_PERSONAS)
 public class Persona {
 
-    @DatabaseField(id = true, columnName = Constantes.ID_PERSONAS)
+    @DatabaseField(id = true, columnName = Constantes.ID)
     private int id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_PERSONAS, canBeNull = false)

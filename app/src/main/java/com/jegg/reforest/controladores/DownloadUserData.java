@@ -50,8 +50,13 @@ public class DownloadUserData extends SyncServiceUtils {
 
     private void descargarLote(){
 
+        Log.e("descargarLote","is persona para descargar lotes: "
+                + String.valueOf(idPersona));
         Call<List<Lote>> getLotes = ReforestApiAdapter.getApiService()
                 .getLotes(idPersona);
+
+        Log.e("descargarLote","url de la peticion: " +
+                getLotes.request().url().toString());
 
         getLotes.enqueue(new Callback<List<Lote>>() {
             @Override
@@ -123,7 +128,14 @@ public class DownloadUserData extends SyncServiceUtils {
                                 descargarAlturas(arbol);
                                 descargarArbolEstado(arbol);
                                 descargarArbolEspecie(arbol);
-                                descargarDesaActividades(arbol);
+
+                                if (arbol == lista.get(lista.size() -1)){
+
+                                    descargarDesaActividades(arbol, true);
+                                }else {
+
+                                    descargarDesaActividades(arbol, false);
+                                }
                             }
                         }
                     }
@@ -241,7 +253,7 @@ public class DownloadUserData extends SyncServiceUtils {
 
     }
 
-    private void descargarDesaActividades(final Arbol arbol){
+    private void descargarDesaActividades(final Arbol arbol, final boolean ultima){
 
         Call<List<DesarrolloActividades>> getDesaAct = ReforestApiAdapter.getApiService()
                 .getDesaActPersona(idPersona);
@@ -264,11 +276,19 @@ public class DownloadUserData extends SyncServiceUtils {
                                 Actividad actividad = daoActividad.queryForId(desa.getActividades_id());
                                 desa.setIdActividad(actividad);
                                 daoDesarrolloAct.create(desa);
+
                             } catch (SQLException e) {
                                 e.printStackTrace();
+                            }finally {
+                                if (desa == lista.get(lista.size() -1)){
+                                    if (ultima) {  // ultima actividad del ultimo arbol
+                                        Log.e("ultima", "actividad del ultimo arbol");
+                                        cerrarDialogo.cerrardialogo();
+                                    }
+                                }
                             }
                         }
-                        cerrarDialogo.cerrardialogo();
+
                     }else {Log.e("descargando","desarrolloactividades lista esta vacia");}
                 }else {Log.e("descargando","desarrolloactividades response WASNT SUCCESSFULL");}
             }

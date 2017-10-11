@@ -17,7 +17,7 @@ import static com.jegg.reforest.Utils.Constantes.sdf;
 @DatabaseTable(tableName = Constantes.TABLA_ARBOL)
 public class Arbol {
 
-    @DatabaseField(columnName = Constantes.ID_ARBOL, id = true, unique = true)
+    @DatabaseField(columnName = Constantes.ID, id = true, unique = true)
     private String id;
 
     @DatabaseField(columnName = "numArbol")

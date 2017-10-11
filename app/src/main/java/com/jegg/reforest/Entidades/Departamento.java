@@ -14,7 +14,7 @@ import java.util.List;
 @DatabaseTable(tableName = Constantes.TABLA_DEPARTAMENTO)
 public class Departamento {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_DEPARTAMENTO)
+    @DatabaseField(generatedId = true, columnName = Constantes.ID)
     private int id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_DEPARTAMENTO, canBeNull = false)

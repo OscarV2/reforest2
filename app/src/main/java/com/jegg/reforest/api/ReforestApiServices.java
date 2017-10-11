@@ -7,6 +7,7 @@ import com.jegg.reforest.Entidades.ArbolEstado;
 import com.jegg.reforest.Entidades.DesarrolloActividades;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.Entidades.Tallo;
 import com.jegg.reforest.Utils.Constantes;
 
 import java.util.List;
@@ -52,6 +53,9 @@ public interface ReforestApiServices {
 
     @POST(Constantes.POST_ALTURA)
     Call<ResponseBody> postAltura(@Body Altura altura);
+
+    @POST(Constantes.POST_TALLOS)
+    Call<ResponseBody> postTallo(@Body Tallo tallo);
 
     @POST(Constantes.POST_ARBOL)
     Call<ResponseBody> postArbol(@Body Arbol arbol);

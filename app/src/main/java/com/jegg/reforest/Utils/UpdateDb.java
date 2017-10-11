@@ -10,6 +10,7 @@ import com.jegg.reforest.Entidades.ArbolEspecie;
 import com.jegg.reforest.Entidades.ArbolEstado;
 import com.jegg.reforest.Entidades.DesarrolloActividades;
 import com.jegg.reforest.Entidades.Lote;
+import com.jegg.reforest.Entidades.Tallo;
 
 import java.sql.SQLException;
 
@@ -22,7 +23,7 @@ public class UpdateDb extends SyncServiceUtils{
     public void updateAbol(Arbol arbol) throws SQLException {
 
         UpdateBuilder<Arbol, String> updateBuilder = this.daoArboles.updateBuilder();
-        updateBuilder.where().eq(Constantes.ID_ARBOL, arbol.getId());
+        updateBuilder.where().eq(Constantes.ID, arbol.getId());
         updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
         updateBuilder.update();
     }
@@ -61,6 +62,13 @@ public class UpdateDb extends SyncServiceUtils{
         daoArbolEstado.update(arbolEstado);
 
     }
+
+    public void updateTallo(Tallo tallo) throws SQLException {
+
+        tallo.setUploaded(true);
+        daoTallo.update(tallo);
+    }
+
 
     public void updateDesaAct(DesarrolloActividades desarrolloActividades) throws SQLException {
 

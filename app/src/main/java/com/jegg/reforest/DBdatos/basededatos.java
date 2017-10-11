@@ -21,6 +21,7 @@ import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Municipio;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.Entidades.Tallo;
 import com.jegg.reforest.R;
 
 import java.sql.SQLException;
@@ -79,6 +80,9 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
     private Dao<ArbolEspecie, Integer> arbolEspeciesDao = null;
     private RuntimeExceptionDao<ArbolEspecie, Integer> arbolEspeciesRuntimeDao = null;
 
+    // Objetos DAO que se usaran para acceder a la tabla EspecieArbol
+    private Dao<Tallo, Integer> tallosDao = null;
+    private RuntimeExceptionDao<Tallo, Integer> tallosRuntimeDao = null;
 
 
 
@@ -108,6 +112,8 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
 
             TableUtils.createTable(connectionSource, Actividad.class);
             TableUtils.createTable(connectionSource, DesarrolloActividades.class);
+
+            TableUtils.createTable(connectionSource, Tallo.class);
 
         }catch (SQLException ex){
             Log.e("no se pudo","crear la db");
@@ -147,6 +153,8 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         desarrolloActividadesDao = null;
         desarrolloActividadesRuntimeDao = null;
 
+        tallosDao = null;
+        tallosRuntimeDao = null;
     }
 
     @Override
@@ -278,4 +286,13 @@ public class basededatos extends OrmLiteSqliteOpenHelper {
         return arbolEspeciesRuntimeDao;
     }
 
+    public Dao<Tallo, Integer> getTallosDao() throws SQLException {
+        if (tallosDao == null) tallosDao  = getDao(Tallo.class);
+        return tallosDao;
+    }
+
+    public RuntimeExceptionDao<Tallo, Integer> getTallosRuntimeDao() {
+        if (tallosRuntimeDao == null) tallosRuntimeDao = getRuntimeExceptionDao(Tallo.class);
+        return tallosRuntimeDao;
+    }
 }

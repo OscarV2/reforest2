@@ -18,7 +18,7 @@ import com.jegg.reforest.Entidades.DesarrolloActividades;
 import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Persona;
-import com.jegg.reforest.actividades.Detalles;
+import com.jegg.reforest.Entidades.Tallo;
 import com.jegg.reforest.actividades.Lotes;
 
 import java.sql.SQLException;
@@ -139,7 +139,7 @@ if (todos.get(i).getId() != null){
 
     public Arbol getArbol(int numArbol, String idLote) throws SQLException {
 
-        Arbol arbol = null;
+        Arbol arbol;
         QueryBuilder<Arbol, String> qBArbol = daoArboles.queryBuilder();
 
         Where where = qBArbol.where();
@@ -149,6 +149,15 @@ if (todos.get(i).getId() != null){
         arbol = daoArboles.query(pqArbol).get(0);
         return arbol;
 
+    }
+
+    public void crearTallo(String medida, Arbol arbol){
+
+        try {
+            daoTallo.create(new Tallo(arbol, medida));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

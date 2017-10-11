@@ -20,6 +20,7 @@ import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.Entidades.Tallo;
 import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.SincronizacionExitosa;
 import com.jegg.reforest.api.ReforestApiAdapter;
@@ -53,6 +54,7 @@ public class SyncServiceUtils {
     public Dao<Estado, Integer> daoEstado;
     public Dao<Persona, Integer> daoPersonas;
     public Dao<Actividad, Integer> daoActividad;
+    public Dao<Tallo, Integer> daoTallo;
 
     private List<Persona> listaUsuarios = new ArrayList<>();
     private List<Lote> listaLotes = new ArrayList<>();
@@ -182,6 +184,8 @@ public class SyncServiceUtils {
 
             daoActividad = datosReforest.getActividadsDao();
             daoEstado = datosReforest.getEstadoDao();
+
+            daoTallo = datosReforest.getTallosDao();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -397,6 +401,37 @@ public class SyncServiceUtils {
             });
 
 
+        }
+    }
+
+    private void sincronizarTallos(List<Tallo> listaTallo) {
+
+        Log.e("dentro de","Alturas");
+        //sinc Tallos
+        for (final Tallo tallo : listaTallo){
+
+            Call<ResponseBody> subirTallos = ReforestApiAdapter.getApiService().postTallo(tallo);
+            subirTallos.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()){
+                        Log.e("subirAltura","Sucessful");
+                        try {
+                            updateDb.updateTallo(tallo);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    sinc.exitosa(false);
+                    Log.e("subirTallo","Fallo");
+                }
+            });
         }
     }
 

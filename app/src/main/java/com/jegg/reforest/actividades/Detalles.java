@@ -53,6 +53,7 @@ import com.jegg.reforest.Entidades.Especie;
 import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
+import com.jegg.reforest.Entidades.Tallo;
 import com.jegg.reforest.R;
 import com.jegg.reforest.Utils.Constantes;
 import com.jegg.reforest.Utils.DetallesAux;
@@ -86,7 +87,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
     String nombreLote, idArbol = "";
     String comentariosActividad;
     String altura;
-    String especie;
+    String especie, tallo;
     File filePath;
     private GoogleMap mMap;
 
@@ -117,7 +118,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
     Especie especieEntidad;
     ArbolEspecie arbolEspecie;
-
+    Tallo talloEntidad;
     Location location;
     LocationUtils utils;
     SharedPreferences prefs;
@@ -423,7 +424,11 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 //Estado del arbol
                 laySpinnerSaludArbol.setVisibility(View.VISIBLE);
                 layTallo.setVisibility(View.VISIBLE);
-                esconderVistas(true);
+                lay_edt_altura.setVisibility(View.VISIBLE);
+                if (location != null) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
+                }
                 cargarArboles();
                 break;
         }
@@ -457,7 +462,6 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             lay_edt_altura.setVisibility(View.GONE);
             lay_edt_especie.setVisibility(View.GONE);
             layBuscarArbol.setVisibility(View.VISIBLE);
-
             location = utils.getLocation();
             if (location != null) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
@@ -485,16 +489,18 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         if (idActividad == 5 || idActividad == 1) {  // sustitucion de plantas
 
-            Log.e("actividad", String.valueOf(idActividad));
             especie = edtEspecie.getText().toString();
-            altura = edtAltura.getText().toString();
+            altura  = edtAltura.getText().toString();
+            tallo = edtTallo.getText().toString();
 
             if (especie.equals("")) {
 
                 edtEspecie.requestFocus();
             } else if (altura.equals("")) {
                 edtAltura.requestFocus();
-            } else if (!controllerEspecies.checkEspecie(especie)) { //no coincide la especie
+            }else if(tallo.equals("")){
+                edtTallo.requestFocus();
+            }else if (!controllerEspecies.checkEspecie(especie)) { //no coincide la especie
                 Toast.makeText(this, "La especie no existe.", Toast.LENGTH_SHORT).show();
             } else {
                 if (idActividad == 5) {
@@ -514,11 +520,20 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
 
         } else if (idActividad == 7) {     // Estado Arbol
 
-            Log.e("actividad es", "EStado");
-            arbolEstado = new ArbolEstado(arbol, estados.get(idEstado - 1));
-            detallesAux.crearEstado(arbolEstado);
-            detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
-                    fechaActividad, actividad, arbol, usuario);
+            if (altura.equals("")) {
+                edtAltura.requestFocus();
+            }else if(tallo.equals("")){
+                edtTallo.requestFocus();
+            }else {
+
+                arbolEstado  = new ArbolEstado(arbol, estados.get(idEstado - 1));
+                alturaEntity = new Altura(arbol, altura);
+                talloEntidad = new Tallo(arbol, tallo);
+
+                detallesAux.crearEstado(arbolEstado);
+                detallesAux.guardarActividad_2_3_4_6_7_8(fotoPath, comentariosActividad,
+                        fechaActividad, actividad, arbol, usuario);
+            }
 
         } else {         // actividades 2,3, 4
 

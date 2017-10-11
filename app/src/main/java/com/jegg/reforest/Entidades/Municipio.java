@@ -9,7 +9,7 @@ import com.jegg.reforest.Utils.Constantes;
 @DatabaseTable(tableName = Constantes.TABLA_MUNICIPIO)
 public class Municipio {
 
-    @DatabaseField(generatedId = true, columnName = Constantes.ID_MUNICIPIO)
+    @DatabaseField(generatedId = true, columnName = Constantes.ID)
     private int id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_MUNICIPIO, canBeNull = false)

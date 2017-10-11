@@ -18,7 +18,7 @@ import static com.jegg.reforest.Utils.Constantes.sdf;
 @DatabaseTable(tableName = Constantes.TABLA_LOTE)
 public class Lote {
 
-    @DatabaseField(columnName = Constantes.ID_LOTE, id = true, unique = true)
+    @DatabaseField(columnName = Constantes.ID, id = true, unique = true)
     private String id;
 
     @DatabaseField(columnName = Constantes.NOMBRE_LOTE, canBeNull = false)
