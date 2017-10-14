@@ -21,7 +21,6 @@ import com.jegg.reforest.Entidades.Estado;
 import com.jegg.reforest.Entidades.Lote;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.Entidades.Tallo;
-import com.jegg.reforest.Servicios.SinconizacionService;
 import com.jegg.reforest.SincronizacionExitosa;
 import com.jegg.reforest.api.ReforestApiAdapter;
 
@@ -76,7 +75,6 @@ public class SyncServiceUtils {
 
     public void llenarListasSync(){
 
-        Log.e("dentro de","metodo llenarlistasSync");
         try {
             // llenar lista con registros no sincronizados
             QueryBuilder<Lote, String> qBLote = daoLotes.queryBuilder();
@@ -135,7 +133,6 @@ public class SyncServiceUtils {
 
     public void sincronizar(){
 
-        Log.e("dentro de","metodo sincronizar");
         if (listaLotes.size() > 0){
 
             sincronizarLotes(listaLotes);
@@ -252,7 +249,6 @@ public class SyncServiceUtils {
 
     private void sincronizarLotes(final List<Lote> listaLotes) {
 
-        Log.e("dentro de","sincronizarLotes");
         //sinc lotes
         for (final Lote lote : listaLotes){
 
@@ -289,7 +285,6 @@ public class SyncServiceUtils {
 
     private void sincronizarArboles(List<Arbol> listaArbol) {
 
-        Log.e("dentro de","sincronizarArboles");
         //sinc arboles
         for (final Arbol arbol : listaArbol){
 
@@ -321,7 +316,6 @@ public class SyncServiceUtils {
 
     private void sincronizarArbolEstado(List<ArbolEstado> listaArbolEstado) {
 
-        Log.e("dentro de","ArbolEstado");
         if (listaArbolEstado.size() > 0){
 
             //sinc Estado
@@ -355,7 +349,6 @@ public class SyncServiceUtils {
 
     private void sincronizarArbolEspecie(List<ArbolEspecie> listaArbolEspecie) {
 
-        Log.e("dentro de","sincArbolEspacio");
         //sinc ArbolEspecie
         for (final ArbolEspecie arbolEspecie : listaArbolEspecie){
 
@@ -385,7 +378,6 @@ public class SyncServiceUtils {
 
     private void sincronizarAlturas(List<Altura> listaAltura) {
 
-        Log.e("dentro de","Alturas");
         //sinc Alturas
         for (final Altura altura : listaAltura){
             //Log.e("sincronizando alturas","dentro del for");
@@ -419,7 +411,6 @@ public class SyncServiceUtils {
 
     private void sincronizarTallos(List<Tallo> listaTallo) {
 
-        Log.e("dentro de","Alturas");
         //sinc Tallos
         for (final Tallo tallo : listaTallo){
 
@@ -451,7 +442,6 @@ public class SyncServiceUtils {
     private void sincronizarDesarrolloAct(final List<DesarrolloActividades> listaDesarrolloAct) {
 
         Log.e("numero de actividades", String.valueOf(listaDesarrolloAct.size()));
-        Log.e("dentro de","sincDesarrolloAct");
         for (final DesarrolloActividades dsa : listaDesarrolloAct){
 
             Call<ResponseBody> subirDsaAct = ReforestApiAdapter.getApiService().postDesarrolloAct(dsa);

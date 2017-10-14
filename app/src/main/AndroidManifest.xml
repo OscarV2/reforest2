@@ -54,7 +54,7 @@ package="com.jegg.reforest">
 
     <activity android:name=".actividades.Lotes" />
 
-    <service android:name=".Servicios.SinconizacionService"
+    <service android:name=".Servicios.SincronizacionService"
         android:exported="false"/>
 
 </application>

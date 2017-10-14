@@ -92,96 +92,51 @@
 
     <!-- Especies  -->
     <string-array name="lista_especies" >
-        <item>Algarrobillo</item>
-        <item>Aromo</item>
-        <item>Camajon</item>
-        <item>Campano</item>
-        <item>Cantagallo</item>
-        <item>Caracolí</item>
-        <item>Carito</item>
-        <item>Carreto</item>
-        <item>Caucho</item>
-        <item>Cañaguate</item>
-        <item>Cedro</item>
-        <item>Ceiba</item>
-        <item>Chicho</item>
-        <item>Ciruela</item>
-        <item>Cotopri</item>
-        <item>Dividivi</item>
-        <item>Guamacho</item>
-        <item>Guasimo</item>
-        <item>Guayabo</item>
-        <item>Guayacan</item>
-        <item>Higueron</item>
-        <item>Jobo</item>
-        <item>Limoncillo</item>
-        <item>Mamon</item>
-        <item>Mango</item>
-        <item>Matarraton</item>
-        <item>Mora</item>
-        <item>Naranjo</item>
-        <item>Nin</item>
-        <item>Nispero</item>
-        <item>Orejero</item>
-        <item>Perehuetano</item>
-        <item>Polvillo</item>
-        <item>Puy</item>
-        <item>Quebracho</item>
-        <item>Roble</item>
-        <item>Santa Cruz</item>
-        <item>Tacaloa</item>
-        <item>Tamarindo</item>
-        <item>Totumo</item>
-        <item>Trupillo</item>
-        <item>Uvito</item>
-        <item>Zapote</item>
+        <item>Algarrobillo / Samanea saman</item>
+        <item>Aromo / Manihot carthaginensis</item>
+        <item>Camajon / Sterculia apetala</item>
+        <item>Campano / Samanea saman</item>
+        <item>Cantagallo / Erythrina fusca</item>
+        <item>Caracolí / Anacardium excelsum</item>
+        <item>Carito / Enterolobium cyclocarpum</item>
+        <item>Carreto / Aspidosperma polyneuron</item>
+        <item>Caucho / Ficus elastica</item>
+        <item>Cañaguate / Tabebuia  crischantha </item>
+        <item>Cedro / Cedrus</item>
+        <item>Ceiba / Pseudobombax septenatum</item>
+        <item>Chicho / Pictadenia speciosa</item>
+        <item>Ciruela / Prunus domestica</item>
+        <item>Cotopri / Melicoca bijugatus</item>
+        <item>Dividivi / Lividivia coriaria</item>
+        <item>Guamacho / Pereskia colombiana</item>
+        <item>Guasimo / Guazumaulmifolia</item>
+        <item>Guayabo / Psidium guajava </item>
+        <item>Guayacan / Ficus luschnathiana</item>
+        <item>Higueron / </item>
+        <item>Jobo / Sponia mombis</item>
+        <item>Limon / Citrus aurantifolia </item>
+        <item>Mamon / Melicoccus bijugatus</item>
+        <item>Mango / Mango</item>
+        <item>Matarraton / Cassia Nodosa </item>
+        <item>Mora / Rubus</item>
+        <item>Naranjo / Azadirachta indica</item>
+        <item>Nin / Azadirachta indica</item>
+        <item>Nispero / Eriobotrya japonica</item>
+        <item>Orejero / enterolobium cyclocarpum.</item>
+        <item>Perehuetano / Parinari Pachyphylla</item>
+        <item>Polvillo / tabebuia serratifolia</item>
+        <item>Puy / Tabebuis bilberggi</item>
+        <item>Quebracho / Aspidosperma</item>
+        <item>Roble / Tabebula rosea</item>
+        <item>Santa Cruz / Catasetum osculatum</item>
+        <item>Tacaloa / Tacaloa</item>
+        <item>Tamarindo / Tamarindus indica</item>
+        <item>Totumo / Crescentia cujete</item>
+        <item>Trupillo / Prosopis juliflora</item>
+        <item>Uvito / Vitis vinifera</item>
+        <item>Zapote / Pouteria sapota</item>
     </string-array>
 
-    <string-array name="nombres_cientificos">
-        <item>Samanea saman</item>
-        <item>Manihot carthaginensis</item>
-        <item>Sterculia apetala</item>
-        <item>Samanea saman</item>
-        <item>Erythrina fusca</item>
-        <item>Anacardium excelsum</item>
-        <item>Enterolobium cyclocarpum</item>
-        <item>Aspidosperma polyneuron</item>
-        <item>Ficus elastica</item>
-        <item>Tabebuia  crischantha </item>
-        <item>Cedrus</item>
-        <item>Pseudobombax septenatum</item>
-        <item>Pictadenia speciosa</item>
-        <item>Prunus domestica</item>
-        <item>Melicoca bijugatus</item>
-        <item>Lividivia coriaria</item>
-        <item>Pereskia colombiana</item>
-        <item>Guazumaulmifolia</item>
-        <item>Psidium guajava </item>
-        <item>Tabebuia chrysantha</item>
-        <item>Ficus luschnathiana</item>
-        <item>Sponia mombis</item>
-        <item>Citrus aurantifolia</item>
-        <item>Mangifera indica</item>
-        <item>Melicoccus bijugatus</item>
-        <item>Matarraton</item>
-        <item>Rubus</item>
-        <item>Citrus aurantium var Amara</item>
-        <item>Azadirachta indica</item>
-        <item>Eriobotrya japonica</item>
-        <item>Enterolobium cyclocarpum.</item>
-        <item>Parinari Pachyphylla</item>
-        <item>Tabebuia serratifolia</item>
-        <item>Tabebuis bilberggi</item>
-        <item>Aspidosperma</item>
-        <item>Tacaloa</item>
-        <item>Tamarindus indica</item>
-        <item>Crescentia cujete</item>
-        <item>Prosopis juliflora</item>
-        <item>Tabebula rosea</item>
-        <item>Catasetum osculatum</item>
-        <item>Vitis vinifera</item>
-        <item>Pouteria sapota</item>
-    </string-array>
 </resources>
 
 

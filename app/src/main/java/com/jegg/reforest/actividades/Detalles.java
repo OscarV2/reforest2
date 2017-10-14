@@ -423,14 +423,21 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 setActividad();
                 //Estado del arbol
                 laySpinnerSaludArbol.setVisibility(View.VISIBLE);
+                layCordenadas.setVisibility(View.GONE);
                 layTallo.setVisibility(View.VISIBLE);
                 lay_edt_altura.setVisibility(View.VISIBLE);
-                if (location != null) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-
-                }
+                lay_edt_especie.setVisibility(View.GONE);
+                layBuscarArbol.setVisibility(View.VISIBLE);
+                hacerZoomArbol();
                 cargarArboles();
                 break;
+        }
+    }
+
+    private void hacerZoomArbol() {
+        if (location != null) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
         }
     }
 
@@ -455,6 +462,7 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
         }
     }
 
+
     private void esconderVistas(boolean b) {
 
         layCordenadas.setVisibility(View.GONE);
@@ -463,20 +471,14 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
             lay_edt_especie.setVisibility(View.GONE);
             layBuscarArbol.setVisibility(View.VISIBLE);
             location = utils.getLocation();
-            if (location != null) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-
-            }
+            hacerZoomArbol();
 
         } else {
             lay_edt_altura.setVisibility(View.VISIBLE);
             lay_edt_especie.setVisibility(View.VISIBLE);
             layTallo.setVisibility(View.VISIBLE);
             location = utils.getLocation();
-            if (location != null) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-
-            }
+            hacerZoomArbol();
         }
     }
 
@@ -519,6 +521,8 @@ public class Detalles extends AppCompatActivity implements OnMapReadyCallback,
                 guardarAct6();
 
         } else if (idActividad == 7) {     // Estado Arbol
+            altura  = edtAltura.getText().toString();
+            tallo = edtTallo.getText().toString();
 
             if (altura.equals("")) {
                 edtAltura.requestFocus();

@@ -1,13 +1,8 @@
 package com.jegg.reforest.actividades;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.jegg.reforest.R;
-import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.Servicios.SincronizacionService;
 import com.jegg.reforest.SyncServiceStopped;
 import com.jegg.reforest.Utils.MainActivityAux;
 
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements SyncServiceStoppe
 
     private void sincronizando(){
 
-        SinconizacionService sin = new SinconizacionService(MainActivity.this, this);
+        SincronizacionService sin = new SincronizacionService(MainActivity.this, this);
 
         if (!inicioSesion){
             Log.e("No","ha iniciado sesion.");
@@ -100,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SyncServiceStoppe
             Log.e("autoSync","is Able.");
             progressDialog.show();
             sin.comenzar("autoSync");
-                   // Intent intent = new Intent(MainActivity.this, SinconizacionService.class);
+                   // Intent intent = new Intent(MainActivity.this, SincronizacionService.class);
                   //  startService(intent);
             }
     }

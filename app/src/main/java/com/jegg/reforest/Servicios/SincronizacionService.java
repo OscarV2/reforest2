@@ -18,14 +18,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SinconizacionService implements SincronizacionExitosa{
+public class SincronizacionService implements SincronizacionExitosa{
 
-    //private SharedPreferences prefs;
     private SyncServiceUtils utils;
     private SyncServiceStopped syncServiceStopped;
     private Context context;
 
-    public SinconizacionService(Context context, SyncServiceStopped syncServiceStopped) {
+    public SincronizacionService(Context context, SyncServiceStopped syncServiceStopped) {
         this.syncServiceStopped = syncServiceStopped;
         this.context = context;
     }
@@ -37,9 +36,7 @@ public class SinconizacionService implements SincronizacionExitosa{
         if (conMan.getActiveNetworkInfo() != null &&
                 conMan.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED){
 
-
             if (utils.checkPersonas() && msg.equals("downloadUsers")){         // no hay usuarios en la app, se procede a bajarlos de la api
-                Log.e("no hay","usuarios");
                 getUsuariosFromApi();
 
             }else if (msg.equals("autoSync")){      // sincronizacion automatica enabled
@@ -47,12 +44,12 @@ public class SinconizacionService implements SincronizacionExitosa{
                 utils.llenarListasSync();
 
                 if (utils.consultarTablas()){ // si hay datos para Sync
-                    Log.e("dentro de","si hay datos");
+
                     utils.sincronizar();
                 }else{
 
                     syncServiceStopped.onSyncFinished("nada");
-                    Log.e("no hay","datos");
+
                 }
             }else if(!utils.checkPersonas() && msg.equals("downloadUsers")){
                 syncServiceStopped.onSyncFinished("nada");
@@ -66,16 +63,13 @@ public class SinconizacionService implements SincronizacionExitosa{
 
     private void getUsuariosFromApi() {
 
-        Log.e("in","getUsuariosFromApi");
         Call<List<Persona>> getPersonas = ReforestApiAdapter.getApiService().getPersonas();
         getPersonas.enqueue(new Callback<List<Persona>>() {
             @Override
             public void onResponse(@NonNull Call<List<Persona>> call, @NonNull Response<List<Persona>> response) {
 
-                Log.e("in","Personas on response");
                 if (response.isSuccessful()){
 
-                    Log.e("in","response sucessfull");
                     List<Persona> personaList = response.body();
                     if (personaList != null && personaList.size() > 0) {
 

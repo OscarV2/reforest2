@@ -30,13 +30,8 @@ public class UpdateDb extends SyncServiceUtils{
 
     public void updateLote(Lote lote) throws SQLException {
 
-//        daoLotes.delete(lote);
-
-        UpdateBuilder<Lote, String> updateBuilder = this.daoLotes.updateBuilder();
-        updateBuilder.where().eq("id", lote.getId());
-        updateBuilder.updateColumnValue(Constantes.UPLOADED, true);
-        updateBuilder.update();
-
+        lote.setUploaded(true);
+        daoLotes.update(lote);
     }
 
     public void updateAltura(Altura altura) throws SQLException {

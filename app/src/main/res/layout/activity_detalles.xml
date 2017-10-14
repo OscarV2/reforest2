@@ -106,7 +106,7 @@
             android:layout_height="1dp"
             android:background="@color/white"/>
 
-        <!-- -->
+        <!-- Coordenadas -->
         <RelativeLayout
             android:id="@+id/lay_cordenadas"
             android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
             android:layout_height="1dp"
             android:background="@color/white"/>
 
-        <!-- -->
+        <!-- Buscar Arbol-->
         <RelativeLayout
             android:id="@+id/lay_buscar_arbol"
             android:layout_width="wrap_content"
@@ -220,11 +220,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:padding="16dp"
+            android:padding="8dp"
             android:visibility="gone"
             android:id="@+id/linear_spiner_salud_arbol"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -382,6 +382,7 @@
             android:layout_height="1dp"
             android:background="@color/white"/>
 
+        <!-- Comentario -->
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -24,7 +24,7 @@ import com.j256.ormlite.dao.Dao;
 import com.jegg.reforest.DBdatos.basededatos;
 import com.jegg.reforest.Entidades.Persona;
 import com.jegg.reforest.R;
-import com.jegg.reforest.Servicios.SinconizacionService;
+import com.jegg.reforest.Servicios.SincronizacionService;
 import com.jegg.reforest.SyncServiceStopped;
 import com.jegg.reforest.Utils.CerrarDialogo;
 import com.jegg.reforest.Utils.Constantes;
@@ -105,7 +105,7 @@ public class Menu extends AppCompatActivity implements CerrarDialogo, SyncServic
             case R.id.opcionSincronizar:
 
                 progressDialog = ProgressDialog.show(Menu.this, "Sincronizando...", "Por favor espere..", true);
-                SinconizacionService sin = new SinconizacionService(Menu.this, this);
+                SincronizacionService sin = new SincronizacionService(Menu.this, this);
                 sin.comenzar("autoSync");
                 break;
             case R.id.opcionIrWeb:
